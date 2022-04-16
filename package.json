@@ -1,0 +1,42 @@
+{
+  "name": "cheftie",
+  "description": "Recipe building and sharing. Full-stack application showcase.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/cagils/cheftie",
+  "private": true,
+  "license": "CC-BY-NC-ND-4.0",
+  "author": {
+    "name" : "Cagil Seker",
+    "email" : "cagils@gmail.com",
+    "url" : "https://cagils.dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cagils/cheftie.git"
+  },
+  "bugs": {
+    "url": "https://github.com/cagils/cheftie/issues"
+  },
+  "keywords": [
+    "Chef",
+    "Recipe",
+    "Full-stack",
+    "Next",
+    "React"
+  ],
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "next": "12.1.5",
+    "react": "18.0.0",
+    "react-dom": "18.0.0"
+  },
+  "devDependencies": {
+    "eslint": "8.13.0",
+    "eslint-config-next": "12.1.5"
+  }
+}
