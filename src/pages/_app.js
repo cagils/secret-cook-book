@@ -1,12 +1,12 @@
-import Layout from "../components/Layout/Layout";
-import "../styles/globals.css";
+<<<<<<< HEAD
+import Layout from '../components/Layout/Layout';
+import '../styles/globals.css';
+=======
+import '../styles/globals.css'
+>>>>>>> parent of 9192e45... Sample components added
 
 function MyApp({ Component, pageProps }) {
-  return (
-    <Layout>
-      <Component {...pageProps} />
-    </Layout>
-  );
+  return <Component {...pageProps} />
 }
 
-export default MyApp;
+export default MyApp
