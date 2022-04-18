@@ -1,10 +1,10 @@
 {
-  "name": "cheftie",
+  "name": "secret-cook-book",
   "description": "Recipe building and sharing. Full-stack application showcase.",
   "version": "0.1.0",
-  "homepage": "https://github.com/cagils/cheftie",
+  "homepage": "https://github.com/cagils/secret-cook-book",
   "private": true,
-  "license": "CC-BY-NC-ND-4.0",
+  "license": "CC-BY-NC-SA-4.0",
   "author": {
     "name": "Cagil Seker",
     "email": "cagils@gmail.com",
@@ -12,17 +12,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/cagils/cheftie.git"
+    "url": "https://github.com/cagils/secret-cook-book.git"
   },
   "bugs": {
-    "url": "https://github.com/cagils/cheftie/issues"
+    "url": "https://github.com/cagils/secret-cook-book/issues"
   },
   "keywords": [
-    "Chef",
-    "Recipe",
     "Full-stack",
     "Next",
-    "React"
+    "React",
+    "Showcase",
+    "Example"
   ],
   "scripts": {
     "dev": "next dev",
