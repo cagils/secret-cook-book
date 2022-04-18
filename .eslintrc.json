@@ -1,3 +1,3 @@
 {
-  "extends": ["next/core-web-vitals", "eslint:recommended", "prettier", "react/jsx-runtime"]
+  "extends": ["next/core-web-vitals", "eslint:recommended", "prettier", "plugin:react/jsx-runtime"]
 }
