@@ -26,3 +26,7 @@ yarn-error.log*
 
 # vercel
 .vercel
+
+# markdown
+LICENSE.md
+
