@@ -4,6 +4,8 @@
 
 A showcase for a react - next.js full-stack application.
 
+<br />
+
 _...under construction..._
 
 <br />
