@@ -1,3 +1,8 @@
 {
-  "extends": ["next/core-web-vitals", "eslint:recommended", "prettier", "plugin:react/jsx-runtime"]
+  "extends": ["next/core-web-vitals", "eslint:recommended", "prettier", "plugin:react/jsx-runtime"],
+  "rules": {
+    "react/jsx-uses-react": "off",
+    "react/react-in-jsx-scope": "off",
+    "no-unused-vars": "off"
+  }
 }
