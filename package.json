@@ -32,6 +32,18 @@
     "prettier": "prettier --check ."
   },
   "dependencies": {
+    "@mantine/core": "^4.1.4",
+    "@mantine/dates": "^4.1.4",
+    "@mantine/dropzone": "^4.1.4",
+    "@mantine/form": "^4.1.4",
+    "@mantine/hooks": "^4.1.4",
+    "@mantine/modals": "^4.1.4",
+    "@mantine/next": "^4.1.4",
+    "@mantine/notifications": "^4.1.4",
+    "@mantine/prism": "^4.1.4",
+    "@mantine/rte": "^4.1.4",
+    "@mantine/spotlight": "^4.1.4",
+    "dayjs": "^1.11.1",
     "next": "12.1.5",
     "react": "18.0.0",
     "react-dom": "18.0.0"

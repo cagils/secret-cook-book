@@ -2,7 +2,7 @@
 
 #### _Record, reference and share your personal kitchen secrets._
 
-A showcase for a react - next.js full-stack application.
+A showcase for a react - next.js + mantine full-stack application.
 
 <br />
 
