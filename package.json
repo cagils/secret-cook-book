@@ -24,12 +24,19 @@
     "Showcase",
     "Example"
   ],
+  "engines": {
+    "node": ">=14.19.1",
+    "npm": ">=6.14.16",
+    "yarn": "please-use-npm"
+  },
   "scripts": {
+    "prepare": "husky install",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "prettier": "prettier --check ."
+    "prettier": "prettier --check .",
+    "format": "prettier --write ."
   },
   "dependencies": {
     "@mantine/core": "^4.1.4",
@@ -49,12 +56,10 @@
     "react-dom": "18.0.0"
   },
   "devDependencies": {
-    "@types/node": "^17.0.25",
-    "@types/react": "^18.0.5",
     "eslint": "8.13.0",
     "eslint-config-next": "12.1.5",
     "eslint-config-prettier": "^8.5.0",
-    "prettier": "2.6.2",
-    "typescript": "^4.6.3"
+    "husky": "^7.0.4",
+    "prettier": "2.6.2"
   }
 }

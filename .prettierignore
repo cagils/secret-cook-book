@@ -30,3 +30,7 @@ yarn-error.log*
 # markdown
 LICENSE.md
 
+# added
+/dist
+/node_modules
+
