@@ -1,11 +1,10 @@
-import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { MantineProvider } from '@mantine/core';
 
-import Layout from '../components/Layout/Layout';
+import Layout from '../components/layout';
 import '../styles/globals.css';
 
-function App(props: AppProps) {
+function App(props) {
   const { Component, pageProps } = props;
   return (
     <>

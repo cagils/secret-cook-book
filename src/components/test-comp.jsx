@@ -6,8 +6,8 @@ function TestComp() {
     <div>
       TestComp
       <br />
-      <Link href="/hello" passHref>
-        <Button component="a">Next link button</Button>
+      <Link href="/create-recipe" passHref>
+        <Button component="a">Go to create recipe</Button>
       </Link>
     </div>
   );
