@@ -1,13 +1,22 @@
-import Head from 'next/head';
-import Image from 'next/image';
+import PrimaryLayout from '../components/layouts/primary/PrimaryLayout';
+import SidebarLayout from '../components/layouts/sidebar/SidebarLayout';
 import styles from '../styles/Home.module.css';
-import { GetStaticProps } from 'next';
-import TestComp from '../components/test-comp';
 
-export default function IndexPage() {
+export default function Home() {
   return (
-    <div>
-      <TestComp />
-    </div>
+    <section className={styles.main}>
+      <h1 className={styles.title}>
+        Welcome to <a href="https://nextjs.org">Next JS</a>
+      </h1>
+    </section>
   );
 }
+
+Home.getLayout = (page) => {
+  return (
+    <PrimaryLayout>
+      <SidebarLayout />
+      {page}
+    </PrimaryLayout>
+  );
+};
