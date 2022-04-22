@@ -1,5 +1,4 @@
 /* eslint-disable no-unused-vars */
-/*
 const explanation = {
   feat: {
     description: 'A new feature',
@@ -60,6 +59,5 @@ const explanation = {
     emoji: '🗑',
   },
 };
-*/
 
 module.exports = { extends: ['@commitlint/config-conventional'] };
