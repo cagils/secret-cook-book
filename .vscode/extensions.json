@@ -10,7 +10,8 @@
     "willstakayama.vscode-nextjs-snippets",
     "nucllear.vscode-extension-auto-import",
     "drywolf.dark-plus-plus-theme",
-    "NuclleaR.vscode-extension-auto-import"
+    "bradlc.vscode-tailwindcss",
+    "vunguyentuan.vscode-postcss"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []

@@ -6,5 +6,10 @@
     "source.sortImports": true,
     "source.organizeImports": false
   },
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "scss.validate": true,
+  "css.validate": true,
+  "css.lint.unknownAtRules": "ignore",
+  "less.lint.unknownAtRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore"
 }
