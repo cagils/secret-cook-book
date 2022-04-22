@@ -1,5 +1,5 @@
 import * as NextImage from 'next/image';
-import '../src/styles/globals.css';
+import '../src/pages/globals.css';
 //import { AuthProvider } from '../src/state/auth/AuthContext';
 //import { RouterContext } from 'next/dist/shared/lib/router-context';
 
