@@ -3,7 +3,8 @@
   "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
-    "source.organizeImports": true
+    "source.sortImports": true,
+    "source.organizeImports": false
   },
   "editor.tabSize": 2
 }
