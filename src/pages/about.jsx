@@ -1,7 +1,7 @@
 import PrimaryLayout from '../components/layouts/primary/PrimaryLayout';
 import SidebarLayout from '../components/layouts/sidebar/SidebarLayout';
 
-const About = () => {
+const AboutPage = () => {
   return (
     <section>
       <h2>Layout Example (About)</h2>
@@ -26,9 +26,9 @@ const About = () => {
   );
 };
 
-export default About;
+export default AboutPage;
 
-About.getLayout = (page) => {
+AboutPage.getLayout = (page) => {
   return (
     <PrimaryLayout>
       <SidebarLayout />
