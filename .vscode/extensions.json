@@ -11,7 +11,9 @@
     "nucllear.vscode-extension-auto-import",
     "drywolf.dark-plus-plus-theme",
     "bradlc.vscode-tailwindcss",
-    "vunguyentuan.vscode-postcss"
+    "vunguyentuan.vscode-postcss",
+    "clinyong.vscode-css-modules",
+    "stylelint.vscode-stylelint"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []

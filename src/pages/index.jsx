@@ -1,3 +1,4 @@
+import TestComp from '../components/test-comp';
 import PrimaryLayout from '../components/layouts/primary/PrimaryLayout';
 import SidebarLayout from '../components/layouts/sidebar/SidebarLayout';
 
@@ -7,6 +8,7 @@ export default function Home() {
       <h1>
         Welcome to <a href="https://nextjs.org">Next JS</a>
       </h1>
+      <TestComp></TestComp>
     </section>
   );
 }

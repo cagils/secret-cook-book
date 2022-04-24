@@ -10,6 +10,12 @@
   "scss.validate": true,
   "css.validate": true,
   "css.lint.unknownAtRules": "ignore",
+  "css.lint.emptyRules": "ignore",
   "less.lint.unknownAtRules": "ignore",
-  "scss.lint.unknownAtRules": "ignore"
+  "less.lint.emptyRules": "ignore",
+  "scss.lint.unknownAtRules": "ignore",
+  "scss.lint.emptyRules": "ignore",
+  "css.validate": false,
+  "less.validate": false,
+  "scss.validate": false
 }
