@@ -44,15 +44,5 @@ _...under construction..._
 <br />
 <br />
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-[Secret Cook Book](https://github.com/cagils/personal-cook-book) © 2022 by Çağıl Şeker is licensed under [CC BY-NC-SA 4.0](http://creativecommons.org/licenses/by-nc-sa/4.0/) [free for non-commercial use with attribution]
-=======
 <sub><img src="https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png" alt="CC BY-NC-SA Icons"> </sub> Secret Cook Book © 2022 by Çağıl Şeker<br/>
 Free for non-commercial use with attribution. See the [CC License](https://github.com/cagils/secret-cook-book/blob/dev/LICENSE.md) for details.
-
-> > > > > > > # a7b029ea48eeb752b64f595a75eb68bc280bd051
-> > > > > > >
-> > > > > > > <sub><img src="https://licensebuttons.net/l/by-nc-sa/4.0/80x15.png" alt="CC BY-NC-SA Icons"> </sub> Secret Cook Book © 2022 by Çağıl Şeker<br/>
-> > > > > > > Free for non-commercial use with attribution. See the [CC License](https://github.com/cagils/secret-cook-book/blob/dev/LICENSE.md) for details.
-> > > > > > > 03f3b2f9d8f1da692ba9ba88043afa6587d48ba1
