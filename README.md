@@ -1,7 +1,6 @@
 # Secret Cook Book 👩‍🍳
 
 <center>
-
   <a href="https://github.com/cagils/secret-cook-book">
     <img src="https://badgen.net/badge/-/github?icon=github&label=&color=black" alt="GitHub" />
   </a>
