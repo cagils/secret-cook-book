@@ -21,5 +21,15 @@
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],
-  "exclude": ["node_modules", "**/node_modules/*", "build", "dist", ".vscode", ".next", "coverage", ".npm", ".yarn"]
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "build",
+    "dist",
+    ".vscode",
+    ".next",
+    "coverage",
+    ".npm",
+    ".yarn"
+  ]
 }

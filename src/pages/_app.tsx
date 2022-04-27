@@ -1,4 +1,9 @@
-import { ColorScheme, ColorSchemeProvider, MantineProvider, MantineThemeOverride } from '@mantine/core';
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+  MantineThemeOverride,
+} from '@mantine/core';
 import { useColorScheme, useHotkeys, useLocalStorage } from '@mantine/hooks';
 import { getCookie, setCookies } from 'cookies-next';
 import { GetServerSidePropsContext, NextPage } from 'next';
@@ -30,13 +35,18 @@ export default function App(props: MyAppProps & { colorScheme: ColorScheme }) {
 
   useHotkeys([['mod+J', () => toggleColorScheme()]]);
 
-  const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(
+    props.colorScheme
+  );
 
   const toggleColorScheme = (value?: ColorScheme) => {
-    const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
+    const nextColorScheme =
+      value || (colorScheme === 'dark' ? 'light' : 'dark');
     setColorScheme(nextColorScheme);
     // when color scheme is updated save it to cookie
-    setCookies('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
+    setCookies('mantine-color-scheme', nextColorScheme, {
+      maxAge: 60 * 60 * 24 * 30,
+    });
   };
 
   const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
@@ -51,10 +61,21 @@ export default function App(props: MyAppProps & { colorScheme: ColorScheme }) {
     <>
       <Head>
         <title>Default Page title</title>
-        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
       </Head>
-      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-        <MantineProvider withGlobalStyles withNormalizeCSS withCSSVariables theme={{ colorScheme }}>
+      <ColorSchemeProvider
+        colorScheme={colorScheme}
+        toggleColorScheme={toggleColorScheme}
+      >
+        <MantineProvider
+          withGlobalStyles
+          withNormalizeCSS
+          withCSSVariables
+          theme={{ colorScheme }}
+        >
           {getLayout(<Component {...pageProps} />)}
         </MantineProvider>
       </ColorSchemeProvider>

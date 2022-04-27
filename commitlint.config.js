@@ -16,7 +16,8 @@ const explanation = {
     emoji: '📚',
   },
   style: {
-    description: 'Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)',
+    description:
+      'Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)',
     title: 'Styles',
     emoji: '💎',
   },
@@ -36,12 +37,14 @@ const explanation = {
     emoji: '🚨',
   },
   build: {
-    description: 'Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)',
+    description:
+      'Changes that affect the build system or external dependencies (example scopes: gulp, broccoli, npm)',
     title: 'Builds',
     emoji: '🛠',
   },
   ci: {
-    description: 'Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)',
+    description:
+      'Changes to our CI configuration files and scripts (example scopes: Travis, Circle, BrowserStack, SauceLabs)',
     title: 'Continuous Integrations',
     emoji: '⚙️',
   },

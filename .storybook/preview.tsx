@@ -1,5 +1,10 @@
 // @ts-nocheck
-import { ColorScheme, ColorSchemeProvider, MantineProvider, MantineThemeOverride } from '@mantine/core';
+import {
+  ColorScheme,
+  ColorSchemeProvider,
+  MantineProvider,
+  MantineThemeOverride,
+} from '@mantine/core';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import * as NextImage from 'next/image';
@@ -30,14 +35,25 @@ export const parameters = { layout: 'fullscreen' };
 function ThemeWrapper(props: any) {
   const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
 
-  const toggleColorScheme = (value?: ColorScheme) => setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const toggleColorScheme = (value?: ColorScheme) =>
+    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
   return (
-    <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
-      <MantineProvider withGlobalStyles withNormalizeCSS withCSSVariables theme={{ colorScheme }}>
+    <ColorSchemeProvider
+      colorScheme={colorScheme}
+      toggleColorScheme={toggleColorScheme}
+    >
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        withCSSVariables
+        theme={{ colorScheme }}
+      >
         <div>{props.children}</div>
       </MantineProvider>
     </ColorSchemeProvider>
   );
 }
 
-export const decorators = [(renderStory: any) => <ThemeWrapper>{renderStory()}</ThemeWrapper>];
+export const decorators = [
+  (renderStory: any) => <ThemeWrapper>{renderStory()}</ThemeWrapper>,
+];

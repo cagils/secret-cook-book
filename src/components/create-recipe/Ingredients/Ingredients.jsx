@@ -1,9 +1,13 @@
-import { ActionIcon, Button, useMantineColorScheme } from '@mantine/core';
+import {
+  ActionIcon,
+  Button,
+  TextInput,
+  useMantineColorScheme,
+} from '@mantine/core';
 import Link from 'next/link';
 import { useState } from 'react';
 import { MoonStars, Sun } from 'tabler-icons-react';
 import TestComp from '../../test-comp';
-//import styles from './Ingredients.module.css';
 
 const Ingredients = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -13,6 +17,14 @@ const Ingredients = () => {
 
   return (
     <div>
+      <TextInput
+        placeholder="Your name"
+        label="Full name"
+        description="desc"
+        error="error"
+        radius="md"
+        required
+      />
       <form
         className="flex flex-col items-center gap-y-5"
         onSubmit={(e) => {
@@ -37,7 +49,12 @@ const Ingredients = () => {
       </form>
       <TestComp></TestComp>
       <Button onClick={() => toggleColorScheme()}>Toggle Theme</Button>
-      <ActionIcon variant="outline" color={dark ? 'yellow' : 'blue'} onClick={() => toggleColorScheme()} title="Toggle color scheme">
+      <ActionIcon
+        variant="outline"
+        color={dark ? 'yellow' : 'blue'}
+        onClick={() => toggleColorScheme()}
+        title="Toggle color scheme"
+      >
         {dark ? <Sun size={18} /> : <MoonStars size={18} />}
       </ActionIcon>
     </div>
