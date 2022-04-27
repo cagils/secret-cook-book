@@ -1,10 +1,7 @@
-import {
-  ColorScheme,
-  ColorSchemeProvider,
-  MantineProvider,
-  MantineThemeOverride,
-} from '@mantine/core';
-import { NextPage } from 'next';
+import { ColorScheme, ColorSchemeProvider, MantineProvider, MantineThemeOverride } from '@mantine/core';
+import { useColorScheme, useHotkeys, useLocalStorage } from '@mantine/hooks';
+import { getCookie, setCookies } from 'cookies-next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactNode, useState } from 'react';
@@ -20,13 +17,27 @@ type MyAppProps<P = {}> = AppProps<P> & {
   Component: Page<P>;
 };
 
-export default function App(props: MyAppProps) {
+export default function App(props: MyAppProps & { colorScheme: ColorScheme }) {
   const { Component, pageProps } = props;
 
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
+  const preferredColorScheme = useColorScheme();
 
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
+  const [lsColorScheme, setLsColorScheme] = useLocalStorage<ColorScheme>({
+    key: 'mantine-color-scheme',
+    defaultValue: 'dark',
+    getInitialValueInEffect: true,
+  });
+
+  useHotkeys([['mod+J', () => toggleColorScheme()]]);
+
+  const [colorScheme, setColorScheme] = useState<ColorScheme>(props.colorScheme);
+
+  const toggleColorScheme = (value?: ColorScheme) => {
+    const nextColorScheme = value || (colorScheme === 'dark' ? 'light' : 'dark');
+    setColorScheme(nextColorScheme);
+    // when color scheme is updated save it to cookie
+    setCookies('mantine-color-scheme', nextColorScheme, { maxAge: 60 * 60 * 24 * 30 });
+  };
 
   const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
@@ -40,24 +51,18 @@ export default function App(props: MyAppProps) {
     <>
       <Head>
         <title>Default Page title</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
+        <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
       </Head>
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
-        <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
-          withCSSVariables
-          theme={{ colorScheme }}
-        >
+      <ColorSchemeProvider colorScheme={colorScheme} toggleColorScheme={toggleColorScheme}>
+        <MantineProvider withGlobalStyles withNormalizeCSS withCSSVariables theme={{ colorScheme }}>
           {getLayout(<Component {...pageProps} />)}
         </MantineProvider>
       </ColorSchemeProvider>
     </>
   );
 }
+
+App.getInitialProps = ({ ctx }: { ctx: GetServerSidePropsContext }) => ({
+  // get color scheme from cookie
+  colorScheme: getCookie('mantine-color-scheme', ctx) || 'light',
+});

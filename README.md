@@ -35,8 +35,9 @@
 <center><h2>Record, reference and share your personal kitchen secrets.</h2></center>
 
 <br/>
-A showcase for a react - next.js + mantine full-stack application.
-
+A showcase for a full-stack application.
+<p/>
+uses: react + next.js + mantine + tailwind + storybook
 <br />
 
 _...under construction..._
