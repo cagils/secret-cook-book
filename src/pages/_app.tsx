@@ -51,10 +51,77 @@ export default function App(props: MyAppProps & { colorScheme: ColorScheme }) {
 
   const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
-  const mantineTheme: MantineThemeOverride = {
+  const customTheme: MantineThemeOverride = {
     // Theme is deeply merged with default theme
-    colorScheme: 'dark',
-    other: {},
+
+    colorScheme: colorScheme,
+    focusRing: 'auto',
+
+    defaultRadius: 'lg', // or number
+
+    white: '#ffffff',
+    black: '#000000',
+
+    colors: {
+      brandA: [
+        '#FDE7EF',
+        '#FABDD2',
+        '#F692B5',
+        '#F36898',
+        '#EF3E7A',
+        '#EC135D',
+        '#BD0F4B',
+        '#8E0B38',
+        '#5E0825',
+        '#2F0413',
+      ],
+      brandB: [
+        '#EDEAFB',
+        '#CEC4F3',
+        '#AE9EEB',
+        '#8E78E3',
+        '#6F52DB',
+        '#4F2CD3',
+        '#3F24A8',
+        '#2F1B7E',
+        '#201254',
+        '#10092A',
+      ],
+    },
+
+    primaryColor: 'brandA',
+    primaryShade: { light: 5, dark: 6 },
+    fontFamily: 'Open Sans',
+    lineHeight: '1.55rem',
+    transitionTimingFunction: 'ease',
+    // fontFamilyMonospace: '',
+
+    // fontSizes: Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>;
+    // radius: Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>;
+    // spacing: Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>;
+    // shadows: Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>;
+    // breakpoints: Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>;
+    /*     headings: {
+      fontFamily: CSSProperties['fontFamily'];
+      fontWeight: CSSProperties['fontWeight'];
+      sizes: {
+        h1: { fontSize: CSSProperties['fontSize']; lineHeight: CSSProperties['lineHeight'] };
+        h2: { fontSize: CSSProperties['fontSize']; lineHeight: CSSProperties['lineHeight'] };
+        h3: { fontSize: CSSProperties['fontSize']; lineHeight: CSSProperties['lineHeight'] };
+        h4: { fontSize: CSSProperties['fontSize']; lineHeight: CSSProperties['lineHeight'] };
+        h5: { fontSize: CSSProperties['fontSize']; lineHeight: CSSProperties['lineHeight'] };
+        h6: { fontSize: CSSProperties['fontSize']; lineHeight: CSSProperties['lineHeight'] };
+      }
+    } */
+    //fn: MantineThemeFunctions
+    dir: 'ltr',
+    loader: 'bars',
+    // dateFormat: '',
+    // datesLocale: '',
+
+    other: {
+      customProperty: 'custom',
+    },
   };
 
   return (
@@ -74,7 +141,8 @@ export default function App(props: MyAppProps & { colorScheme: ColorScheme }) {
           withGlobalStyles
           withNormalizeCSS
           withCSSVariables
-          theme={{ colorScheme }}
+          theme={customTheme}
+          emotionOptions={{ key: 'scb' }}
         >
           {getLayout(<Component {...pageProps} />)}
         </MantineProvider>

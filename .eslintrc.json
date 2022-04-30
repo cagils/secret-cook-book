@@ -9,11 +9,11 @@
   "rules": {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "react/jsx-first-prop-new-line": [2, "multiline"],
-    "react/jsx-max-props-per-line": [
-      2,
-      { "maximum": { "single": 1, "multi": 1 } }
-    ],
+    // "react/jsx-first-prop-new-line": [2, "multiline"],
+    // "react/jsx-max-props-per-line": [
+    //   2,
+    //   { "maximum": { "single": 1, "multi": 1 } }
+    // ],
     "react/jsx-wrap-multilines": [
       "error",
       {
