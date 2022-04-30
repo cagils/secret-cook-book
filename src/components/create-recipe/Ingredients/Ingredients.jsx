@@ -1,3 +1,4 @@
+import { MinusSquare, Moon, PlusSquare, Sun } from '@emotion-icons/feather';
 import {
   ActionIcon,
   Box,
@@ -12,7 +13,6 @@ import {
 } from '@mantine/core';
 import Link from 'next/link';
 import { useState } from 'react';
-import { MoonStars, SquareMinus, SquarePlus, Sun } from 'tabler-icons-react';
 
 const useStyles = createStyles((theme, _params, getRef) => ({
   wrapper: {
@@ -83,7 +83,7 @@ const Ingredient = ({ name, qty, unit }) => {
       </Box>
       <Box>
         <ActionIcon size="lg" variant="transparent" color="brandA" title="add">
-          <SquarePlus size="lg" />
+          <PlusSquare size="lg" />
         </ActionIcon>
       </Box>
     </Group>
@@ -114,7 +114,7 @@ const Ingredients = () => {
           onClick={() => toggleColorScheme()}
           title="Toggle color scheme"
         >
-          {dark ? <Sun size={18} /> : <MoonStars size={18} />}
+          {dark ? <Sun size={18} /> : <Moon size={18} />}
         </ActionIcon>
       </Group>
     </div>
