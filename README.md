@@ -37,7 +37,7 @@
 <br/>
 A showcase for a full-stack application.
 <p/>
-uses: react + next.js + mantine + tailwind + storybook
+uses: react + next.js + chakra | tailwind + storybook
 <br />
 
 _...under construction..._

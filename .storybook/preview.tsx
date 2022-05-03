@@ -1,10 +1,3 @@
-// @ts-nocheck
-import {
-  ColorScheme,
-  ColorSchemeProvider,
-  MantineProvider,
-  MantineThemeOverride,
-} from '@mantine/core';
 import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import * as NextImage from 'next/image';
@@ -30,30 +23,15 @@ Object.defineProperty(NextImage, 'default', {
   value: (props) => <OriginalNextImage {...props} unoptimized />,
 });
 
-export const parameters = { layout: 'fullscreen' };
-
-function ThemeWrapper(props: any) {
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('dark');
-
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
-  return (
-    <ColorSchemeProvider
-      colorScheme={colorScheme}
-      toggleColorScheme={toggleColorScheme}
-    >
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        withCSSVariables
-        theme={{ colorScheme }}
-      >
-        <div>{props.children}</div>
-      </MantineProvider>
-    </ColorSchemeProvider>
-  );
-}
-
-export const decorators = [
-  (renderStory: any) => <ThemeWrapper>{renderStory()}</ThemeWrapper>,
-];
+export const parameters = {
+  actions: { argTypesRegex: '^on[A-Z].*' },
+  controls: {
+    matchers: {
+      color: /(background|color)$/i,
+      date: /Date$/,
+    },
+  },
+  // viewport: { viewports: customViewports },
+  layout: 'fullscreen',
+  // chakra: {},
+};
