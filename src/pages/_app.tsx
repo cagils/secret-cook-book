@@ -2,7 +2,7 @@ import {
   ColorScheme,
   ColorSchemeProvider,
   MantineProvider,
-  MantineThemeOverride,
+  MantineThemeOverride
 } from '@mantine/core';
 import { useColorScheme, useHotkeys, useLocalStorage } from '@mantine/hooks';
 import { getCookie, setCookies } from 'cookies-next';
@@ -90,10 +90,10 @@ export default function App(props: MyAppProps & { colorScheme: ColorScheme }) {
     },
 
     primaryColor: 'brandA',
-    primaryShade: { light: 5, dark: 6 },
-    fontFamily: 'Open Sans',
-    lineHeight: '1.55rem',
-    transitionTimingFunction: 'ease',
+    // primaryShade: { light: 5, dark: 6 },
+    // fontFamily: 'Open Sans',
+    // lineHeight: '1.55rem',
+    // transitionTimingFunction: 'ease',
     // fontFamilyMonospace: '',
 
     // fontSizes: Record<'xs' | 'sm' | 'md' | 'lg' | 'xl', number>;

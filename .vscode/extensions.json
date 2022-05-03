@@ -14,7 +14,8 @@
     "stylelint.vscode-stylelint",
     "vivaxy.vscode-conventional-commits",
     "bradgashler.htmltagwrap",
-    "yatki.vscode-surround"
+    "yatki.vscode-surround",
+    "naumovs.color-highlight"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []

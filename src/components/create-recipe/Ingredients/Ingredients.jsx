@@ -23,7 +23,7 @@ const useStyles = createStyles((theme, _params, getRef) => ({
   },
 }));
 
-const Ingredient = ({ name, qty, unit }) => {
+const Ingredient = ({ plus = false, name, qty, unit }) => {
   const { classes } = useStyles();
 
   return (
@@ -38,7 +38,6 @@ const Ingredient = ({ name, qty, unit }) => {
     >
       <Box sx={{ flex: 5, minWidth: '200px' }}>
         <TextInput
-          className={classes.child}
           placeholder="Item name"
           // label="Full name"
           // description="desc"
@@ -65,7 +64,12 @@ const Ingredient = ({ name, qty, unit }) => {
           }}
         />
       </Box>
-      <Box sx={{ flex: 2, minWidth: '100px' }}>
+      <Box
+        sx={(t) => ({
+          flex: 2,
+          minWidth: 100,
+        })}
+      >
         <Select
           // radius="lg"
           // md="xs"
@@ -83,7 +87,7 @@ const Ingredient = ({ name, qty, unit }) => {
       </Box>
       <Box>
         <ActionIcon size="lg" variant="transparent" color="brandA" title="add">
-          <PlusSquare size="lg" />
+          {plus ? <PlusSquare size={24} /> : <MinusSquare size={24} />}
         </ActionIcon>
       </Box>
     </Group>
@@ -96,10 +100,18 @@ const Ingredients = () => {
 
   return (
     <div>
+      <div>Ingredients</div>
       <Ingredient name="Beef" qty={250} unit="gr" />
       <Ingredient name="Rice" qty={150} unit="gr" />
       <Ingredient name="Salt" qty={2} unit="pinch" />
-
+      <Ingredient plus />
+      <Button
+        onClick={() => toggleColorScheme()}
+        variant="gradient"
+        gradient={{ from: '#F36898', to: '#AE9EEB', deg: 60 }}
+      >
+        Save Recipe
+      </Button>
       <Group mt="xl">
         <Button
           onClick={() => toggleColorScheme()}
