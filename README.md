@@ -1,6 +1,6 @@
 # Secret Cook Book 👩‍🍳
 
-<center>
+<p align="center">
   <a href="https://github.com/cagils/secret-cook-book">
     <img src="https://badgen.net/badge/-/github?icon=github&label=&color=black" alt="GitHub" />
   </a>
@@ -30,13 +30,14 @@
       alt="Creative Commons free for non-commercial use with attribution license"
     />
   </a>
-</center>
+</p>
 <br/>
 <center><h2>Record, reference and share your personal kitchen secrets.</h2></center>
 
 <br/>
-A showcase for a react - next.js + mantine full-stack application.
-
+A showcase for a full-stack application.
+<p/>
+uses: react + next.js + chakra | tailwind + storybook
 <br />
 
 _...under construction..._

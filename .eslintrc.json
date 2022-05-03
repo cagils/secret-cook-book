@@ -1,5 +1,6 @@
 {
   "extends": [
+    "eslint:recommended",
     "plugin:storybook/recommended",
     "next",
     "next/core-web-vitals",
@@ -8,7 +9,25 @@
   "rules": {
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
-    "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }]
+    // "react/jsx-first-prop-new-line": [2, "multiline"],
+    // "react/jsx-max-props-per-line": [
+    //   2,
+    //   { "maximum": { "single": 1, "multi": 1 } }
+    // ],
+    "react/jsx-wrap-multilines": [
+      "error",
+      {
+        "declaration": "parens-new-line",
+        "assignment": "parens-new-line",
+        "return": "parens-new-line",
+        "arrow": "parens-new-line",
+        "condition": "parens-new-line",
+        "logical": "parens-new-line",
+        "prop": "parens-new-line"
+      }
+    ],
+    "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }],
+    "max-len": ["warn", { "code": 140, "ignoreComments": true }]
   },
   "overrides": [
     {

@@ -1,4 +1,4 @@
-import { Button } from '@mantine/core';
+import { Button, ButtonGroup } from '@chakra-ui/react';
 import Link from 'next/link';
 
 function TestComp() {
@@ -7,7 +7,7 @@ function TestComp() {
       TestComp
       <br />
       <Link href="/create-recipe" passHref>
-        <Button component="a">Go to create recipe</Button>
+        <Button as="a">Go to create recipe</Button>
       </Link>
     </div>
   );

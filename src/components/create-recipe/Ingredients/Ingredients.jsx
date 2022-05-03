@@ -1,50 +1,72 @@
-import { ActionIcon, Button, useMantineColorScheme } from '@mantine/core';
+import {
+  Button,
+  ButtonGroup,
+  Icon,
+  IconButton,
+  Input,
+  Select,
+  useColorMode,
+} from '@chakra-ui/react';
+import { MinusSquare, Moon, PlusSquare, Sun } from '@emotion-icons/feather';
 import Link from 'next/link';
 import { useState } from 'react';
-import { MoonStars, Sun } from 'tabler-icons-react';
-import TestComp from '../../test-comp';
-//import styles from './Ingredients.module.css';
+
+const Ingredient = ({ plus = false, name, qty, unit }) => {
+  return (
+    <>
+      <Input placeholder="Item name" value={name} onChange={() => null} />
+
+      <Input placeholder="qty" value={qty} onChange={() => null} />
+
+      <Select placeholder="unit" value={unit} onChange={() => null}>
+        <option value="gr">gr.</option>
+        <option value="tbsp">tbsp.</option>
+        <option value="tsp">tsp.</option>
+        <option value="pinch">pinch</option>
+      </Select>
+
+      <IconButton
+        size="lg"
+        aria-label="Toggle Dark Mode"
+        fontSzie="20px"
+        icon={<Icon as={plus ? PlusSquare : MinusSquare} />}
+      />
+    </>
+  );
+};
 
 const Ingredients = () => {
-  const [searchTerm, setSearchTerm] = useState(null);
-
-  const { colorScheme, toggleColorScheme } = useMantineColorScheme();
-  const dark = colorScheme === 'dark';
+  const { colorMode, toggleColorMode } = useColorMode();
+  const dark = colorMode === 'dark';
 
   return (
     <div>
-      <form
-        className="flex flex-col items-center gap-y-5"
-        onSubmit={(e) => {
-          e.preventDefault();
-          alert(searchTerm);
-        }}
+      <div>Ingredients</div>
+      <Ingredient name="Beef" qty={250} unit="gr" />
+      <Ingredient name="Rice" qty={150} unit="gr" />
+      <Ingredient name="Salt" qty={2} unit="pinch" />
+      <Ingredient plus />
+      <Button
+        onClick={() => toggleColorMode()}
+        variant="gradient"
+        bgGradient="linear(to-r, green.200, pink.500)"
       >
-        <input
-          type="text"
-          className="rounded-full border-2 w-5/6 sm:w-96 h-12 px-3"
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-        />
-        <div className="space-x-3">
-          <button type="submit" className="btn-primary">
-            Google Search
-          </button>
-          <button type="submit" className="btn-primary">
-            I&apos;m Feeling Lucky
-          </button>
-        </div>
-      </form>
-      <TestComp></TestComp>
-      <Button onClick={() => toggleColorScheme()}>Toggle Theme</Button>
-      <ActionIcon
+        Save Recipe
+      </Button>
+      <Button
+        onClick={() => toggleColorMode()}
+        variant="gradient"
+        gradient={{ from: 'teal', to: 'blue', deg: 60 }}
+      >
+        Toggle Theme
+      </Button>
+      <IconButton
         variant="outline"
         color={dark ? 'yellow' : 'blue'}
-        onClick={() => toggleColorScheme()}
-        title="Toggle color scheme"
-      >
-        {dark ? <Sun size={18} /> : <MoonStars size={18} />}
-      </ActionIcon>
+        onClick={() => toggleColorMode()}
+        aria-label="Toggle color scheme"
+        icon={<Icon as={dark ? Sun : Moon} />}
+      />
     </div>
   );
 };

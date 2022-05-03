@@ -1,13 +1,16 @@
 import {
-  ColorScheme,
-  ColorSchemeProvider,
-  MantineProvider,
-  MantineThemeOverride,
-} from '@mantine/core';
-import { NextPage } from 'next';
+  ChakraProvider,
+  cookieStorageManager,
+  extendTheme,
+  Icon,
+  localStorageManager,
+} from '@chakra-ui/react';
+import { getCookie, setCookies } from 'cookies-next';
+import { GetServerSidePropsContext, NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactNode, useState } from 'react';
+import customTheme from '../components/theme';
 import './globals.css';
 
 type GetLayout = (page: ReactNode) => ReactNode;
@@ -23,41 +26,23 @@ type MyAppProps<P = {}> = AppProps<P> & {
 export default function App(props: MyAppProps) {
   const { Component, pageProps } = props;
 
-  const [colorScheme, setColorScheme] = useState<ColorScheme>('light');
-
-  const toggleColorScheme = (value?: ColorScheme) =>
-    setColorScheme(value || (colorScheme === 'dark' ? 'light' : 'dark'));
-
   const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
-  const mantineTheme: MantineThemeOverride = {
-    // Theme is deeply merged with default theme
-    colorScheme: 'dark',
-    other: {},
-  };
+  const theme = extendTheme(customTheme);
 
   return (
-    <>
-      <Head>
-        <title>Default Page title</title>
-        <meta
-          name="viewport"
-          content="minimum-scale=1, initial-scale=1, width=device-width"
-        />
-      </Head>
-      <ColorSchemeProvider
-        colorScheme={colorScheme}
-        toggleColorScheme={toggleColorScheme}
-      >
-        <MantineProvider
-          withGlobalStyles
-          withNormalizeCSS
-          withCSSVariables
-          theme={{ colorScheme }}
-        >
-          {getLayout(<Component {...pageProps} />)}
-        </MantineProvider>
-      </ColorSchemeProvider>
-    </>
+    <ChakraProvider theme={theme}>
+      <>
+        <Head>
+          <title>Default Page title</title>
+          <meta
+            name="viewport"
+            content="minimum-scale=1, initial-scale=1, width=device-width"
+          />
+        </Head>
+
+        {getLayout(<Component {...pageProps} />)}
+      </>
+    </ChakraProvider>
   );
 }
