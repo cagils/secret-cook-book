@@ -10,8 +10,8 @@ import { GetServerSidePropsContext, NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactNode, useState } from 'react';
+import customTheme from '../components/theme';
 import './globals.css';
-import customTheme from './theme';
 
 type GetLayout = (page: ReactNode) => ReactNode;
 
