@@ -1,6 +1,6 @@
-import TestComp from '../components/test-comp';
 import PrimaryLayout from '../components/layouts/primary/PrimaryLayout';
 import SidebarLayout from '../components/layouts/sidebar/SidebarLayout';
+import TestComp from '../components/test-comp';
 
 export default function Home() {
   return (
@@ -14,10 +14,11 @@ export default function Home() {
 }
 
 Home.getLayout = (page) => {
-  return (
+  return page;
+  /*   return (
     <PrimaryLayout>
       <SidebarLayout />
       {page}
     </PrimaryLayout>
-  );
+  ); */
 };

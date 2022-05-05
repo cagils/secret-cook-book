@@ -15,10 +15,11 @@ const CreateRecipePage = () => {
 export default CreateRecipePage;
 
 CreateRecipePage.getLayout = (page) => {
-  return (
+  return page;
+  /*   return (
     <PrimaryLayout>
       <SidebarLayout />
       {page}
     </PrimaryLayout>
-  );
+  ); */
 };
