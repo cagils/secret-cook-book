@@ -15,7 +15,8 @@
     "vivaxy.vscode-conventional-commits",
     "bradgashler.htmltagwrap",
     "yatki.vscode-surround",
-    "naumovs.color-highlight"
+    "naumovs.color-highlight",
+    "monokai.theme-monokai-pro-vscode"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []
