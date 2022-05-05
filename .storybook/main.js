@@ -7,22 +7,20 @@ module.exports = {
     '@storybook/addon-links',
     '@storybook/addon-essentials',
     '@storybook/addon-interactions',
-    '@storybook/addon-outline',
     '@storybook/addon-a11y',
-    '@storybook/addon-viewport',
-    'storybook-css-modules-preset',
+    //'storybook-css-modules-preset',
     'storybook-dark-mode',
     '@chakra-ui/storybook-addon',
   ],
   framework: '@storybook/react',
   core: {
-    builder: '@storybook/builder-webpack5',
+    builder: 'webpack5',
   },
   webpackFinal: async (config, { configType }) => {
-    config.resolve.alias = {
+    /*     config.resolve.alias = {
       ...config.resolve.alias,
       '@': path.resolve(__dirname, '../src'),
-    };
+    }; */
 
     return config;
   },

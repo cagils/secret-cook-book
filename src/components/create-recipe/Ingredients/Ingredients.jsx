@@ -17,7 +17,7 @@ import {
   useColorMode,
   VStack,
 } from '@chakra-ui/react';
-import { MinusSquare, Moon, PlusSquare, Sun } from '@emotion-icons/feather';
+import { MinusSquare, Moon, PlusSquare, Sun } from '@styled-icons/feather';
 import Link from 'next/link';
 import { useState } from 'react';
 
