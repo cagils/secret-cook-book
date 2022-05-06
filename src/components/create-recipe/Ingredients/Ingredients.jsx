@@ -6,6 +6,9 @@ import {
   Circle,
   Container,
   Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
   HStack,
   Icon,
   IconButton,
@@ -19,43 +22,54 @@ import {
 } from '@chakra-ui/react';
 import { MinusSquare, Moon, PlusSquare, Sun } from '@styled-icons/feather';
 import Link from 'next/link';
-import { useState } from 'react';
+import { forwardRef, useState } from 'react';
+import { useController, useForm } from 'react-hook-form';
 
-const Ingredient = ({ plus = false, name, qty, unit = 'gr' }) => {
+function CInput({ hookProps }) {
+  const { field, fieldState, formState } = useController(hookProps);
+
+  return <Input {...field} />;
+}
+
+const Ingredient = ({ plus = false, title, qty, unit = 'gr' }) => {
   return (
     <Box>
       <Flex grow="1" my={{ base: '4px', md: '6px' }}>
         <Flex grow="1" gap={{ base: '4px', md: '6px' }} wrap="wrap">
           <Input
+            id="1"
             minWidth={{ base: '100px', md: '300px' }}
             flexBasis="300px"
             flexGrow="2"
-            isRequired
+            //isRequired
             variant="filled"
             placeholder="Item name"
-            value={name}
-            onChange={() => null}
+            //value={title}
+            // onChange={() => null}
           />
           <Flex gap={{ base: '4px', md: '6px' }}>
             <Input
+              id="2"
               minWidth={{ base: '100px', md: '150px' }}
               flexBasis="150px"
               flexGrow="1"
-              isRequired
+              //isRequired
               variant="filled"
               placeholder="qty"
-              value={qty}
-              onChange={() => null}
+              //value={qty}
+              // onChange={() => null}
               textAlign="end"
             />
+
             <Select
+              id="3"
               minWidth={{ base: '100px', md: '150px' }}
               flexBasis="150px"
               flexGrow="1"
-              isRequired
+              //isRequired
               variant="filled"
-              value={unit}
-              onChange={() => null}
+              //value={unit}
+              // onChange={() => null}
             >
               <option value="gr">gr.</option>
               <option value="tbsp">tbsp.</option>
@@ -82,45 +96,79 @@ const Ingredient = ({ plus = false, name, qty, unit = 'gr' }) => {
 const Ingredients = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
+  const {
+    handleSubmit,
+    register,
+    control,
+    formState: { errors, isSubmitting },
+  } = useForm();
+
+  function onSubmit(values) {
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        alert(JSON.stringify(values, null, 2));
+        resolve();
+      }, 3000);
+    });
+  }
 
   return (
-    <Box>
-      <Box>Ingredients</Box>
-      <Box m="8px" justify="center" align="center" grow="1">
-        <Box maxWidth="1200px" justify="center" align="center">
-          <Box>
-            <Ingredient name="Beef" qty={250} unit="gr" />
-            <Ingredient name="Rice" qty={150} unit="gr" />
-            <Ingredient name="Salt" qty={2} unit="pinch" />
-            <Ingredient plus />
+    <form onSubmit={handleSubmit(onSubmit)}>
+      <FormControl isInvalid={errors.name}>
+        <Box>
+          <Box>Ingredients</Box>
+          <Box m="8px" justify="center" align="center" grow="1">
+            <Box maxWidth="1200px" justify="center" align="center">
+              <Box>
+                <Ingredient
+                  title="Beef"
+                  qty={250}
+                  unit="gr"
+                  {...register('a', {
+                    required: 'This is required',
+                    minLength: {
+                      value: 4,
+                      message: 'Minimum length should be 4',
+                    },
+                  })}
+                />
+                <Ingredient title="Rice" qty={150} unit="gr" />
+                <Ingredient title="Salt" qty={2} unit="pinch" />
+                <Ingredient plus />
+              </Box>
+              <Box my="8px" align="end">
+                <FormErrorMessage>
+                  {errors.name && errors.name.message}
+                </FormErrorMessage>
+                <Button
+                  color="white"
+                  variant="gradient"
+                  bgGradient="linear(to-r, purple.300, pink.300)"
+                  type="submit"
+                  isLoading={isSubmitting}
+                >
+                  Save Recipe
+                </Button>
+              </Box>
+            </Box>
           </Box>
-          <Box my="8px" align="end">
-            <Button
-              color="white"
-              onClick={() => null}
-              variant="gradient"
-              bgGradient="linear(to-r, purple.300, pink.300)"
-            >
-              Save Recipe
-            </Button>
-          </Box>
+          <Button
+            onClick={() => toggleColorMode()}
+            variant="gradient"
+            gradient={{ from: 'teal', to: 'blue', deg: 60 }}
+          >
+            Toggle Theme
+          </Button>
+          <IconButton
+            variant="outline"
+            color={dark ? 'yellow' : 'blue'}
+            onClick={() => toggleColorMode()}
+            aria-label="Toggle color scheme"
+            icon={<Icon as={dark ? Sun : Moon} />}
+          />
         </Box>
-      </Box>
-      <Button
-        onClick={() => toggleColorMode()}
-        variant="gradient"
-        gradient={{ from: 'teal', to: 'blue', deg: 60 }}
-      >
-        Toggle Theme
-      </Button>
-      <IconButton
-        variant="outline"
-        color={dark ? 'yellow' : 'blue'}
-        onClick={() => toggleColorMode()}
-        aria-label="Toggle color scheme"
-        icon={<Icon as={dark ? Sun : Moon} />}
-      />
-    </Box>
+      </FormControl>
+    </form>
   );
 };
 
