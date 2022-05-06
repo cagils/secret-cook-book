@@ -44,8 +44,8 @@ const Ingredient = ({ plus = false, title, qty, unit = 'gr' }) => {
             //isRequired
             variant="filled"
             placeholder="Item name"
-            //value={title}
-            // onChange={() => null}
+            value={title}
+            onChange={() => null}
           />
           <Flex gap={{ base: '4px', md: '6px' }}>
             <Input
@@ -56,8 +56,8 @@ const Ingredient = ({ plus = false, title, qty, unit = 'gr' }) => {
               //isRequired
               variant="filled"
               placeholder="qty"
-              //value={qty}
-              // onChange={() => null}
+              value={qty}
+              onChange={() => null}
               textAlign="end"
             />
 
@@ -68,8 +68,8 @@ const Ingredient = ({ plus = false, title, qty, unit = 'gr' }) => {
               flexGrow="1"
               //isRequired
               variant="filled"
-              //value={unit}
-              // onChange={() => null}
+              value={unit}
+              onChange={() => null}
             >
               <option value="gr">gr.</option>
               <option value="tbsp">tbsp.</option>
@@ -93,82 +93,21 @@ const Ingredient = ({ plus = false, title, qty, unit = 'gr' }) => {
   );
 };
 
-const Ingredients = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
-  const dark = colorMode === 'dark';
-  const {
-    handleSubmit,
-    register,
-    control,
-    formState: { errors, isSubmitting },
-  } = useForm();
-
-  function onSubmit(values) {
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        alert(JSON.stringify(values, null, 2));
-        resolve();
-      }, 3000);
-    });
-  }
-
+const Ingredients = ({ isSubmitting }) => {
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <FormControl isInvalid={errors.name}>
-        <Box>
-          <Box>Ingredients</Box>
-          <Box m="8px" justify="center" align="center" grow="1">
-            <Box maxWidth="1200px" justify="center" align="center">
-              <Box>
-                <Ingredient
-                  title="Beef"
-                  qty={250}
-                  unit="gr"
-                  {...register('a', {
-                    required: 'This is required',
-                    minLength: {
-                      value: 4,
-                      message: 'Minimum length should be 4',
-                    },
-                  })}
-                />
-                <Ingredient title="Rice" qty={150} unit="gr" />
-                <Ingredient title="Salt" qty={2} unit="pinch" />
-                <Ingredient plus />
-              </Box>
-              <Box my="8px" align="end">
-                <FormErrorMessage>
-                  {errors.name && errors.name.message}
-                </FormErrorMessage>
-                <Button
-                  color="white"
-                  variant="gradient"
-                  bgGradient="linear(to-r, purple.300, pink.300)"
-                  type="submit"
-                  isLoading={isSubmitting}
-                >
-                  Save Recipe
-                </Button>
-              </Box>
-            </Box>
+    <Box>
+      <Box>Ingredients</Box>
+      <Box m="8px" justify="center" align="center" grow="1">
+        <Box maxWidth="1200px" justify="center" align="center">
+          <Box>
+            <Ingredient title="Beef" qty={250} unit="gr" />
+            <Ingredient title="Rice" qty={150} unit="gr" />
+            <Ingredient title="Salt" qty={2} unit="pinch" />
+            <Ingredient plus />
           </Box>
-          <Button
-            onClick={() => toggleColorMode()}
-            variant="gradient"
-            gradient={{ from: 'teal', to: 'blue', deg: 60 }}
-          >
-            Toggle Theme
-          </Button>
-          <IconButton
-            variant="outline"
-            color={dark ? 'yellow' : 'blue'}
-            onClick={() => toggleColorMode()}
-            aria-label="Toggle color scheme"
-            icon={<Icon as={dark ? Sun : Moon} />}
-          />
         </Box>
-      </FormControl>
-    </form>
+      </Box>
+    </Box>
   );
 };
 
