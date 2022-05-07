@@ -10,7 +10,12 @@
     "next/core-web-vitals",
     "prettier"
   ],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
   "rules": {
+    "react/display-name": "off",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
     // "react/jsx-first-prop-new-line": [2, "multiline"],

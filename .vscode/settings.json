@@ -1,20 +1,19 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.sortImports": true,
-    "source.organizeImports": false
-  },
-  "editor.tabSize": 2,
-  "css.lint.unknownAtRules": "ignore",
-  "css.lint.emptyRules": "ignore",
-  "less.lint.unknownAtRules": "ignore",
-  "less.lint.emptyRules": "ignore",
-  "scss.lint.unknownAtRules": "ignore",
-  "scss.lint.emptyRules": "ignore",
-  "css.validate": false,
-  "less.validate": false,
-  "scss.validate": false,
-  "conventionalCommits.scopes": ["Docs"]
+  // "editor.codeActionsOnSave": {
+  //   "source.fixAll": true,
+  //   "source.sortImports": true,
+  //   "source.organizeImports": false
+  // },
+  "editor.tabSize": 2
+  // "css.lint.unknownAtRules": "ignore",
+  // "css.lint.emptyRules": "ignore",
+  // "less.lint.unknownAtRules": "ignore",
+  // "less.lint.emptyRules": "ignore",
+  // "scss.lint.unknownAtRules": "ignore",
+  // "scss.lint.emptyRules": "ignore",
+  // "css.validate": false,
+  // "less.validate": false,
+  // "scss.validate": false,
 }
