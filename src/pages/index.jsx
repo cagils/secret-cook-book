@@ -14,10 +14,11 @@ export default function Home() {
 }
 
 Home.getLayout = (page) => {
-  return (
+  return page;
+  /*   return (
     <PrimaryLayout>
       <SidebarLayout />
       {page}
     </PrimaryLayout>
-  );
+  ); */
 };
