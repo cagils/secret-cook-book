@@ -10,6 +10,7 @@ import { GetServerSidePropsContext, NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactNode, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import customTheme from '../components/theme';
 import './globals.css';
 
@@ -30,19 +31,25 @@ export default function App(props: MyAppProps) {
 
   const theme = extendTheme(customTheme);
 
+  const formMethods = useForm({
+    // mode: 'onChange',
+  });
+
   return (
     <ChakraProvider theme={theme}>
-      <>
-        <Head>
-          <title>Default Page title</title>
-          <meta
-            name="viewport"
-            content="minimum-scale=1, initial-scale=1, width=device-width"
-          />
-        </Head>
+      <FormProvider {...formMethods}>
+        <>
+          <Head>
+            <title>Default Page title</title>
+            <meta
+              name="viewport"
+              content="minimum-scale=1, initial-scale=1, width=device-width"
+            />
+          </Head>
 
-        {getLayout(<Component {...pageProps} />)}
-      </>
+          {getLayout(<Component {...pageProps} />)}
+        </>
+      </FormProvider>
     </ChakraProvider>
   );
 }

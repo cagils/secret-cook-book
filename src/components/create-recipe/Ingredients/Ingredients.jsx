@@ -22,60 +22,112 @@ import {
 } from '@chakra-ui/react';
 import { MinusSquare, Moon, PlusSquare, Sun } from '@styled-icons/feather';
 import Link from 'next/link';
-import { forwardRef, useState } from 'react';
-import { useController, useForm } from 'react-hook-form';
+import React, { forwardRef, useState } from 'react';
+import {
+  Controller,
+  useController,
+  useForm,
+  useFormContext,
+} from 'react-hook-form';
 
-function CInput({ hookProps }) {
-  const { field, fieldState, formState } = useController(hookProps);
+const FormControlWrapper = ({ children, fieldName, rules, label, ...rest }) => {
+  const {
+    handleSubmit,
+    register,
+    control,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useFormContext();
+  return (
+    <FormControl isInvalid={errors[fieldName]}>
+      {label && <FormLabel htmlFor={fieldName}>{label}</FormLabel>}
+      {/* <Input id={fieldName} {...register(fieldName, rules)} {...rest} /> */}
+      {React.cloneElement(children, {
+        id: fieldName,
+        // ...register(fieldName, rules),
+        ...rest,
+      })}
+      <FormErrorMessage>
+        {errors?.[fieldName] && errors[fieldName].message}
+      </FormErrorMessage>
+    </FormControl>
+  );
+};
 
-  return <Input {...field} />;
-}
+const FInput = ({ fieldName, rules, label, ...rest }) => {
+  return (
+    <FormControlWrapper>
+      <Input />
+    </FormControlWrapper>
+  );
+};
 
-const Ingredient = ({ plus = false, title, qty, unit = 'gr' }) => {
+const FSelect = ({ children, fieldName, rules, label, ...rest }) => {
+  const {
+    handleSubmit,
+    register,
+    control,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useFormContext();
+  return (
+    <FormControl isInvalid={errors[fieldName]}>
+      {label && <FormLabel htmlFor={fieldName}>{label}</FormLabel>}
+      <Select id={fieldName} {...register(fieldName, rules)} {...rest}>
+        {children}
+      </Select>
+      <FormErrorMessage>
+        {errors?.[fieldName] && errors[fieldName].message}
+      </FormErrorMessage>
+    </FormControl>
+  );
+};
+
+const Ingredient = ({ fieldId, plus = false, title, qty, unit = 'gr' }) => {
   return (
     <Box>
       <Flex grow="1" my={{ base: '4px', md: '6px' }}>
         <Flex grow="1" gap={{ base: '4px', md: '6px' }} wrap="wrap">
-          <Input
-            id="1"
-            minWidth={{ base: '100px', md: '300px' }}
-            flexBasis="300px"
-            flexGrow="2"
-            //isRequired
-            variant="filled"
-            placeholder="Item name"
-            value={title}
-            onChange={() => null}
-          />
-          <Flex gap={{ base: '4px', md: '6px' }}>
-            <Input
-              id="2"
-              minWidth={{ base: '100px', md: '150px' }}
-              flexBasis="150px"
-              flexGrow="1"
-              //isRequired
+          <Box flexBasis="300px" flexGrow="2">
+            <FInput
+              fieldName={`title_${fieldId}`}
+              minWidth={{ base: '100px', md: '300px' }}
+              // isRequired
               variant="filled"
-              placeholder="qty"
-              value={qty}
-              onChange={() => null}
-              textAlign="end"
+              placeholder="Item name"
+              defaultValue={title}
+              rules={{ required: 'This is required' }}
             />
-
-            <Select
-              id="3"
-              minWidth={{ base: '100px', md: '150px' }}
-              flexBasis="150px"
-              flexGrow="1"
-              //isRequired
-              variant="filled"
-              value={unit}
-              onChange={() => null}
-            >
-              <option value="gr">gr.</option>
-              <option value="tbsp">tbsp.</option>
-              <option value="tsp">tsp.</option>
-              <option value="pinch">pinch</option>
-            </Select>
+          </Box>
+          <Flex gap={{ base: '4px', md: '6px' }}>
+            <Box flexBasis="150px" flexGrow="1">
+              <FInput
+                fieldName={`qty_${fieldId}`}
+                minWidth={{ base: '100px', md: '150px' }}
+                // isRequired
+                variant="filled"
+                placeholder="qty"
+                defaultValue={qty}
+                textAlign="end"
+                rules={{ required: 'This is required' }}
+              />
+            </Box>
+            <Box flexBasis="150px" flexGrow="1">
+              <FSelect
+                fieldName={`unit_${fieldId}`}
+                minWidth={{ base: '100px', md: '150px' }}
+                // isRequired
+                // placeholder="select unit"
+                variant="filled"
+                defaultValue={unit}
+                rules={{ required: 'This is required' }}
+              >
+                <option value="gr">gr.</option>
+                <option value="tbsp">tbsp.</option>
+                <option value="tsp">tsp.</option>
+                <option value="pinch">pinch</option>
+              </FSelect>
+            </Box>
           </Flex>
         </Flex>
         <Square>
@@ -93,17 +145,17 @@ const Ingredient = ({ plus = false, title, qty, unit = 'gr' }) => {
   );
 };
 
-const Ingredients = ({ isSubmitting }) => {
+const Ingredients = () => {
   return (
     <Box>
       <Box>Ingredients</Box>
       <Box m="8px" justify="center" align="center" grow="1">
         <Box maxWidth="1200px" justify="center" align="center">
           <Box>
-            <Ingredient title="Beef" qty={250} unit="gr" />
-            <Ingredient title="Rice" qty={150} unit="gr" />
-            <Ingredient title="Salt" qty={2} unit="pinch" />
-            <Ingredient plus />
+            <Ingredient fieldId={1} title="Beef" qty={250} unit="gr" />
+            <Ingredient fieldId={2} title="Rice" qty={150} unit="gr" />
+            <Ingredient fieldId={3} title="Salt" qty={2} unit="pinch" />
+            <Ingredient fieldId={4} plus />
           </Box>
         </Box>
       </Box>
