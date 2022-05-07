@@ -29,7 +29,8 @@ import {
   useForm,
   useFormContext,
 } from 'react-hook-form';
-import Ingredients from './Ingredients/Ingredients';
+import { getCircularReplacer } from '../../../lib/tools';
+import Ingredients from '../Ingredients/Ingredients';
 
 const AddRecipeForm = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -40,19 +41,6 @@ const AddRecipeForm = () => {
     control,
     formState: { errors, isSubmitting },
   } = useFormContext();
-
-  const getCircularReplacer = () => {
-    const seen = new WeakSet();
-    return (key, value) => {
-      if (typeof value === 'object' && value !== null) {
-        if (seen.has(value)) {
-          return;
-        }
-        seen.add(value);
-      }
-      return value;
-    };
-  };
 
   function onFormError(data) {
     const name = Object.keys(data)[0];

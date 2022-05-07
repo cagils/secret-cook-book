@@ -30,23 +30,11 @@ import {
   useFormContext,
 } from 'react-hook-form';
 
-const FormControlWrapper = ({ children, fieldName, rules, label, ...rest }) => {
-  const {
-    handleSubmit,
-    register,
-    control,
-    watch,
-    formState: { errors, isSubmitting },
-  } = useFormContext();
+const FormControlWrapper = ({ children, errors, fieldName, label }) => {
   return (
     <FormControl isInvalid={errors[fieldName]}>
       {label && <FormLabel htmlFor={fieldName}>{label}</FormLabel>}
-      {/* <Input id={fieldName} {...register(fieldName, rules)} {...rest} /> */}
-      {React.cloneElement(children, {
-        id: fieldName,
-        // ...register(fieldName, rules),
-        ...rest,
-      })}
+      {children}
       <FormErrorMessage>
         {errors?.[fieldName] && errors[fieldName].message}
       </FormErrorMessage>
@@ -55,9 +43,16 @@ const FormControlWrapper = ({ children, fieldName, rules, label, ...rest }) => {
 };
 
 const FInput = ({ fieldName, rules, label, ...rest }) => {
+  const {
+    handleSubmit,
+    register,
+    control,
+    watch,
+    formState: { errors, isSubmitting },
+  } = useFormContext();
   return (
-    <FormControlWrapper>
-      <Input />
+    <FormControlWrapper errors={errors} fieldName={fieldName} label={label}>
+      <Input id={fieldName} {...register(fieldName, rules)} {...rest} />
     </FormControlWrapper>
   );
 };

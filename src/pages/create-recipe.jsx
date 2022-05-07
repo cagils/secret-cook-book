@@ -1,4 +1,4 @@
-import AddRecipeForm from '../components/create-recipe/AddRecipeForm';
+import AddRecipeForm from '../components/create-recipe/AddRecipeForm/AddRecipeForm';
 import PrimaryLayout from '../components/layouts/primary/PrimaryLayout';
 import SidebarLayout from '../components/layouts/sidebar/SidebarLayout';
 
