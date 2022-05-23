@@ -1,8 +1,7 @@
-import db from './db/database.json';
+import recipes from './db/database.json';
 
-const getRecipe = async function getRecipe() {
-  const data = db[0];
-  return data;
+const getRecipe = async function getRecipe(recipeId) {
+  return recipes.find((recipe) => recipe.recipeId === recipeId);
 };
 
 export default getRecipe;

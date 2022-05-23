@@ -31,8 +31,6 @@ import {
   useFormContext,
 } from 'react-hook-form';
 
-import db from '../../../lib/db/database.json';
-
 const FormControlWrapper = ({ children, errors, fieldName, label }) => {
   return (
     <FormControl isInvalid={errors[fieldName]}>
@@ -116,18 +114,27 @@ const Ingredient = ({ fieldId, plus = false, desc }) => {
 const Ingredients = () => {
   const [recipe, setRecipe] = useState(null);
   const [isLoading, setLoading] = useState(false);
-  const data = db[0];
+  const recipeId = 'scb0001';
 
   useEffect(() => {
     const loadRecipe = async () => {
       setLoading(true);
-      //const data = (await import('../../../lib/db/database.json')).default;
-      setRecipe(data);
+      const response = await fetch(`/api/recipes/${recipeId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      const data = await response.json();
+      setRecipe(data.data);
       setLoading(false);
     };
 
     loadRecipe();
-  }, [data]);
+  }, []);
 
   return (
     <Box>
@@ -135,23 +142,25 @@ const Ingredients = () => {
         <Box>{!recipe || (isLoading && 'is loading...')}</Box>
       </Container>
       <Box>Ingredients</Box>
-      <Box m="8px" justify="center" align="center" grow="1">
-        <Box maxWidth="1200px" justify="center" align="center">
-          <Box>
-            {Object.entries(data.ingredients).map(([category, ingList]) => {
-              return (
-                <Box key={category} align="left" mt="20px">
-                  {category && <Heading size="md">{category}</Heading>}
-                  {ingList.map((ing, i) => (
-                    <Ingredient key={i} fieldId={i} desc={ing} />
-                  ))}
-                </Box>
-              );
-            })}
-            <Ingredient fieldId={4} plus />
+      {recipe && (
+        <Box m="8px" justify="center" align="center" grow="1">
+          <Box maxWidth="1200px" justify="center" align="center">
+            <Box>
+              {Object.entries(recipe.ingredients).map(([category, ingList]) => {
+                return (
+                  <Box key={category} align="left" mt="20px">
+                    {category && <Heading size="md">{category}</Heading>}
+                    {ingList.map((ing, i) => (
+                      <Ingredient key={i} fieldId={i} desc={ing} />
+                    ))}
+                  </Box>
+                );
+              })}
+              <Ingredient fieldId={4} plus />
+            </Box>
           </Box>
         </Box>
-      </Box>
+      )}
     </Box>
   );
 };
