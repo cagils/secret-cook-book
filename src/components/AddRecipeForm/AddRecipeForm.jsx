@@ -15,6 +15,7 @@ import {
   Input,
   Select,
   Spacer,
+  Spinner,
   Square,
   Stack,
   useColorMode,
@@ -22,14 +23,14 @@ import {
 } from '@chakra-ui/react';
 import { MinusSquare, Moon, PlusSquare, Sun } from '@styled-icons/feather';
 import Link from 'next/link';
-import { forwardRef, useState } from 'react';
+import { forwardRef, useEffect, useState } from 'react';
 import {
   Controller,
   useController,
   useForm,
   useFormContext,
 } from 'react-hook-form';
-import { getCircularReplacer } from '../../../lib/tools';
+import { getCircularReplacer } from '../../lib/tools.js';
 import Ingredients from '../Ingredients/Ingredients';
 
 const AddRecipeForm = () => {
@@ -56,9 +57,39 @@ const AddRecipeForm = () => {
     alert(`${name}: ` + JSON.stringify(data, getCircularReplacer()));
   }
 
+  const [recipe, setRecipe] = useState(null);
+  const [isLoading, setLoading] = useState(false);
+  const recipeId = 'scb0001';
+
+  useEffect(() => {
+    const loadRecipe = async () => {
+      setLoading(true);
+      const response = await fetch(`/api/recipes/${recipeId}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        throw new Error(`Error: ${response.status}`);
+      }
+      let data = await response.json();
+      data = data.data[0];
+      setRecipe(data);
+      setLoading(false);
+    };
+
+    loadRecipe();
+  }, []);
+
+  if (!recipe) {
+    return <Spinner />;
+  }
+
   return (
     <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
-      <Ingredients />
+      <Box as="h1">{recipe.title}</Box>
+      {recipe && <Ingredients ingredients={recipe.ingredients} />}
 
       <Box my="8px" align="end">
         <Button

@@ -38,17 +38,7 @@ export default function App(props: MyAppProps) {
   return (
     <ChakraProvider theme={theme}>
       <FormProvider {...formMethods}>
-        <>
-          <Head>
-            <title>Default Page title</title>
-            <meta
-              name="viewport"
-              content="minimum-scale=1, initial-scale=1, width=device-width"
-            />
-          </Head>
-
-          {getLayout(<Component {...pageProps} />)}
-        </>
+        {getLayout(<Component {...pageProps} />)}
       </FormProvider>
     </ChakraProvider>
   );

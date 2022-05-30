@@ -111,56 +111,29 @@ const Ingredient = ({ fieldId, plus = false, desc }) => {
   );
 };
 
-const Ingredients = () => {
-  const [recipe, setRecipe] = useState(null);
-  const [isLoading, setLoading] = useState(false);
-  const recipeId = 'scb0001';
-
-  useEffect(() => {
-    const loadRecipe = async () => {
-      setLoading(true);
-      const response = await fetch(`/api/recipes/${recipeId}`, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-      if (!response.ok) {
-        throw new Error(`Error: ${response.status}`);
-      }
-      const data = await response.json();
-      setRecipe(data.data);
-      setLoading(false);
-    };
-
-    loadRecipe();
-  }, []);
-
+const Ingredients = ({ ingredients }) => {
   return (
     <Box>
-      <Container>
-        <Box>{!recipe || (isLoading && 'is loading...')}</Box>
-      </Container>
       <Box>Ingredients</Box>
-      {recipe && (
-        <Box m="8px" justify="center" align="center" grow="1">
-          <Box maxWidth="1200px" justify="center" align="center">
-            <Box>
-              {Object.entries(recipe.ingredients).map(([category, ingList]) => {
-                return (
-                  <Box key={category} align="left" mt="20px">
-                    {category && <Heading size="md">{category}</Heading>}
-                    {ingList.map((ing, i) => (
-                      <Ingredient key={i} fieldId={i} desc={ing} />
-                    ))}
-                  </Box>
-                );
-              })}
-              <Ingredient fieldId={4} plus />
-            </Box>
+      <Box m="8px" justify="center" align="center" grow="1">
+        <Box maxWidth="1200px" justify="center" align="center">
+          <Box>
+            {ingredients.map((group) => {
+              return (
+                <Box key={group.groupName} align="left" mt="20px">
+                  {group.groupName !== 'default' && (
+                    <Heading size="md">{group.groupName}</Heading>
+                  )}
+                  {group.list.map((ing, i) => (
+                    <Ingredient key={i} fieldId={i} desc={ing} />
+                  ))}
+                </Box>
+              );
+            })}
+            <Ingredient fieldId={4} plus />
           </Box>
         </Box>
-      )}
+      </Box>
     </Box>
   );
 };

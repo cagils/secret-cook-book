@@ -1,17 +1,4 @@
-import PrimaryLayout from '../components/layouts/primary/PrimaryLayout';
-import SidebarLayout from '../components/layouts/sidebar/SidebarLayout';
-import AddRecipeForm from '../components/create-recipe/AddRecipeForm/AddRecipeForm';
-
-// You should use getServerSideProps when:
-// - Only if you need to pre-render a page whose data must be fetched at request time
-// export const getServerSideProps = async (ctx) => {
-//   // const recipe = await getRecipe();
-//   // return {
-//   //   props: {
-//   //     recipe,
-//   //   },
-//   // };
-// };
+import AddRecipeForm from '../components/AddRecipeForm/AddRecipeForm';
 
 export default function Home(props) {
   const { recipe } = props;
@@ -27,10 +14,4 @@ export default function Home(props) {
 
 Home.getLayout = (page) => {
   return page;
-  /*   return (
-    <PrimaryLayout>
-      <SidebarLayout />
-      {page}
-    </PrimaryLayout>
-  ); */
 };
