@@ -1,10 +1,9 @@
-import PrimaryLayout from '../components/layouts/primary/PrimaryLayout';
-import SidebarLayout from '../components/layouts/sidebar/SidebarLayout';
-import AddRecipeForm from '../components/create-recipe/AddRecipeForm/AddRecipeForm';
+import AddRecipeForm from '../components/AddRecipeForm/AddRecipeForm';
 
-export default function Home() {
+export default function Home(props) {
+  const { recipe } = props;
   return (
-    <section className="bg-gradient-to-r from-cyan-500 to-blue-500">
+    <section className="">
       <h1>
         Welcome to <a href="https://nextjs.org">Next JS</a>
       </h1>
@@ -15,10 +14,4 @@ export default function Home() {
 
 Home.getLayout = (page) => {
   return page;
-  /*   return (
-    <PrimaryLayout>
-      <SidebarLayout />
-      {page}
-    </PrimaryLayout>
-  ); */
 };

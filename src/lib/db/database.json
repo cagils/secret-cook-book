@@ -1,0 +1,40 @@
+[
+  {
+    "recipeId": "scb0001",
+    "userId": "user0001",
+    "photo": "url",
+    "title": "Easy chocolate fudge cake",
+    "shortDesc": "Need a guaranteed crowd-pleasing cake that's easy to make? This super-squidgy chocolate fudge cake with smooth icing is an instant baking win",
+    "serving": 8,
+    "difficulty": 0,
+    "time": 45,
+    "ingredients": [
+      {
+        "groupName": "default",
+        "list": [
+          "150ml sunflower oil, plus extra for the tin",
+          "175g self-raising flour",
+          "2 tbsp cocoa powder",
+          "1 tsp bicarbonate of soda",
+          "150g caster sugar",
+          "2 tbsp golden syrup",
+          "2 large eggs, lightly beaten",
+          "150ml semi-skimmed milk"
+        ]
+      },
+      {
+        "groupName": "icing",
+        "list": [
+          "100g unsalted butter",
+          "225g icing sugar",
+          "40g cocoa powder",
+          "2½ tbsp milk (a little more if needed)"
+        ]
+      }
+    ],
+    "description": {
+      "html": "<h3><strong>Method</strong></h3><ul><li><p><strong>STEP 1</strong></p><p>Heat the oven to 180C/160C fan/gas 4. Oil and line the base of two 18cm sandwich tins. Sieve the flour, cocoa powder and bicarbonate of soda into a bowl. Add the caster sugar and mix well.</p></li><li><p><strong>STEP 2</strong></p><p>Make a well in the centre and add the golden syrup, eggs, sunflower oil and milk. Beat well with an electric whisk until smooth.</p></li><li><p><strong>STEP 3</strong></p><p>Pour the mixture into the two tins and bake for 25-30 mins until risen and firm to the touch. Remove from oven, leave to cool for 10 mins before turning out onto a cooling rack.</p></li><li><p><strong>STEP 4</strong></p><p>To make the icing, beat the unsalted butter in a bowl until soft. Gradually sieve and beat in the icing sugar and cocoa powder, then add enough of the milk to make the icing fluffy and spreadable.</p></li><li><p><strong>STEP 5</strong></p><p>Sandwich the two cakes together with the butter icing and cover the sides and the top of the cake with more icing.</p></li></ul>",
+      "json": {}
+    }
+  }
+]
