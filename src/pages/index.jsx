@@ -1,13 +1,12 @@
-import AddRecipeForm from '../components/AddRecipeForm/AddRecipeForm';
+import { Recipe } from '../components/Recipe/Recipe';
 
 export default function Home(props) {
-  const { recipe } = props;
   return (
     <section className="">
       <h1>
         Welcome to <a href="https://nextjs.org">Next JS</a>
       </h1>
-      <AddRecipeForm />
+      <Recipe />
     </section>
   );
 }

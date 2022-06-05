@@ -1,45 +1,12 @@
-import {
-  Box,
-  Button,
-  ButtonGroup,
-  Center,
-  Circle,
-  Container,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  HStack,
-  Icon,
-  IconButton,
-  Input,
-  Select,
-  Spacer,
-  Spinner,
-  Square,
-  Stack,
-  useColorMode,
-  VStack,
-} from '@chakra-ui/react';
-import { MinusSquare, Moon, PlusSquare, Sun } from '@styled-icons/feather';
-import Link from 'next/link';
-import { forwardRef, useEffect, useState } from 'react';
-import {
-  Controller,
-  useController,
-  useForm,
-  useFormContext,
-} from 'react-hook-form';
+import { Box, Button, Spinner } from '@chakra-ui/react';
+import { useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { getCircularReplacer } from '../../lib/tools.js';
-import Ingredients from '../Ingredients/Ingredients';
+import { Ingredients } from '../Ingredients/Ingredients';
 
-const AddRecipeForm = () => {
-  const { colorMode, toggleColorMode } = useColorMode();
-  const dark = colorMode === 'dark';
+export const Recipe = ({ mode, recipeId }) => {
   const {
     handleSubmit,
-    register,
-    control,
     formState: { errors, isSubmitting },
   } = useFormContext();
 
@@ -58,12 +25,11 @@ const AddRecipeForm = () => {
   }
 
   const [recipe, setRecipe] = useState(null);
-  const [isLoading, setLoading] = useState(false);
-  const recipeId = 'scb0001';
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     const loadRecipe = async () => {
-      setLoading(true);
       const response = await fetch(`/api/recipes/${recipeId}`, {
         method: 'GET',
         headers: {
@@ -80,10 +46,14 @@ const AddRecipeForm = () => {
     };
 
     loadRecipe();
-  }, []);
+  }, [recipeId]);
 
-  if (!recipe) {
-    return <Spinner />;
+  if (loading) {
+    return (
+      <Box>
+        <Spinner />
+      </Box>
+    );
   }
 
   return (
@@ -102,15 +72,6 @@ const AddRecipeForm = () => {
           Save Recipe
         </Button>
       </Box>
-      <IconButton
-        variant="outline"
-        color={dark ? 'yellow' : 'blue'}
-        onClick={() => toggleColorMode()}
-        aria-label="Toggle color scheme"
-        icon={<Icon as={dark ? Sun : Moon} />}
-      />
     </form>
   );
 };
-
-export default AddRecipeForm;
