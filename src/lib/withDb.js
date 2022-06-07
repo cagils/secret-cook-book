@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import recipeModel from '../models/recipeModel';
+import models from '../models/models';
 
 const readyStates = {
   disconnected: 0,
@@ -9,10 +9,6 @@ const readyStates = {
 };
 
 let pendingPromise = null;
-
-let models = {
-  recipe: recipeModel,
-};
 
 const withDb = (fn) => async (req, res) => {
   const next = () => {
@@ -29,23 +25,33 @@ const withDb = (fn) => async (req, res) => {
     return next();
   }
 
-  const MONGODB_URI = process.env.MONGODB_URI;
-  if (!MONGODB_URI) {
+  const PASS = process.env.MONGODB_PASS;
+  if (!PASS) {
+    throw new Error('Define the MONGODB_PASS environmental variable');
+  }
+  const USER = process.env.MONGODB_USER;
+  if (!USER) {
+    throw new Error('Define the MONGODB_USER environmental variable');
+  }
+  const CLUSTER = process.env.MONGODB_CLUSTER;
+  if (!CLUSTER) {
+    throw new Error('Define the MONGODB_CLUSTER environmental variable');
+  }
+  const DBNAME = process.env.MONGODB_DBNAME;
+  if (!DBNAME) {
+    throw new Error('Define the MONGODB_CLUSTER environmental variable');
+  }
+  const URI = process.env.MONGODB_URI;
+  if (!URI) {
     throw new Error('Define the MONGODB_URI environmental variable');
   }
 
-  const username = 'scb';
-  const password = 'scb123';
-  const cluster = 'scbcluster';
-  const dbname = 'SCB';
+  console.log('Connecting to ' + URI);
 
-  pendingPromise = mongoose.connect(
-    `mongodb+srv://${username}:${password}@${cluster}.jswdp.mongodb.net/${dbname}?retryWrites=true&w=majority`,
-    {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    }
-  );
+  pendingPromise = mongoose.connect(URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
   const db = mongoose.connection;
   db.on('error', console.error.bind(console, 'connection error: '));

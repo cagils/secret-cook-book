@@ -46,6 +46,10 @@ const recipeSchema = new mongoose.Schema({
 });
 
 const recipeModel =
-  mongoose.models.recipe || mongoose.model('recipe', recipeSchema);
+  mongoose.models.recipe ?? mongoose.model('recipe', recipeSchema);
 
-export default recipeModel;
+const models = {
+  recipeModel,
+};
+
+export default models;

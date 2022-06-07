@@ -5,6 +5,9 @@ const recipeId = async (req, res) => {
     const { recipeId } = req.query;
     try {
       const models = req.models;
+      if (!models) {
+        throw Error(500, 'Could not find db connection');
+      }
       const recipe = await models.recipeModel.find({ recipeId: recipeId });
       res.json({ data: recipe });
     } catch (e) {
