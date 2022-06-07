@@ -52,6 +52,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@styled-icons/feather": "^10.34.0",
+    "@styled-icons/octicons": "^10.44.0",
     "cookies-next": "^2.0.4",
     "dayjs": "^1.11.1",
     "framer-motion": "^6.3.3",

@@ -1,4 +1,4 @@
-import { Box, Button, Spinner } from '@chakra-ui/react';
+import { Box, Button, Heading, Spinner } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { getCircularReplacer } from '../../lib/tools.js';
@@ -58,8 +58,10 @@ export const Recipe = ({ mode, recipeId }) => {
 
   return (
     <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
-      <Box as="h1">{recipe.title}</Box>
-      {recipe && <Ingredients ingredients={recipe.ingredients} />}
+      <Heading>{recipe.title}</Heading>
+      {Boolean(recipe) && (
+        <Ingredients editable={true} ingredients={recipe.ingredients} />
+      )}
 
       <Box my="8px" align="end">
         <Button

@@ -1,9 +1,9 @@
-import { Input } from '@chakra-ui/react';
+import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
 import React from 'react';
 import { useFormContext } from 'react-hook-form';
 import { FormControlWrapper } from './FormControlWrapper';
 
-export const FInput = ({ fieldName, rules, label, ...rest }) => {
+export const FInput = ({ fieldName, rules, label, leftElement, ...rest }) => {
   const {
     handleSubmit,
     register,
