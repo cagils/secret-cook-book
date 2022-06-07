@@ -18,7 +18,7 @@ export default function Home(props) {
         borderRadius="lg"
         color="purple.50"
       >
-        <Recipe />
+        <Recipe recipeId="scb0001" />
       </Box>
     </Container>
   );

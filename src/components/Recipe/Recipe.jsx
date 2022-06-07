@@ -1,4 +1,4 @@
-import { Box, Button, Heading, Spinner } from '@chakra-ui/react';
+import { Box, Button, Heading, Spinner, Text } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { getCircularReplacer } from '../../lib/tools.js';
@@ -30,7 +30,7 @@ export const Recipe = ({ mode, recipeId }) => {
   useEffect(() => {
     setLoading(true);
     const loadRecipe = async () => {
-      const response = await fetch(`/api/recipes/${recipeId}`, {
+      const response = await fetch(`/api/my/recipes/${recipeId}`, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',

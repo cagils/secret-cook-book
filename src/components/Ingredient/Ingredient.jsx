@@ -19,7 +19,7 @@ export const Ingredient = ({ editable = false, fieldId, desc }) => {
   return (
     <Flex mb="4px" grow="1" color="purple.900">
       <Flex grow="1">
-        <Flex align="center" grow="1" wrap="wrap">
+        <Flex align="center" grow="1">
           {editable && (
             <IconButton
               aria-label="Change Order"
