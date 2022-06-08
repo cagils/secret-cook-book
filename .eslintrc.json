@@ -35,9 +35,18 @@
         "prop": "parens-new-line"
       }
     ],
-    "no-unused-vars": "off",
+    "no-unused-vars": 1,
     "max-len": ["warn", { "code": 140, "ignoreComments": true }],
-    "import/no-anonymous-default-export": [2, { "allowArrowFunction": true }]
+    "import/no-anonymous-default-export": [2, { "allowArrowFunction": true }],
+    "object-curly-newline": [
+      "error",
+      {
+        "ObjectExpression": { "consistent": true, "multiline": true },
+        "ObjectPattern": { "consistent": true, "multiline": true },
+        "ImportDeclaration": "never",
+        "ExportDeclaration": { "multiline": true, "minProperties": 3 }
+      }
+    ]
   },
   "overrides": [
     {

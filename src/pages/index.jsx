@@ -1,14 +1,26 @@
-import AddRecipeForm from '../components/AddRecipeForm/AddRecipeForm';
+import { Box, Container, Heading } from '@chakra-ui/react';
+import Link from 'next/link';
+import { Recipe } from '../components/Recipe/Recipe';
 
 export default function Home(props) {
-  const { recipe } = props;
   return (
-    <section className="">
-      <h1>
-        Welcome to <a href="https://nextjs.org">Next JS</a>
-      </h1>
-      <AddRecipeForm />
-    </section>
+    <Container>
+      <Heading align="center">
+        <Link href="/">
+          <a>Secret Cook Book</a>
+        </Link>
+      </Heading>
+      <Box
+        m="10px"
+        p="20px"
+        bg="purple.500"
+        borderWidth="1px"
+        borderRadius="lg"
+        color="purple.50"
+      >
+        <Recipe recipeId="scb0001" />
+      </Box>
+    </Container>
   );
 }
 

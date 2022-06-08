@@ -1,10 +1,24 @@
-import AddRecipeForm from '../components/AddRecipeForm/AddRecipeForm';
+import { Recipe } from '../components/Recipe/Recipe';
+import { Moon, Sun } from '@styled-icons/feather';
+import { Box, Icon, IconButton, useColorMode } from '@chakra-ui/react';
 
-const CreateRecipePage = () => {
-  return <AddRecipeForm />;
+export const CreateRecipePage = () => {
+  const { colorMode, toggleColorMode } = useColorMode();
+  const dark = colorMode === 'dark';
+
+  return (
+    <Box>
+      <IconButton
+        variant="outline"
+        color={dark ? 'yellow' : 'blue'}
+        onClick={() => toggleColorMode()}
+        aria-label="Toggle color scheme"
+        icon={<Icon as={dark ? Sun : Moon} />}
+      />
+      <Recipe mode="edit" recipeId="scb0001" />;
+    </Box>
+  );
 };
-
-export default CreateRecipePage;
 
 CreateRecipePage.getLayout = (page) => {
   return page;
