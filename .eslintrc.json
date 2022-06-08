@@ -35,8 +35,9 @@
         "prop": "parens-new-line"
       }
     ],
-    "no-unused-vars": [1, { "args": "after-used", "argsIgnorePattern": "^_" }],
-    "max-len": ["warn", { "code": 140, "ignoreComments": true }]
+    "no-unused-vars": 1,
+    "max-len": ["warn", { "code": 140, "ignoreComments": true }],
+    "import/no-anonymous-default-export": [2, { "allowArrowFunction": true }]
   },
   "overrides": [
     {

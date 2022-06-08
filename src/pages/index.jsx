@@ -1,24 +1,49 @@
-import PrimaryLayout from '../components/layouts/primary/PrimaryLayout';
-import SidebarLayout from '../components/layouts/sidebar/SidebarLayout';
-import AddRecipeForm from '../components/create-recipe/AddRecipeForm/AddRecipeForm';
+import Link from 'next/link';
+import { Recipe } from '../components/Recipe/Recipe';
+import { Moon, Sun } from '@styled-icons/feather';
+import {
+  Box,
+  Container,
+  Heading,
+  Icon,
+  IconButton,
+  useColorMode,
+} from '@chakra-ui/react';
 
 export default function Home() {
+  const { colorMode, toggleColorMode } = useColorMode();
+  const dark = colorMode === 'dark';
+
   return (
-    <section className="bg-gradient-to-r from-cyan-500 to-blue-500">
-      <h1>
-        Welcome to <a href="https://nextjs.org">Next JS</a>
-      </h1>
-      <AddRecipeForm />
-    </section>
+    <Container>
+      <Box>
+        <IconButton
+          variant="outline"
+          color={dark ? 'yellow' : 'blue'}
+          onClick={() => toggleColorMode()}
+          aria-label="Toggle color scheme"
+          icon={<Icon as={dark ? Sun : Moon} />}
+        />
+      </Box>
+      <Heading align="center">
+        <Link href="/">
+          <a>Secret Cook Book</a>
+        </Link>
+      </Heading>
+      <Box
+        m="10px"
+        p="20px"
+        bg="purple.500"
+        borderWidth="1px"
+        borderRadius="lg"
+        color="purple.50"
+      >
+        <Recipe recipeId="scb0001" />
+      </Box>
+    </Container>
   );
 }
 
 Home.getLayout = (page) => {
   return page;
-  /*   return (
-    <PrimaryLayout>
-      <SidebarLayout />
-      {page}
-    </PrimaryLayout>
-  ); */
 };

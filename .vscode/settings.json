@@ -1,19 +1,12 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
   "editor.formatOnSave": true,
-  // "editor.codeActionsOnSave": {
-  //   "source.fixAll": true,
-  //   "source.sortImports": true,
-  //   "source.organizeImports": false
-  // },
-  "editor.tabSize": 2
-  // "css.lint.unknownAtRules": "ignore",
-  // "css.lint.emptyRules": "ignore",
-  // "less.lint.unknownAtRules": "ignore",
-  // "less.lint.emptyRules": "ignore",
-  // "scss.lint.unknownAtRules": "ignore",
-  // "scss.lint.emptyRules": "ignore",
-  // "css.validate": false,
-  // "less.validate": false,
-  // "scss.validate": false,
+  "editor.tabSize": 2,
+  "javascript.validate.enable": false,
+  "conventionalCommits.emojiFormat": "emoji",
+  "conventionalCommits.gitmoji": false,
+  "conventionalCommits.lineBreak": "\\n",
+  "conventionalCommits.promptBody": false,
+  "conventionalCommits.promptFooter": false,
+  "conventionalCommits.showEditor": true
 }
