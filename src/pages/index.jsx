@@ -1,10 +1,30 @@
-import { Box, Container, Heading } from '@chakra-ui/react';
 import Link from 'next/link';
 import { Recipe } from '../components/Recipe/Recipe';
+import { Moon, Sun } from '@styled-icons/feather';
+import {
+  Box,
+  Container,
+  Heading,
+  Icon,
+  IconButton,
+  useColorMode,
+} from '@chakra-ui/react';
 
-export default function Home(props) {
+export default function Home() {
+  const { colorMode, toggleColorMode } = useColorMode();
+  const dark = colorMode === 'dark';
+
   return (
     <Container>
+      <Box>
+        <IconButton
+          variant="outline"
+          color={dark ? 'yellow' : 'blue'}
+          onClick={() => toggleColorMode()}
+          aria-label="Toggle color scheme"
+          icon={<Icon as={dark ? Sun : Moon} />}
+        />
+      </Box>
       <Heading align="center">
         <Link href="/">
           <a>Secret Cook Book</a>
