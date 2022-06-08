@@ -30,6 +30,7 @@ module.exports = {
         'test',
         'perf',
         'other',
+        'merge',
       ],
     ],
   },
@@ -84,6 +85,12 @@ module.exports = {
             description: 'Other changes',
             title: 'Other',
             emoji: '♻️',
+          },
+          merge: {
+            description:
+              'Specifically for squashed main merges with no real change happening',
+            title: 'Other',
+            emoji: '⛙',
           },
         },
       },
