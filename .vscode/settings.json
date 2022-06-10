@@ -6,7 +6,7 @@
   "conventionalCommits.emojiFormat": "emoji",
   "conventionalCommits.gitmoji": false,
   "conventionalCommits.lineBreak": "\\n",
-  "conventionalCommits.promptBody": false,
   "conventionalCommits.promptFooter": false,
-  "conventionalCommits.showEditor": true
+  "conventionalCommits.showEditor": true,
+  "conventionalCommits.scopes": ["ui", "api", "doc", "build"]
 }
