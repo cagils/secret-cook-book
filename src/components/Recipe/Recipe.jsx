@@ -36,13 +36,11 @@ export const Recipe = ({ mode, recipeId }) => {
           'Content-Type': 'application/json',
         },
       });
-      console.log('response:' + JSON.stringify(response));
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
-      let data = await response.json();
-      data = data.data[0];
-      setRecipe(data);
+      let res = await response.json();
+      setRecipe(res.data);
       setLoading(false);
     };
 
@@ -55,26 +53,27 @@ export const Recipe = ({ mode, recipeId }) => {
         <Spinner />
       </Box>
     );
+  } else {
+    console.log('why I am here');
+    return (
+      <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
+        <Heading>{recipe.title}</Heading>
+        {Boolean(recipe) && (
+          <Ingredients editable={true} ingredients={recipe.ingredients} />
+        )}
+
+        <Box my="8px" align="end">
+          <Button
+            type="submit"
+            color="white"
+            variant="gradient"
+            bgGradient="linear(to-r, purple.300, pink.300)"
+            isLoading={isSubmitting}
+          >
+            Save Recipe
+          </Button>
+        </Box>
+      </form>
+    );
   }
-
-  return (
-    <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
-      <Heading>{recipe.title}</Heading>
-      {Boolean(recipe) && (
-        <Ingredients editable={true} ingredients={recipe.ingredients} />
-      )}
-
-      <Box my="8px" align="end">
-        <Button
-          type="submit"
-          color="white"
-          variant="gradient"
-          bgGradient="linear(to-r, purple.300, pink.300)"
-          isLoading={isSubmitting}
-        >
-          Save Recipe
-        </Button>
-      </Box>
-    </form>
-  );
 };
