@@ -1,6 +1,7 @@
 import {
   Box,
   Center,
+  Code,
   Flex,
   Heading,
   Icon,
@@ -10,7 +11,13 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React, { forwardRef, useEffect, useState } from 'react';
-import { Controller, useController, useForm } from 'react-hook-form';
+import {
+  Controller,
+  useController,
+  useForm,
+  useFieldArray,
+  useFormContext,
+} from 'react-hook-form';
 import { Ingredient } from '../Ingredient/Ingredient';
 import {
   FilePlus,
@@ -18,17 +25,41 @@ import {
   PlusSquare,
   MinusSquare,
 } from '@styled-icons/feather';
+import { produce } from 'immer';
 
 export const Ingredients = ({ ingredients, editable }) => {
+  const [localIngredients, setLocalIngredients] = useState(ingredients);
+
+  const {
+    handleSubmit,
+    register,
+    control,
+    watch,
+    formState: { errors, isSubmitting },
+    getValues,
+    reset,
+  } = useFormContext();
+
+  const handleNewIngredient = (groupIdx) => {
+    setLocalIngredients(
+      produce(localIngredients, (draft) => {
+        draft[groupIdx].list.push('');
+      })
+    );
+  };
+
   return (
     <Box bg="blackAlpha.300" borderRadius={4} my={4} p={4}>
       <Heading pb="2" borderBottomWidth={1} size="md">
         Ingredients
       </Heading>
+      <Box>
+        <pre>{JSON.stringify(localIngredients, undefined, 2)}</pre>
+      </Box>
       <Box m="8px" justify="center" align="center" grow="1">
         <Box maxWidth="1200px" justify="center" align="center">
           <Box>
-            {ingredients.map((group) => {
+            {localIngredients.map((group, groupIdx) => {
               return (
                 <Box key={group.groupName} align="left" mt="20px">
                   {group.groupName !== 'default' && (
@@ -48,11 +79,11 @@ export const Ingredients = ({ ingredients, editable }) => {
                       </Stack>
                     </Box>
                   )}
-                  {group.list.map((ing, i) => (
+                  {group.list.map((ing, ingIdx) => (
                     <Ingredient
-                      key={i}
+                      key={`${groupIdx}_${ingIdx}`}
                       editable={editable}
-                      fieldId={i}
+                      fieldId={`${groupIdx}_${ingIdx}`}
                       desc={ing}
                     />
                   ))}
@@ -64,6 +95,7 @@ export const Ingredients = ({ ingredients, editable }) => {
                       variant="ghost"
                       color="purple.200"
                       icon={<Icon as={PlusSquare} />}
+                      onClick={() => handleNewIngredient(groupIdx)}
                     />
                   </Square>
                 </Box>

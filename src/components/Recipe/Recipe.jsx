@@ -10,19 +10,18 @@ export const Recipe = ({ mode, recipeId }) => {
     formState: { errors, isSubmitting },
   } = useFormContext();
 
-  function onFormError(data) {
+  const onFormError = (data) => {
     const name = Object.keys(data)[0];
     data = data[name];
     delete data.ref;
     alert(`${name}: ` + JSON.stringify(data, getCircularReplacer()));
-  }
+  };
 
-  function onFormSubmit(data) {
-    const name = Object.keys(data)[0];
-    data = data[name];
-    delete data.ref;
-    alert(`${name}: ` + JSON.stringify(data, getCircularReplacer()));
-  }
+  const onFormSubmit = (data) => {
+    alert(JSON.stringify(data));
+  };
+
+  const onSubmit = handleSubmit(onFormSubmit, onFormError);
 
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -54,9 +53,8 @@ export const Recipe = ({ mode, recipeId }) => {
       </Box>
     );
   } else {
-    console.log('why I am here');
     return (
-      <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
+      <form onSubmit={onSubmit}>
         <Heading>{recipe.title}</Heading>
         {Boolean(recipe) && (
           <Ingredients editable={true} ingredients={recipe.ingredients} />

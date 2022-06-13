@@ -9,6 +9,9 @@ import {
   IconButton,
   useColorMode,
 } from '@chakra-ui/react';
+import { enableAllPlugins } from 'immer';
+
+enableAllPlugins();
 
 export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode();
