@@ -1,4 +1,5 @@
 import {
+  Flex,
   FormControl,
   FormErrorMessage,
   FormHelperText,
@@ -18,7 +19,7 @@ export const FormControlWrapper = ({
       {!!label && <FormLabel htmlFor={fieldName}>{label}</FormLabel>}
       {children}
       {!!helper && <FormHelperText>{helper}</FormHelperText>}
-      {!!error && <FormErrorMessage>{error?.message}</FormErrorMessage>}
+      {!!error && <FormErrorMessage mb={2}>{error?.message}</FormErrorMessage>}
     </FormControl>
   );
 };

@@ -24,17 +24,19 @@ export const Ingredient = ({
   return (
     <Flex mb="4px" grow="1" color="purple.900">
       <Flex grow="1">
-        <Flex align="center" grow="1">
+        <Flex align="start" grow="1">
           {editable && (
-            <IconButton
-              aria-label="Change Order"
-              fontSize="1.2rem"
-              variant="ghost"
-              color="purple.200"
-              icon={<Icon as={Grabber} />}
-            />
+            <Flex height={10}>
+              <IconButton
+                aria-label="Change Order"
+                fontSize="1.2rem"
+                variant="ghost"
+                color="purple.200"
+                icon={<Icon as={Grabber} />}
+              />
+            </Flex>
           )}
-          <Flex minHeight="2.5rem" color="purple.800" grow="1">
+          <Flex color="purple.800" grow="1">
             {editable ? (
               <FInput
                 fieldName={`desc_${fieldId}`}
@@ -62,17 +64,19 @@ export const Ingredient = ({
           </Flex>
         </Flex>
         {editable && (
-          <Square>
-            <IconButton
-              isRound
-              aria-label="Toggle Dark Mode"
-              fontSize="1.2rem"
-              variant="ghost"
-              color="purple.200"
-              icon={<Icon as={MinusSquare} />}
-              onClick={handleDeleteIngredient}
-            />
-          </Square>
+          <Flex height={10}>
+            <Square>
+              <IconButton
+                isRound
+                aria-label="Toggle Dark Mode"
+                fontSize="1.2rem"
+                variant="ghost"
+                color="purple.200"
+                icon={<Icon as={MinusSquare} />}
+                onClick={handleDeleteIngredient}
+              />
+            </Square>
+          </Flex>
         )}
       </Flex>
     </Flex>
