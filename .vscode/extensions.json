@@ -15,7 +15,8 @@
     "bradgashler.htmltagwrap",
     "yatki.vscode-surround",
     "naumovs.color-highlight",
-    "joshbolduc.commitlint"
+    "joshbolduc.commitlint",
+    "GitHub.vscode-pull-request-github"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []

@@ -26,6 +26,7 @@ import {
   MinusSquare,
 } from '@styled-icons/feather';
 import { produce } from 'immer';
+import { set } from 'mongoose';
 
 export const Ingredients = ({ ingredients, editable }) => {
   const [localIngredients, setLocalIngredients] = useState(ingredients);
@@ -40,12 +41,42 @@ export const Ingredients = ({ ingredients, editable }) => {
     reset,
   } = useFormContext();
 
+  const getFormValues = () => {
+    const values = getValues();
+    const valuesEntries = Object.entries(values);
+    const formValues = [];
+    valuesEntries.forEach(([k, v]) => {
+      const groupIdx = k.split('_')[1];
+      if (formValues[groupIdx]) {
+        formValues[groupIdx].push(v);
+      } else {
+        formValues[groupIdx] = [v];
+      }
+    });
+
+    return formValues;
+  };
+
   const handleNewIngredient = (groupIdx) => {
+    const formValues = getFormValues();
     setLocalIngredients(
       produce(localIngredients, (draft) => {
+        formValues.forEach((v, i) => (draft[i].list = v));
         draft[groupIdx].list.push('');
       })
     );
+    reset();
+  };
+
+  const handleDeleteIngredient = (groupIdx, ingIdx) => {
+    const formValues = getFormValues();
+    setLocalIngredients(
+      produce(localIngredients, (draft) => {
+        formValues.forEach((v, i) => (draft[i].list = v));
+        draft[groupIdx].list.splice(ingIdx, 1);
+      })
+    );
+    reset();
   };
 
   return (
@@ -53,9 +84,9 @@ export const Ingredients = ({ ingredients, editable }) => {
       <Heading pb="2" borderBottomWidth={1} size="md">
         Ingredients
       </Heading>
-      <Box>
+      {/*       <Box>
         <pre>{JSON.stringify(localIngredients, undefined, 2)}</pre>
-      </Box>
+      </Box> */}
       <Box m="8px" justify="center" align="center" grow="1">
         <Box maxWidth="1200px" justify="center" align="center">
           <Box>
@@ -68,14 +99,16 @@ export const Ingredients = ({ ingredients, editable }) => {
                         <Heading pb="2" size="md">
                           {group.groupName}
                         </Heading>
-                        <IconButton
-                          isRound
-                          aria-label="Toggle Dark Mode"
-                          fontSize="1.2rem"
-                          variant="ghost"
-                          color="purple.200"
-                          icon={<Icon as={FileMinus} />}
-                        />
+                        {editable && (
+                          <IconButton
+                            isRound
+                            aria-label="Toggle Dark Mode"
+                            fontSize="1.2rem"
+                            variant="ghost"
+                            color="purple.200"
+                            icon={<Icon as={FileMinus} />}
+                          />
+                        )}
                       </Stack>
                     </Box>
                   )}
@@ -85,33 +118,40 @@ export const Ingredients = ({ ingredients, editable }) => {
                       editable={editable}
                       fieldId={`${groupIdx}_${ingIdx}`}
                       desc={ing}
+                      handleDeleteIngredient={() =>
+                        handleDeleteIngredient(groupIdx, ingIdx)
+                      }
                     />
                   ))}
-                  <Square>
-                    <IconButton
-                      isRound
-                      aria-label="Toggle Dark Mode"
-                      fontSize="1.2rem"
-                      variant="ghost"
-                      color="purple.200"
-                      icon={<Icon as={PlusSquare} />}
-                      onClick={() => handleNewIngredient(groupIdx)}
-                    />
-                  </Square>
+                  {editable && (
+                    <Square>
+                      <IconButton
+                        isRound
+                        aria-label="Toggle Dark Mode"
+                        fontSize="1.2rem"
+                        variant="ghost"
+                        color="purple.200"
+                        icon={<Icon as={PlusSquare} />}
+                        onClick={() => handleNewIngredient(groupIdx)}
+                      />
+                    </Square>
+                  )}
                 </Box>
               );
             })}
           </Box>
-          <Flex>
-            <IconButton
-              isRound
-              aria-label="Toggle Dark Mode"
-              fontSize="1.2rem"
-              variant="ghost"
-              color="purple.200"
-              icon={<Icon as={FilePlus} />}
-            />
-          </Flex>
+          {editable && (
+            <Flex>
+              <IconButton
+                isRound
+                aria-label="Toggle Dark Mode"
+                fontSize="1.2rem"
+                variant="ghost"
+                color="purple.200"
+                icon={<Icon as={FilePlus} />}
+              />
+            </Flex>
+          )}
         </Box>
       </Box>
     </Box>

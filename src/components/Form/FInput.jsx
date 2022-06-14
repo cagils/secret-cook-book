@@ -1,42 +1,74 @@
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
+import {
+  Box,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  Text,
+} from '@chakra-ui/react';
 import React from 'react';
 import { useController, useFormContext } from 'react-hook-form';
+import { getCircularReplacer } from '../../lib/tools';
 import { FormControlWrapper } from './FormControlWrapper';
 
-export const FInput = ({ fieldName, rules, label, leftElement, ...rest }) => {
-  const {
+export const FInput = ({
+  fieldName,
+  rules,
+  label,
+  helper,
+  defaultValue,
+  placeholder,
+  ...rest
+}) => {
+  /* const {
     handleSubmit,
     register,
     control,
     watch,
     formState: { errors, isSubmitting },
-  } = useFormContext();
+  } = useFormContext(); */
 
+  const {
+    field: { onChange, onBlur, value, name, ref },
+    fieldState: { invalid, isTouched, isDirty, error },
+    formState: {
+      // isDirty,
+      // touchedFields,
+      // dirtyFields,
+      // isSubmitted,
+      // isSubmitSuccessful,
+      // isSubmitting,
+      // submitCount,
+      // isValid,
+      // isValidating,
+      errors,
+    },
+  } = useController({
+    name: fieldName,
+    rules,
+    defaultValue,
+    shouldUnregister: true,
+  });
   return (
-    <FormControlWrapper errors={errors} fieldName={fieldName} label={label}>
-      <Input id={fieldName} {...register(fieldName, rules)} {...rest} />
+    <FormControlWrapper
+      error={error}
+      fieldName={fieldName}
+      label={label}
+      helper={helper}
+    >
+      <Input
+        id={fieldName}
+        onChange={onChange} // send value to hook form
+        onBlur={onBlur} // notify when input is touched/blur
+        placeholder={placeholder}
+        value={value} // input value
+        name={fieldName} // send down the input name
+        ref={ref} // send input ref, so we can focus on input when error appear
+        inputRef={ref}
+        {...rest}
+      />
     </FormControlWrapper>
   );
 };
-
-/* function Input({ control, name }) {
-  const {
-    field: { onChange, onBlur, name, value, ref },
-    fieldState: { invalid, isTouched, isDirty },
-    formState: { touchedFields, dirtyFields }
-  } = useController({
-    name,
-    control,
-    rules,
-    defaultValue: "",
-  });
-
-  return (
-    <TextField 
-      onChange={onChange} // send value to hook form 
-      onBlur={onBlur} // notify when input is touched/blur
-      value={value} // input value
-      name={name} // send down the input name
-      inputRef={ref} // send input ref, so we can focus on input when error appear
-    />
-  ); */

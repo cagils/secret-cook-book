@@ -15,7 +15,12 @@ import { Grabber } from '@styled-icons/octicons';
 import React from 'react';
 import { FInput } from '../Form/FInput';
 
-export const Ingredient = ({ editable = false, fieldId, desc }) => {
+export const Ingredient = ({
+  handleDeleteIngredient,
+  editable = false,
+  fieldId,
+  desc,
+}) => {
   return (
     <Flex mb="4px" grow="1" color="purple.900">
       <Flex grow="1">
@@ -29,16 +34,18 @@ export const Ingredient = ({ editable = false, fieldId, desc }) => {
               icon={<Icon as={Grabber} />}
             />
           )}
-          <Flex height="2.5rem" color="purple.800" grow="1">
+          <Flex minHeight="2.5rem" color="purple.800" grow="1">
             {editable ? (
               <FInput
+                fieldName={`desc_${fieldId}`}
+                rules={{ required: 'This is required' }}
+                label={null}
+                helper={null}
+                defaultValue={desc}
+                placeholder="Item name"
+                // rest...
                 bg="purple.300"
                 minWidth={{ base: '100px', md: '300px' }}
-                fieldName={`desc_${fieldId}`}
-                // isRequired
-                placeholder="Item name"
-                defaultValue={desc}
-                rules={{ required: 'This is required' }}
               />
             ) : (
               <Flex
@@ -63,6 +70,7 @@ export const Ingredient = ({ editable = false, fieldId, desc }) => {
               variant="ghost"
               color="purple.200"
               icon={<Icon as={MinusSquare} />}
+              onClick={handleDeleteIngredient}
             />
           </Square>
         )}

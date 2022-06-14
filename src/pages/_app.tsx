@@ -32,7 +32,7 @@ export default function App(props: MyAppProps) {
   const theme = extendTheme(customTheme);
 
   const formMethods = useForm({
-    // mode: 'onChange',
+    mode: 'onBlur',
   });
 
   return (

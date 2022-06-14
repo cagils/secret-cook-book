@@ -11,14 +11,14 @@ export const Recipe = ({ mode, recipeId }) => {
   } = useFormContext();
 
   const onFormError = (data) => {
-    const name = Object.keys(data)[0];
-    data = data[name];
-    delete data.ref;
-    alert(`${name}: ` + JSON.stringify(data, getCircularReplacer()));
+    // const name = Object.keys(data)[0];
+    // data = data[name];
+    // delete data.ref;
+    // alert(`${name}: ` + JSON.stringify(data, getCircularReplacer()));
   };
 
   const onFormSubmit = (data) => {
-    alert(JSON.stringify(data));
+    // alert(JSON.stringify(data));
   };
 
   const onSubmit = handleSubmit(onFormSubmit, onFormError);
