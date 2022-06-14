@@ -1,5 +1,6 @@
 import {
   Box,
+  Button,
   Center,
   Code,
   Flex,
@@ -11,6 +12,7 @@ import {
   Text,
 } from '@chakra-ui/react';
 import React, { forwardRef, useEffect, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 import {
   Controller,
   useController,
@@ -27,18 +29,24 @@ import {
 } from '@styled-icons/feather';
 import { produce } from 'immer';
 import { set } from 'mongoose';
+import useRenderCounter from '../../lib/hooks/useRenderCounter';
 
 export const Ingredients = ({ ingredients, editable }) => {
   const [localIngredients, setLocalIngredients] = useState(ingredients);
 
+  useEffect(() => {
+    //formReset();
+  }, [formReset, localIngredients]);
+
   const {
     handleSubmit,
     register,
+    unregister,
     control,
     watch,
     formState: { errors, isSubmitting },
     getValues,
-    reset,
+    reset: formReset,
   } = useFormContext();
 
   const getFormValues = () => {
@@ -65,7 +73,6 @@ export const Ingredients = ({ ingredients, editable }) => {
         draft[groupIdx].list.push('');
       })
     );
-    reset();
   };
 
   const handleDeleteIngredient = (groupIdx, ingIdx) => {
@@ -76,81 +83,89 @@ export const Ingredients = ({ ingredients, editable }) => {
         draft[groupIdx].list.splice(ingIdx, 1);
       })
     );
-    reset();
   };
+
+  const renderCounter = useRenderCounter();
 
   return (
     <Box bg="blackAlpha.300" borderRadius={4} my={4} p={4}>
       <Heading pb="2" borderBottomWidth={1} size="md">
         Ingredients
+        {renderCounter}
       </Heading>
-      {/*       <Box>
+      <Box>
         <pre>{JSON.stringify(localIngredients, undefined, 2)}</pre>
-      </Box> */}
+        <pre>{JSON.stringify(getValues(), undefined, 2)}</pre>
+      </Box>
       <Box m="8px" justify="center" align="center" grow="1">
         <Box maxWidth="1200px" justify="center" align="center">
           <Box>
-            {localIngredients.map((group, groupIdx) => {
-              return (
-                <Box key={group.groupName} align="left" mt="20px">
-                  {group.groupName !== 'default' && (
-                    <Box>
-                      <Stack direction="row" align="center">
-                        <Heading pb="2" size="md">
-                          {group.groupName}
-                        </Heading>
-                        {editable && (
-                          <IconButton
-                            isRound
-                            aria-label="Toggle Dark Mode"
-                            fontSize="1.2rem"
-                            variant="ghost"
-                            color="purple.200"
-                            icon={<Icon as={FileMinus} />}
-                          />
-                        )}
-                      </Stack>
-                    </Box>
-                  )}
-                  {group.list.map((ing, ingIdx) => (
-                    <Ingredient
-                      key={`${groupIdx}_${ingIdx}`}
-                      editable={editable}
-                      fieldId={`${groupIdx}_${ingIdx}`}
-                      desc={ing}
-                      handleDeleteIngredient={() =>
-                        handleDeleteIngredient(groupIdx, ingIdx)
-                      }
+            {localIngredients.map((group, groupIdx) => (
+              <Box key={group.groupName} align="left" mt="20px">
+                {group.groupName !== 'default' && (
+                  <Box>
+                    <Stack direction="row" align="center">
+                      <Heading pb="2" size="md">
+                        {group.groupName}
+                      </Heading>
+                      {editable && (
+                        <IconButton
+                          isRound
+                          aria-label="Toggle Dark Mode"
+                          fontSize="1.2rem"
+                          variant="ghost"
+                          color="purple.200"
+                          icon={<Icon as={FileMinus} />}
+                        />
+                      )}
+                    </Stack>
+                  </Box>
+                )}
+                {group.list.map((ing, ingIdx) => (
+                  <Ingredient
+                    key={`${groupIdx}_${ingIdx}`}
+                    editable={editable}
+                    fieldId={`${groupIdx}_${ingIdx}`}
+                    desc={ing}
+                    handleDeleteIngredient={() =>
+                      handleDeleteIngredient(groupIdx, ingIdx)
+                    }
+                  />
+                ))}
+                {editable && (
+                  <Square>
+                    <IconButton
+                      isRound
+                      aria-label="Toggle Dark Mode"
+                      fontSize="1.2rem"
+                      variant="ghost"
+                      color="purple.200"
+                      icon={<Icon as={PlusSquare} />}
+                      onClick={() => handleNewIngredient(groupIdx)}
                     />
-                  ))}
-                  {editable && (
-                    <Square>
-                      <IconButton
-                        isRound
-                        aria-label="Toggle Dark Mode"
-                        fontSize="1.2rem"
-                        variant="ghost"
-                        color="purple.200"
-                        icon={<Icon as={PlusSquare} />}
-                        onClick={() => handleNewIngredient(groupIdx)}
-                      />
-                    </Square>
-                  )}
-                </Box>
-              );
-            })}
+                  </Square>
+                )}
+              </Box>
+            ))}
           </Box>
           {editable && (
-            <Flex>
-              <IconButton
-                isRound
-                aria-label="Toggle Dark Mode"
-                fontSize="1.2rem"
-                variant="ghost"
-                color="purple.200"
-                icon={<Icon as={FilePlus} />}
-              />
-            </Flex>
+            <>
+              <Flex>
+                <IconButton
+                  isRound
+                  aria-label="Toggle Dark Mode"
+                  fontSize="1.2rem"
+                  variant="ghost"
+                  color="purple.200"
+                  icon={<Icon as={FilePlus} />}
+                />
+              </Flex>
+              <Flex>
+                <Button color="gray.800" onClick={() => formReset()}>
+                  RESET FORM
+                </Button>
+              </Flex>
+            </>
           )}
         </Box>
       </Box>

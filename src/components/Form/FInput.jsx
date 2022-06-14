@@ -67,7 +67,6 @@ export const FInput = ({
         value={value} // input value
         name={fieldName} // send down the input name
         ref={ref} // send input ref, so we can focus on input when error appear
-        inputRef={ref}
         height={10}
         {...rest}
       />

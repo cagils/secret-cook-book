@@ -33,6 +33,7 @@ export default function App(props: MyAppProps) {
 
   const formMethods = useForm({
     mode: 'onBlur',
+    shouldUnregister: true,
   });
 
   return (
