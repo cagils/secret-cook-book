@@ -1,7 +1,7 @@
-import { Box, Button, Heading, Spinner, Text } from '@chakra-ui/react';
+import { Box, Button, Heading, Spinner } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
-import { getCircularReplacer } from '../../lib/tools.js';
+
 import { Ingredients } from '../Ingredients/Ingredients';
 
 export const Recipe = ({ mode, recipeId }) => {
@@ -18,7 +18,7 @@ export const Recipe = ({ mode, recipeId }) => {
   };
 
   const onFormSubmit = (data) => {
-    // alert(JSON.stringify(data));
+    alert(JSON.stringify(data, undefined, 2));
   };
 
   const onSubmit = handleSubmit(onFormSubmit, onFormError);

@@ -1,18 +1,7 @@
-import {
-  Box,
-  Flex,
-  Icon,
-  IconButton,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  InputLeftElement,
-  Square,
-  Text,
-} from '@chakra-ui/react';
+import { Flex, Icon, IconButton, Square, Text } from '@chakra-ui/react';
 import { MinusSquare } from '@styled-icons/feather';
 import { Grabber } from '@styled-icons/octicons';
-import React from 'react';
+
 import { FInput } from '../Form/FInput';
 
 export const Ingredient = ({

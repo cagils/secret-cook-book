@@ -1,17 +1,12 @@
 import {
-  Box,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
+  Editable,
+  EditableInput,
+  EditablePreview,
   Input,
-  InputGroup,
-  InputLeftElement,
-  Text,
 } from '@chakra-ui/react';
-import React from 'react';
-import { useController, useFormContext } from 'react-hook-form';
-import { getCircularReplacer } from '../../lib/tools';
+import { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
+
 import { FormControlWrapper } from './FormControlWrapper';
 
 export const FInput = ({
@@ -21,55 +16,70 @@ export const FInput = ({
   helper,
   defaultValue,
   placeholder,
+  type = 'input',
+  startWithEditView,
   ...rest
 }) => {
-  /* const {
+  // Get form context:
+  const {
     handleSubmit,
     register,
     control,
     watch,
+    reset,
+    resetField,
+    setValue,
     formState: { errors, isSubmitting },
-  } = useFormContext(); */
+  } = useFormContext();
 
-  const {
-    field: { onChange, onBlur, value, name, ref },
-    fieldState: { invalid, isTouched, isDirty, error },
-    formState: {
-      // isDirty,
-      // touchedFields,
-      // dirtyFields,
-      // isSubmitted,
-      // isSubmitSuccessful,
-      // isSubmitting,
-      // submitCount,
-      // isValid,
-      // isValidating,
-      errors,
-    },
-  } = useController({
-    name: fieldName,
-    rules,
-    defaultValue,
+  useEffect(() => {}, [fieldName, resetField, defaultValue]);
+
+  const registerOptions = {
+    ...rules,
     shouldUnregister: true,
-  });
+  };
+  const { onChange, onBlur, name, ref } = register(fieldName, registerOptions);
+
   return (
     <FormControlWrapper
-      error={error}
+      error={errors?.[fieldName]}
       fieldName={fieldName}
       label={label}
       helper={helper}
     >
-      <Input
-        id={fieldName}
-        onChange={onChange} // send value to hook form
-        onBlur={onBlur} // notify when input is touched/blur
-        placeholder={placeholder}
-        value={value} // input value
-        name={fieldName} // send down the input name
-        ref={ref} // send input ref, so we can focus on input when error appear
-        height={10}
-        {...rest}
-      />
+      {type === 'editable' ? (
+        <Editable
+          // other parameters:
+          defaultValue={defaultValue}
+          placeholder={placeholder}
+          startWithEditView={startWithEditView}
+        >
+          <EditablePreview />
+          <EditableInput
+            // register form hook methods:
+            placeholder={placeholder}
+            defaultValue={defaultValue}
+            onChange={onChange} // assign onChange event
+            onBlur={onBlur} // assign onBlur event
+            name={name} // assign name prop
+            ref={ref} // assign ref prop
+            {...rest}
+          />
+        </Editable>
+      ) : (
+        <Input
+          // register form hook methods:
+          onChange={onChange} // assign onChange event
+          onBlur={onBlur} // assign onBlur event
+          name={name} // assign name prop
+          ref={ref} // assign ref prop
+          // other parameters:
+          defaultValue={defaultValue}
+          placeholder={placeholder}
+          height={10}
+          {...rest}
+        />
+      )}
     </FormControlWrapper>
   );
 };

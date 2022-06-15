@@ -3,10 +3,9 @@
   "editor.formatOnSave": true,
   "editor.tabSize": 2,
   "javascript.validate.enable": false,
-  "conventionalCommits.emojiFormat": "emoji",
-  "conventionalCommits.gitmoji": false,
-  "conventionalCommits.lineBreak": "\\n",
-  "conventionalCommits.promptFooter": false,
-  "conventionalCommits.showEditor": true,
-  "conventionalCommits.scopes": ["ui", "api", "doc", "build"]
+  "git.experimental.mergeEditor": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": false,
+    "source.sortImports": true
+  }
 }

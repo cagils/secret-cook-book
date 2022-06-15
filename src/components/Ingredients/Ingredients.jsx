@@ -1,41 +1,20 @@
-import {
-  Box,
-  Button,
-  Center,
-  Code,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  Square,
-  Stack,
-  Text,
-} from '@chakra-ui/react';
-import React, { forwardRef, useEffect, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-import {
-  Controller,
-  useController,
-  useForm,
-  useFieldArray,
-  useFormContext,
-} from 'react-hook-form';
-import { Ingredient } from '../Ingredient/Ingredient';
-import {
-  FilePlus,
-  FileMinus,
-  PlusSquare,
-  MinusSquare,
-} from '@styled-icons/feather';
+import { Box, Flex, Heading, Icon, IconButton } from '@chakra-ui/react';
+import { FilePlus } from '@styled-icons/feather';
 import { produce } from 'immer';
-import { set } from 'mongoose';
+import { useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+
 import useRenderCounter from '../../lib/hooks/useRenderCounter';
+import IngredientGroup from '../IngredientGroup/IngredientGroup';
 
 export const Ingredients = ({ ingredients, editable }) => {
+  const showDebugData = process.env.NEXT_PUBLIC_SHOW_DEBUG_DATA === 'true';
+
   const [localIngredients, setLocalIngredients] = useState(ingredients);
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
-    //formReset();
+    formReset();
   }, [formReset, localIngredients]);
 
   const {
@@ -46,6 +25,7 @@ export const Ingredients = ({ ingredients, editable }) => {
     watch,
     formState: { errors, isSubmitting },
     getValues,
+    setValue,
     reset: formReset,
   } = useFormContext();
 
@@ -65,8 +45,15 @@ export const Ingredients = ({ ingredients, editable }) => {
     return formValues;
   };
 
+  const unregisterAll = (formValues) => {
+    Object.entries(formValues).forEach(([key, value]) => {
+      unregister(key, value);
+    });
+  };
+
   const handleNewIngredient = (groupIdx) => {
     const formValues = getFormValues();
+    // unregisterAll(formValues);
     setLocalIngredients(
       produce(localIngredients, (draft) => {
         formValues.forEach((v, i) => (draft[i].list = v));
@@ -77,10 +64,29 @@ export const Ingredients = ({ ingredients, editable }) => {
 
   const handleDeleteIngredient = (groupIdx, ingIdx) => {
     const formValues = getFormValues();
+    unregisterAll(formValues);
     setLocalIngredients(
       produce(localIngredients, (draft) => {
         formValues.forEach((v, i) => (draft[i].list = v));
         draft[groupIdx].list.splice(ingIdx, 1);
+      })
+    );
+  };
+
+  const handleDeleteGroup = (groupIdx) => {
+    const formValues = getFormValues();
+    unregisterAll(formValues);
+    setLocalIngredients(
+      produce(localIngredients, (draft) => {
+        draft.splice(groupIdx, 1);
+      })
+    );
+  };
+
+  const handleNewGroup = () => {
+    setLocalIngredients(
+      produce(localIngredients, (draft) => {
+        draft.push({ groupName: '', list: [''] });
       })
     );
   };
@@ -93,59 +99,25 @@ export const Ingredients = ({ ingredients, editable }) => {
         Ingredients
         {renderCounter}
       </Heading>
-      <Box>
-        <pre>{JSON.stringify(localIngredients, undefined, 2)}</pre>
-        <pre>{JSON.stringify(getValues(), undefined, 2)}</pre>
-      </Box>
+      {showDebugData && (
+        <Box>
+          {'debug:' + JSON.stringify(showDebugData)}
+          <pre>{JSON.stringify(localIngredients, undefined, 2)}</pre>
+        </Box>
+      )}
       <Box m="8px" justify="center" align="center" grow="1">
         <Box maxWidth="1200px" justify="center" align="center">
           <Box>
             {localIngredients.map((group, groupIdx) => (
-              <Box key={group.groupName} align="left" mt="20px">
-                {group.groupName !== 'default' && (
-                  <Box>
-                    <Stack direction="row" align="center">
-                      <Heading pb="2" size="md">
-                        {group.groupName}
-                      </Heading>
-                      {editable && (
-                        <IconButton
-                          isRound
-                          aria-label="Toggle Dark Mode"
-                          fontSize="1.2rem"
-                          variant="ghost"
-                          color="purple.200"
-                          icon={<Icon as={FileMinus} />}
-                        />
-                      )}
-                    </Stack>
-                  </Box>
-                )}
-                {group.list.map((ing, ingIdx) => (
-                  <Ingredient
-                    key={`${groupIdx}_${ingIdx}`}
-                    editable={editable}
-                    fieldId={`${groupIdx}_${ingIdx}`}
-                    desc={ing}
-                    handleDeleteIngredient={() =>
-                      handleDeleteIngredient(groupIdx, ingIdx)
-                    }
-                  />
-                ))}
-                {editable && (
-                  <Square>
-                    <IconButton
-                      isRound
-                      aria-label="Toggle Dark Mode"
-                      fontSize="1.2rem"
-                      variant="ghost"
-                      color="purple.200"
-                      icon={<Icon as={PlusSquare} />}
-                      onClick={() => handleNewIngredient(groupIdx)}
-                    />
-                  </Square>
-                )}
-              </Box>
+              <IngredientGroup
+                key={group.groupName}
+                data={group}
+                groupIdx={groupIdx}
+                editable={editable}
+                handleDeleteGroup={handleDeleteGroup}
+                handleDeleteIngredient={handleDeleteIngredient}
+                handleNewIngredient={handleNewIngredient}
+              />
             ))}
           </Box>
           {editable && (
@@ -158,12 +130,8 @@ export const Ingredients = ({ ingredients, editable }) => {
                   variant="ghost"
                   color="purple.200"
                   icon={<Icon as={FilePlus} />}
+                  onClick={() => handleNewGroup()}
                 />
-              </Flex>
-              <Flex>
-                <Button color="gray.800" onClick={() => formReset()}>
-                  RESET FORM
-                </Button>
               </Flex>
             </>
           )}

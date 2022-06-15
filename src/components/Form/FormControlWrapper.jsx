@@ -1,11 +1,9 @@
 import {
-  Flex,
   FormControl,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
 } from '@chakra-ui/react';
-import React from 'react';
 
 export const FormControlWrapper = ({
   children,
