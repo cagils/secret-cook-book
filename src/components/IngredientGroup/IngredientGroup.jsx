@@ -34,7 +34,7 @@ function IngredientGroup({
                 <FInput
                   type="editable"
                   startWithEditView={data.groupName === ''}
-                  fieldName={`group_${groupIdx}`}
+                  fieldName={`group.${groupIdx}`}
                   rules={{ required: 'This is required' }}
                   label={null}
                   helper={null}
@@ -64,7 +64,7 @@ function IngredientGroup({
         <Ingredient
           key={`key_${groupIdx}_${ingIdx}`}
           editable={editable}
-          fieldId={`${groupIdx}_${ingIdx}`}
+          fieldId={`${groupIdx}.${ingIdx}`}
           desc={ing}
           handleDeleteIngredient={() =>
             handleDeleteIngredient(groupIdx, ingIdx)

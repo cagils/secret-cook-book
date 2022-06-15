@@ -11,6 +11,7 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactNode, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+
 import customTheme from '../components/theme';
 import './globals.css';
 
@@ -34,6 +35,7 @@ export default function App(props: MyAppProps) {
   const formMethods = useForm({
     mode: 'onBlur',
     shouldUnregister: true,
+    criteriaMode: 'all',
   });
 
   return (

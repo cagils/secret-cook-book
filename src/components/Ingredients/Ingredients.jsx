@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import useRenderCounter from '../../lib/hooks/useRenderCounter';
+import { getCircularReplacer, stripRef } from '../../lib/tools';
 import IngredientGroup from '../IngredientGroup/IngredientGroup';
 
 export const Ingredients = ({ ingredients, editable }) => {
@@ -31,53 +32,43 @@ export const Ingredients = ({ ingredients, editable }) => {
     reset: formReset,
   } = useFormContext();
 
-  const getFormValues = () => {
-    const values = getValues();
-    const valuesEntries = Object.entries(values);
-    const formValues = [];
-    valuesEntries.forEach(([k, v]) => {
-      const groupIdx = k.split('_')[1];
-      if (formValues[groupIdx]) {
-        formValues[groupIdx].push(v);
-      } else {
-        formValues[groupIdx] = [v];
-      }
-    });
-
-    return formValues;
-  };
-
-  const unregisterAll = (formValues) => {
-    Object.entries(formValues).forEach(([key, value]) => {
-      unregister(key, value);
-    });
+  const unregisterAll = () => {
+    unregister(['group', 'desc']);
   };
 
   const handleNewIngredient = (groupIdx) => {
-    const formValues = getFormValues();
-    // unregisterAll(formValues);
+    const formValues = getValues();
     setLocalIngredients(
       produce(localIngredients, (draft) => {
-        formValues.forEach((v, i) => (draft[i].list = v));
-        draft[groupIdx].list.push('');
+        formValues.desc.forEach((v, i) => {
+          if (i === groupIdx) {
+            v = produce(v, (draft) => {
+              draft.push('');
+            });
+          }
+          draft[i].list = v;
+        });
       })
     );
   };
 
   const handleDeleteIngredient = (groupIdx, ingIdx) => {
-    const formValues = getFormValues();
-    unregisterAll(formValues);
+    const formValues = getValues();
+    unregisterAll();
     setLocalIngredients(
       produce(localIngredients, (draft) => {
-        formValues.forEach((v, i) => (draft[i].list = v));
-        draft[groupIdx].list.splice(ingIdx, 1);
+        formValues.desc.forEach((v, i) => {
+          draft[i].list = v;
+        });
+        draft[groupIdx].list = produce(draft[groupIdx].list, (draft) => {
+          draft.splice(ingIdx, 1);
+        });
       })
     );
   };
 
   const handleDeleteGroup = (groupIdx) => {
-    const formValues = getFormValues();
-    unregisterAll(formValues);
+    unregisterAll();
     setLocalIngredients(
       produce(localIngredients, (draft) => {
         draft.splice(groupIdx, 1);
@@ -110,7 +101,7 @@ export const Ingredients = ({ ingredients, editable }) => {
           <Box>
             {localIngredients.map((group, groupIdx) => (
               <IngredientGroup
-                key={group.groupName}
+                key={`key_group_${group.groupName}`}
                 data={group}
                 groupIdx={groupIdx}
                 editable={editable}

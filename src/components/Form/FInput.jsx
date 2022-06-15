@@ -42,7 +42,7 @@ export const FInput = ({
 
   return (
     <FormControlWrapper
-      error={errors?.[fieldName]}
+      errors={errors}
       fieldName={fieldName}
       label={label}
       helper={helper}
@@ -76,7 +76,6 @@ export const FInput = ({
           // other parameters:
           defaultValue={defaultValue}
           placeholder={placeholder}
-          height={10}
           {...rest}
         />
       )}

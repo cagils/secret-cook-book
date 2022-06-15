@@ -28,7 +28,7 @@ export const Ingredient = ({
           <Flex color="purple.800" grow="1">
             {editable ? (
               <FInput
-                fieldName={`desc_${fieldId}`}
+                fieldName={`desc.${fieldId}`}
                 rules={{ required: 'This is required' }}
                 label={null}
                 helper={null}
@@ -37,6 +37,7 @@ export const Ingredient = ({
                 // rest...
                 bg="purple.300"
                 minWidth={{ base: '100px', md: '300px' }}
+                height={10}
               />
             ) : (
               <Flex
@@ -46,6 +47,7 @@ export const Ingredient = ({
                 align="center"
                 px={4}
                 bg="purple.400"
+                height={10}
               >
                 <Text>{desc}</Text>
               </Flex>
