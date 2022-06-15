@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Icon, IconButton } from '@chakra-ui/react';
+import { Box, Flex, Heading, Icon, IconButton, Text } from '@chakra-ui/react';
 import { FilePlus } from '@styled-icons/feather';
 import { produce } from 'immer';
 import { useEffect, useState } from 'react';
@@ -8,6 +8,8 @@ import useRenderCounter from '../../lib/hooks/useRenderCounter';
 import IngredientGroup from '../IngredientGroup/IngredientGroup';
 
 export const Ingredients = ({ ingredients, editable }) => {
+  const renderCounter = useRenderCounter();
+
   const showDebugData = process.env.NEXT_PUBLIC_SHOW_DEBUG_DATA === 'true';
 
   const [localIngredients, setLocalIngredients] = useState(ingredients);
@@ -91,14 +93,12 @@ export const Ingredients = ({ ingredients, editable }) => {
     );
   };
 
-  const renderCounter = useRenderCounter();
-
   return (
     <Box bg="blackAlpha.300" borderRadius={4} my={4} p={4}>
       <Heading pb="2" borderBottomWidth={1} size="md">
         Ingredients
-        {renderCounter}
       </Heading>
+      <Text size="md">Render Counter: {renderCounter}</Text>
       {showDebugData && (
         <Box>
           {'debug:' + JSON.stringify(showDebugData)}

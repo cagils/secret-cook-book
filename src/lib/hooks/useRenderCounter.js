@@ -5,7 +5,7 @@ const useRenderCounter = () => {
   const renderCount = useRef(0);
   renderCount.current = renderCount.current + 1;
 
-  return <Text>{renderCount.current}</Text>;
+  return renderCount.current;
 };
 
 export default useRenderCounter;
