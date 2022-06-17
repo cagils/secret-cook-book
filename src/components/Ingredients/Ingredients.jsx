@@ -1,6 +1,6 @@
 import { Box, Flex, Heading, Icon, IconButton, Text } from '@chakra-ui/react';
 import { FilePlus } from '@styled-icons/feather';
-import { produce } from 'immer';
+import { produce, setAutoFreeze } from 'immer';
 import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
@@ -8,7 +8,34 @@ import useRenderCounter from '../../lib/hooks/useRenderCounter';
 import { getCircularReplacer, stripRef } from '../../lib/tools';
 import IngredientGroup from '../IngredientGroup/IngredientGroup';
 
+setAutoFreeze(false);
+
 export const Ingredients = ({ ingredients, editable }) => {
+  const _EXAMPLE_FORMAT_ = [
+    {
+      groupName: 'cake',
+      list: [
+        '150ml sunflower oil, plus extra for the tin',
+        '175g self-raising flour',
+        '2 tbsp cdocoa powder',
+        '1 tsp bicarbonate of soda',
+        '150g caster sugar',
+        '2 tbsp golden syrup',
+        '2 large eggs, lightly beaten',
+        '150ml semi-skimmed milk',
+      ],
+    },
+    {
+      groupName: 'icing',
+      list: [
+        '100g unsalted butter',
+        '225g icing sugar',
+        '40g cocoa powder',
+        '2½ tbsp milk (a little more if needed)',
+      ],
+    },
+  ];
+
   const renderCounter = useRenderCounter();
 
   const showDebugData = process.env.NEXT_PUBLIC_SHOW_DEBUG_DATA === 'true';
@@ -36,52 +63,50 @@ export const Ingredients = ({ ingredients, editable }) => {
     unregister(['group', 'desc']);
   };
 
+  // Since produce locks the object returned, we get a copy
+  const formStateTransform = () =>
+    produce(localIngredients, (draft) => {
+      const formValues = getValues();
+      formValues.desc.forEach((list, i) => (draft[i].list = list));
+      formValues.group.forEach((name, i) => (draft[i].groupName = name));
+    });
+
   const handleNewIngredient = (groupIdx) => {
-    const formValues = getValues();
-    setLocalIngredients(
-      produce(localIngredients, (draft) => {
-        formValues.desc.forEach((v, i) => {
-          if (i === groupIdx) {
-            v = produce(v, (draft) => {
-              draft.push('');
-            });
-          }
-          draft[i].list = v;
-        });
-      })
-    );
+    const formState = formStateTransform();
+    unregisterAll();
+    formState[groupIdx].list.push('');
+    setLocalIngredients(formState);
   };
 
   const handleDeleteIngredient = (groupIdx, ingIdx) => {
-    const formValues = getValues();
+    const formState = formStateTransform();
     unregisterAll();
-    setLocalIngredients(
-      produce(localIngredients, (draft) => {
-        formValues.desc.forEach((v, i) => {
-          draft[i].list = v;
-        });
-        draft[groupIdx].list = produce(draft[groupIdx].list, (draft) => {
-          draft.splice(ingIdx, 1);
-        });
-      })
-    );
+    formState[groupIdx].list.splice(ingIdx, 1);
+    setLocalIngredients(formState);
   };
 
   const handleDeleteGroup = (groupIdx) => {
+    const formState = formStateTransform();
     unregisterAll();
-    setLocalIngredients(
-      produce(localIngredients, (draft) => {
-        draft.splice(groupIdx, 1);
-      })
-    );
+    formState.splice(groupIdx, 1);
+    setLocalIngredients(formState);
   };
 
   const handleNewGroup = () => {
-    setLocalIngredients(
-      produce(localIngredients, (draft) => {
-        draft.push({ groupName: '', list: [''] });
-      })
-    );
+    const formState = formStateTransform();
+    unregisterAll();
+    formState.push({ groupName: '', list: [''] });
+    setLocalIngredients(formState);
+  };
+
+  const handleReorder = (groupIdx, items) => {
+    const formState = formStateTransform();
+    unregisterAll();
+    const newList = [];
+    const oldList = formState[groupIdx].list;
+    items.forEach((v) => newList.push(oldList[parseInt(v.id)]));
+    formState[groupIdx].list = newList;
+    setLocalIngredients(formState);
   };
 
   return (
@@ -90,24 +115,19 @@ export const Ingredients = ({ ingredients, editable }) => {
         Ingredients
       </Heading>
       <Text size="md">Render Counter: {renderCounter}</Text>
-      {showDebugData && (
-        <Box>
-          {'debug:' + JSON.stringify(showDebugData)}
-          <pre>{JSON.stringify(localIngredients, undefined, 2)}</pre>
-        </Box>
-      )}
       <Box m="8px" justify="center" align="center" grow="1">
         <Box maxWidth="1200px" justify="center" align="center">
           <Box>
             {localIngredients.map((group, groupIdx) => (
               <IngredientGroup
-                key={`key_group_${group.groupName}`}
+                key={`key_group_${groupIdx}`}
                 data={group}
                 groupIdx={groupIdx}
                 editable={editable}
                 handleDeleteGroup={handleDeleteGroup}
                 handleDeleteIngredient={handleDeleteIngredient}
                 handleNewIngredient={handleNewIngredient}
+                handleReorder={handleReorder}
               />
             ))}
           </Box>
@@ -128,6 +148,12 @@ export const Ingredients = ({ ingredients, editable }) => {
           )}
         </Box>
       </Box>
+      {showDebugData && (
+        <Box>
+          {'debug:' + JSON.stringify(showDebugData)}
+          <pre>{JSON.stringify(localIngredients, undefined, 2)}</pre>
+        </Box>
+      )}
     </Box>
   );
 };

@@ -9,22 +9,12 @@ export const Ingredient = ({
   editable = false,
   fieldId,
   desc,
+  grabber,
 }) => {
   return (
     <Flex mb="4px" grow="1" color="purple.900">
       <Flex grow="1">
         <Flex align="start" grow="1">
-          {editable && (
-            <Flex height={10}>
-              <IconButton
-                aria-label="Change Order"
-                fontSize="1.2rem"
-                variant="ghost"
-                color="purple.200"
-                icon={<Icon as={Grabber} />}
-              />
-            </Flex>
-          )}
           <Flex color="purple.800" grow="1">
             {editable ? (
               <FInput

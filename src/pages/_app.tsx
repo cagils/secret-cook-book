@@ -11,7 +11,15 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactNode, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
+import {
+  QueryClient,
+  QueryClientProvider,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from 'react-query';
 
+import 'focus-visible/dist/focus-visible';
 import customTheme from '../components/theme';
 import './globals.css';
 
@@ -25,6 +33,8 @@ type MyAppProps<P = {}> = AppProps<P> & {
   Component: Page<P>;
 };
 
+const queryClient = new QueryClient();
+
 export default function App(props: MyAppProps) {
   const { Component, pageProps } = props;
 
@@ -33,7 +43,7 @@ export default function App(props: MyAppProps) {
   const theme = extendTheme(customTheme);
 
   const formMethods = useForm({
-    mode: 'onBlur',
+    mode: 'onChange',
     shouldUnregister: true,
     criteriaMode: 'all',
   });
