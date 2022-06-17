@@ -1,6 +1,3 @@
-import Link from 'next/link';
-import { Recipe } from '../components/Recipe/Recipe';
-import { Moon, Sun } from '@styled-icons/feather';
 import {
   Box,
   Container,
@@ -9,6 +6,12 @@ import {
   IconButton,
   useColorMode,
 } from '@chakra-ui/react';
+import { Moon, Sun } from '@styled-icons/feather';
+import { enableAllPlugins } from 'immer';
+import Link from 'next/link';
+import { Recipe } from '../components/Recipe/Recipe';
+
+enableAllPlugins();
 
 export default function Home() {
   const { colorMode, toggleColorMode } = useColorMode();

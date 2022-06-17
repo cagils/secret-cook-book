@@ -1,44 +1,33 @@
-import {
-  Box,
-  Flex,
-  Icon,
-  IconButton,
-  Input,
-  InputGroup,
-  InputLeftAddon,
-  InputLeftElement,
-  Square,
-  Text,
-} from '@chakra-ui/react';
+import { Flex, Icon, IconButton, Square, Text } from '@chakra-ui/react';
 import { MinusSquare } from '@styled-icons/feather';
 import { Grabber } from '@styled-icons/octicons';
-import React from 'react';
+
 import { FInput } from '../Form/FInput';
 
-export const Ingredient = ({ editable = false, fieldId, desc }) => {
+export const Ingredient = ({
+  handleDeleteIngredient,
+  editable = false,
+  fieldId,
+  desc,
+  grabber,
+}) => {
   return (
     <Flex mb="4px" grow="1" color="purple.900">
       <Flex grow="1">
-        <Flex align="center" grow="1">
-          {editable && (
-            <IconButton
-              aria-label="Change Order"
-              fontSize="1.2rem"
-              variant="ghost"
-              color="purple.200"
-              icon={<Icon as={Grabber} />}
-            />
-          )}
-          <Flex height="2.5rem" color="purple.800" grow="1">
+        <Flex align="start" grow="1">
+          <Flex color="purple.800" grow="1">
             {editable ? (
               <FInput
+                fieldName={`desc.${fieldId}`}
+                rules={{ required: 'This is required' }}
+                label={null}
+                helper={null}
+                defaultValue={desc}
+                placeholder="Item name"
+                // rest...
                 bg="purple.300"
                 minWidth={{ base: '100px', md: '300px' }}
-                fieldName={`desc_${fieldId}`}
-                // isRequired
-                placeholder="Item name"
-                defaultValue={desc}
-                rules={{ required: 'This is required' }}
+                height={10}
               />
             ) : (
               <Flex
@@ -48,6 +37,7 @@ export const Ingredient = ({ editable = false, fieldId, desc }) => {
                 align="center"
                 px={4}
                 bg="purple.400"
+                height={10}
               >
                 <Text>{desc}</Text>
               </Flex>
@@ -55,16 +45,19 @@ export const Ingredient = ({ editable = false, fieldId, desc }) => {
           </Flex>
         </Flex>
         {editable && (
-          <Square>
-            <IconButton
-              isRound
-              aria-label="Toggle Dark Mode"
-              fontSize="1.2rem"
-              variant="ghost"
-              color="purple.200"
-              icon={<Icon as={MinusSquare} />}
-            />
-          </Square>
+          <Flex height={10}>
+            <Square>
+              <IconButton
+                isRound
+                aria-label="Toggle Dark Mode"
+                fontSize="1.2rem"
+                variant="ghost"
+                color="purple.200"
+                icon={<Icon as={MinusSquare} />}
+                onClick={handleDeleteIngredient}
+              />
+            </Square>
+          </Flex>
         )}
       </Flex>
     </Flex>

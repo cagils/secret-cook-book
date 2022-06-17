@@ -1,14 +1,26 @@
-import { FormControl, FormErrorMessage, FormLabel } from '@chakra-ui/react';
-import React from 'react';
+import {
+  FormControl,
+  FormErrorMessage,
+  FormHelperText,
+  FormLabel,
+} from '@chakra-ui/react';
+import { ErrorMessage } from '@hookform/error-message';
+import { get } from 'react-hook-form';
 
-export const FormControlWrapper = ({ children, errors, fieldName, label }) => {
+export const FormControlWrapper = ({
+  children,
+  errors,
+  fieldName,
+  label,
+  helper,
+}) => {
+  const error = get(errors, fieldName);
   return (
-    <FormControl isInvalid={errors[fieldName]}>
-      {label && <FormLabel htmlFor={fieldName}>{label}</FormLabel>}
+    <FormControl isInvalid={!!error}>
+      {!!label && <FormLabel htmlFor={fieldName}>{label}</FormLabel>}
       {children}
-      <FormErrorMessage>
-        {errors?.[fieldName] && errors[fieldName].message}
-      </FormErrorMessage>
+      {!!helper && <FormHelperText>{helper}</FormHelperText>}
+      {!!error && <FormErrorMessage mb={2}>{error.message}</FormErrorMessage>}
     </FormControl>
   );
 };

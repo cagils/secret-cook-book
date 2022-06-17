@@ -1,19 +1,81 @@
-import { Input, InputGroup, InputLeftElement } from '@chakra-ui/react';
-import React from 'react';
+import {
+  Editable,
+  EditableInput,
+  EditablePreview,
+  Input,
+} from '@chakra-ui/react';
+import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
+
 import { FormControlWrapper } from './FormControlWrapper';
 
-export const FInput = ({ fieldName, rules, label, leftElement, ...rest }) => {
+export const FInput = ({
+  fieldName,
+  rules,
+  label,
+  helper,
+  defaultValue,
+  placeholder,
+  type = 'input',
+  startWithEditView,
+  ...rest
+}) => {
+  // Get form context:
   const {
     handleSubmit,
     register,
     control,
     watch,
+    reset,
+    resetField,
+    setValue,
     formState: { errors, isSubmitting },
   } = useFormContext();
+
+  const registerOptions = {
+    ...rules,
+    shouldUnregister: true,
+  };
+  const { onChange, onBlur, name, ref } = register(fieldName, registerOptions);
+
   return (
-    <FormControlWrapper errors={errors} fieldName={fieldName} label={label}>
-      <Input id={fieldName} {...register(fieldName, rules)} {...rest} />
+    <FormControlWrapper
+      errors={errors}
+      fieldName={fieldName}
+      label={label}
+      helper={helper}
+    >
+      {type === 'editable' ? (
+        <Editable
+          // other parameters:
+          defaultValue={defaultValue}
+          startWithEditView={startWithEditView}
+          placeholder={placeholder}
+        >
+          <EditablePreview />
+          <EditableInput
+            // register form hook methods:
+            onChange={onChange} // assign onChange event
+            onBlur={onBlur} // assign onBlur event
+            name={name} // assign name prop
+            ref={ref} // assign ref prop
+            placeholder={placeholder}
+            {...rest}
+          />
+        </Editable>
+      ) : (
+        <Input
+          // register form hook methods:
+          onChange={onChange} // assign onChange event
+          onBlur={onBlur} // assign onBlur event
+          name={name} // assign name prop
+          ref={ref} // assign ref prop
+          // other parameters:
+          defaultValue={defaultValue}
+          placeholder={placeholder}
+          {...rest}
+        />
+      )}
     </FormControlWrapper>
   );
 };
