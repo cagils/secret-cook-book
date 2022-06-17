@@ -99,18 +99,22 @@ export const Ingredients = ({ ingredients, editable }) => {
     setLocalIngredients(formState);
   };
 
+  const handleReorder = (groupIdx, items) => {
+    const formState = formStateTransform();
+    unregisterAll();
+    const newList = [];
+    const oldList = formState[groupIdx].list;
+    items.forEach((v) => newList.push(oldList[parseInt(v.id)]));
+    formState[groupIdx].list = newList;
+    setLocalIngredients(formState);
+  };
+
   return (
     <Box bg="blackAlpha.300" borderRadius={4} my={4} p={4}>
       <Heading pb="2" borderBottomWidth={1} size="md">
         Ingredients
       </Heading>
       <Text size="md">Render Counter: {renderCounter}</Text>
-      {showDebugData && (
-        <Box>
-          {'debug:' + JSON.stringify(showDebugData)}
-          <pre>{JSON.stringify(localIngredients, undefined, 2)}</pre>
-        </Box>
-      )}
       <Box m="8px" justify="center" align="center" grow="1">
         <Box maxWidth="1200px" justify="center" align="center">
           <Box>
@@ -123,6 +127,7 @@ export const Ingredients = ({ ingredients, editable }) => {
                 handleDeleteGroup={handleDeleteGroup}
                 handleDeleteIngredient={handleDeleteIngredient}
                 handleNewIngredient={handleNewIngredient}
+                handleReorder={handleReorder}
               />
             ))}
           </Box>
@@ -143,6 +148,12 @@ export const Ingredients = ({ ingredients, editable }) => {
           )}
         </Box>
       </Box>
+      {showDebugData && (
+        <Box>
+          {'debug:' + JSON.stringify(showDebugData)}
+          <pre>{JSON.stringify(localIngredients, undefined, 2)}</pre>
+        </Box>
+      )}
     </Box>
   );
 };

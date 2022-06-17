@@ -19,6 +19,7 @@ import {
   useQueryClient,
 } from 'react-query';
 
+import 'focus-visible/dist/focus-visible';
 import customTheme from '../components/theme';
 import './globals.css';
 
