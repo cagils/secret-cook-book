@@ -27,14 +27,20 @@ export const Recipe = ({ mode, recipeId }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let abort = false;
     setLoading(true);
+
     const loadRecipe = async () => {
-      const response = await fetch(`/api/my/recipes/${recipeId}`, {
+      const fetchUrl = `/api/my/recipes/${recipeId}`;
+      console.log(`fetching ${fetchUrl}`);
+      const response = await fetch(fetchUrl, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
         },
       });
+
+      if (abort) return;
       if (!response.ok) {
         throw new Error(`Error: ${response.status}`);
       }
@@ -44,6 +50,10 @@ export const Recipe = ({ mode, recipeId }) => {
     };
 
     loadRecipe();
+
+    return () => {
+      abort = true;
+    };
   }, [recipeId]);
 
   if (loading) {

@@ -32,8 +32,6 @@ export const FInput = ({
     formState: { errors, isSubmitting },
   } = useFormContext();
 
-  useEffect(() => {}, [fieldName, resetField, defaultValue]);
-
   const registerOptions = {
     ...rules,
     shouldUnregister: true,
@@ -51,18 +49,17 @@ export const FInput = ({
         <Editable
           // other parameters:
           defaultValue={defaultValue}
-          placeholder={placeholder}
           startWithEditView={startWithEditView}
+          placeholder={placeholder}
         >
           <EditablePreview />
           <EditableInput
             // register form hook methods:
-            placeholder={placeholder}
-            defaultValue={defaultValue}
             onChange={onChange} // assign onChange event
             onBlur={onBlur} // assign onBlur event
             name={name} // assign name prop
             ref={ref} // assign ref prop
+            placeholder={placeholder}
             {...rest}
           />
         </Editable>
