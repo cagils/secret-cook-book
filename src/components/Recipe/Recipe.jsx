@@ -4,17 +4,14 @@ import { useFormContext } from 'react-hook-form';
 
 import { Ingredients } from '../Ingredients/Ingredients';
 
-export const Recipe = ({ mode, recipeId }) => {
+export const Recipe = ({ editable, recipeId }) => {
   const {
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { isSubmitting },
   } = useFormContext();
 
   const onFormError = (data) => {
-    // const name = Object.keys(data)[0];
-    // data = data[name];
-    // delete data.ref;
-    // alert(`${name}: ` + JSON.stringify(data, getCircularReplacer()));
+    alert(JSON.stringify(data, undefined, 2));
   };
 
   const onFormSubmit = (data) => {
@@ -67,7 +64,7 @@ export const Recipe = ({ mode, recipeId }) => {
       <form onSubmit={onSubmit}>
         <Heading>{recipe.title}</Heading>
         {Boolean(recipe) && (
-          <Ingredients editable={true} ingredients={recipe.ingredients} />
+          <Ingredients editable={editable} ingredients={recipe.ingredients} />
         )}
 
         <Box my="8px" align="end">

@@ -41,7 +41,7 @@ export default function Home() {
         borderRadius="lg"
         color="purple.50"
       >
-        <Recipe recipeId="scb0001" />
+        <Recipe editable={true} recipeId="scb0001" />
       </Box>
     </Container>
   );

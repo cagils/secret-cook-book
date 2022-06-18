@@ -4,7 +4,6 @@ import {
   EditablePreview,
   Input,
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { FormControlWrapper } from './FormControlWrapper';
@@ -22,14 +21,8 @@ export const FInput = ({
 }) => {
   // Get form context:
   const {
-    handleSubmit,
     register,
-    control,
-    watch,
-    reset,
-    resetField,
-    setValue,
-    formState: { errors, isSubmitting },
+    formState: { errors },
   } = useFormContext();
 
   const registerOptions = {

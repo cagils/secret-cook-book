@@ -5,12 +5,13 @@ import { useEffect, useState } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import useRenderCounter from '../../lib/hooks/useRenderCounter';
-import { getCircularReplacer, stripRef } from '../../lib/tools';
-import IngredientGroup from '../IngredientGroup/IngredientGroup';
+import { random } from '../../lib/tools';
+import { IngredientGroup } from '../IngredientGroup/IngredientGroup';
 
 setAutoFreeze(false);
 
 export const Ingredients = ({ ingredients, editable }) => {
+  // eslint-disable-next-line no-unused-vars
   const _EXAMPLE_FORMAT_ = [
     {
       groupName: 'cake',
@@ -41,23 +42,13 @@ export const Ingredients = ({ ingredients, editable }) => {
   const showDebugData = process.env.NEXT_PUBLIC_SHOW_DEBUG_DATA === 'true';
 
   const [localIngredients, setLocalIngredients] = useState(ingredients);
-  const [refresh, setRefresh] = useState(false);
+  const [instanceKey, setInstanceKey] = useState(random());
 
   useEffect(() => {
     formReset();
   }, [formReset, localIngredients]);
 
-  const {
-    handleSubmit,
-    register,
-    unregister,
-    control,
-    watch,
-    formState: { errors, isSubmitting },
-    getValues,
-    setValue,
-    reset: formReset,
-  } = useFormContext();
+  const { unregister, getValues, reset: formReset } = useFormContext();
 
   const unregisterAll = () => {
     unregister(['group', 'desc']);
@@ -107,6 +98,7 @@ export const Ingredients = ({ ingredients, editable }) => {
     items.forEach((v) => newList.push(oldList[parseInt(v.id)]));
     formState[groupIdx].list = newList;
     setLocalIngredients(formState);
+    setInstanceKey(random());
   };
 
   return (
@@ -120,7 +112,8 @@ export const Ingredients = ({ ingredients, editable }) => {
           <Box>
             {localIngredients.map((group, groupIdx) => (
               <IngredientGroup
-                key={`key_group_${groupIdx}`}
+                key={`key_${instanceKey}_group_${groupIdx}`}
+                instanceKey={instanceKey}
                 data={group}
                 groupIdx={groupIdx}
                 editable={editable}

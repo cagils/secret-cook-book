@@ -1,6 +1,5 @@
 import { Flex, Icon, IconButton, Square, Text } from '@chakra-ui/react';
 import { MinusSquare } from '@styled-icons/feather';
-import { Grabber } from '@styled-icons/octicons';
 
 import { FInput } from '../Form/FInput';
 
@@ -9,7 +8,6 @@ export const Ingredient = ({
   editable = false,
   fieldId,
   desc,
-  grabber,
 }) => {
   return (
     <Flex mb="4px" grow="1" color="purple.900">
