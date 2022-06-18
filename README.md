@@ -34,10 +34,27 @@
 <br/>
 <center><h2>Record, reference and share your personal kitchen secrets.</h2></center>
 
+<img src="public/images/SecretCookBook.png" />
+
 <br/>
-A showcase for a full-stack application.
+<h2>Sample Full Stack Project</h3>
 <p/>
-uses: react + next.js + chakra | tailwind + storybook
+<h3 style='color: pink'>
+
+- Next.js
+- Next.js REST API Backend
+- Chakra UI
+- TailwindCSS
+- Storybook
+- React Hook Form
+- DND-Kit
+- React Query
+- Husky
+- MongoDB + Mongoose + Atlas
+- Vercel Deployment
+
+</h2>
+
 <br />
 
 _...under construction..._
