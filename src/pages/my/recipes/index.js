@@ -15,7 +15,6 @@ import { Recipe } from '../../../components/Recipe/Recipe';
 enableAllPlugins();
 
 export default function RecipesPage() {
-  const router = useRouter();
   const recipeId = 'scb0001';
 
   const { colorMode, toggleColorMode } = useColorMode();
@@ -45,7 +44,7 @@ export default function RecipesPage() {
         borderRadius="lg"
         color="purple.50"
       >
-        <Recipe editable={true} recipeId={recipeId} />
+        <Recipe editable={true} recipeId={recipeId} recipeSSR={{}} />
       </Box>
     </Container>
   );

@@ -17,12 +17,13 @@ import { Ingredients } from '../Ingredients/Ingredients';
 
 setAutoFreeze(false);
 
-export const Recipe = ({ editable, recipeId }) => {
-  const [recipe, setRecipe] = useState(null);
+export const Recipe = ({ editable, recipeId, recipeSSR }) => {
+  const [recipe, setRecipe] = useState(recipeSSR);
   const [loading, setLoading] = useState(true);
   const [ingredients, setIngredients] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [instanceKey, setInstanceKey] = useState(random());
+  const refRecipeSSR = useRef(recipeSSR);
 
   const formMethods = useForm({
     mode: 'onChange',
@@ -130,6 +131,16 @@ export const Recipe = ({ editable, recipeId }) => {
   };
 
   useEffect(() => {
+    if (refRecipeSSR.current !== {}) {
+      const ssr = refRecipeSSR.current;
+      refRecipeSSR.current = {};
+      setRecipe(ssr);
+      setIngredients(ssr.ingredients);
+      setLoading(false);
+
+      return;
+    }
+
     let abort = false;
     setLoading(true);
 
@@ -143,12 +154,12 @@ export const Recipe = ({ editable, recipeId }) => {
             'Content-Type': 'application/json',
           },
         });
-        console.log('fetched.');
-
-        if (abort) return;
         if (!response.ok) {
           throw new Error(`Error: ${response.status}`);
         }
+        console.log('fetched.');
+
+        if (abort) return;
         let res = await response.json();
         setRecipe(res.data);
         setIngredients(res.data.ingredients);
