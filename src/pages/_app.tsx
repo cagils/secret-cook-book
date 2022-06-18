@@ -10,17 +10,9 @@ import { GetServerSidePropsContext, NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactNode, useState } from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import {
-  QueryClient,
-  QueryClientProvider,
-  useMutation,
-  useQuery,
-  useQueryClient,
-} from 'react-query';
 
 import 'focus-visible/dist/focus-visible';
-import customTheme from '../components/theme';
+import { customTheme } from '../styles/theme';
 import './globals.css';
 
 type GetLayout = (page: ReactNode) => ReactNode;
@@ -33,26 +25,14 @@ type MyAppProps<P = {}> = AppProps<P> & {
   Component: Page<P>;
 };
 
-const queryClient = new QueryClient();
-
 export default function App(props: MyAppProps) {
   const { Component, pageProps } = props;
 
   const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
 
-  const theme = extendTheme(customTheme);
-
-  const formMethods = useForm({
-    mode: 'onChange',
-    shouldUnregister: true,
-    criteriaMode: 'all',
-  });
-
   return (
-    <ChakraProvider theme={theme}>
-      <FormProvider {...formMethods}>
-        {getLayout(<Component {...pageProps} />)}
-      </FormProvider>
+    <ChakraProvider theme={customTheme}>
+      {getLayout(<Component {...pageProps} />)}
     </ChakraProvider>
   );
 }

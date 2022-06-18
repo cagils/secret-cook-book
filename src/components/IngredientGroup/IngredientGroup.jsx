@@ -63,26 +63,40 @@ export const IngredientGroup = ({
         </Box>
       )}
 
-      <ReorderableList
-        items={data.list.map((v, i) => ({ id: i.toString(), value: v }))}
-        reorderHandler={(items) => handleReorder(groupIdx, items)}
-      >
-        {data.list.map((ing, ingIdx) => (
-          <ReorderableItem
-            id={ingIdx.toString()}
+      {editable ? (
+        <ReorderableList
+          items={data.list.map((v, i) => ({ id: i.toString(), value: v }))}
+          reorderHandler={(items) => handleReorder(groupIdx, items)}
+        >
+          {data.list.map((ing, ingIdx) => (
+            <ReorderableItem
+              id={ingIdx.toString()}
+              key={`key_${instanceKey}_${groupIdx}_${ingIdx}`}
+            >
+              <Ingredient
+                editable={editable}
+                fieldId={`${groupIdx}.${ingIdx}`}
+                desc={ing}
+                handleDeleteIngredient={() =>
+                  handleDeleteIngredient(groupIdx, ingIdx)
+                }
+              />
+            </ReorderableItem>
+          ))}
+        </ReorderableList>
+      ) : (
+        data.list.map((ing, ingIdx) => (
+          <Ingredient
             key={`key_${instanceKey}_${groupIdx}_${ingIdx}`}
-          >
-            <Ingredient
-              editable={editable}
-              fieldId={`${groupIdx}.${ingIdx}`}
-              desc={ing}
-              handleDeleteIngredient={() =>
-                handleDeleteIngredient(groupIdx, ingIdx)
-              }
-            />
-          </ReorderableItem>
-        ))}
-      </ReorderableList>
+            editable={editable}
+            fieldId={`${groupIdx}.${ingIdx}`}
+            desc={ing}
+            handleDeleteIngredient={() =>
+              handleDeleteIngredient(groupIdx, ingIdx)
+            }
+          />
+        ))
+      )}
       {editable && (
         <Square>
           <IconButton

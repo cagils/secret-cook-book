@@ -60,6 +60,7 @@
     "@types/uuid": "^8.3.4",
     "cookies-next": "^2.0.4",
     "dayjs": "^1.11.1",
+    "deep-equal": "^2.0.5",
     "focus-visible": "^5.2.0",
     "framer-motion": "^6.3.3",
     "immer": "^9.0.15",
