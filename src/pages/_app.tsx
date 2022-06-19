@@ -25,8 +25,6 @@ type MyAppProps<P = {}> = AppProps<P> & {
   Component: Page<P>;
 };
 
-const queryClient = new QueryClient();
-
 export default function App(props: MyAppProps) {
   const { Component, pageProps } = props;
 
