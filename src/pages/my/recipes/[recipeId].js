@@ -61,11 +61,10 @@ export async function getServerSideProps(context) {
   let host = null;
 
   if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-    host = process.env.NEXT_PUBLIC_VERCEL_URL;
+    host = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
   } else if (process.env.NODE_ENV === 'development') {
     host = 'http://localhost:3000';
   }
-
   try {
     // Fetch data from external API
     const fetchUrl = `${host}/api/my/recipes/${recipeId}`;
