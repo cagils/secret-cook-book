@@ -11,6 +11,6 @@ export const getCircularReplacer = () => {
   };
 };
 
-export const randomKey = () => {
+export const random = () => {
   return Math.floor(Math.random() * 10000);
 };

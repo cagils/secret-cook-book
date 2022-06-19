@@ -1,10 +1,10 @@
 import {
+  Box,
   Editable,
   EditableInput,
   EditablePreview,
   Input,
 } from '@chakra-ui/react';
-import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 
 import { FormControlWrapper } from './FormControlWrapper';
@@ -21,61 +21,91 @@ export const FInput = ({
   ...rest
 }) => {
   // Get form context:
+  const formMethods = useFormContext();
+
   const {
-    handleSubmit,
     register,
-    control,
+    unregister,
+    formState,
     watch,
+    handleSubmit,
     reset,
     resetField,
+    setError,
+    clearErrors,
     setValue,
-    formState: { errors, isSubmitting },
-  } = useFormContext();
+    setFocus,
+    getValues,
+    getFieldState,
+    trigger,
+    control,
+  } = formMethods;
+
+  const {
+    isDirty,
+    dirtyFields,
+    touchedFields,
+    isSubmitted,
+    isSubmitSuccessful,
+    isSubmitting,
+    submitCount,
+    isValid,
+    isValidating,
+    errors,
+  } = formState;
 
   const registerOptions = {
     ...rules,
     shouldUnregister: true,
   };
+
   const { onChange, onBlur, name, ref } = register(fieldName, registerOptions);
 
+  const fieldState = getFieldState(fieldName);
+
   return (
-    <FormControlWrapper
-      errors={errors}
-      fieldName={fieldName}
-      label={label}
-      helper={helper}
-    >
-      {type === 'editable' ? (
-        <Editable
-          // other parameters:
-          defaultValue={defaultValue}
-          startWithEditView={startWithEditView}
-          placeholder={placeholder}
-        >
-          <EditablePreview />
-          <EditableInput
+    <Box>
+      <FormControlWrapper
+        // errors={errors}
+        fieldState={fieldState}
+        fieldName={fieldName}
+        label={label}
+        helper={helper}
+      >
+        {type === 'editable' ? (
+          <Editable
+            // other parameters:
+            defaultValue={defaultValue}
+            startWithEditView={startWithEditView}
+            placeholder={placeholder}
+          >
+            <EditablePreview />
+            <EditableInput
+              // register form hook methods:
+              onChange={onChange} // assign onChange event
+              onBlur={onBlur} // assign onBlur event
+              name={name} // assign name prop
+              ref={ref} // assign ref prop
+              // other parameters:
+              placeholder={placeholder}
+              {...rest}
+            />
+          </Editable>
+        ) : (
+          <Input
             // register form hook methods:
             onChange={onChange} // assign onChange event
             onBlur={onBlur} // assign onBlur event
             name={name} // assign name prop
             ref={ref} // assign ref prop
+            // other parameters:
+
+            defaultValue={defaultValue}
             placeholder={placeholder}
             {...rest}
           />
-        </Editable>
-      ) : (
-        <Input
-          // register form hook methods:
-          onChange={onChange} // assign onChange event
-          onBlur={onBlur} // assign onBlur event
-          name={name} // assign name prop
-          ref={ref} // assign ref prop
-          // other parameters:
-          defaultValue={defaultValue}
-          placeholder={placeholder}
-          {...rest}
-        />
-      )}
-    </FormControlWrapper>
+        )}
+      </FormControlWrapper>
+    </Box>
   );
 };

@@ -9,11 +9,14 @@ import {
 import { Moon, Sun } from '@styled-icons/feather';
 import { enableAllPlugins } from 'immer';
 import Link from 'next/link';
-import { Recipe } from '../components/Recipe/Recipe';
+import { useRouter } from 'next/router';
+import { Recipe } from '../../../components/Recipe/Recipe';
 
 enableAllPlugins();
 
-export default function Home() {
+export default function RecipesPage() {
+  const recipeId = 'scb0001';
+
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
 
@@ -41,12 +44,12 @@ export default function Home() {
         borderRadius="lg"
         color="purple.50"
       >
-        <Recipe recipeId="scb0001" />
+        <Recipe editable={true} recipeId={recipeId} recipeSSR={{}} />
       </Box>
     </Container>
   );
 }
 
-Home.getLayout = (page) => {
+RecipesPage.getLayout = (page) => {
   return page;
 };

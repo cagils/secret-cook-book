@@ -1,4 +1,6 @@
-# Secret Cook Book 👩‍🍳
+<h1><p align='center'>Secret Cook Book 👩‍🍳 </p></h1>
+
+<h3><p align='center'>Sample Full Stack Project</p></h3>
 
 <p align="center">
   <a href="https://github.com/cagils/secret-cook-book">
@@ -34,13 +36,28 @@
 <br/>
 <center><h2>Record, reference and share your personal kitchen secrets.</h2></center>
 
-<br/>
-A showcase for a full-stack application.
-<p/>
-uses: react + next.js + chakra | tailwind + storybook
-<br />
-
 _...under construction..._
+
+<center><div align='center'><img src="public/SecretCookBook.png" height=1100/></div></center>
+
+<p/>
+<h3>
+<ul>
+<li> Next.js </li>
+<li> Next.js REST API Backend</li>
+<li> Chakra UI</li>
+<li> TailwindCSS</li>
+<li> Storybook</li>
+<li> React Hook Form</li>
+<li> DND-Kit</li>
+<li> React Query</li>
+<li> Husky</li>
+<li> MongoDB + Mongoose + Atlas</li>
+<li> Vercel Deployment</li>
+</ul>
+</h3>
+
+<br />
 
 <br />
 <br />

@@ -1,20 +1,25 @@
 {
-  //"parser": "@typescript-eslint/parser",
-  //"plugins": ["@typescript-eslint"],
+  "root": true,
+  "parser": "@typescript-eslint/parser",
+  "plugins": ["@typescript-eslint"],
   "extends": [
     "eslint:recommended",
-    //"plugin:@typescript-eslint/eslint-recommended",
-    //"plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/eslint-recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:storybook/recommended",
     "next",
     "next/core-web-vitals",
     "prettier"
   ],
   "env": {
+    "node": true,
     "browser": true,
     "es6": true
   },
   "rules": {
+    "no-unused-vars": "off",
+    "@typescript-eslint/no-unused-vars": ["warn"],
+    "@typescript-eslint/ban-types": "off",
     "react/display-name": "off",
     "react/jsx-uses-react": "off",
     "react/react-in-jsx-scope": "off",
@@ -35,20 +40,25 @@
         "prop": "parens-new-line"
       }
     ],
-    "no-unused-vars": 1,
     "max-len": ["warn", { "code": 140, "ignoreComments": true }],
     "import/no-anonymous-default-export": [2, { "allowArrowFunction": true }]
   },
   "overrides": [
     {
       // or whatever matches stories specified in .storybook/main.js
-      "files": ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"],
-      "rules": {
+      "files": ["*.stories.@(ts|tsx|js|jsx|mjs|cjs)"]
+      /*       "rules": {
         // example of overriding a rule
         // "storybook/hierarchy-separator": "error",
         // example of disabling a rule
         // "storybook/default-exports": "off"
-      }
+      } */
     }
+    // {
+    //   "files": ["*.ts", "*.mts", "*.cts", "*.tsx"],
+    //   "rules": {
+    //     "no-undef": "off"
+    //   }
+    // }
   ]
 }

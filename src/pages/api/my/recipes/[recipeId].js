@@ -6,6 +6,8 @@ const singleRecipe = async (req, res) => {
   const query = req.query;
   let recipe = null;
 
+  // await new Promise((r) => setTimeout(r, 5000));
+
   try {
     if (!models) {
       throw Error('Could not find db connection');

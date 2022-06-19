@@ -1,9 +1,5 @@
 import {
   Box,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  Flex,
   Heading,
   Icon,
   IconButton,
@@ -15,80 +11,10 @@ import { FInput } from '../Form/FInput';
 
 import { Ingredient } from '../Ingredient/Ingredient';
 
-import { Grabber } from '@styled-icons/octicons';
-import { useEffect, useRef, useState } from 'react';
+import { ReorderableItem } from '../Reorderable/ReorderableItem';
+import { ReorderableList } from '../Reorderable/ReorderableList';
 
-import { DndContext } from '@dnd-kit/core';
-import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
-import { arrayMove, SortableContext, useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { randomKey } from '../../lib/tools';
-
-function ReorderableItem({ children, id, ...props }) {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
-
-  return (
-    <Flex
-      ref={setNodeRef}
-      style={{
-        transform: CSS.Transform.toString(transform),
-        transition,
-      }}
-      {...props}
-    >
-      <Flex height={10} {...attributes} {...listeners}>
-        <IconButton
-          isRound
-          aria-label="Toggle Dark Mode"
-          fontSize="1.2rem"
-          variant="ghost"
-          color="purple.200"
-          icon={<Icon as={Grabber} />}
-          style={{ cursor: 'ns-resize' }}
-        />
-      </Flex>
-      {children}
-    </Flex>
-  );
-}
-
-const ReorderableList = ({
-  children,
-  reorderHandler,
-  id,
-  items: defaultItems,
-  ...props
-}) => {
-  const [items, setItems] = useState(defaultItems);
-
-  useEffect(() => setItems(defaultItems), [defaultItems]);
-
-  const handleDragEnd = ({ active, over }) => {
-    if (!over) {
-      return;
-    }
-
-    if (active.id !== over.id) {
-      const activeIndex = active.data.current.sortable.index;
-      const overIndex = over.data.current?.sortable.index || 0;
-
-      const newItems = arrayMove(items, activeIndex, overIndex);
-      setItems(newItems);
-      reorderHandler(newItems);
-    }
-  };
-
-  return (
-    <DndContext modifiers={[restrictToVerticalAxis]} onDragEnd={handleDragEnd}>
-      <SortableContext id={id} items={items}>
-        <div {...props}>{children}</div>
-      </SortableContext>
-    </DndContext>
-  );
-};
-
-function IngredientGroup({
+export const IngredientGroup = ({
   data,
   groupIdx,
   editable,
@@ -96,7 +22,8 @@ function IngredientGroup({
   handleDeleteIngredient,
   handleNewIngredient,
   handleReorder,
-}) {
+  instanceKey,
+}) => {
   return (
     <Box align="left" mt="20px">
       {data.groupName !== 'default' && (
@@ -136,26 +63,40 @@ function IngredientGroup({
         </Box>
       )}
 
-      <ReorderableList
-        items={data.list.map((v, i) => ({ id: i.toString(), value: v }))}
-        reorderHandler={(items) => handleReorder(groupIdx, items)}
-      >
-        {data.list.map((ing, ingIdx) => (
-          <ReorderableItem
-            id={ingIdx.toString()}
-            key={`key_${groupIdx}_${ingIdx}_${randomKey()}`}
-          >
-            <Ingredient
-              editable={editable}
-              fieldId={`${groupIdx}.${ingIdx}`}
-              desc={ing}
-              handleDeleteIngredient={() =>
-                handleDeleteIngredient(groupIdx, ingIdx)
-              }
-            />
-          </ReorderableItem>
-        ))}
-      </ReorderableList>
+      {editable ? (
+        <ReorderableList
+          items={data.list.map((v, i) => ({ id: i.toString(), value: v }))}
+          reorderHandler={(items) => handleReorder(groupIdx, items)}
+        >
+          {data.list.map((ing, ingIdx) => (
+            <ReorderableItem
+              id={ingIdx.toString()}
+              key={`key_${instanceKey}_${groupIdx}_${ingIdx}`}
+            >
+              <Ingredient
+                editable={editable}
+                fieldId={`${groupIdx}.${ingIdx}`}
+                desc={ing}
+                handleDeleteIngredient={() =>
+                  handleDeleteIngredient(groupIdx, ingIdx)
+                }
+              />
+            </ReorderableItem>
+          ))}
+        </ReorderableList>
+      ) : (
+        data.list.map((ing, ingIdx) => (
+          <Ingredient
+            key={`key_${instanceKey}_${groupIdx}_${ingIdx}`}
+            editable={editable}
+            fieldId={`${groupIdx}.${ingIdx}`}
+            desc={ing}
+            handleDeleteIngredient={() =>
+              handleDeleteIngredient(groupIdx, ingIdx)
+            }
+          />
+        ))
+      )}
       {editable && (
         <Square>
           <IconButton
@@ -171,6 +112,4 @@ function IngredientGroup({
       )}
     </Box>
   );
-}
-
-export default IngredientGroup;
+};
