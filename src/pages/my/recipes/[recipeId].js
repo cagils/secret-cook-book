@@ -10,17 +10,17 @@ import { Moon, Sun } from '@styled-icons/feather';
 import { enableAllPlugins } from 'immer';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useCallback } from 'react';
 import { Recipe } from '../../../components/Recipe/Recipe';
 
 enableAllPlugins();
 
-export default function RecipePage({ data }) {
+export default function RecipePage({}) {
   const router = useRouter();
   const { recipeId } = router.query;
 
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
-
   return (
     <Container>
       <Box>
@@ -45,7 +45,7 @@ export default function RecipePage({ data }) {
         borderRadius="lg"
         color="purple.50"
       >
-        <Recipe editable={true} recipeId={recipeId} recipeSSR={data} />
+        <Recipe editable={true} recipeId={recipeId} />
       </Box>
     </Container>
   );
@@ -55,7 +55,9 @@ RecipePage.getLayout = (page) => {
   return page;
 };
 
-export async function getServerSideProps(context) {
+/* export async function getServerSideProps(context) {
+  return { props: { data: {} } }; // SSR disabled
+
   const { recipeId } = context.params;
   let res = null;
   let host = null;
@@ -91,4 +93,4 @@ export async function getServerSideProps(context) {
   }
 
   return { props: { data: res.data } };
-}
+} */

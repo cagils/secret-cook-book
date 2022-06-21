@@ -30,7 +30,6 @@
 </p>
 <h3><p align='center'>Sample Next.js MongoDB Full Stack Project</p></h3>
 
-
 <br/>
 <center><h2>Record, reference and share your personal kitchen secrets.</h2></center>
 

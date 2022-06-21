@@ -25,49 +25,45 @@ export const FInput = ({
 
   const {
     register,
-    unregister,
-    formState,
-    watch,
-    handleSubmit,
-    reset,
-    resetField,
-    setError,
-    clearErrors,
-    setValue,
-    setFocus,
-    getValues,
+    //unregister,
+    //formState,
+    //watch,
+    //handleSubmit,
+    //reset,
+    //resetField,
+    //setError,
+    //clearErrors,
+    //setValue,
+    //setFocus,
+    //getValues,
     getFieldState,
-    trigger,
-    control,
+    //trigger,
+    //control,
   } = formMethods;
 
-  const {
-    isDirty,
-    dirtyFields,
-    touchedFields,
-    isSubmitted,
-    isSubmitSuccessful,
-    isSubmitting,
-    submitCount,
-    isValid,
-    isValidating,
-    errors,
-  } = formState;
+  // const {
+  //   isDirty,
+  //   dirtyFields,
+  //   touchedFields,
+  //   isSubmitted,
+  //   isSubmitSuccessful,
+  //   isSubmitting,
+  //   submitCount,
+  //   isValid,
+  //   isValidating,
+  //   errors,
+  // } = formState;
 
   const registerOptions = {
     ...rules,
     shouldUnregister: true,
   };
 
-  const { onChange, onBlur, name, ref } = register(fieldName, registerOptions);
-
-  const fieldState = getFieldState(fieldName);
-
   return (
     <Box>
       <FormControlWrapper
         // errors={errors}
-        fieldState={fieldState}
+        fieldState={getFieldState(fieldName)}
         fieldName={fieldName}
         label={label}
         helper={helper}
@@ -82,10 +78,11 @@ export const FInput = ({
             <EditablePreview />
             <EditableInput
               // register form hook methods:
-              onChange={onChange} // assign onChange event
-              onBlur={onBlur} // assign onBlur event
-              name={name} // assign name prop
-              ref={ref} // assign ref prop
+              // onChange={onChange} // assign onChange event
+              // onBlur={onBlur} // assign onBlur event
+              // name={name} // assign name prop
+              // ref={ref} // assign ref prop
+              {...register(fieldName, registerOptions)}
               // other parameters:
               placeholder={placeholder}
               {...rest}
@@ -94,12 +91,12 @@ export const FInput = ({
         ) : (
           <Input
             // register form hook methods:
-            onChange={onChange} // assign onChange event
-            onBlur={onBlur} // assign onBlur event
-            name={name} // assign name prop
-            ref={ref} // assign ref prop
+            // onChange={onChange} // assign onChange event
+            // onBlur={onBlur} // assign onBlur event
+            // name={name} // assign name prop
+            // ref={ref} // assign ref prop
+            {...register(fieldName, registerOptions)}
             // other parameters:
-
             defaultValue={defaultValue}
             placeholder={placeholder}
             {...rest}

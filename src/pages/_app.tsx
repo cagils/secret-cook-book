@@ -2,6 +2,7 @@ import {
   ChakraProvider,
   cookieStorageManager,
   extendTheme,
+  Flex,
   Icon,
   localStorageManager,
 } from '@chakra-ui/react';
@@ -9,9 +10,10 @@ import { getCookie, setCookies } from 'cookies-next';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { ReactNode, useState } from 'react';
+import { useRouter } from 'next/router';
+import { ReactNode, useEffect, useState } from 'react';
 
-import 'focus-visible/dist/focus-visible';
+import NextNProgress from 'nextjs-progressbar';
 import { customTheme } from '../styles/theme';
 import './globals.css';
 
@@ -32,7 +34,16 @@ export default function App(props: MyAppProps) {
 
   return (
     <ChakraProvider theme={customTheme}>
-      {getLayout(<Component {...pageProps} />)}
+      <Flex grow="1">
+        <NextNProgress
+          color={customTheme.colors['pink']['200']}
+          startPosition={0.5}
+          stopDelayMs={10}
+          height={2}
+          showOnShallow={true}
+        />
+        {getLayout(<Component {...pageProps} />)}
+      </Flex>
     </ChakraProvider>
   );
 }

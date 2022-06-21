@@ -66,6 +66,7 @@
     "immer": "^9.0.15",
     "mongoose": "^6.3.4",
     "next": "12.1.5",
+    "nextjs-progressbar": "^0.0.14",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-hook-form": "^7.30.0",

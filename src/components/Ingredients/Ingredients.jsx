@@ -12,9 +12,7 @@ import {
 } from '@chakra-ui/react';
 import { FilePlus } from '@styled-icons/feather';
 
-import { useFormContext } from 'react-hook-form';
-
-import useRenderCounter from '../../lib/hooks/useRenderCounter';
+import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
 
 import { IngredientGroup } from '../IngredientGroup/IngredientGroup';
 
@@ -27,8 +25,8 @@ export const Ingredients = ({
   handleNewIngredient,
   handleReorder,
   handleReset,
+  handleReload,
   instanceKey,
-  loading,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const _EXAMPLE_FORMAT_ = [
@@ -70,11 +68,27 @@ export const Ingredients = ({
             fontSize="xs"
             height="1.8rem"
             my={0}
-            mx={2}
+            ml={2}
             py={0}
+            px={1}
+            width={14}
             onClick={() => handleReset()}
           >
             RESET
+          </Button>
+          <Button
+            colorScheme="cyan"
+            variant="outline"
+            fontSize="xs"
+            height="1.8rem"
+            my={0}
+            ml={2}
+            py={0}
+            px={1}
+            width={14}
+            onClick={() => handleReload()}
+          >
+            RELOAD
           </Button>
         </Heading>
         <Text size="md">Render Counter: {renderCounter}</Text>
