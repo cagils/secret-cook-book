@@ -15,7 +15,7 @@ import { Recipe } from '../../../components/Recipe/Recipe';
 
 enableAllPlugins();
 
-export default function RecipePage({}) {
+export default function RecipePage() {
   const router = useRouter();
   const { recipeId } = router.query;
 
