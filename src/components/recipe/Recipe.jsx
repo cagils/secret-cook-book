@@ -295,9 +295,13 @@ export const Recipe = ({ editable, recipeId }) => {
             <Box my="8px" align="end">
               <Button
                 type="submit"
-                color="white"
-                variant="gradient"
-                bgGradient="linear(to-r, purple.300, pink.300)"
+                color={mode('pink.50', 'pink.800')}
+                colorScheme="pink"
+                //variant="gradient"
+                //bgGradient="linear(to-r, purple.300, pink.300)"
+                textTransform={'uppercase'}
+                letterSpacing={1.1}
+                fontWeight="semibold"
                 isLoading={isSubmitting}
               >
                 Save Recipe

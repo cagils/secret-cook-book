@@ -23,13 +23,21 @@ export const Layout = ({ children }) => {
       <VStack
         gap="2"
         p="6"
-        bgColor={mode('purple.100', 'gray.800')}
+        //bgColor={mode('purple.100', 'gray.800')}
+        bgGradient={mode(
+          'linear(to-r, purple.100, pink.100)',
+          'linear(to-r, purple.900, pink.900)'
+        )}
         my="4"
         borderRadius="20"
         minWidth="80%"
       >
         <Box alignSelf="flex-end" m="2">
           <IconButton
+            bgGradient={mode(
+              'linear(to-t, purple.200, pink.200)',
+              'linear(to-t, purple.800, pink.600)'
+            )}
             isRound
             variant="solid"
             //colorScheme={mode('purple', 'purple')}
