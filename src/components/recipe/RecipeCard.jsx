@@ -6,7 +6,7 @@ import {
   Heading,
   Stack,
   Text,
-  useColorModeValue,
+  useColorModeValue as mode,
 } from '@chakra-ui/react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -24,7 +24,7 @@ export const RecipeCard = ({ recipe }) => (
           <Box
             maxW="30rem"
             w={'full'}
-            bg={useColorModeValue('purple.200', 'gray.900')}
+            bg={mode('gray.50', 'gray.900')}
             boxShadow={'2xl'}
             rounded={'md'}
             p={6}
@@ -32,7 +32,7 @@ export const RecipeCard = ({ recipe }) => (
           >
             <Box
               h={'210px'}
-              bg={'purple.400'}
+              //bg={'purple.400'}
               mt={-6}
               mx={-6}
               mb={6}
@@ -50,10 +50,10 @@ export const RecipeCard = ({ recipe }) => (
             </Box>
             <Stack>
               <Text
-                color={'pink.500'}
-                fontWeight={800}
+                color={mode('pink.500', 'pink.400')}
+                fontWeight={600}
                 fontSize={'sm'}
-                letterSpacing={1.1}
+                letterSpacing={1.4}
                 textTransform="uppercase"
               >
                 <Flex gap="1rem">
@@ -62,7 +62,7 @@ export const RecipeCard = ({ recipe }) => (
                 </Flex>
               </Text>
               <Heading
-                color={useColorModeValue('pink.700', 'pink.200')}
+                color={mode('pink.700', 'pink.200')}
                 fontSize={'2xl'}
                 fontFamily={'body'}
                 as="h3"
@@ -70,7 +70,7 @@ export const RecipeCard = ({ recipe }) => (
                 {recipe.title}
               </Heading>
               <Text
-                color={useColorModeValue('gray.800', 'gray.400')}
+                color={mode('gray.800', 'gray.400')}
                 fontFamily="Quicksand"
                 fontWeight="medium"
               >
@@ -78,7 +78,7 @@ export const RecipeCard = ({ recipe }) => (
               </Text>
             </Stack>
             <Stack
-              color={'pink.500'}
+              color={mode('pink.500', 'pink.400')}
               mt={6}
               direction={'column'}
               spacing={0}
@@ -93,10 +93,7 @@ export const RecipeCard = ({ recipe }) => (
                   )}
                 </Text>
               </Stack>
-              <Text
-                pt={'8px'}
-                color={useColorModeValue('gray.500', 'gray.500')}
-              >
+              <Text pt={'8px'} color={mode('gray.500', 'gray.500')}>
                 TODO: Feb 08, 2021 · 6min read
               </Text>
             </Stack>

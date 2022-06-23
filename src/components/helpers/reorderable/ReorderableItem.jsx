@@ -19,10 +19,11 @@ export const ReorderableItem = ({ children, id, ...props }) => {
       <Flex height={10} {...attributes} {...listeners}>
         <IconButton
           isRound
-          aria-label="Toggle Dark Mode"
+          aria-label="Grab Ingredient"
           fontSize="1.2rem"
           variant="ghost"
-          color="purple.200"
+          colorScheme="pink"
+          //color="purple.200"
           icon={<Icon as={Grabber} />}
           style={{ cursor: 'ns-resize' }}
         />

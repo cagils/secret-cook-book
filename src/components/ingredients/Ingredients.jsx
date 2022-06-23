@@ -6,9 +6,12 @@ import {
   Button,
   Flex,
   Heading,
+  HStack,
   Icon,
   IconButton,
   Text,
+  useColorModeValue as mode,
+  VStack,
 } from '@chakra-ui/react';
 import { FilePlus } from '@styled-icons/feather';
 
@@ -17,6 +20,7 @@ import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
 import { IngredientGroup } from './IngredientGroup/IngredientGroup';
 
 export const Ingredients = ({
+  loading,
   ingredients,
   editable,
   handleDeleteGroup,
@@ -57,76 +61,71 @@ export const Ingredients = ({
   const renderCounter = useRenderCounter();
 
   return (
-    <>
-      <Box pos="absolute" bg="red" top="0" left="0" />
-      <Box bg="blackAlpha.300" borderRadius={4} my={4} p={4}>
-        <Heading height="2.3rem" pb={2} borderBottomWidth={1} size="md">
+    <VStack
+      align="stretch"
+      justify="start"
+      // bg="blackAlpha.300"
+      borderRadius="lg"
+      my={4}
+      py={8}
+      px={4}
+      borderWidth="thin"
+      borderColor="pink.200"
+      bgColor={mode('whiteAlpha.900', 'gray.700')}
+    >
+      <HStack mb="2">
+        <Heading size="md" fontFamily="body">
           Ingredients{' '}
-          <Button
-            colorScheme="pink"
-            variant="outline"
-            fontSize="xs"
-            height="1.8rem"
-            my={0}
-            ml={2}
-            py={0}
-            px={1}
-            width={14}
-            onClick={() => handleReset()}
-          >
-            RESET
-          </Button>
-          <Button
-            colorScheme="cyan"
-            variant="outline"
-            fontSize="xs"
-            height="1.8rem"
-            my={0}
-            ml={2}
-            py={0}
-            px={1}
-            width={14}
-            onClick={() => handleReload()}
-          >
-            RELOAD
-          </Button>
         </Heading>
-        <Text size="md">Render Counter: {renderCounter}</Text>
-        <Box m="8px" justify="center" align="center" grow="1">
-          <Box maxWidth="1200px" justify="center" align="center">
-            <Box>
-              {ingredients.map((group, groupIdx) => (
-                <IngredientGroup
-                  key={`key_${instanceKey}_group_${groupIdx}`}
-                  instanceKey={instanceKey}
-                  data={group}
-                  groupIdx={groupIdx}
-                  editable={editable}
-                  handleDeleteGroup={handleDeleteGroup}
-                  handleDeleteIngredient={handleDeleteIngredient}
-                  handleNewIngredient={handleNewIngredient}
-                  handleReorder={handleReorder}
-                />
-              ))}
-            </Box>
-            {editable && (
-              <>
-                <Flex>
-                  <IconButton
-                    isRound
-                    aria-label="Toggle Dark Mode"
-                    fontSize="1.2rem"
-                    variant="ghost"
-                    color="purple.200"
-                    icon={<Icon as={FilePlus} />}
-                    onClick={() => handleNewGroup()}
-                  />
-                </Flex>
-              </>
-            )}
-          </Box>
-        </Box>
+        <Button
+          size="xs"
+          colorScheme="pink"
+          variant="outline"
+          onClick={() => handleReset()}
+        >
+          RESET
+        </Button>
+        <Button
+          size="xs"
+          colorScheme="cyan"
+          variant="outline"
+          onClick={() => handleReload()}
+        >
+          RELOAD
+        </Button>
+      </HStack>
+      <Text size="md">Render Counter: {renderCounter}</Text>
+      <Box>
+        {ingredients.map((group, groupIdx) => (
+          <IngredientGroup
+            loading={loading}
+            key={`key_${instanceKey}_group_${groupIdx}`}
+            instanceKey={instanceKey}
+            data={group}
+            groupIdx={groupIdx}
+            editable={editable}
+            handleDeleteGroup={handleDeleteGroup}
+            handleDeleteIngredient={handleDeleteIngredient}
+            handleNewIngredient={handleNewIngredient}
+            handleReorder={handleReorder}
+          />
+        ))}
       </Box>
-    </>
+      {editable && (
+        <>
+          <Flex>
+            <IconButton
+              isRound
+              aria-label="Add New Group"
+              fontSize="1.2rem"
+              variant="ghost"
+              //color="purple.200"
+              icon={<Icon as={FilePlus} />}
+              onClick={() => handleNewGroup()}
+            />
+          </Flex>
+        </>
+      )}
+    </VStack>
   );
 };

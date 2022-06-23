@@ -25,34 +25,35 @@ export const FInput = ({
 
   const {
     register,
-    //unregister,
-    //formState,
-    //watch,
-    //handleSubmit,
-    //reset,
-    //resetField,
-    //setError,
-    //clearErrors,
-    //setValue,
-    //setFocus,
-    //getValues,
+    unregister,
+    formState,
+    watch,
+    handleSubmit,
+    reset,
+    resetField,
+    setError,
+    clearErrors,
+    setValue,
+    setFocus,
+    getValues,
     getFieldState,
-    //trigger,
-    //control,
+    trigger,
+    control,
   } = formMethods;
 
-  // const {
-  //   isDirty,
-  //   dirtyFields,
-  //   touchedFields,
-  //   isSubmitted,
-  //   isSubmitSuccessful,
-  //   isSubmitting,
-  //   submitCount,
-  //   isValid,
-  //   isValidating,
-  //   errors,
-  // } = formState;
+  // it is important to destruct this fully even if it is not used here (registration is important)
+  const {
+    isDirty,
+    dirtyFields,
+    touchedFields,
+    isSubmitted,
+    isSubmitSuccessful,
+    isSubmitting,
+    submitCount,
+    isValid,
+    isValidating,
+    errors,
+  } = formState;
 
   const registerOptions = {
     ...rules,
@@ -60,7 +61,7 @@ export const FInput = ({
   };
 
   return (
-    <Box>
+    <Box width="full">
       <FormControlWrapper
         // errors={errors}
         fieldState={getFieldState(fieldName)}

@@ -14,6 +14,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { Recipe } from '../../../components/recipe/Recipe';
+import { Layout } from '../../../layouts/Layout';
 
 enableAllPlugins();
 
@@ -23,38 +24,11 @@ export default function RecipePage() {
 
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
-  return (
-    <Center>
-      <Box>
-        <IconButton
-          variant="outline"
-          color={dark ? 'yellow' : 'blue'}
-          onClick={() => toggleColorMode()}
-          aria-label="Toggle color scheme"
-          icon={<Icon as={dark ? Sun : Moon} />}
-        />
-      </Box>
-      <Heading align="center">
-        <Link href="/">
-          <a>Secret Cook Book</a>
-        </Link>
-      </Heading>
-      <Box
-        m="10px"
-        p="20px"
-        bg="purple.500"
-        borderWidth="1px"
-        borderRadius="lg"
-        color="purple.50"
-      >
-        <Recipe editable={true} recipeId={recipeId} />
-      </Box>
-    </Center>
-  );
+  return <Recipe editable={true} recipeId={recipeId} />;
 }
 
 RecipePage.getLayout = (page) => {
-  return page;
+  return <Layout>{page}</Layout>;
 };
 
 /* export async function getServerSideProps(context) {

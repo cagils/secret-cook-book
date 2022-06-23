@@ -558,7 +558,7 @@ const customColors = {};
 const customStyles = {
   global: (props: StyleFunctionProps) => ({
     body: {
-      bg: mode('gray.200', 'gray.700')(props),
+      bg: mode('gray.50', 'gray.900')(props),
     },
   }),
 };

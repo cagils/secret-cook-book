@@ -15,8 +15,7 @@
     "bradgashler.htmltagwrap",
     "yatki.vscode-surround",
     "naumovs.color-highlight",
-    "github.vscode-pull-request-github",
-    "formulahendry.auto-rename-tag"
+    "github.vscode-pull-request-github"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []
