@@ -46,7 +46,7 @@ _...under construction..._
   <img src="https://badgen.net/badge/Preview/Development/green"/>
 </a>
 <p/>
-<center><div align='center' ><img src="public/SecretCookBook.png" height=1100/></div></center>
+<center><div align='center' ><img src="public/SecretCookBook.png"/></div></center>
 </div>
 <p/>
 <h3>
