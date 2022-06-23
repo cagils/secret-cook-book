@@ -1,7 +1,7 @@
 import { Flex, Icon, IconButton, Square, Text } from '@chakra-ui/react';
 import { MinusSquare } from '@styled-icons/feather';
 
-import { FInput } from '../Form/FInput';
+import { FInput } from '../helpers/form/FInput';
 
 export const Ingredient = ({
   handleDeleteIngredient,
@@ -24,7 +24,7 @@ export const Ingredient = ({
                 placeholder="Item name"
                 // rest...
                 bg="purple.300"
-                minWidth={{ base: '100px', md: '300px' }}
+                minWidth={{ base: '40', md: '60' }}
                 height={10}
               />
             ) : (

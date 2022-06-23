@@ -9,7 +9,7 @@ import {
 import { Moon, Sun } from '@styled-icons/feather';
 import { enableAllPlugins } from 'immer';
 import Link from 'next/link';
-import { Recipe } from '../components/Recipe/Recipe';
+import { Recipe } from '../components/recipe/Recipe';
 
 enableAllPlugins();
 
@@ -43,8 +43,8 @@ export default function IndexPage() {
         borderRadius="lg"
         color="purple.50"
       >
-        <Link href={`/my/recipes/${recipeId}`}>
-          <a>Chocolate Fudge Recipe</a>
+        <Link href={`/my/recipes/`}>
+          <a>Go to My Secret Recipes</a>
         </Link>
       </Box>
     </Container>

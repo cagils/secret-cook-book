@@ -7,12 +7,12 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { FileMinus, PlusSquare } from '@styled-icons/feather';
-import { FInput } from '../Form/FInput';
+import { FInput } from '../../helpers/form/FInput';
 
-import { Ingredient } from '../Ingredient/Ingredient';
+import { Ingredient } from '../Ingredient';
 
-import { ReorderableItem } from '../Reorderable/ReorderableItem';
-import { ReorderableList } from '../Reorderable/ReorderableList';
+import { ReorderableItem } from '../../helpers/reorderable/ReorderableItem';
+import { ReorderableList } from '../../helpers/reorderable/ReorderableList';
 
 export const IngredientGroup = ({
   data,

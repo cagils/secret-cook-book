@@ -1,6 +1,8 @@
 import {
   Box,
+  Center,
   Container,
+  Flex,
   Heading,
   Icon,
   IconButton,
@@ -11,7 +13,7 @@ import { enableAllPlugins } from 'immer';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
-import { Recipe } from '../../../components/Recipe/Recipe';
+import { Recipe } from '../../../components/recipe/Recipe';
 
 enableAllPlugins();
 
@@ -22,7 +24,7 @@ export default function RecipePage() {
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
   return (
-    <Container>
+    <Center>
       <Box>
         <IconButton
           variant="outline"
@@ -47,7 +49,7 @@ export default function RecipePage() {
       >
         <Recipe editable={true} recipeId={recipeId} />
       </Box>
-    </Container>
+    </Center>
   );
 }
 

@@ -14,7 +14,7 @@ import { FilePlus } from '@styled-icons/feather';
 
 import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
 
-import { IngredientGroup } from '../IngredientGroup/IngredientGroup';
+import { IngredientGroup } from './IngredientGroup/IngredientGroup';
 
 export const Ingredients = ({
   ingredients,

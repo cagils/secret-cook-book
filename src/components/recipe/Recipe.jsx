@@ -14,13 +14,13 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
 import { random } from '../../lib/tools';
-import { Ingredients } from '../Ingredients/Ingredients';
+import { Ingredients } from '../ingredients/Ingredients';
 
 setAutoFreeze(false);
 
 export const Recipe = ({ editable, recipeId }) => {
   const [recipe, setRecipe] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [instanceKey, setInstanceKey] = useState(random());
@@ -29,7 +29,7 @@ export const Recipe = ({ editable, recipeId }) => {
   const router = useRouter();
 
   const formMethods = useForm({
-    mode: 'onChange',
+    mode: 'onBlur',
     reValidateMode: 'onChange',
     defaultValues: {},
     resolver: undefined,
@@ -157,6 +157,10 @@ export const Recipe = ({ editable, recipeId }) => {
     let abort = false;
     setLoading(true);
 
+    if (!recipeId) {
+      console.log('recipeId is not defined. Aborting fetch.');
+      return;
+    }
     try {
       const loadRecipe = async () => {
         const fetchUrl = `/api/my/recipes/${recipeId}`;
@@ -235,7 +239,7 @@ export const Recipe = ({ editable, recipeId }) => {
 
   return (
     <FormProvider {...formMethods}>
-      <Flex borderColor="green" borderWidth="thin" p={2}>
+      <Flex p={2}>
         <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
           <Heading>
             {loading ? (
@@ -251,7 +255,7 @@ export const Recipe = ({ editable, recipeId }) => {
           </Heading>
           <Box pos="relative">
             <Box
-              hidden={!loading}
+              //hidden={!loading}
               pos="absolute"
               left="0"
               top="0"
