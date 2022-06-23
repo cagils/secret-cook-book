@@ -3,7 +3,6 @@ import withDb from '../../../lib/withDb';
 const singleRecipe = async (req, res) => {
   const models = req.models;
   const recipeBody = req.body;
-  const query = req.query;
   let recipe = null;
 
   try {

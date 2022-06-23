@@ -66,6 +66,7 @@
     "immer": "^9.0.15",
     "mongoose": "^6.3.4",
     "next": "12.1.5",
+    "nextjs-progressbar": "^0.0.14",
     "react": "18.0.0",
     "react-dom": "18.0.0",
     "react-hook-form": "^7.30.0",
@@ -76,8 +77,6 @@
   "devDependencies": {
     "@babel/core": "^7.17.9",
     "@chakra-ui/storybook-addon": "^2.0.0-next.3",
-    "@commitlint/cli": "^16.2.3",
-    "@commitlint/config-conventional": "^16.2.1",
     "@emotion/babel-plugin": "^11.9.2",
     "@emotion/babel-preset-css-prop": "^11.2.0",
     "@storybook/addon-a11y": "^6.5.0-beta.5",

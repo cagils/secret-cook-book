@@ -1,6 +1,8 @@
 import {
   Box,
+  Center,
   Container,
+  Flex,
   Heading,
   Icon,
   IconButton,
@@ -10,61 +12,38 @@ import { Moon, Sun } from '@styled-icons/feather';
 import { enableAllPlugins } from 'immer';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { Recipe } from '../../../components/Recipe/Recipe';
+import { useCallback } from 'react';
+import { Recipe } from '../../../components/recipe/Recipe';
+import { Layout } from '../../../layouts/Layout';
 
 enableAllPlugins();
 
-export default function RecipePage({ data }) {
+export default function RecipePage() {
   const router = useRouter();
   const { recipeId } = router.query;
 
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
-
-  return (
-    <Container>
-      <Box>
-        <IconButton
-          variant="outline"
-          color={dark ? 'yellow' : 'blue'}
-          onClick={() => toggleColorMode()}
-          aria-label="Toggle color scheme"
-          icon={<Icon as={dark ? Sun : Moon} />}
-        />
-      </Box>
-      <Heading align="center">
-        <Link href="/">
-          <a>Secret Cook Book</a>
-        </Link>
-      </Heading>
-      <Box
-        m="10px"
-        p="20px"
-        bg="purple.500"
-        borderWidth="1px"
-        borderRadius="lg"
-        color="purple.50"
-      >
-        <Recipe editable={true} recipeId={recipeId} recipeSSR={data} />
-      </Box>
-    </Container>
-  );
+  return <Recipe editable={true} recipeId={recipeId} />;
 }
 
 RecipePage.getLayout = (page) => {
-  return page;
+  return <Layout>{page}</Layout>;
 };
 
-export async function getServerSideProps(context) {
+/* export async function getServerSideProps(context) {
+  return { props: { data: {} } }; // SSR disabled
+
   const { recipeId } = context.params;
   let res = null;
   let host = null;
 
   if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-    host = `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+    host = process.env.NEXT_PUBLIC_VERCEL_URL;
   } else if (process.env.NODE_ENV === 'development') {
     host = 'http://localhost:3000';
   }
+
   try {
     // Fetch data from external API
     const fetchUrl = `${host}/api/my/recipes/${recipeId}`;
@@ -90,4 +69,4 @@ export async function getServerSideProps(context) {
   }
 
   return { props: { data: res.data } };
-}
+} */

@@ -41,6 +41,7 @@ export const FInput = ({
     control,
   } = formMethods;
 
+  // it is important to destruct this fully even if it is not used here (registration is important)
   const {
     isDirty,
     dirtyFields,
@@ -59,15 +60,11 @@ export const FInput = ({
     shouldUnregister: true,
   };
 
-  const { onChange, onBlur, name, ref } = register(fieldName, registerOptions);
-
-  const fieldState = getFieldState(fieldName);
-
   return (
-    <Box>
+    <Box width="full">
       <FormControlWrapper
         // errors={errors}
-        fieldState={fieldState}
+        fieldState={getFieldState(fieldName)}
         fieldName={fieldName}
         label={label}
         helper={helper}
@@ -82,10 +79,11 @@ export const FInput = ({
             <EditablePreview />
             <EditableInput
               // register form hook methods:
-              onChange={onChange} // assign onChange event
-              onBlur={onBlur} // assign onBlur event
-              name={name} // assign name prop
-              ref={ref} // assign ref prop
+              // onChange={onChange} // assign onChange event
+              // onBlur={onBlur} // assign onBlur event
+              // name={name} // assign name prop
+              // ref={ref} // assign ref prop
+              {...register(fieldName, registerOptions)}
               // other parameters:
               placeholder={placeholder}
               {...rest}
@@ -94,12 +92,12 @@ export const FInput = ({
         ) : (
           <Input
             // register form hook methods:
-            onChange={onChange} // assign onChange event
-            onBlur={onBlur} // assign onBlur event
-            name={name} // assign name prop
-            ref={ref} // assign ref prop
+            // onChange={onChange} // assign onChange event
+            // onBlur={onBlur} // assign onBlur event
+            // name={name} // assign name prop
+            // ref={ref} // assign ref prop
+            {...register(fieldName, registerOptions)}
             // other parameters:
-
             defaultValue={defaultValue}
             placeholder={placeholder}
             {...rest}

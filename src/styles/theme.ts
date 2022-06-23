@@ -350,7 +350,7 @@ const typography = {
   },
 
   fonts: {
-    heading: `-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, \"Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
+    heading: `-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
     body: `-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
     mono: `SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace`,
   },
@@ -558,7 +558,7 @@ const customColors = {};
 const customStyles = {
   global: (props: StyleFunctionProps) => ({
     body: {
-      bg: mode('gray.200', 'gray.700')(props),
+      bg: mode('gray.50', 'gray.900')(props),
     },
   }),
 };
@@ -582,7 +582,12 @@ const themeExtensions = {
   letterSpacings: {},
   lineHeights: {},
   fontWeights: {},
-  fonts: {},
+  fonts: {
+    // "Nunito", "Quicksand", "Big Shoulders Display", "Baloo Thambi 2", "Sansita Swashed"
+    heading: `"Sansita Swashed", ` + typography.fonts.heading,
+    body: `"Nunito", ` + typography.fonts.body,
+    mono: `` + typography.fonts.mono,
+  },
   fontSizes: {},
   // typography end
   sizes: {},

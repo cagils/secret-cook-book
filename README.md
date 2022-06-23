@@ -1,7 +1,4 @@
 <h1><p align='center'>Secret Cook Book 👩‍🍳 </p></h1>
-
-<h3><p align='center'>Sample Full Stack Project</p></h3>
-
 <p align="center">
   <a href="https://github.com/cagils/secret-cook-book">
     <img src="https://badgen.net/badge/-/github?icon=github&label=&color=black" alt="GitHub" />
@@ -15,7 +12,6 @@
   <a href="https://github.com/cagils/secret-cook-book/graphs/contributors">
     <img src="https://badgen.net/github/contributors/cagils/secret-cook-book/?color=cyan" alt="Contributors" />
   </a>
-  <br/>
   <a href="https://github.com/cagils/secret-cook-book/commits/" >
     <img src="https://badgen.net/github/commits/cagils/secret-cook-book/dev" alt="Commits" />        
   </a>
@@ -25,7 +21,6 @@
   <a href="https://github.com/cagils/secret-cook-book/pulls?q=" >
     <img src="https://badgen.net/github/prs/cagils/secret-cook-book/?color=red" alt="Pull Requests" />
   </a>
-  <br />
   <a href="https://github.com/cagils/secret-cook-book/blob/dev/LICENSE.md">
     <img
       src="https://badgen.net/badge/license/CC BY-NC-SA 4.0/orange"
@@ -33,13 +28,26 @@
     />
   </a>
 </p>
+<h3><p align='center'>Sample Next.js MongoDB Full Stack Project</p></h3>
+
 <br/>
 <center><h2>Record, reference and share your personal kitchen secrets.</h2></center>
 
 _...under construction..._
 
-<center><div align='center'><img src="public/SecretCookBook.png" height=1100/></div></center>
-
+<div align='center'>
+<a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcagils%2Fsecret-cook-book&env=MONGODB_URI&envDescription=You%20can%20use%20free%20Atlas%20account.%20URI%20format%3A%20%60%22ongodb%2Bsrv%3A%2F%2F%24%7BMONGODB_USER%7D%3A%24%7BMONGODB_PASS%7D%40%24%7BMONGODB_CLUSTER%7D.jswdp.mongodb.net%2F%24%7BMONGODB_DBNAME%7D%3FretryWrites%3Dtrue%26w%3Dmajority%22"><img src="https://badgen.net/badge/icon/Deploy?icon=vercel&label" alt="Deploy with Vercel"/></a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://secret-cook-book-git-production-cagils.vercel.app/">
+  <img src="https://badgen.net/badge/Preview/Production/orange"/>
+</a>
+  &nbsp;&nbsp;&nbsp;&nbsp;
+<a href="https://secret-cook-book-git-dev-cagils.vercel.app/">
+  <img src="https://badgen.net/badge/Preview/Development/green"/>
+</a>
+<p/>
+<center><div align='center' ><img src="public/SecretCookBook.png" height=1100/></div></center>
+</div>
 <p/>
 <h3>
 <ul>
