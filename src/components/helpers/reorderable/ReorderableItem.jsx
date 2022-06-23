@@ -16,7 +16,7 @@ export const ReorderableItem = ({ children, id, ...props }) => {
       }}
       {...props}
     >
-      <Flex height={10} {...attributes} {...listeners}>
+      <Flex height={10} {...attributes} {...listeners} css="touch-action: none">
         <IconButton
           isRound
           aria-label="Grab Ingredient"
