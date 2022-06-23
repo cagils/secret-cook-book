@@ -16,7 +16,7 @@ import Link from 'next/link';
 import { Layout } from '../layouts/Layout';
 
 export default function IndexPage() {
-  const { colorMode, toggleColorMode } = useColorMode();
+  const { colorMode } = useColorMode();
   const dark = colorMode === 'dark';
 
   return (
