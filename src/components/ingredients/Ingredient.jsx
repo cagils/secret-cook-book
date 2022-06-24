@@ -9,10 +9,10 @@ export const Ingredient = ({
   editable = false,
   fieldId,
   desc,
+  dragOverlay = false,
 }) => {
   return (
     <Flex
-      mb="4px"
       grow="1"
       //color="purple.900"
     >
@@ -34,10 +34,11 @@ export const Ingredient = ({
                   defaultValue={desc}
                   placeholder="Item name"
                   // rest...
-                  //bgColor="purple.300"
+                  //bgColor={dragOverlay ? 'gray.300' : 'inherit'}
                   minWidth={{ base: '40', md: '60' }}
                   height={10}
                   disabled={loading}
+                  readOnly={dragOverlay}
                 />
               </Flex>
             ) : (
@@ -54,7 +55,7 @@ export const Ingredient = ({
             )}
           </Flex>
         </Flex>
-        {editable && (
+        {editable && !dragOverlay && (
           <Flex height={10}>
             <Square>
               <IconButton

@@ -1,11 +1,26 @@
-import { Flex, Icon, IconButton } from '@chakra-ui/react';
+import { Box, Flex, Icon, IconButton } from '@chakra-ui/react';
+import {
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Grabber } from '@styled-icons/octicons';
 
-export const ReorderableItem = ({ children, id, ...props }) => {
-  const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id });
+export const ReorderableItem = ({ children, id }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+    isSorting,
+    isOver,
+  } = useSortable({ id });
 
   return (
     <Flex
@@ -13,10 +28,16 @@ export const ReorderableItem = ({ children, id, ...props }) => {
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
+        opacity: isDragging ? 0.8 : 1,
       }}
-      {...props}
+      {...attributes}
+      {...listeners}
+      css="touch-action: none"
+      id={id}
+      my={2}
+      p={0}
     >
-      <Flex height={10} {...attributes} {...listeners} css="touch-action: none">
+      <Box height={10}>
         <IconButton
           isRound
           aria-label="Grab Ingredient"
@@ -27,7 +48,7 @@ export const ReorderableItem = ({ children, id, ...props }) => {
           icon={<Icon as={Grabber} />}
           style={{ cursor: 'ns-resize' }}
         />
-      </Flex>
+      </Box>
       {children}
     </Flex>
   );

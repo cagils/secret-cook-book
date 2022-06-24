@@ -12,6 +12,7 @@ import { FInput } from '../../helpers/form/FInput';
 
 import { Ingredient } from '../Ingredient';
 
+import { Grabber } from '@styled-icons/octicons';
 import { ReorderableItem } from '../../helpers/reorderable/ReorderableItem';
 import { ReorderableList } from '../../helpers/reorderable/ReorderableList';
 
@@ -66,8 +67,22 @@ export const IngredientGroup = ({
 
       {editable ? (
         <ReorderableList
-          items={data.list.map((v, i) => ({ id: i.toString(), value: v }))}
+          items={data.list.map((ing, ingIdx) => ({
+            id: ingIdx.toString(),
+            value: ing,
+          }))}
           reorderHandler={(items) => handleReorder(groupIdx, items)}
+          renderDragOverlay={(id) => (
+            <Box id={id}>
+              <Ingredient
+                dragOverlay={true}
+                loading={loading}
+                editable={true}
+                desc={data.list[parseInt(id)]}
+                fieldId={`${groupIdx}.${id}`}
+              />
+            </Box>
+          )}
         >
           {data.list.map((ing, ingIdx) => (
             <ReorderableItem
