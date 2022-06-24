@@ -24,11 +24,11 @@ export const Layout = ({ children }) => {
     <Flex justify="center" grow="1" minHeight="100vh">
       <VStack
         gap="2"
-        p="6"
+        p="6px"
         //bgColor={mode('purple.100', 'gray.800')}
         my="4"
         borderRadius="20"
-        minWidth="80%"
+        minWidth="80vw"
       >
         <Box alignSelf="flex-end" m="2">
           <IconButton
@@ -47,9 +47,14 @@ export const Layout = ({ children }) => {
           />
         </Box>
         <Box px="12">
-          <Heading size="2xl" p={2} color={mode('pink.500', 'pink.200')}>
+          <Heading
+            textAlign="center"
+            size="2xl"
+            p={2}
+            color={mode('pink.500', 'pink.200')}
+          >
             <Link href="/">
-              <a>Secret Cook Book</a>
+              <a>Secret Cook&nbsp;Book</a>
             </Link>
           </Heading>
         </Box>

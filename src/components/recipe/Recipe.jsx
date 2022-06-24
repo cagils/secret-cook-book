@@ -261,7 +261,10 @@ export const Recipe = ({ editable, recipeId }) => {
               <HStack width="full" align="center" justify="center" p={4}>
                 <Box mt={8}>
                   <Box width="20px"></Box>
-                  <Heading color={mode('purple.500', 'purple.300')}>
+                  <Heading
+                    textAlign="center"
+                    color={mode('purple.500', 'purple.300')}
+                  >
                     <Text>{recipe?.title || 'Loading...'}</Text>
                   </Heading>
 
@@ -275,7 +278,14 @@ export const Recipe = ({ editable, recipeId }) => {
                 </Box>
               </HStack>
 
-              <HStack gap={8} width="full" align="start" justify="start" p={4}>
+              <HStack
+                wrap="wrap"
+                gap={8}
+                width="full"
+                align="stretch"
+                justify="start"
+                p={4}
+              >
                 <VStack
                   borderRadius="lg"
                   py={8}
@@ -324,8 +334,8 @@ export const Recipe = ({ editable, recipeId }) => {
                   borderWidth="thin"
                   borderColor="pink.200"
                   bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
-                  width="full"
                   align="start"
+                  flex={1}
                 >
                   <Box>asdf</Box>
                 </VStack>
