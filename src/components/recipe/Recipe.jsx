@@ -204,7 +204,7 @@ export const Recipe = ({ editable, recipeId }) => {
 
   const saveRecipe = async (formState) => {
     const fetchUrl = `/api/my/recipes/${recipeId}`;
-    console.log(`fetching ${fetchUrl}`);
+    console.log(`patching ${fetchUrl}`);
     const response = await fetch(fetchUrl, {
       method: 'PATCH',
       headers: {
@@ -212,32 +212,29 @@ export const Recipe = ({ editable, recipeId }) => {
       },
       body: JSON.stringify({ ingredients: formState }),
     });
-    console.log('fetched.');
+    console.log('patched.');
 
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
     let res = await response.json();
     setRecipe(res.data);
-    setLoading(false);
   };
 
   const onFormSubmit = async (data) => {
     console.log('ON FORM SUBMIT');
     setIsSubmitting(true);
-    setLoading(true);
     const formState = formStateTransform();
-    unregisterAll();
-    setIngredients(formState);
 
     try {
       console.log(data);
       await saveRecipe(formState);
+      console.log('SAVED!');
     } catch (e) {
-      console.log(e);
+      console.log('error', e);
     } finally {
-      setLoading(false);
       setIsSubmitting(false);
+      setReload((reload) => reload ^ 1);
     }
   };
 
