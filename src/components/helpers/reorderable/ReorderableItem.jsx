@@ -30,12 +30,11 @@ export const ReorderableItem = ({ children, id }) => {
         transition,
         opacity: isDragging ? 1 : 1,
       }}
-      css="touch-action: none"
       id={id}
       my={2}
       p={0}
     >
-      <Box height={10} {...attributes} {...listeners}>
+      <Box height={10} {...attributes} {...listeners} css="touch-action: none">
         <IconButton
           isRound
           aria-label="Grab Ingredient"

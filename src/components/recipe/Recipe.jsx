@@ -145,7 +145,7 @@ export const Recipe = ({ editable, recipeId }) => {
       const oldList = formState[groupIdx].list;
       items.forEach((v) => newList.push(oldList[parseInt(v.id)]));
       formState[groupIdx].list = newList;
-      setInstanceKey((prev) => random(prev));
+      //setInstanceKey((prev) => random(prev));
       setIngredients(formState);
     },
     [formStateTransform, unregisterAll]
