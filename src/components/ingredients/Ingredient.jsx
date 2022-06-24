@@ -5,7 +5,8 @@ import {
   IconButton,
   Square,
   Text,
-  useColorModeValue as mode,
+  useColorMode,
+  useColorModeValue,
 } from '@chakra-ui/react';
 import { MinusSquare } from '@styled-icons/feather';
 
@@ -19,6 +20,10 @@ export const Ingredient = ({
   desc,
   dragOverlay = false,
 }) => {
+  const { colorMode } = useColorMode();
+  const mode = (lightValue, darkValue) =>
+    colorMode == 'light' ? lightValue : darkValue;
+
   return (
     <Flex
       grow="1"

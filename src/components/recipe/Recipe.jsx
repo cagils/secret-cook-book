@@ -9,7 +9,7 @@ import {
   Spinner,
   Square,
   Text,
-  useColorModeValue as mode,
+  useColorMode,
   VStack,
 } from '@chakra-ui/react';
 import { produce, setAutoFreeze } from 'immer';
@@ -23,6 +23,10 @@ import { Ingredients } from '../ingredients/Ingredients';
 setAutoFreeze(false);
 
 export const Recipe = ({ editable, recipeId }) => {
+  const { colorMode } = useColorMode();
+  const mode = (lightValue, darkValue) =>
+    colorMode == 'light' ? lightValue : darkValue;
+
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(false);
   const [ingredients, setIngredients] = useState([]);
@@ -110,7 +114,7 @@ export const Recipe = ({ editable, recipeId }) => {
       const formState = formStateTransform();
       unregisterAll();
       formState[groupIdx].list.splice(ingIdx, 1);
-      setInstanceKey(random(instanceKey));
+      setInstanceKey((prev) => random(prev));
       setIngredients(formState);
     },
     [formStateTransform, unregisterAll]
@@ -141,7 +145,7 @@ export const Recipe = ({ editable, recipeId }) => {
       const oldList = formState[groupIdx].list;
       items.forEach((v) => newList.push(oldList[parseInt(v.id)]));
       formState[groupIdx].list = newList;
-      setInstanceKey(random(instanceKey));
+      setInstanceKey((prev) => random(prev));
       setIngredients(formState);
     },
     [formStateTransform, unregisterAll]
@@ -149,11 +153,10 @@ export const Recipe = ({ editable, recipeId }) => {
 
   const handleReset = useCallback(() => {
     unregisterAll();
-    setInstanceKey(random(instanceKey));
+    setInstanceKey((prev) => random(prev));
   }, [unregisterAll]);
 
   const handleReload = useCallback(() => {
-    setLoading(true);
     setReload((reload) => reload ^ 1);
     // router.replace(router.asPath); // This call refreshes page without reloading and causes Next.js to reapply getServerSideProps() method
   }, []);
@@ -239,6 +242,7 @@ export const Recipe = ({ editable, recipeId }) => {
   };
 
   const onFormError = (errors, event) => {
+    console.log('ON FORM ERROR!');
     console.log(errors, event);
   };
 

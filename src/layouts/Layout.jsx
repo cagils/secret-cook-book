@@ -8,7 +8,6 @@ import {
   Icon,
   IconButton,
   useColorMode,
-  useColorModeValue as mode,
   VStack,
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
@@ -16,6 +15,9 @@ import Link from 'next/link';
 
 export const Layout = ({ children }) => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const mode = (lightValue, darkValue) =>
+    colorMode == 'light' ? lightValue : darkValue;
+
   const dark = colorMode === 'dark';
 
   return (

@@ -6,7 +6,7 @@ import {
   IconButton,
   Square,
   Stack,
-  useColorModeValue as mode,
+  useColorMode,
 } from '@chakra-ui/react';
 import { FileMinus, PlusSquare } from '@styled-icons/feather';
 import { FInput } from '../helpers/form/FInput';
@@ -28,6 +28,10 @@ export const IngredientGroup = ({
   handleReorder,
   instanceKey,
 }) => {
+  const { colorMode } = useColorMode();
+  const mode = (lightValue, darkValue) =>
+    colorMode == 'light' ? lightValue : darkValue;
+
   return (
     <Box align="left" mt="20px">
       {data.groupName !== 'default' && (
