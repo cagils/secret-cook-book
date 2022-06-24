@@ -10,6 +10,7 @@ import {
   Square,
   Text,
   useColorModeValue as mode,
+  VStack,
 } from '@chakra-ui/react';
 import { produce, setAutoFreeze } from 'immer';
 import { Router, useRouter } from 'next/router';
@@ -88,8 +89,8 @@ export const Recipe = ({ editable, recipeId }) => {
     () =>
       produce(ingredients, (draft) => {
         const formValues = getValues();
-        formValues.desc.forEach((list, i) => (draft[i].list = list));
-        formValues.group.forEach((name, i) => (draft[i].groupName = name));
+        formValues?.desc?.forEach((list, i) => (draft[i].list = list));
+        formValues?.group?.forEach((name, i) => (draft[i].groupName = name));
       }),
     [getValues, ingredients]
   );
@@ -242,79 +243,112 @@ export const Recipe = ({ editable, recipeId }) => {
   };
 
   return (
-    <Box borderRadius="lg">
+    <Flex
+      grow="1"
+      justify="center"
+      align="stretch"
+      borderRadius="lg"
+      bgGradient={mode(
+        'linear(to-r, purple.100, pink.100)',
+        'linear(to-r, purple.900, pink.900)'
+      )}
+    >
       <FormProvider {...formMethods}>
-        <Flex p={2}>
+        <Box flex="1">
           <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
-            <HStack mt="8">
-              <Box width="20px"></Box>
-              <Heading color={mode('purple.500', 'purple.300')}>
-                <Text>{recipe?.title || 'Loading...'}</Text>
-              </Heading>
+            <VStack>
+              <HStack width="full" align="center" justify="center" p={4}>
+                <Box mt={8}>
+                  <Box width="20px"></Box>
+                  <Heading color={mode('purple.500', 'purple.300')}>
+                    <Text>{recipe?.title || 'Loading...'}</Text>
+                  </Heading>
 
-              <Box width="20px" pos="relative">
-                {loading && (
-                  <Box transform="translate(2px, -10px)">
-                    <Spinner color={mode('pink.400', 'purple.200')} />
+                  <Box width="20px" pos="relative">
+                    {loading && (
+                      <Box transform="translate(2px, -10px)">
+                        <Spinner color={mode('pink.400', 'purple.200')} />
+                      </Box>
+                    )}
                   </Box>
-                )}
-              </Box>
-            </HStack>
-            <Box pos="relative">
-              <Fade in={loading} transition={{ duration: 1 }}>
-                <Box
-                  //hidden={!loading}
-                  pos="absolute"
-                  left="0"
-                  top="0"
-                  bottom="0"
-                  right="0"
-                  bg="rgba(0,0,0,0.2)"
-                  zIndex="1300"
-                  borderRadius="md"
-                />
-              </Fade>
-              <Box>
-                {ingredients && (
-                  <Ingredients
-                    loading={loading}
-                    editable={editable}
-                    ingredients={ingredients}
-                    handleDeleteGroup={handleDeleteGroup}
-                    handleDeleteIngredient={handleDeleteIngredient}
-                    handleNewGroup={handleNewGroup}
-                    handleNewIngredient={handleNewIngredient}
-                    handleReorder={handleReorder}
-                    handleReset={handleReset}
-                    handleReload={handleReload}
-                    instanceKey={instanceKey}
-                  />
-                )}
-              </Box>
-            </Box>
+                </Box>
+              </HStack>
 
-            <Box my="8px" align="end">
-              <Button
-                type="submit"
-                color={mode('pink.50', 'pink.800')}
-                colorScheme="pink"
-                //variant="gradient"
-                //bgGradient="linear(to-r, purple.300, pink.300)"
-                textTransform={'uppercase'}
-                letterSpacing={1.1}
-                fontWeight="semibold"
-                isLoading={isSubmitting}
-              >
-                Save Recipe
-              </Button>
-            </Box>
-            {/*         
-        <Box>
-          <pre>{JSON.stringify(ingredients, undefined, 2)}</pre>
-        </Box> */}
+              <HStack gap={8} width="full" align="start" justify="start" p={4}>
+                <VStack
+                  borderRadius="lg"
+                  py={8}
+                  px={4}
+                  borderWidth="thin"
+                  borderColor="pink.200"
+                  bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+                >
+                  <Box pos="relative">
+                    <Fade in={loading} transition={{ duration: 1 }}>
+                      <Box
+                        //hidden={!loading}
+                        pos="absolute"
+                        left="0"
+                        top="0"
+                        bottom="0"
+                        right="0"
+                        bg="rgba(0,0,0,0.2)"
+                        zIndex="1300"
+                        borderRadius="md"
+                      />
+                    </Fade>
+                    <Box>
+                      {ingredients && (
+                        <Ingredients
+                          loading={loading}
+                          editable={editable}
+                          ingredients={ingredients}
+                          handleDeleteGroup={handleDeleteGroup}
+                          handleDeleteIngredient={handleDeleteIngredient}
+                          handleNewGroup={handleNewGroup}
+                          handleNewIngredient={handleNewIngredient}
+                          handleReorder={handleReorder}
+                          handleReset={handleReset}
+                          handleReload={handleReload}
+                          instanceKey={instanceKey}
+                        />
+                      )}
+                    </Box>
+                  </Box>
+                </VStack>
+                <VStack
+                  borderRadius="lg"
+                  py={8}
+                  px={4}
+                  borderWidth="thin"
+                  borderColor="pink.200"
+                  bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+                  width="full"
+                  align="start"
+                >
+                  <Box>asdf</Box>
+                </VStack>
+              </HStack>
+              <HStack width="full" align="start" justify="center" p={4}>
+                <Box flex="1"></Box>
+                <Button
+                  type="submit"
+                  color={mode('pink.50', 'pink.800')}
+                  colorScheme="pink"
+                  //variant="gradient"
+                  //bgGradient="linear(to-r, purple.300, pink.300)"
+                  textTransform={'uppercase'}
+                  letterSpacing={1.1}
+                  fontWeight="semibold"
+                  isLoading={isSubmitting}
+                >
+                  Save Recipe
+                </Button>
+              </HStack>
+            </VStack>
           </form>
-        </Flex>
+        </Box>
       </FormProvider>
-    </Box>
+    </Flex>
   );
 };

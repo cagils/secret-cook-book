@@ -24,10 +24,6 @@ export const Layout = ({ children }) => {
         gap="2"
         p="6"
         //bgColor={mode('purple.100', 'gray.800')}
-        bgGradient={mode(
-          'linear(to-r, purple.100, pink.100)',
-          'linear(to-r, purple.900, pink.900)'
-        )}
         my="4"
         borderRadius="20"
         minWidth="80%"
@@ -48,12 +44,8 @@ export const Layout = ({ children }) => {
             }
           />
         </Box>
-        <Box
-          borderBottomWidth="thin"
-          px="12"
-          borderBottomColor={mode('pink.500', 'pink.200')}
-        >
-          <Heading p={2} color={mode('pink.500', 'pink.200')}>
+        <Box px="12">
+          <Heading size="2xl" p={2} color={mode('pink.500', 'pink.200')}>
             <Link href="/">
               <a>Secret Cook Book</a>
             </Link>

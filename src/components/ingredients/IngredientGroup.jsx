@@ -6,6 +6,7 @@ import {
   IconButton,
   Square,
   Stack,
+  useColorModeValue as mode,
 } from '@chakra-ui/react';
 import { FileMinus, PlusSquare } from '@styled-icons/feather';
 import { FInput } from '../helpers/form/FInput';
@@ -30,8 +31,16 @@ export const IngredientGroup = ({
   return (
     <Box align="left" mt="20px">
       {data.groupName !== 'default' && (
-        <HStack>
-          <Heading pb="2" size="md">
+        <HStack
+          borderBottomWidth="thin"
+          borderColor={mode('pink.500', 'pink.300')}
+        >
+          <Heading
+            size="lg"
+            fontWeight="normal"
+            fontFamily="body"
+            color={mode('pink.500', 'pink.300')}
+          >
             {!editable ? (
               data.groupName
             ) : (
@@ -48,6 +57,7 @@ export const IngredientGroup = ({
                 // rest...
                 // bg="purple.300"
                 // minWidth={{ base: '100px', md: '300px' }}
+                px={4}
               />
             )}
           </Heading>

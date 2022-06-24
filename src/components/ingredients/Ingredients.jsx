@@ -65,13 +65,6 @@ export const Ingredients = ({
       align="stretch"
       justify="start"
       // bg="blackAlpha.300"
-      borderRadius="lg"
-      my={4}
-      py={8}
-      px={4}
-      borderWidth="thin"
-      borderColor="pink.200"
-      bgColor={mode('whiteAlpha.900', 'gray.700')}
     >
       <HStack mb="2">
         <Heading size="md" fontFamily="body">
@@ -99,7 +92,7 @@ export const Ingredients = ({
         {ingredients.map((group, groupIdx) => (
           <IngredientGroup
             loading={loading}
-            //key={`key_${instanceKey}_group_${groupIdx}`}
+            key={`key_${instanceKey}_group_${groupIdx}`}
             instanceKey={instanceKey}
             data={group}
             groupIdx={groupIdx}
