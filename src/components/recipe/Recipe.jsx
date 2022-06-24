@@ -157,6 +157,7 @@ export const Recipe = ({ editable, recipeId }) => {
   }, [unregisterAll]);
 
   const handleReload = useCallback(() => {
+    setLoading(true);
     setReload((reload) => reload ^ 1);
     // router.replace(router.asPath); // This call refreshes page without reloading and causes Next.js to reapply getServerSideProps() method
   }, []);
@@ -224,6 +225,7 @@ export const Recipe = ({ editable, recipeId }) => {
   const onFormSubmit = async (data) => {
     console.log('ON FORM SUBMIT');
     setIsSubmitting(true);
+    setLoading(true);
     const formState = formStateTransform();
 
     try {
@@ -234,6 +236,7 @@ export const Recipe = ({ editable, recipeId }) => {
       console.log('error', e);
     } finally {
       setIsSubmitting(false);
+      setLoading(false);
       setReload((reload) => reload ^ 1);
     }
   };
@@ -259,22 +262,20 @@ export const Recipe = ({ editable, recipeId }) => {
           <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
             <VStack>
               <HStack width="full" align="center" justify="center" p={4}>
-                <Box mt={8}>
-                  <Box width="20px"></Box>
-                  <Heading
-                    textAlign="center"
-                    color={mode('purple.500', 'purple.300')}
-                  >
-                    <Text>{recipe?.title || 'Loading...'}</Text>
-                  </Heading>
+                <Box height="6rem" width="20px"></Box>
+                <Heading
+                  textAlign="center"
+                  color={mode('purple.500', 'purple.300')}
+                >
+                  <Text>{recipe?.title || 'Loading...'}</Text>
+                </Heading>
 
-                  <Box width="20px" pos="relative">
-                    {loading && (
-                      <Box transform="translate(2px, -10px)">
-                        <Spinner color={mode('pink.400', 'purple.200')} />
-                      </Box>
-                    )}
-                  </Box>
+                <Box width="20px">
+                  {loading && (
+                    <Box transform="translate(2px, -10px)">
+                      <Spinner color={mode('pink.400', 'purple.200')} />
+                    </Box>
+                  )}
                 </Box>
               </HStack>
 
@@ -288,56 +289,52 @@ export const Recipe = ({ editable, recipeId }) => {
               >
                 <VStack
                   borderRadius="lg"
-                  py={8}
-                  px={4}
                   borderWidth="thin"
                   borderColor="pink.200"
                   bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+                  pos="relative"
                 >
-                  <Box pos="relative">
-                    <Fade in={loading} transition={{ duration: 1 }}>
-                      <Box
-                        //hidden={!loading}
-                        pos="absolute"
-                        left="0"
-                        top="0"
-                        bottom="0"
-                        right="0"
-                        bg="rgba(0,0,0,0.2)"
-                        zIndex="1300"
-                        borderRadius="md"
+                  <Fade in={loading} transition={{ duration: 0.5 }}>
+                    <Box
+                      //hidden={!loading}
+                      pos="absolute"
+                      left="0"
+                      top="0"
+                      bottom="0"
+                      right="0"
+                      bg="rgba(0,0,0,0.8)"
+                      zIndex="10000"
+                      borderRadius="lg"
+                      //overflow="hidden"
+                    />
+                  </Fade>
+                  <Box p={4}>
+                    {ingredients && (
+                      <Ingredients
+                        loading={loading}
+                        editable={editable}
+                        ingredients={ingredients}
+                        handleDeleteGroup={handleDeleteGroup}
+                        handleDeleteIngredient={handleDeleteIngredient}
+                        handleNewGroup={handleNewGroup}
+                        handleNewIngredient={handleNewIngredient}
+                        handleReorder={handleReorder}
+                        handleReset={handleReset}
+                        handleReload={handleReload}
+                        instanceKey={instanceKey}
                       />
-                    </Fade>
-                    <Box>
-                      {ingredients && (
-                        <Ingredients
-                          loading={loading}
-                          editable={editable}
-                          ingredients={ingredients}
-                          handleDeleteGroup={handleDeleteGroup}
-                          handleDeleteIngredient={handleDeleteIngredient}
-                          handleNewGroup={handleNewGroup}
-                          handleNewIngredient={handleNewIngredient}
-                          handleReorder={handleReorder}
-                          handleReset={handleReset}
-                          handleReload={handleReload}
-                          instanceKey={instanceKey}
-                        />
-                      )}
-                    </Box>
+                    )}
                   </Box>
                 </VStack>
                 <VStack
                   borderRadius="lg"
-                  py={8}
-                  px={4}
                   borderWidth="thin"
                   borderColor="pink.200"
                   bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
                   align="start"
                   flex={1}
                 >
-                  <Box>asdf</Box>
+                  <Box p={4}>asdf</Box>
                 </VStack>
               </HStack>
               <HStack width="full" align="start" justify="center" p={4}>
