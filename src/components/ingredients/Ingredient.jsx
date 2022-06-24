@@ -1,4 +1,12 @@
-import { Box, Flex, Icon, IconButton, Square, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Icon,
+  IconButton,
+  Square,
+  Text,
+  useColorModeValue as mode,
+} from '@chakra-ui/react';
 import { MinusSquare } from '@styled-icons/feather';
 
 import { FInput } from '../helpers/form/FInput';
@@ -34,7 +42,7 @@ export const Ingredient = ({
                   defaultValue={desc}
                   placeholder="Item name"
                   // rest...
-                  //bgColor={dragOverlay ? 'gray.300' : 'inherit'}
+                  bgColor={mode('pink.100', 'blackAlpha.300')}
                   minWidth={{ base: '40', md: '60' }}
                   height={10}
                   disabled={loading}

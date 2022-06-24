@@ -28,16 +28,14 @@ export const ReorderableItem = ({ children, id }) => {
       style={{
         transform: CSS.Transform.toString(transform),
         transition,
-        opacity: isDragging ? 0.8 : 1,
+        opacity: isDragging ? 1 : 1,
       }}
-      {...attributes}
-      {...listeners}
       css="touch-action: none"
       id={id}
       my={2}
       p={0}
     >
-      <Box height={10}>
+      <Box height={10} {...attributes} {...listeners}>
         <IconButton
           isRound
           aria-label="Grab Ingredient"

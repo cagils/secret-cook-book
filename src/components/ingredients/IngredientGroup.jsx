@@ -8,13 +8,13 @@ import {
   Stack,
 } from '@chakra-ui/react';
 import { FileMinus, PlusSquare } from '@styled-icons/feather';
-import { FInput } from '../../helpers/form/FInput';
+import { FInput } from '../helpers/form/FInput';
 
-import { Ingredient } from '../Ingredient';
+import { Ingredient } from './Ingredient';
 
 import { Grabber } from '@styled-icons/octicons';
-import { ReorderableItem } from '../../helpers/reorderable/ReorderableItem';
-import { ReorderableList } from '../../helpers/reorderable/ReorderableList';
+import { ReorderableItem } from '../helpers/reorderable/ReorderableItem';
+import { ReorderableList } from '../helpers/reorderable/ReorderableList';
 
 export const IngredientGroup = ({
   loading,

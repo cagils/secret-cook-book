@@ -17,7 +17,7 @@ import { FilePlus } from '@styled-icons/feather';
 
 import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
 
-import { IngredientGroup } from './IngredientGroup/IngredientGroup';
+import { IngredientGroup } from './IngredientGroup';
 
 export const Ingredients = ({
   loading,
@@ -99,7 +99,7 @@ export const Ingredients = ({
         {ingredients.map((group, groupIdx) => (
           <IngredientGroup
             loading={loading}
-            key={`key_${instanceKey}_group_${groupIdx}`}
+            //key={`key_${instanceKey}_group_${groupIdx}`}
             instanceKey={instanceKey}
             data={group}
             groupIdx={groupIdx}

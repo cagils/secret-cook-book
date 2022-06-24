@@ -30,10 +30,11 @@ export const ReorderableList = ({
   id,
   items: defaultItems,
   renderDragOverlay,
+  overlay = false,
   ...props
 }) => {
   const [items, setItems] = useState(defaultItems);
-  //const [activeId, setActiveId] = useState(null);
+  const [activeId, setActiveId] = useState(null);
 
   useEffect(() => setItems(defaultItems), [defaultItems]);
 
@@ -59,7 +60,7 @@ export const ReorderableList = ({
   const sensors = useSensors(pointerSensor, keyboardSensor);
 
   function handleDragStart(event) {
-    //setActiveId(event.active.id);
+    setActiveId(event.active.id);
   }
 
   const handleDragEnd = ({ active, over }) => {
@@ -67,7 +68,7 @@ export const ReorderableList = ({
       return;
     }
 
-    //setActiveId(null);
+    setActiveId(null);
     if (active.id !== over.id) {
       const activeIndex = active.data.current.sortable.index;
       const overIndex = over.data.current?.sortable.index || 0;
@@ -83,7 +84,7 @@ export const ReorderableList = ({
       sensors={sensors}
       modifiers={[restrictToVerticalAxis, restrictToParentElement]}
       collisionDetection={closestCenter}
-      //onDragStart={handleDragStart}
+      onDragStart={handleDragStart}
       onDragEnd={handleDragEnd}
       autoScroll={{
         threshold: {
@@ -93,23 +94,25 @@ export const ReorderableList = ({
       }}
     >
       <SortableContext
-        //id={id}
+        id={id}
         items={items}
         strategy={verticalListSortingStrategy}
       >
         {children}
       </SortableContext>
-      {/*       <DragOverlay
-        adjustScale={true}
-        //className?: string;
-        //dropAnimation?: DropAnimation | null;
-        //transition?: string | TransitionGetter;
-        //modifiers?: Modifiers;
-        //wrapperElement?: keyof JSX.IntrinsicElements;
-        //zIndex?: number;
-      >
-        {activeId ? renderDragOverlay(activeId) : null}
-      </DragOverlay> */}
+      {overlay && (
+        <DragOverlay
+          adjustScale={true}
+          //className?: string;
+          //dropAnimation?: DropAnimation | null;
+          //transition?: string | TransitionGetter;
+          //modifiers?: Modifiers;
+          //wrapperElement?: keyof JSX.IntrinsicElements;
+          //zIndex?: number;
+        >
+          {activeId ? renderDragOverlay(activeId) : null}
+        </DragOverlay>
+      )}
     </DndContext>
   );
 };

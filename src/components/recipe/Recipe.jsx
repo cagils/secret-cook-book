@@ -109,6 +109,7 @@ export const Recipe = ({ editable, recipeId }) => {
       const formState = formStateTransform();
       unregisterAll();
       formState[groupIdx].list.splice(ingIdx, 1);
+      setInstanceKey(random(instanceKey));
       setIngredients(formState);
     },
     [formStateTransform, unregisterAll]
@@ -139,22 +140,22 @@ export const Recipe = ({ editable, recipeId }) => {
       const oldList = formState[groupIdx].list;
       items.forEach((v) => newList.push(oldList[parseInt(v.id)]));
       formState[groupIdx].list = newList;
+      setInstanceKey(random(instanceKey));
       setIngredients(formState);
-      setInstanceKey(random());
     },
     [formStateTransform, unregisterAll]
   );
 
   const handleReset = useCallback(() => {
     unregisterAll();
-    setInstanceKey(random());
+    setInstanceKey(random(instanceKey));
   }, [unregisterAll]);
 
   const handleReload = useCallback(() => {
     setLoading(true);
     setReload((reload) => reload ^ 1);
     // router.replace(router.asPath); // This call refreshes page without reloading and causes Next.js to reapply getServerSideProps() method
-  }, [router]);
+  }, []);
 
   useEffect(() => {
     let abort = false;

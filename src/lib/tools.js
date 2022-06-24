@@ -11,6 +11,11 @@ export const getCircularReplacer = () => {
   };
 };
 
-export const random = () => {
-  return Math.floor(Math.random() * 10000);
+export const random = (prev = 0) => {
+  let next = 0;
+  while (next === 0) {
+    let rand = Math.floor(Math.random() * 10000);
+    if (rand !== prev) next = rand;
+  }
+  return next;
 };

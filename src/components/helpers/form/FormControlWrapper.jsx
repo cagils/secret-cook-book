@@ -14,10 +14,11 @@ export const FormControlWrapper = ({
   label,
   helper,
   fieldState,
+  ...rest
 }) => {
   // const error = get(errors, fieldName);
   return (
-    <FormControl isInvalid={fieldState.invalid}>
+    <FormControl isInvalid={fieldState.invalid} {...rest}>
       {!!label && <FormLabel htmlFor={fieldName}>{label}</FormLabel>}
       {children}
       {!!helper && <FormHelperText>{helper}</FormHelperText>}
