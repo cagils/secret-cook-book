@@ -47,6 +47,10 @@ export const ReorderableItem = ({ children, id }) => {
         //color="purple.200"
         icon={<Icon as={Grabber} />}
         style={{ cursor: 'ns-resize' }}
+        onClick={(e) => {
+          e.preventDefault;
+        }}
+        _active={{ background: 'none' }}
       />
       {children}
     </Flex>
