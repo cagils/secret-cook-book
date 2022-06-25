@@ -34,18 +34,20 @@ export const ReorderableItem = ({ children, id }) => {
       my={2}
       p={0}
     >
-      <Box height={10} {...attributes} {...listeners} css="touch-action: none">
-        <IconButton
-          isRound
-          aria-label="Grab Ingredient"
-          fontSize="1.2rem"
-          variant="ghost"
-          colorScheme="pink"
-          //color="purple.200"
-          icon={<Icon as={Grabber} />}
-          style={{ cursor: 'ns-resize' }}
-        />
-      </Box>
+      <IconButton
+        height={10}
+        {...attributes}
+        {...listeners}
+        css="touch-action: none"
+        isRound
+        aria-label="Grab Ingredient"
+        fontSize="1.2rem"
+        variant="ghost"
+        colorScheme="pink"
+        //color="purple.200"
+        icon={<Icon as={Grabber} />}
+        style={{ cursor: 'ns-resize' }}
+      />
       {children}
     </Flex>
   );

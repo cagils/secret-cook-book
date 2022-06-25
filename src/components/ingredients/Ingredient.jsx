@@ -52,6 +52,7 @@ export const Ingredient = ({
                   height={10}
                   disabled={loading}
                   readOnly={dragOverlay}
+                  //focusBorderColor="pink.400"
                 />
               </Flex>
             ) : (

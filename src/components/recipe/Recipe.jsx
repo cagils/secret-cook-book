@@ -170,35 +170,42 @@ export const Recipe = ({ editable, recipeId }) => {
       console.log('recipeId is not defined. Aborting fetch.');
       return;
     }
-    try {
-      const loadRecipe = async () => {
-        const fetchUrl = `/api/my/recipes/${recipeId}`;
-        console.log(`fetching ${fetchUrl}`);
-        const response = await fetch(fetchUrl, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        console.log('fetched.');
 
-        if (abort) return;
-        let res = await response.json();
-        setRecipe(res.data);
-        setIngredients(res.data?.ingredients ?? []);
-      };
+    const loadRecipe = async () => {
+      const fetchUrl = `/api/my/recipes/${recipeId}`;
+      console.log(`fetching ${fetchUrl}`);
+      const response = await fetch(fetchUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        console.log(
+          'response was not ok:',
+          JSON.stringify(response, undefined, 2)
+        );
+        throw new Error(`Error: ${response.status}`);
+      }
+      console.log('fetched.');
 
-      loadRecipe();
-    } catch (e) {
-      console.log(e);
-    }
+      if (abort) return;
+      let res = await response.json();
+      setRecipe(res.data);
+      setIngredients(res.data?.ingredients ?? []);
+    };
 
-    setLoading(false);
-    handleReset();
+    loadRecipe()
+      .then(() => {
+        setLoading(false);
+        handleReset();
+      })
+      .catch((e) => {
+        console.log('Error thrown from loadRecipe', e);
+      });
+
     return () => {
+      console.log('returning from useEffect fetch');
       abort = true;
     };
   }, [recipeId, handleReset, reload]);
@@ -260,7 +267,7 @@ export const Recipe = ({ editable, recipeId }) => {
       <FormProvider {...formMethods}>
         <Box flex="1">
           <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
-            <VStack>
+            <VStack align="center" justify="center">
               <HStack width="full" align="center" justify="center" p={4}>
                 <Box height="6rem" width="20px"></Box>
                 <Heading
@@ -281,11 +288,11 @@ export const Recipe = ({ editable, recipeId }) => {
 
               <HStack
                 wrap="wrap"
-                gap={8}
+                gap={4}
                 width="full"
                 align="stretch"
-                justify="start"
-                p={4}
+                justify="center"
+                p={{ sm: 0, md: 4, lg: 6 }}
               >
                 <VStack
                   borderRadius="lg"
@@ -331,13 +338,21 @@ export const Recipe = ({ editable, recipeId }) => {
                   borderWidth="thin"
                   borderColor="pink.200"
                   bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
-                  align="start"
+                  align="center"
+                  justify="center"
+                  pos="relative"
                   flex={1}
                 >
                   <Box p={4}>asdf</Box>
                 </VStack>
               </HStack>
-              <HStack width="full" align="start" justify="center" p={4}>
+              <HStack
+                width="full"
+                align="center"
+                justify="center"
+                p={4}
+                bgColor="blackAlpha.400"
+              >
                 <Box flex="1"></Box>
                 <Button
                   type="submit"

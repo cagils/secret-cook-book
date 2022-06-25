@@ -1,3 +1,4 @@
+import { useClickable } from '@chakra-ui/clickable';
 import {
   Box,
   Button,
@@ -16,6 +17,7 @@ import { RecipeCard } from './RecipeCard';
 export const Recipes = ({ editable, recipeId }) => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const clickable = useClickable();
 
   useEffect(() => {
     let abort = false;
