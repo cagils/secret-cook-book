@@ -43,7 +43,7 @@ export default function App(props: MyAppProps) {
       <ChakraProvider theme={customTheme}>
         <Flex grow="1">
           <NextNProgress
-            color={customTheme.colors.pink[200]}
+            color="var(--chakra-colors-pink-400)"
             startPosition={0.5}
             stopDelayMs={10}
             height={2}

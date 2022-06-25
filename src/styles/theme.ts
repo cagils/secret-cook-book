@@ -521,7 +521,7 @@ const styles = {
       bg: 'chakra-body-bg',
       transitionProperty: 'background-color',
       transitionDuration: 'normal',
-      lineHeight: 'base',
+      lineHeight: '1.2',
     },
     '*::placeholder': {
       color: 'chakra-placeholder-color',
@@ -555,6 +555,14 @@ const moder = (prop, light, dark) => ({
 });
 
 const customColors = {};
+const customFonts = {
+  fPrimary: ``,
+  fSecondary: ``,
+  fBigHeading: `"Sansita Swashed"`,
+  fHeading: `"PT Sans Caption"`,
+  fText: `"Nunito"`,
+  fMono: ``,
+};
 const customStyles = {
   global: (props: StyleFunctionProps) => ({
     body: {
@@ -568,7 +576,7 @@ const customStyles = {
 
       boxShadow:
         '0 0 0 2px var(--chakra-colors-pink-100),    0 0 2px 3px var(--chakra-colors-pink-400) !important',
-      outline: '20px solid transparent !important',
+      outline: '2px solid transparent !important',
       outlineOffset: '2px !important',
       //borderRadius: 'var(--chakra-radii-lg)px !important',
     },
@@ -578,6 +586,15 @@ const customStyles = {
 const layerStyles = {
   dirty: {
     ...moder('color', 'pink.600', 'pink.600'),
+  },
+};
+
+const textStyles = {
+  primary: {
+    fontFamily: customFonts.fPrimary,
+  },
+  secondary: {
+    fontFamily: customFonts.fSecondary,
   },
 };
 
@@ -595,10 +612,11 @@ const themeExtensions = {
   lineHeights: {},
   fontWeights: {},
   fonts: {
-    // "Nunito", "Quicksand", "Big Shoulders Display", "Baloo Thambi 2", "Sansita Swashed"
-    heading: `"Sansita Swashed", ` + typography.fonts.heading,
-    body: `"Nunito", ` + typography.fonts.body,
-    mono: `` + typography.fonts.mono,
+    // "Nunito", "Quicksand", "Big Shoulders Display", "Baloo Thambi 2", "Sansita Swashed", "PT Sans Caption"
+    title: `${customFonts.fBigHeading}, ` + typography.fonts.heading,
+    heading: `${customFonts.fHeading}, ` + typography.fonts.heading,
+    body: `${customFonts.fText}, ` + typography.fonts.body,
+    mono: `${customFonts.fMono}` + typography.fonts.mono,
   },
   fontSizes: {},
   // typography end
@@ -608,11 +626,24 @@ const themeExtensions = {
   borders: {},
   transition: {},
   // foundations end
-  components: {},
+  components: {
+    Heading: {
+      variants: {
+        big: {
+          fontFamily: `${customFonts.fBigHeading}, ` + typography.fonts.heading,
+        },
+      },
+    },
+    Button: {
+      baseStyle: {
+        lineHeight: 'typography.lineHeights.normal',
+      },
+    },
+  },
   styles: customStyles,
   config: {},
-
   layerStyles,
+  textStyles,
 };
 
 export const customTheme = extendTheme(themeExtensions);

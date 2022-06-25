@@ -31,7 +31,7 @@ RecipePage.getLayout = (page) => {
   return <Layout>{page}</Layout>;
 };
 
-/* export async function getServerSideProps(context) {
+/* export async function getServerSideProps(context) {  
   return { props: { data: {} } }; // SSR disabled
 
   const { recipeId } = context.params;

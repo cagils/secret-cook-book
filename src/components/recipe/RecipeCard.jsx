@@ -39,7 +39,7 @@ export const RecipeCard = ({ recipe }) => (
               pos={'relative'}
             >
               <Image
-                src={`https://images.unsplash.com/photo-1636839825921-bc1a9cce1eab?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80`}
+                src={recipe.photo}
                 alt={'Recipe Photo'}
                 // width={1170}
                 // height={780}

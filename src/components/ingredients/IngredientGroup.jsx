@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   Heading,
   HStack,
   Icon,
@@ -29,6 +30,7 @@ export const IngredientGroup = ({
   instanceKey,
 }) => {
   const { colorMode } = useColorMode();
+
   const mode = (lightValue, darkValue) =>
     colorMode == 'light' ? lightValue : darkValue;
 
@@ -36,7 +38,7 @@ export const IngredientGroup = ({
     <Box align="left" mt="20px">
       {data.groupName !== 'default' && (
         <HStack
-          borderBottomWidth="thin"
+          //borderBottomWidth="thin"
           borderColor={mode('pink.500', 'pink.300')}
         >
           <Heading
@@ -71,13 +73,15 @@ export const IngredientGroup = ({
               aria-label="Delete Group"
               fontSize="1.2rem"
               variant="ghost"
-              //color="purple.200"
+              colorScheme="pink"
               icon={<Icon as={FileMinus} />}
               onClick={() => handleDeleteGroup(groupIdx)}
             />
           )}
         </HStack>
       )}
+
+      <Divider />
 
       {editable ? (
         <ReorderableList
@@ -136,7 +140,7 @@ export const IngredientGroup = ({
             aria-label="Add New Ingredient"
             fontSize="1.2rem"
             variant="ghost"
-            //color="purple.200"
+            colorScheme="pink"
             icon={<Icon as={PlusSquare} />}
             onClick={() => handleNewIngredient(groupIdx)}
           />

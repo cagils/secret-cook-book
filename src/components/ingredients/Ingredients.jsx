@@ -112,7 +112,7 @@ export const Ingredients = ({
               aria-label="Add New Group"
               fontSize="1.2rem"
               variant="ghost"
-              //color="purple.200"
+              colorScheme="pink"
               icon={<Icon as={FilePlus} />}
               onClick={() => handleNewGroup()}
             />
