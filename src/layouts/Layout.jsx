@@ -13,6 +13,7 @@ import {
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
 import Link from 'next/link';
+import { OverlayFader } from '../components/helpers/OverlayFader';
 
 export const Layout = ({ children }) => {
   const { colorMode, toggleColorMode } = useColorMode();

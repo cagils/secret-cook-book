@@ -20,15 +20,17 @@ export default function IndexPage() {
   const dark = colorMode === 'dark';
 
   return (
-    <Box>
-      <Link href={`/my/recipes/`}>
-        <a>
-          <Button variant="solid" colorScheme="pink">
-            Go to My Secret Recipes
-          </Button>
-        </a>
-      </Link>
-    </Box>
+    <Flex align="center" justify="center">
+      <Box>
+        <Link href={`/my/recipes/`}>
+          <a>
+            <Button variant="solid" colorScheme="pink">
+              Go to My Secret Recipes
+            </Button>
+          </a>
+        </Link>
+      </Box>
+    </Flex>
   );
 }
 
