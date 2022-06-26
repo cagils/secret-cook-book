@@ -602,7 +602,16 @@ const themeExtensions = {
   semanticTokens: {},
   direction: {},
   // foundations start
-  breakpoints: {},
+  breakpoints: {
+    sm: '30em',
+    md: '48em',
+    lg: '62em',
+    xl: '80em',
+    xxl: '112em',
+    xxl1: '140em',
+    xxl2: '160em',
+    '2xl': '180em',
+  },
   zIndices: {},
   radii: {},
   blur: {},
