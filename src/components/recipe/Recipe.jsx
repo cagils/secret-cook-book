@@ -20,6 +20,7 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
 import { random } from '../../lib/tools';
+import { OverlayFader } from '../helpers/OverlayFader';
 import { Ingredients } from '../ingredients/Ingredients';
 
 setAutoFreeze(false);
@@ -259,8 +260,9 @@ export const Recipe = ({ editable, recipeId }) => {
     <FormProvider {...formMethods}>
       <Box flex="1">
         <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
-          <VStack align="center" justify="center">
-            <HStack
+          <VStack align="center" justify="center" px={4}>
+            <Box
+              boxShadow="base"
               //width="full"
               align="center"
               justify="center"
@@ -268,46 +270,41 @@ export const Recipe = ({ editable, recipeId }) => {
               //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
               borderRadius="lg"
               p={4}
-              m={4}
-              mt={8}
-              px={16}
+              mt={4}
+              width="full"
+              //px={16}
+              position="relative"
+              overflow="hidden"
             >
               <Heading
                 as="h2"
                 size="xl"
                 textAlign="center"
                 color={mode('pink.500', 'pink.100')}
-                //letterSpacing="wide"
+                letterSpacing="wide"
                 fontWeight="semibold"
-                //textDecoration="underline"
-                //textUnderlineOffset={'0.05em'}
-                //textDecorationThickness="2px"
-                //textDecorationColor={mode('purple.400', 'purple.300')}
+                textDecoration="underline"
+                textUnderlineOffset={'0.05em'}
+                textDecorationThickness="2px"
+                textDecorationColor={mode('purple.300', 'pink.300')}
                 //fontStyle="italic"
                 // textTransform={'uppercase'}
               >
                 {recipe?.title || 'Loading...'}
               </Heading>
-
-              <Box width="20px">
-                {loading && (
-                  <Box transform="translate(2px, -10px)">
-                    <Spinner color={mode('pink.400', 'purple.200')} />
-                  </Box>
-                )}
-              </Box>
-            </HStack>
+            </Box>
 
             <HStack
               wrap="wrap"
-              gap={4}
               width="full"
               align="stretch"
               justify="center"
-              px={{ sm: 0, md: 4, lg: 6 }}
+              //px={{ sm: 2, md: 4, lg: 6 }}
+              //spacing={0}
             >
               <VStack
-                borderWidth="thin"
+                boxShadow="base"
+                //borderWidth="thin"
                 borderColor="pink.200"
                 bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
                 pos="relative"
@@ -322,10 +319,20 @@ export const Recipe = ({ editable, recipeId }) => {
                     top="0"
                     bottom="0"
                     right="0"
-                    bg="rgba(0,0,0,0.8)"
+                    bg={mode('blackAlpha.800', 'blackAlpha.800')}
                     zIndex="10000"
-                    //overflow="hidden"
-                  />
+                  >
+                    <Flex height="full" align="center" justify="center">
+                      <Spinner
+                        //thickness="4px"
+                        //speed="0.65s"
+                        //emptyColor="gray.200"
+                        color={mode('pink.300', 'pink.600')}
+                        size="xl"
+                        colorScheme="pink"
+                      />
+                    </Flex>
+                  </Box>
                 </Fade>
                 <Box p={4}>
                   {ingredients && (
@@ -346,7 +353,8 @@ export const Recipe = ({ editable, recipeId }) => {
                 </Box>
               </VStack>
               <VStack
-                borderWidth="thin"
+                boxShadow="base"
+                //borderWidth="thin"
                 borderColor="pink.200"
                 bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
                 align="stretch"
@@ -356,12 +364,12 @@ export const Recipe = ({ editable, recipeId }) => {
                 overflow="hidden"
                 spacing={0}
                 borderRadius="lg"
+                minWidth="50%"
               >
                 <Box
                   width="full"
                   align="center"
                   justify="center"
-                  bgColor="red"
                   height="30vh"
                   position="relative"
                 >
@@ -422,8 +430,10 @@ export const Recipe = ({ editable, recipeId }) => {
               width="full"
               align="center"
               justify="center"
-              p={4}
               bgColor={mode('whiteAlpha.400', 'blackAlpha.400')}
+              borderRadius="lg"
+              p={4}
+              mt={4}
             >
               <Box flex="1"></Box>
               <Button

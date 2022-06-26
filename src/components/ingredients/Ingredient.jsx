@@ -6,7 +6,6 @@ import {
   Square,
   Text,
   useColorMode,
-  useColorModeValue,
 } from '@chakra-ui/react';
 import { MinusSquare } from '@styled-icons/feather';
 
@@ -74,7 +73,7 @@ export const Ingredient = ({
             <Square>
               <IconButton
                 isRound
-                aria-label="Toggle Dark Mode"
+                aria-label="Delete Ingredient"
                 fontSize="1.2rem"
                 variant="ghost"
                 colorScheme="pink"

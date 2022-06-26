@@ -4,6 +4,7 @@ import {
   EditableInput,
   EditablePreview,
   Input,
+  useColorMode,
 } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
@@ -20,7 +21,10 @@ export const FInput = ({
   startWithEditView,
   ...rest
 }) => {
-  // Get form context:
+  const { colorMode } = useColorMode();
+  const mode = (lightValue, darkValue) =>
+    colorMode == 'light' ? lightValue : darkValue;
+
   const formMethods = useFormContext();
 
   const {
@@ -68,6 +72,7 @@ export const FInput = ({
         fieldName={fieldName}
         label={label}
         helper={helper}
+        borderColor={mode('blackAlpha.300', 'whiteAlpha.300')}
       >
         {type === 'editable' ? (
           <Editable

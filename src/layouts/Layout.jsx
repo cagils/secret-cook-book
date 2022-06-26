@@ -28,27 +28,41 @@ export const Layout = ({ children }) => {
         width="full"
         pos="relative"
         bgColor={mode('gray.100', 'gray.800')}
+        align="stretch"
+        justify="start"
       >
-        <HStack>
+        <HStack
+          align="center"
+          justify="center"
+          boxShadow="base"
+          bgColor={mode('pink.100', 'blackAlpha.300')}
+          bgGradient={mode(
+            'linear(to-r, purple.200, pink.200)',
+            'linear(to-r, purple.800, pink.600)'
+          )}
+        >
           <Box m="2" position="absolute" right={0} top={0}>
             <IconButton
-              colorScheme="pink"
-              bgGradient={mode(
-                'linear(to-t, purple.200, pink.200)',
-                'linear(to-t, purple.800, pink.600)'
-              )}
+              borderColor={mode('blackAlpha.400', 'whiteAlpha.400')}
+              color={mode('blackAlpha.400', 'whiteAlpha.400')}
+              _hover={{
+                bgColor: mode('blackAlpha.200', 'whiteAlpha.200'),
+              }}
               isRound
-              variant="solid"
-              //colorScheme={mode('purple', 'purple')}
+              variant="outline"
               onClick={() => toggleColorMode()}
               aria-label="Toggle color scheme"
               icon={
-                <Icon color={mode('blue', 'yellow')} as={dark ? Sun : Moon} />
+                <Icon
+                  color={mode('blackAlpha.500', 'whiteAlpha.800')}
+                  as={dark ? Sun : Moon}
+                />
               }
             />
           </Box>
           <Box position="relative">
             <Heading
+              textShadow="1px 1px 1px white"
               variant="big"
               as="h1"
               textAlign="center"
