@@ -343,7 +343,7 @@ export const Recipe = ({ editable, recipeId }) => {
               //maxWidth="80vh"
             >
               <Box
-                borderRadius="lg"
+                //borderRadius="lg"
                 boxShadow="base"
                 //borderWidth="thin"
                 //borderColor="purple.800"
@@ -351,7 +351,7 @@ export const Recipe = ({ editable, recipeId }) => {
                 align="center"
                 justify="center"
                 flex={1}
-                p={4}
+                p={2}
                 pos="relative"
                 overflow="hidden"
                 //maxHeight="30vh"
@@ -359,43 +359,37 @@ export const Recipe = ({ editable, recipeId }) => {
                 // maxH="30vh"
               >
                 <OverlayFader active={loading} />
-                <Box
-                  // height="full"
-                  // width="full"
-                  borderRadius="lg"
-                  bgColor="blue"
-                  // pos="relative"
-                  // m="40px"
-                  bg="red"
-                  // height="15vh"
-                >
-                  {recipe?.photo && (
-                    <Box
-                      // overflow="hidden"
-                      // borderRadius="lg"
-                      //boxShadow="1px 1px 10px 0px black"
-                      //pos="relative"
-                      height="50vh"
-                      width="50vw"
-                      position="relative"
-                    >
-                      <Image
-                        priority
-                        //sizes="50vw"
-                        src={recipe?.photo}
-                        alt={'Recipe Photo'}
-                        css={{
-                          height: '100%',
-                          width: '100%',
-                          position: 'relative !important',
-                          objectFit: 'cover',
-                        }}
-                        layout="fill"
-                        // objectFit="contain"
-                        // objectPosition={'50% 50%'}
-                      />
-                    </Box>
-                  )}
+                <Box pos="relative">
+                  <Box
+                    height="full"
+                    width="full"
+                    //borderRadius="lg"
+                    // height="15vh"
+                    //overflow="hidden"
+                    //border="1px solid red"
+                  >
+                    {recipe?.photo && (
+                      <Box
+                        //overflow="hidden"
+                        //borderRadius="lg"
+                        // pos="relative"
+                        //height="50vh"
+                        //width="full"
+                        minHeight="30vh"
+                        maxHeight="50vh"
+                      >
+                        <Image
+                          priority
+                          //sizes="50vw"
+                          src={recipe?.photo}
+                          alt={'Recipe Photo'}
+                          layout="fill"
+                          objectFit="cover"
+                          // objectPosition={'50% 50%'}
+                        />
+                      </Box>
+                    )}
+                  </Box>
                 </Box>
               </Box>
               <Box
