@@ -23,7 +23,21 @@ export const Layout = ({ children }) => {
   const dark = colorMode === 'dark';
 
   return (
-    <Flex justify="center" grow="1" minHeight="100vh">
+    <Flex
+      justify="center"
+      grow="1"
+      minHeight="100vh"
+      mx={{
+        sm: '0em',
+        md: '0em',
+        lg: '0em',
+        xl: '10em',
+        '2xl': '12em',
+        '3xl': '16em',
+        '4xl': '30em',
+        '5xl': '30em',
+      }}
+    >
       <VStack
         spacing={0}
         width="full"
