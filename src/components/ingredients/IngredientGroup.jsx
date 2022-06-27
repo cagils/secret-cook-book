@@ -73,7 +73,6 @@ export const IngredientGroup = ({
               aria-label="Delete Group"
               fontSize="1.2rem"
               variant="ghost"
-              colorScheme="pink"
               icon={<Icon as={FileMinus} />}
               onClick={() => handleDeleteGroup(groupIdx)}
             />
@@ -140,7 +139,6 @@ export const IngredientGroup = ({
             aria-label="Add New Ingredient"
             fontSize="1.2rem"
             variant="ghost"
-            colorScheme="pink"
             icon={<Icon as={PlusSquare} />}
             onClick={() => handleNewIngredient(groupIdx)}
           />

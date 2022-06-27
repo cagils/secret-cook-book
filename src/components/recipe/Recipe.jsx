@@ -259,7 +259,7 @@ export const Recipe = ({ editable, recipeId }) => {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
-        <VStack align="center" justify="center" px={4}>
+        <VStack align="center" justify="center" px={4} pb={4}>
           <Box
             boxShadow="base"
             //width="full"
@@ -278,29 +278,31 @@ export const Recipe = ({ editable, recipeId }) => {
             <OverlayFader active={loading} />
             <Heading
               as="h2"
-              size="xl"
+              size="2xl"
               textAlign="center"
-              color={mode('pink.500', 'pink.100')}
+              color={mode('pink.500', 'pink.200')}
               letterSpacing="wide"
-              fontWeight="semibold"
+              fontWeight="bold"
               textDecoration="underline"
               textUnderlineOffset={'0.05em'}
               textDecorationThickness="2px"
-              textDecorationColor={mode('purple.300', 'pink.300')}
-              //fontStyle="italic"
+              textDecorationColor={mode('purple.300', 'purple.400')}
+              fontStyle="italic"
               // textTransform={'uppercase'}
             >
               {recipe?.title || 'Loading...'}
             </Heading>
           </Box>
 
-          <HStack
-            wrap="wrap"
+          <Flex
+            wrap="wrap-reverse"
             width="full"
             align="stretch"
             justify="center"
+            rowGap={2}
+            columnGap={2}
             //px={{ sm: 2, md: 4, lg: 6 }}
-            //spacing={0}
+            spacing={0}
           >
             <VStack
               boxShadow="base"
@@ -331,45 +333,82 @@ export const Recipe = ({ editable, recipeId }) => {
               </Box>
             </VStack>
             <VStack
-              boxShadow="base"
-              //borderWidth="thin"
-              borderColor="pink.200"
-              bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
               align="stretch"
               justify="center"
-              pos="relative"
               flex={1}
-              overflow="hidden"
+              rowGap={2}
+              columnGap={2}
               spacing={0}
-              borderRadius="lg"
-              minWidth="50%"
+              minWidth="50vw"
+              //maxWidth="80vh"
             >
-              <OverlayFader active={loading} />
               <Box
-                width="full"
+                borderRadius="lg"
+                boxShadow="base"
+                //borderWidth="thin"
+                //borderColor="purple.800"
+                bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
                 align="center"
                 justify="center"
-                height="30vh"
-                position="relative"
+                flex={1}
+                p={4}
+                pos="relative"
+                overflow="hidden"
+                //maxHeight="30vh"
+                //minHeight="30vh"
+                // maxH="30vh"
               >
-                {recipe?.photo && (
-                  <Image
-                    src={recipe?.photo}
-                    alt={'Recipe Photo'}
-                    //width="100%"
-                    //height={780}
-                    layout={'fill'}
-                    objectFit={'cover'}
-                    //objectPosition={'50% 50%'}
-                  />
-                )}
+                <OverlayFader active={loading} />
+                <Box
+                  // height="full"
+                  // width="full"
+                  borderRadius="lg"
+                  bgColor="blue"
+                  // pos="relative"
+                  // m="40px"
+                  bg="red"
+                  // height="15vh"
+                >
+                  {recipe?.photo && (
+                    <Box
+                      // overflow="hidden"
+                      // borderRadius="lg"
+                      //boxShadow="1px 1px 10px 0px black"
+                      //pos="relative"
+                      height="50vh"
+                      width="50vw"
+                      position="relative"
+                    >
+                      <Image
+                        priority
+                        //sizes="50vw"
+                        src={recipe?.photo}
+                        alt={'Recipe Photo'}
+                        css={{
+                          height: '100%',
+                          width: '100%',
+                          position: 'relative !important',
+                          objectFit: 'cover',
+                        }}
+                        layout="fill"
+                        // objectFit="contain"
+                        // objectPosition={'50% 50%'}
+                      />
+                    </Box>
+                  )}
+                </Box>
               </Box>
               <Box
                 align="center"
                 justfiy="center"
                 flex="1"
                 p={4}
-                bgColor={mode('whiteAlpha.900', 'blackAlpha.400')}
+                //overflow="hidden"
+                borderRadius="lg"
+                boxShadow="base"
+                //borderWidth="thin"
+                //borderColor="purple.800"
+                bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
               >
                 <Box align="start" mb={8}>
                   <Text
@@ -404,7 +443,7 @@ export const Recipe = ({ editable, recipeId }) => {
                 <Box>🚧 UNDER CONSTRUCTION 🚧</Box>
               </Box>
             </VStack>
-          </HStack>
+          </Flex>
           <HStack
             boxShadow="base"
             //borderWidth="thin"
@@ -423,7 +462,6 @@ export const Recipe = ({ editable, recipeId }) => {
               size="md"
               type="submit"
               color={mode('white', 'pink.800')}
-              colorScheme="pink"
               //variant="gradient"
               //bgGradient="linear(to-r, purple.300, pink.300)"
               textTransform={'uppercase'}

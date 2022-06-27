@@ -73,7 +73,6 @@ export const Recipes = ({ editable, recipeId }) => {
                   //emptyColor="gray.200"
                   color={mode('pink.300', 'pink.600')}
                   size="xl"
-                  colorScheme="pink"
                 />
               )}
             </Square>

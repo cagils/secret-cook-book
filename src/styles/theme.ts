@@ -556,10 +556,20 @@ const moder = (prop, light, dark) => ({
 
 const customColors = {};
 const customFonts = {
+  /* 
+  "Nunito"
+  "Quicksand"
+  "Big Shoulders Display"
+  "Baloo Thambi 2"
+  "Sansita Swashed"
+  "PT Sans Caption"
+  "Caveat"
+  "Caveat Brush"
+  */
   fPrimary: ``,
   fSecondary: ``,
   fBigHeading: `"Sansita Swashed"`,
-  fHeading: `"PT Sans Caption"`,
+  fHeading: `"Caveat"`,
   fText: `"Nunito"`,
   fMono: ``,
 };
@@ -612,7 +622,6 @@ const themeExtensions = {
   lineHeights: {},
   fontWeights: {},
   fonts: {
-    // "Nunito", "Quicksand", "Big Shoulders Display", "Baloo Thambi 2", "Sansita Swashed", "PT Sans Caption"
     title: `${customFonts.fBigHeading}, ` + typography.fonts.heading,
     heading: `${customFonts.fHeading}, ` + typography.fonts.heading,
     body: `${customFonts.fText}, ` + typography.fonts.body,
@@ -646,4 +655,9 @@ const themeExtensions = {
   textStyles,
 };
 
-export const customTheme = extendTheme(themeExtensions);
+export const customTheme = extendTheme(
+  themeExtensions,
+  withDefaultColorScheme({
+    colorScheme: 'pink',
+  })
+);

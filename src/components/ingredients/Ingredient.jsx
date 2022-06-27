@@ -76,7 +76,6 @@ export const Ingredient = ({
                 aria-label="Delete Ingredient"
                 fontSize="1.2rem"
                 variant="ghost"
-                colorScheme="pink"
                 //color="purple.200"
                 icon={<Icon as={MinusSquare} />}
                 onClick={handleDeleteIngredient}

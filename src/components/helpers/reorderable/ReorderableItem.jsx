@@ -43,7 +43,6 @@ export const ReorderableItem = ({ children, id }) => {
         aria-label="Grab Ingredient"
         fontSize="1.2rem"
         variant="ghost"
-        colorScheme="pink"
         //color="purple.200"
         icon={<Icon as={Grabber} />}
         style={{ cursor: 'ns-resize' }}

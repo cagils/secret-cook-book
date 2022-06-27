@@ -70,20 +70,10 @@ export const Ingredients = ({
         <Heading size="md" fontFamily="body">
           Ingredients{' '}
         </Heading>
-        <Button
-          size="xs"
-          colorScheme="pink"
-          variant="outline"
-          onClick={() => handleReset()}
-        >
+        <Button size="xs" variant="outline" onClick={() => handleReset()}>
           RESET
         </Button>
-        <Button
-          size="xs"
-          colorScheme="cyan"
-          variant="outline"
-          onClick={() => handleReload()}
-        >
+        <Button size="xs" variant="outline" onClick={() => handleReload()}>
           RELOAD
         </Button>
       </HStack>
@@ -112,7 +102,6 @@ export const Ingredients = ({
               aria-label="Add New Group"
               fontSize="1.2rem"
               variant="ghost"
-              colorScheme="pink"
               icon={<Icon as={FilePlus} />}
               onClick={() => handleNewGroup()}
             />

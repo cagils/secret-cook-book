@@ -24,9 +24,7 @@ export default function IndexPage() {
       <Box>
         <Link href={`/my/recipes/`}>
           <a>
-            <Button variant="solid" colorScheme="pink">
-              Go to My Secret Recipes
-            </Button>
+            <Button variant="solid">Go to My Secret Recipes</Button>
           </a>
         </Link>
       </Box>

@@ -9,7 +9,7 @@ export const OverlayFader = ({ active, children }) => {
   );
 
   return (
-    <Fade in={active} transition={{ duration: 2 }}>
+    <Fade in={active} unmountOnExit transition={{ duration: 2 }}>
       <Box
         pos="absolute"
         left="0"
@@ -21,7 +21,7 @@ export const OverlayFader = ({ active, children }) => {
           'linear(to-r, purple.100, pink.100)',
           'linear(to-r, purple.900, pink.900)'
         )}
-        opacity={0.5}
+        opacity={0.8}
         zIndex="10000"
         overflow="hidden"
       >
@@ -30,7 +30,6 @@ export const OverlayFader = ({ active, children }) => {
             color={mode('pink.300', 'pink.600')}
             size="xl"
             thickness={3}
-            colorScheme="pink"
           />
         </Flex>
       </Box>
