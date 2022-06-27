@@ -24,7 +24,7 @@ export default function RecipePage() {
 
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
-  return <Recipe editable={true} recipeId={'scb0001'} />;
+  return <Recipe editable={true} recipeId={recipeId} />;
 }
 
 RecipePage.getLayout = (page) => {
