@@ -260,7 +260,12 @@ export const Recipe = ({ editable, recipeId }) => {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
-        <VStack align="center" justify="center" px={4} pb={4}>
+        <VStack
+          align="center"
+          justify="center"
+          px={{ base: '1', sm: '1', md: '2', xl: '3', '2xl': '4' }}
+          pb={4}
+        >
           <Box
             boxShadow="base"
             //width="full"
@@ -340,8 +345,9 @@ export const Recipe = ({ editable, recipeId }) => {
               rowGap={2}
               columnGap={2}
               spacing={0}
-              minWidth="60vw"
+              minWidth="60%"
               //maxWidth="80vh"
+              //height="100%"
             >
               <Flex
                 borderRadius="lg"
@@ -353,61 +359,63 @@ export const Recipe = ({ editable, recipeId }) => {
                 //pos="relative"
                 overflow="hidden"
                 //maxHeight="30vh"
-                height="full"
-                width="full"
+                //height="full"
+                //width="full"
                 align="center"
                 justify="center"
+                //max="40vh"
               >
                 <OverlayFader active={loading} />
                 {recipe?.photo && (
-                  <Box
-                    bgGradient={mode(
-                      'linear(to-r, purple.200, pink.200)',
-                      'linear(to-r, purple.800, pink.600)'
-                    )}
-                    p={'4px'}
-                    borderRadius="lg"
+                  <Flex
+                    align="center"
+                    justify="center"
+                    /* w={{
+                      xl: '100%',
+                      '2xl': '80%',
+                      '3xl': '75%',
+                    }} */
                   >
-                    <Flex
-                      //borderWidth="8px"
-                      borderColor="pink"
-                      align="center"
-                      justify="center"
-                      grow="1"
-                      bgColor="orange"
-                      maxWidth={{
-                        sm: '100%',
-                        md: '100%',
-                        lg: '100%',
-                        xl: '80%',
-                        '2xl': '70%',
-                        '3xl': '60%',
-                        '4xl': '50%',
-                        '5xl': '60%',
-                      }}
-                      //display="flex"
-                      //flex="1"
-                      //pos="relative"
-                      //css="aspect-ratio: 1 / 1"
-                      overflow="hidden"
+                    <Box
+                      bgGradient={mode(
+                        'linear(to-r, purple.200, pink.200)',
+                        'linear(to-r, purple.800, pink.600)'
+                      )}
+                      p={{ sm: '2px', md: '4px', xl: '6px' }}
+                      //m={{ sm: '2px', md: '4px', xl: '6px' }}
                       borderRadius="lg"
-                      height="auto"
                     >
-                      <Image
-                        minH="20vh"
-                        maxH="50vh"
-                        //loading="lazy"
-                        // sizes="50vw"
-                        src={recipe?.photo}
-                        alt={'Recipe Photo'}
-                        layout="fill"
-                        fit="cover"
-                        //htmlHeight={}
-                        //htmlWidth={}
-                        //objectPosition={'50% 50%'}
-                      />
-                    </Flex>
-                  </Box>
+                      <Flex
+                        align="center"
+                        justify="center"
+                        grow="1"
+                        //bgColor="orange"
+                        //display="flex"
+                        //flex="1"
+                        //pos="relative"
+                        //css="aspect-ratio: 1 / 1"
+                        overflow="hidden"
+                        borderRadius="lg"
+                        height="auto"
+                      >
+                        <Image
+                          //loading="lazy"
+                          // sizes="50vw"
+                          src={recipe?.photo}
+                          alt={'Recipe Photo'}
+                          layout="fill"
+                          fit="cover"
+                          height="40vh"
+                          width="100%"
+                          //htmlHeight="100%"
+                          //htmlWidth="100%"
+                          //objectPosition={'50% 50%'}
+                          //sx={{ aspectRatio: '16 / 9' }}
+                          maxH="40rem"
+                        />
+                      </Flex>
+                    </Box>
+                  </Flex>
                 )}
               </Flex>
               <Box

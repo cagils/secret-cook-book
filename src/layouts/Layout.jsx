@@ -25,9 +25,10 @@ export const Layout = ({ children }) => {
   return (
     <Flex
       justify="center"
+      mx="auto"
       grow="1"
       minHeight="100vh"
-      mx={{
+      /* mx={{
         sm: '0em',
         md: '0em',
         lg: '0em',
@@ -36,7 +37,17 @@ export const Layout = ({ children }) => {
         '3xl': '16em',
         '4xl': '30em',
         '5xl': '30em',
-      }}
+      }} */
+      /* maxWidth={{
+        sm: '100%',
+        md: '100%',
+        lg: '100%',
+        xl: '100%',
+        '2xl': '90%',
+        '3xl': '80%',
+        '4xl': '70%',
+        '5xl': '60%',
+      }} */
     >
       <Flex maxWidth="2200px" flex="1" mx="auto">
         <VStack
@@ -100,7 +111,7 @@ export const Layout = ({ children }) => {
               'linear(to-r, purple.100, pink.100)',
               'linear(to-r, purple.900, pink.900)'
             )}
-            p={2}
+            //p={2}
           >
             {children}
           </Flex>
