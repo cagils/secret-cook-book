@@ -24,23 +24,18 @@ export const Layout = ({ children }) => {
 
   return (
     <Flex
-      //flex="1"
-      //alignSelf="center"
-      //justifySelf="center"
-      //justify="center"
-      //align="stretch"
-      //grow="1"
-      width="full"
+      justify="center"
+      grow="1"
       minHeight="100vh"
       mx={{
         sm: '0em',
         md: '0em',
         lg: '0em',
         xl: '10em',
-        xxl: '12em',
-        xxl1: '16em',
-        xxl2: '30em',
-        '2xl': '30em',
+        '2xl': '12em',
+        '3xl': '16em',
+        '4xl': '30em',
+        '5xl': '30em',
       }}
     >
       <Flex maxWidth="2200px" flex="1" mx="auto">

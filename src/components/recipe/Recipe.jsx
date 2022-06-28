@@ -7,6 +7,7 @@ import {
   Flex,
   Heading,
   HStack,
+  Image,
   Spinner,
   Square,
   Text,
@@ -14,11 +15,10 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { produce, setAutoFreeze } from 'immer';
-import Image from 'next/image';
+import ImageNext from 'next/image';
 import { Router, useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
-//import probe from "probe-image-size";
 
 import { random } from '../../lib/tools';
 import { OverlayFader } from '../helpers/OverlayFader';
@@ -260,7 +260,7 @@ export const Recipe = ({ editable, recipeId }) => {
   return (
     <FormProvider {...formMethods}>
       <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
-        <VStack align="center" justify="center" px={4}>
+        <VStack align="center" justify="center" px={4} pb={4}>
           <Box
             boxShadow="base"
             //width="full"
@@ -279,30 +279,31 @@ export const Recipe = ({ editable, recipeId }) => {
             <OverlayFader active={loading} />
             <Heading
               as="h2"
-              size="xl"
+              size="2xl"
               textAlign="center"
-              color={mode('pink.500', 'pink.100')}
+              color={mode('pink.500', 'pink.200')}
               letterSpacing="wide"
-              fontWeight="semibold"
+              fontWeight="bold"
               textDecoration="underline"
               textUnderlineOffset={'0.05em'}
               textDecorationThickness="2px"
-              textDecorationColor={mode('purple.300', 'pink.300')}
-              //fontStyle="italic"
+              textDecorationColor={mode('purple.300', 'purple.400')}
+              fontStyle="italic"
               // textTransform={'uppercase'}
             >
               {recipe?.title || 'Loading...'}
             </Heading>
           </Box>
 
-          <HStack
-            wrap="wrap"
+          <Flex
+            wrap="wrap-reverse"
             width="full"
             align="stretch"
             justify="center"
+            rowGap={2}
+            columnGap={2}
             //px={{ sm: 2, md: 4, lg: 6 }}
-            //spacing={0}
-            flexWrap="wrap-reverse"
+            spacing={0}
           >
             <VStack
               boxShadow="base"
@@ -333,45 +334,93 @@ export const Recipe = ({ editable, recipeId }) => {
               </Box>
             </VStack>
             <VStack
-              boxShadow="base"
-              //borderWidth="thin"
-              borderColor="pink.200"
-              bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
               align="stretch"
               justify="center"
-              pos="relative"
               flex={1}
-              overflow="hidden"
+              rowGap={2}
+              columnGap={2}
               spacing={0}
-              borderRadius="lg"
-              minWidth="50%"
+              minWidth="60vw"
+              //maxWidth="80vh"
             >
-              <OverlayFader active={loading} />
-              <Box
+              <Flex
+                borderRadius="lg"
+                boxShadow="base"
+                bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+                //align="center"
+                //justify="center"
+                p={4}
+                //pos="relative"
+                overflow="hidden"
+                //maxHeight="30vh"
+                height="full"
                 width="full"
                 align="center"
                 justify="center"
-                position="relative"
               >
+                <OverlayFader active={loading} />
                 {recipe?.photo && (
-                  <Image
-                    priority
-                    src={recipe?.photo}
-                    alt={'Recipe Photo'}
-                    width={1920}
-                    height={1080}
-                    layout={'responsive'}
-                    //objectFit={'cover'}
-                    //objectPosition={'50% 50%'}
-                  />
+                  <Box
+                    bgGradient={mode(
+                      'linear(to-r, purple.200, pink.200)',
+                      'linear(to-r, purple.800, pink.600)'
+                    )}
+                    p={'4px'}
+                    borderRadius="lg"
+                  >
+                    <Flex
+                      //borderWidth="8px"
+                      borderColor="pink"
+                      align="center"
+                      justify="center"
+                      grow="1"
+                      bgColor="orange"
+                      maxWidth={{
+                        sm: '100%',
+                        md: '100%',
+                        lg: '100%',
+                        xl: '80%',
+                        '2xl': '70%',
+                        '3xl': '60%',
+                        '4xl': '50%',
+                        '5xl': '60%',
+                      }}
+                      //display="flex"
+                      //flex="1"
+                      //pos="relative"
+                      //css="aspect-ratio: 1 / 1"
+                      overflow="hidden"
+                      borderRadius="lg"
+                      height="auto"
+                    >
+                      <Image
+                        minH="20vh"
+                        maxH="50vh"
+                        //loading="lazy"
+                        // sizes="50vw"
+                        src={recipe?.photo}
+                        alt={'Recipe Photo'}
+                        layout="fill"
+                        fit="cover"
+                        //htmlHeight={}
+                        //htmlWidth={}
+                        //objectPosition={'50% 50%'}
+                      />
+                    </Flex>
+                  </Box>
                 )}
-              </Box>
+              </Flex>
               <Box
                 align="center"
                 justfiy="center"
                 flex="1"
                 p={4}
-                bgColor={mode('whiteAlpha.900', 'blackAlpha.400')}
+                //overflow="hidden"
+                borderRadius="lg"
+                boxShadow="base"
+                //borderWidth="thin"
+                //borderColor="purple.800"
+                bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
               >
                 <Box align="start" mb={8}>
                   <Text
@@ -406,7 +455,7 @@ export const Recipe = ({ editable, recipeId }) => {
                 <Box>🚧 UNDER CONSTRUCTION 🚧</Box>
               </Box>
             </VStack>
-          </HStack>
+          </Flex>
           <HStack
             boxShadow="base"
             //borderWidth="thin"
@@ -425,7 +474,6 @@ export const Recipe = ({ editable, recipeId }) => {
               size="md"
               type="submit"
               color={mode('white', 'pink.800')}
-              colorScheme="pink"
               //variant="gradient"
               //bgGradient="linear(to-r, purple.300, pink.300)"
               textTransform={'uppercase'}
