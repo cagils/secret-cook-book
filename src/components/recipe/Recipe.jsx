@@ -318,6 +318,7 @@ export const Recipe = ({ editable, recipeId }) => {
               pos="relative"
               overflow="hidden"
               borderRadius="lg"
+              flexGrow="1"
             >
               <Box p={4}>
                 <OverlayFader active={loading} />
@@ -341,7 +342,7 @@ export const Recipe = ({ editable, recipeId }) => {
             <VStack
               align="stretch"
               justify="center"
-              flex={1}
+              flexGrow={100}
               rowGap={2}
               columnGap={2}
               spacing={0}

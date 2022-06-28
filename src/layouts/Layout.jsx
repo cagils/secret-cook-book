@@ -87,14 +87,14 @@ export const Layout = ({ children }) => {
                 }
               />
             </Box>
-            <Box position="relative">
+            <Box position="relative" px="3em">
               <Heading
                 textShadow="1px 1px 1px white"
                 variant="big"
                 as="h1"
                 textAlign="center"
                 size="2xl"
-                p={2}
+                py={2}
                 color={mode('purple.500', 'purple.300')}
               >
                 <Link href="/">
