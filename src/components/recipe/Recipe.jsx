@@ -7,6 +7,7 @@ import {
   Flex,
   Heading,
   HStack,
+  Image,
   Spinner,
   Square,
   Text,
@@ -14,7 +15,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { produce, setAutoFreeze } from 'immer';
-import Image from 'next/image';
+import ImageNext from 'next/image';
 import { Router, useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
@@ -343,29 +344,76 @@ export const Recipe = ({ editable, recipeId }) => {
               flex={1}
               overflow="hidden"
               spacing={0}
-              borderRadius="lg"
-              minWidth="50%"
+              minWidth="60vw"
+              //maxWidth="80vh"
             >
-              <OverlayFader active={loading} />
-              <Box
+              <Flex
+                borderRadius="lg"
+                boxShadow="base"
+                bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+                //align="center"
+                //justify="center"
+                p={4}
+                //pos="relative"
+                overflow="hidden"
+                //maxHeight="30vh"
+                height="full"
                 width="full"
                 align="center"
                 justify="center"
-                position="relative"
               >
+                <OverlayFader active={loading} />
                 {recipe?.photo && (
-                  <Image
-                    priority
-                    src={recipe?.photo}
-                    alt={'Recipe Photo'}
-                    width={1920}
-                    height={1080}
-                    layout={'responsive'}
-                    //objectFit={'cover'}
-                    //objectPosition={'50% 50%'}
-                  />
+                  <Box
+                    bgGradient={mode(
+                      'linear(to-r, purple.200, pink.200)',
+                      'linear(to-r, purple.800, pink.600)'
+                    )}
+                    p={'4px'}
+                    borderRadius="lg"
+                  >
+                    <Flex
+                      //borderWidth="8px"
+                      borderColor="pink"
+                      align="center"
+                      justify="center"
+                      grow="1"
+                      bgColor="orange"
+                      maxWidth={{
+                        sm: '100%',
+                        md: '100%',
+                        lg: '100%',
+                        xl: '80%',
+                        '2xl': '70%',
+                        '3xl': '60%',
+                        '4xl': '50%',
+                        '5xl': '60%',
+                      }}
+                      //display="flex"
+                      //flex="1"
+                      //pos="relative"
+                      //css="aspect-ratio: 1 / 1"
+                      overflow="hidden"
+                      borderRadius="lg"
+                      height="auto"
+                    >
+                      <Image
+                        minH="20vh"
+                        maxH="50vh"
+                        //loading="lazy"
+                        // sizes="50vw"
+                        src={recipe?.photo}
+                        alt={'Recipe Photo'}
+                        layout="fill"
+                        fit="cover"
+                        //htmlHeight={}
+                        //htmlWidth={}
+                        //objectPosition={'50% 50%'}
+                      />
+                    </Flex>
+                  </Box>
                 )}
-              </Box>
+              </Flex>
               <Box
                 align="center"
                 justfiy="center"
