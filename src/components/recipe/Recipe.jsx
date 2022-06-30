@@ -257,7 +257,7 @@ export const Recipe = ({ initialEditable, recipeId }) => {
       },
       body: JSON.stringify({
         ingredients: formStateIngredients,
-        description: { text: 'aaaa' },
+        description: { text: formStateDescription },
       }),
     });
     console.log('patched.');
