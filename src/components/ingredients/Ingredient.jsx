@@ -1,5 +1,6 @@
 import {
   Box,
+  Divider,
   Flex,
   HStack,
   Icon,
@@ -8,6 +9,7 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
+import { Feather } from '@styled-icons/entypo';
 import { MinusSquare } from '@styled-icons/feather';
 
 import { FInput } from '../helpers/form/FInput';
@@ -62,16 +64,36 @@ export const Ingredient = ({
               />
             </Box>
           ) : (
-            <Box
-              borderRadius={'md'}
-              //grow="1"
-              align="center"
-              px={4}
-              //bgColor="purple.400"
-              height={10}
-            >
-              <Text>{desc}</Text>
-            </Box>
+            <HStack>
+              <Square>
+                <Icon
+                  fontSize="1.3em"
+                  color={mode('pink.300', 'pink.500')}
+                  as={Feather}
+                />
+              </Square>
+              <Flex
+                minHeight={10}
+                width="full"
+                borderRadius={'md'}
+                my={1}
+                px={4}
+                //grow="1"
+                align="center"
+                justify="start"
+                //px={4}
+                // pos="relative"
+                color={mode('gray.700', 'gray.300')}
+              >
+                <Text
+                  fontFamily="ingredients"
+                  fontStyle="italic"
+                  fontSize="1.2em"
+                >
+                  {desc}
+                </Text>
+              </Flex>
+            </HStack>
           )}
         </Box>
       </Box>

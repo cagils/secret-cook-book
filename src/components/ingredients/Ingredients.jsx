@@ -15,8 +15,6 @@ import {
 } from '@chakra-ui/react';
 import { FilePlus } from '@styled-icons/feather';
 
-import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
-
 import { IngredientGroup } from './IngredientGroup';
 
 export const Ingredients = ({
@@ -28,8 +26,6 @@ export const Ingredients = ({
   handleNewGroup,
   handleNewIngredient,
   handleReorder,
-  handleReset,
-  handleReload,
   instanceKey,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -58,26 +54,17 @@ export const Ingredients = ({
     },
   ];
 
-  const renderCounter = useRenderCounter();
-
   return (
     <VStack
       align="stretch"
       justify="start"
       // bg="blackAlpha.300"
     >
-      <HStack mb="2">
-        <Heading size="md" fontFamily="body">
+      <HStack>
+        <Heading size="md" fontFamily="ingredients">
           Ingredients{' '}
         </Heading>
-        <Button size="xs" variant="outline" onClick={() => handleReset()}>
-          RESET
-        </Button>
-        <Button size="xs" variant="outline" onClick={() => handleReload()}>
-          RELOAD
-        </Button>
       </HStack>
-      <Text size="md">Render Counter: {renderCounter}</Text>
       <Box>
         {ingredients.map((group, groupIdx) => (
           <IngredientGroup

@@ -17,6 +17,7 @@ import { Ingredient } from './Ingredient';
 import { Grabber } from '@styled-icons/octicons';
 import { ReorderableItem } from '../helpers/reorderable/ReorderableItem';
 import { ReorderableList } from '../helpers/reorderable/ReorderableList';
+import { GroupHeading } from './GroupHeading';
 
 export const IngredientGroup = ({
   loading,
@@ -37,50 +38,15 @@ export const IngredientGroup = ({
   return (
     <Box align="left" mt="20px">
       {data.groupName !== 'default' && (
-        <HStack
-          //borderBottomWidth="thin"
-          borderColor={mode('pink.500', 'pink.300')}
-        >
-          <Heading
-            size="lg"
-            fontWeight="normal"
-            fontFamily="body"
-            color={mode('pink.500', 'pink.300')}
-          >
-            {!editable ? (
-              data.groupName
-            ) : (
-              <FInput
-                type="editable"
-                startWithEditView={data.groupName === ''}
-                fieldName={`group.${groupIdx}`}
-                rules={{ required: 'This is required' }}
-                label={null}
-                helper={null}
-                defaultValue={data.groupName}
-                placeholder="Group name"
-                disabled={loading}
-                // rest...
-                // bg="purple.300"
-                // minWidth={{ base: '100px', md: '300px' }}
-                px={4}
-              />
-            )}
-          </Heading>
-          {editable && (
-            <IconButton
-              isRound
-              aria-label="Delete Group"
-              fontSize="1.2rem"
-              variant="ghost"
-              icon={<Icon as={FileMinus} />}
-              onClick={() => handleDeleteGroup(groupIdx)}
-            />
-          )}
-        </HStack>
+        <GroupHeading
+          groupName={data.groupName}
+          editable={editable}
+          groupId={groupIdx}
+          loading={loading}
+          handleDeleteGroup={handleDeleteGroup}
+        />
       )}
-
-      <Divider />
+      <Divider mb={4} />
 
       {editable ? (
         <ReorderableList
@@ -94,7 +60,7 @@ export const IngredientGroup = ({
               <Ingredient
                 dragOverlay={true}
                 loading={loading}
-                editable={true}
+                editable={editable}
                 desc={data.list[parseInt(id)]}
                 fieldId={`${groupIdx}.${id}`}
               />

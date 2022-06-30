@@ -571,6 +571,8 @@ const customFonts = {
   fBigHeading: `"Sansita Swashed"`,
   fHeading: `"Caveat"`,
   fText: `"Nunito"`,
+  fQuote: `"Nunito"`,
+  fIngredients: `"Nunito"`,
   fMono: ``,
 };
 const customStyles = {
@@ -633,7 +635,9 @@ const themeExtensions = {
   fonts: {
     title: `${customFonts.fBigHeading}, ` + typography.fonts.heading,
     heading: `${customFonts.fHeading}, ` + typography.fonts.heading,
+    quote: `${customFonts.fQuote}` + typography.fonts.body,
     body: `${customFonts.fText}, ` + typography.fonts.body,
+    ingredients: `${customFonts.fIngredients}, ` + typography.fonts.heading,
     mono: `${customFonts.fMono}` + typography.fonts.mono,
   },
   fontSizes: {},

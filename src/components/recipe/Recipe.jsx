@@ -20,13 +20,17 @@ import { Router, useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
+import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
 import { random } from '../../lib/tools';
+import OrnamentDivider from '../../resources/svgs/ornament-divider.svg';
 import { OverlayFader } from '../helpers/OverlayFader';
 import { Ingredients } from '../ingredients/Ingredients';
 
 setAutoFreeze(false);
 
-export const Recipe = ({ editable, recipeId }) => {
+export const Recipe = ({ initialEditable, recipeId }) => {
+  const renderCounter = useRenderCounter();
+  const [editable, setEditable] = useState(initialEditable);
   const { colorMode } = useColorMode();
   const mode = (lightValue, darkValue) =>
     colorMode == 'light' ? lightValue : darkValue;
@@ -87,6 +91,11 @@ export const Recipe = ({ editable, recipeId }) => {
   useEffect(() => {
     formReset();
   }, [formReset, ingredients]);
+
+  const changeEditable = useCallback((value) => {
+    console.log('value', value);
+    setEditable(value);
+  }, []);
 
   const unregisterAll = useCallback(() => {
     unregister(['group', 'desc']);
@@ -215,6 +224,7 @@ export const Recipe = ({ editable, recipeId }) => {
   }, [recipeId, handleReset, reload]);
 
   const saveRecipe = async (formState) => {
+    changeEditable(false);
     const fetchUrl = `/api/my/recipes/${recipeId}`;
     console.log(`patching ${fetchUrl}`);
     const response = await fetch(fetchUrl, {
@@ -294,6 +304,7 @@ export const Recipe = ({ editable, recipeId }) => {
               textDecorationThickness="2px"
               textDecorationColor={mode('purple.300', 'purple.400')}
               fontStyle="italic"
+              //fontFamily="heading"
               // textTransform={'uppercase'}
             >
               {recipe?.title || 'Loading...'}
@@ -321,6 +332,7 @@ export const Recipe = ({ editable, recipeId }) => {
               //flexGrow="1"
               flex="2"
               //width="30%"
+              minW="300px"
             >
               <Box
                 p={8}
@@ -341,8 +353,6 @@ export const Recipe = ({ editable, recipeId }) => {
                     handleNewGroup={handleNewGroup}
                     handleNewIngredient={handleNewIngredient}
                     handleReorder={handleReorder}
-                    handleReset={handleReset}
-                    handleReload={handleReload}
                     instanceKey={instanceKey}
                   />
                 )}
@@ -359,7 +369,13 @@ export const Recipe = ({ editable, recipeId }) => {
               //minWidth="98%"
               //maxWidth="80vh"
               //height="100%"
-              minW="800px"
+              minW={{
+                base: '300px',
+                sm: '500px',
+                md: '500px',
+                lg: '600px',
+                xl: '800px',
+              }}
             >
               <Flex
                 p={0}
@@ -444,7 +460,7 @@ export const Recipe = ({ editable, recipeId }) => {
                 //borderColor="purple.800"
                 bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
               >
-                <Box align="start" mb={8}>
+                <Box align="center" justify="center" mb={8} maxWidth="60em">
                   <Text
                     pb={4}
                     sx={{
@@ -459,12 +475,21 @@ export const Recipe = ({ editable, recipeId }) => {
                       textIndent: '1em',
                     }}
                     fontStyle="italic"
-                    fontSize="lg"
-                    fontFamily={`"Nunito"`}
+                    fontSize="1.6em"
+                    fontFamily="quote"
                   >
                     {recipe?.shortDesc}
                   </Text>
-                  <Divider borderColor="pink.200" />
+                  <Box width="full" align="center" justify="center">
+                    <OrnamentDivider
+                      height="4em"
+                      fill={mode(
+                        'var(--chakra-colors-pink-400)',
+                        'var(--chakra-colors-pink-500)'
+                      )}
+                    />
+                  </Box>
+                  {/* <Divider borderColor="pink.200" /> */}
                 </Box>
                 <Box
                   pos="relative"
@@ -492,20 +517,48 @@ export const Recipe = ({ editable, recipeId }) => {
             mt={4}
           >
             <Box flex="1"></Box>
-            <Button
-              size="md"
-              type="submit"
-              color={mode('white', 'pink.800')}
-              //variant="gradient"
-              //bgGradient="linear(to-r, purple.300, pink.300)"
-              textTransform={'uppercase'}
-              letterSpacing={1.1}
-              fontWeight="semibold"
-              isLoading={isSubmitting}
-            >
-              Save Recipe
+            <Button size="xs" variant="outline" onClick={() => handleReset()}>
+              RESET
             </Button>
+            <Button size="xs" variant="outline" onClick={() => handleReload()}>
+              RELOAD
+            </Button>
+            {editable ? (
+              <Button
+                size="md"
+                type="submit"
+                color={mode('white', 'pink.800')}
+                //variant="gradient"
+                //bgGradient="linear(to-r, purple.300, pink.300)"
+                textTransform={'uppercase'}
+                letterSpacing={1.1}
+                fontWeight="semibold"
+                //isLoading={isSubmitting}
+              >
+                Save Recipe
+              </Button>
+            ) : (
+              <Button
+                size="md"
+                //type="submit"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  changeEditable(true);
+                }}
+                color={mode('white', 'pink.800')}
+                //variant="gradient"
+                //bgGradient="linear(to-r, purple.300, pink.300)"
+                textTransform={'uppercase'}
+                letterSpacing={1.1}
+                fontWeight="semibold"
+                isLoading={isSubmitting}
+              >
+                Edit Recipe
+              </Button>
+            )}
           </HStack>
+          <Text size="md">Render Counter: {renderCounter}</Text>
         </VStack>
       </form>
       {/* <pre>{JSON.stringify(recipe, undefined, 2)}</pre> */}
