@@ -4,6 +4,7 @@ import {
   EditableInput,
   EditablePreview,
   Input,
+  Textarea,
   useColorMode,
 } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
@@ -74,7 +75,7 @@ export const FInput = ({
         helper={helper}
         borderColor={mode('blackAlpha.300', 'whiteAlpha.300')}
       >
-        {type === 'editable' ? (
+        {type === 'editable' && (
           <Editable
             // other parameters:
             defaultValue={defaultValue}
@@ -95,7 +96,23 @@ export const FInput = ({
               {...rest}
             />
           </Editable>
-        ) : (
+        )}
+        {type === 'area' && (
+          <Textarea
+            whiteSpace="pre-line"
+            // register form hook methods:
+            // onChange={onChange} // assign onChange event
+            // onBlur={onBlur} // assign onBlur event
+            // name={name} // assign name prop
+            // ref={ref} // assign ref prop
+            {...register(fieldName, registerOptions)}
+            // other parameters:
+            defaultValue={defaultValue}
+            placeholder={placeholder}
+            {...rest}
+          />
+        )}
+        {type === 'input' && (
           <Input
             // register form hook methods:
             // onChange={onChange} // assign onChange event
@@ -107,7 +124,6 @@ export const FInput = ({
             defaultValue={defaultValue}
             placeholder={placeholder}
             {...rest}
-            //maxWidth="8em"
           />
         )}
       </FormControlWrapper>

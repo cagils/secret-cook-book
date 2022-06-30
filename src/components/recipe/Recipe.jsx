@@ -11,6 +11,7 @@ import {
   Spinner,
   Square,
   Text,
+  Textarea,
   useColorMode,
   VStack,
 } from '@chakra-ui/react';
@@ -25,6 +26,7 @@ import { random } from '../../lib/tools';
 import OrnamentDivider from '../../resources/svgs/ornament-divider.svg';
 import { OverlayFader } from '../helpers/OverlayFader';
 import { Ingredients } from '../ingredients/Ingredients';
+import RecipeText from './RecipeText';
 
 setAutoFreeze(false);
 
@@ -38,6 +40,7 @@ export const Recipe = ({ initialEditable, recipeId }) => {
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(false);
   const [ingredients, setIngredients] = useState([]);
+  const [description, setDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [instanceKey, setInstanceKey] = useState(random());
   const [reload, setReload] = useState(0);
@@ -92,17 +95,12 @@ export const Recipe = ({ initialEditable, recipeId }) => {
     formReset();
   }, [formReset, ingredients]);
 
-  const changeEditable = useCallback((value) => {
-    console.log('value', value);
-    setEditable(value);
-  }, []);
-
   const unregisterAll = useCallback(() => {
     unregister(['group', 'desc']);
   }, [unregister]);
 
   // Since produce locks the object returned, we get a copy
-  const formStateTransform = useCallback(
+  const formStateIngredientsTransform = useCallback(
     () =>
       produce(ingredients, (draft) => {
         const formValues = getValues();
@@ -114,54 +112,54 @@ export const Recipe = ({ initialEditable, recipeId }) => {
 
   const handleNewIngredient = useCallback(
     (groupIdx) => {
-      const formState = formStateTransform();
-      unregisterAll();
-      formState[groupIdx].list.push('');
-      setIngredients(formState);
+      const formStateIngredients = formStateIngredientsTransform();
+      unregisterAll('ingredients');
+      formStateIngredients[groupIdx].list.push('');
+      setIngredients(formStateIngredients);
     },
-    [formStateTransform, unregisterAll]
+    [formStateIngredientsTransform, unregisterAll]
   );
 
   const handleDeleteIngredient = useCallback(
     (groupIdx, ingIdx) => {
-      const formState = formStateTransform();
-      unregisterAll();
-      formState[groupIdx].list.splice(ingIdx, 1);
+      const formStateIngredients = formStateIngredientsTransform();
+      unregisterAll('ingredients');
+      formStateIngredients[groupIdx].list.splice(ingIdx, 1);
       setInstanceKey((prev) => random(prev));
-      setIngredients(formState);
+      setIngredients(formStateIngredients);
     },
-    [formStateTransform, unregisterAll]
+    [formStateIngredientsTransform, unregisterAll]
   );
 
   const handleDeleteGroup = useCallback(
     (groupIdx) => {
-      const formState = formStateTransform();
-      unregisterAll();
-      formState.splice(groupIdx, 1);
-      setIngredients(formState);
+      const formStateIngredients = formStateIngredientsTransform();
+      unregisterAll('ingredients');
+      formStateIngredients.splice(groupIdx, 1);
+      setIngredients(formStateIngredients);
     },
-    [formStateTransform, unregisterAll]
+    [formStateIngredientsTransform, unregisterAll]
   );
 
   const handleNewGroup = useCallback(() => {
-    const formState = formStateTransform();
-    unregisterAll();
-    formState.push({ groupName: '', list: [''] });
-    setIngredients(formState);
-  }, [formStateTransform, unregisterAll]);
+    const formStateIngredients = formStateIngredientsTransform();
+    unregisterAll('ingredients');
+    formStateIngredients.push({ groupName: '', list: [''] });
+    setIngredients(formStateIngredients);
+  }, [formStateIngredientsTransform, unregisterAll]);
 
   const handleReorder = useCallback(
     (groupIdx, items) => {
-      const formState = formStateTransform();
-      unregisterAll();
+      const formStateIngredients = formStateIngredientsTransform();
+      unregisterAll('ingredients');
       const newList = [];
-      const oldList = formState[groupIdx].list;
+      const oldList = formStateIngredients[groupIdx].list;
       items.forEach((v) => newList.push(oldList[parseInt(v.id)]));
-      formState[groupIdx].list = newList;
+      formStateIngredients[groupIdx].list = newList;
       //setInstanceKey((prev) => random(prev));
-      setIngredients(formState);
+      setIngredients(formStateIngredients);
     },
-    [formStateTransform, unregisterAll]
+    [formStateIngredientsTransform, unregisterAll]
   );
 
   const handleReset = useCallback(() => {
@@ -174,6 +172,16 @@ export const Recipe = ({ initialEditable, recipeId }) => {
     setReload((reload) => reload ^ 1);
     // router.replace(router.asPath); // This call refreshes page without reloading and causes Next.js to reapply getServerSideProps() method
   }, []);
+
+  const changeEditable = useCallback((value) => {
+    console.log('value', value);
+    setEditable(value);
+  }, []);
+
+  const cancelEdit = useCallback(() => {
+    setEditable(false);
+    handleReload();
+  }, [handleReload]);
 
   useEffect(() => {
     let abort = false;
@@ -206,6 +214,8 @@ export const Recipe = ({ initialEditable, recipeId }) => {
       let res = await response.json();
       setRecipe(res.data);
       setIngredients(res.data?.ingredients ?? []);
+      const desc = res.data?.description?.text.replace(/\\n/g, '\n');
+      setDescription(desc ?? '');
     };
 
     loadRecipe()
@@ -223,8 +233,21 @@ export const Recipe = ({ initialEditable, recipeId }) => {
     };
   }, [recipeId, handleReset, reload]);
 
-  const saveRecipe = async (formState) => {
+  const saveRecipe = async () => {
     changeEditable(false);
+
+    // const formValues = getValues();
+
+    // console.log('SAVE RECIPE: ');
+    // console.log('formValues:');
+    // console.log(JSON.stringify(formValues, undefined, 2));
+
+    const formStateIngredients = formStateIngredientsTransform();
+    console.log('formStateIngredients:');
+    console.log(JSON.stringify(formStateIngredients, undefined, 2));
+
+    const formStateDescription = getValues()?.description?.text || description;
+
     const fetchUrl = `/api/my/recipes/${recipeId}`;
     console.log(`patching ${fetchUrl}`);
     const response = await fetch(fetchUrl, {
@@ -232,7 +255,10 @@ export const Recipe = ({ initialEditable, recipeId }) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ingredients: formState }),
+      body: JSON.stringify({
+        ingredients: formStateIngredients,
+        description: { text: 'aaaa' },
+      }),
     });
     console.log('patched.');
 
@@ -247,11 +273,10 @@ export const Recipe = ({ initialEditable, recipeId }) => {
     console.log('ON FORM SUBMIT');
     setIsSubmitting(true);
     setLoading(true);
-    const formState = formStateTransform();
 
     try {
       console.log(data);
-      await saveRecipe(formState);
+      await saveRecipe();
       console.log('SAVED!');
     } catch (e) {
       console.log('error', e);
@@ -269,8 +294,12 @@ export const Recipe = ({ initialEditable, recipeId }) => {
 
   return (
     <FormProvider {...formMethods}>
-      <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
+      <form
+        // css="width: 100%; padding: 2px"
+        onSubmit={handleSubmit(onFormSubmit, onFormError)}
+      >
         <VStack
+          //width="full"
           align="center"
           justify="center"
           px={{ base: '1', sm: '1', md: '2', xl: '3', '2xl': '4' }}
@@ -310,6 +339,61 @@ export const Recipe = ({ initialEditable, recipeId }) => {
               {recipe?.title || 'Loading...'}
             </Heading>
           </Box>
+          <HStack
+            boxShadow="base"
+            //borderWidth="thin"
+            borderColor="pink.200"
+            bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+            width="full"
+            align="center"
+            justify="center"
+            //bgColor={mode('whiteAlpha.400', 'blackAlpha.400')}
+            borderRadius="lg"
+            p={4}
+            mt={4}
+          >
+            <Box flex="1"></Box>
+            <Button size="xs" variant="outline" onClick={() => handleReset()}>
+              RESET
+            </Button>
+            <Button size="xs" variant="outline" onClick={() => handleReload()}>
+              RELOAD
+            </Button>
+            {editable ? (
+              <Button
+                size="md"
+                type="submit"
+                color={mode('white', 'pink.800')}
+                //variant="gradient"
+                //bgGradient="linear(to-r, purple.300, pink.300)"
+                textTransform={'uppercase'}
+                letterSpacing={1.1}
+                fontWeight="semibold"
+                //isLoading={isSubmitting}
+              >
+                Save Recipe
+              </Button>
+            ) : (
+              <Button
+                size="md"
+                //type="submit"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  changeEditable(true);
+                }}
+                color={mode('white', 'pink.800')}
+                //variant="gradient"
+                //bgGradient="linear(to-r, purple.300, pink.300)"
+                textTransform={'uppercase'}
+                letterSpacing={1.1}
+                fontWeight="semibold"
+                isLoading={isSubmitting}
+              >
+                Edit Recipe
+              </Button>
+            )}
+          </HStack>
 
           <Flex
             wrap="wrap-reverse"
@@ -376,107 +460,93 @@ export const Recipe = ({ initialEditable, recipeId }) => {
                 lg: '600px',
                 xl: '800px',
               }}
+              pos="relative"
+              overflow="hidden"
             >
-              <Flex
-                p={0}
-                borderRadius="lg"
-                boxShadow="base"
-                bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
-                //align="center"
-                //justify="center"
-                pos="relative"
-                overflow="hidden"
-                //maxHeight="30vh"
-                //height="full"
-                //width="full"
-                align="center"
-                justify="center"
-                //max="40vh"
-                // minW="90%"
-              >
-                <OverlayFader active={loading} />
-                {recipe?.photo && (
-                  <Flex
-                    align="center"
-                    justify="center"
-                    /* w={{
-                      xl: '100%',
-                      '2xl': '80%',
-                      '3xl': '75%',
-                    }} */
-                  >
-                    <Box
-                      bgGradient={mode(
-                        'linear(to-r, purple.200, pink.200)',
-                        'linear(to-r, purple.800, pink.600)'
-                      )}
-                      p={{ sm: '4px', md: '6px', xl: '8px' }}
-                      //m={{ sm: '2px', md: '4px', xl: '6px' }}
-                      borderRadius="lg"
-                    >
-                      <Flex
-                        align="center"
-                        justify="center"
-                        grow="1"
-                        //bgColor="orange"
-                        //display="flex"
-                        //flex="1"
-                        //pos="relative"
-                        //css="aspect-ratio: 1 / 1"
-                        overflow="hidden"
-                        borderRadius="lg"
-                        height="auto"
-                      >
-                        <Image
-                          //loading="lazy"
-                          // sizes="50vw"
-                          src={recipe?.photo}
-                          alt={'Recipe Photo'}
-                          layout="fill"
-                          fit="cover"
-                          width="100%"
-                          //height="40vh"
-                          minH="20rem"
-                          maxH="60rem"
-                          //htmlHeight="100%"
-                          //htmlWidth="100%"
-                          //objectPosition={'50% 50%'}
-                          //sx={{ aspectRatio: '16 / 9' }}
-                        />
-                      </Flex>
-                    </Box>
-                  </Flex>
-                )}
-              </Flex>
+              <OverlayFader active={loading} />
               <Box
                 align="center"
                 justfiy="center"
                 flex="1"
-                p={8}
-                //overflow="hidden"
+                // p={8}
+                p={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
                 borderRadius="lg"
                 boxShadow="base"
-                //borderWidth="thin"
-                //borderColor="purple.800"
                 bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
               >
+                <Flex borderRadius="lg" align="center" justify="center">
+                  {recipe?.photo && (
+                    <Flex
+                      align="center"
+                      justify="center"
+                      mb={2}
+                      /* w={{
+                      xl: '100%',
+                      '2xl': '80%',
+                      '3xl': '75%',
+                    }} */
+                    >
+                      <Box
+                        bgGradient={mode(
+                          'linear(to-l, purple.300, pink.300)',
+                          'linear(to-l, purple.800, pink.600)'
+                        )}
+                        p={{ base: '2px', sm: '4px', md: '6px', xl: '8px' }}
+                        //m={{ sm: '2px', md: '4px', xl: '6px' }}
+                        borderRadius="lg"
+                      >
+                        <Flex
+                          align="center"
+                          justify="center"
+                          grow="1"
+                          //bgColor="orange"
+                          //display="flex"
+                          //flex="1"
+                          //pos="relative"
+                          //css="aspect-ratio: 1 / 1"
+                          overflow="hidden"
+                          borderRadius="lg"
+                          height="auto"
+                        >
+                          <Image
+                            //loading="lazy"
+                            // sizes="50vw"
+                            src={recipe?.photo}
+                            alt={'Recipe Photo'}
+                            layout="fill"
+                            fit="cover"
+                            width="100%"
+                            //height="40vh"
+                            minH="20rem"
+                            maxH="30rem"
+                            //htmlHeight="100%"
+                            //htmlWidth="100%"
+                            //objectPosition={'50% 50%'}
+                            //sx={{ aspectRatio: '16 / 9' }}
+                          />
+                        </Flex>
+                      </Box>
+                    </Flex>
+                  )}
+                </Flex>
                 <Box align="center" justify="center" mb={8} maxWidth="60em">
                   <Text
                     pb={4}
                     sx={{
                       '&::first-letter': {
-                        fontSize: '1.6em',
+                        fontSize: '1.3em',
                         //color: mode('pink.500', 'pink.200'),
                         fontFamily: 'title',
                         fontWeight: 'thin',
                         //textShadow: '0px 0px 2px rgba(120,120,120,0.8)',
                         letterSpacing: '3px',
                       },
-                      textIndent: '1em',
+                      //textIndent: '1em',
                     }}
                     fontStyle="italic"
-                    fontSize="1.6em"
+                    fontSize="1.5em"
                     fontFamily="quote"
+                    fontWeight="regular"
                   >
                     {recipe?.shortDesc}
                   </Text>
@@ -493,12 +563,36 @@ export const Recipe = ({ initialEditable, recipeId }) => {
                 </Box>
                 <Box
                   pos="relative"
-                  m={4}
                   align="start"
-                  dangerouslySetInnerHTML={{
-                    __html: recipe?.description?.html,
-                  }}
-                ></Box>
+                  p={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
+                >
+                  {!editable ? (
+                    <>
+                      {/* <Box
+                      m={8}
+                      dangerouslySetInnerHTML={{
+                        __html: recipe?.description?.html,
+                      }}
+                    /> */}
+                      <Box
+                        fontFamily="body"
+                        fontSize="1.1em"
+                        whiteSpace="pre-line"
+                      >
+                        {description}
+                      </Box>
+                    </>
+                  ) : (
+                    <Box m={2}>
+                      <RecipeText
+                        loading={loading}
+                        defaultValue={description}
+                        recipeId={recipeId}
+                      />
+                    </Box>
+                  )}
+                </Box>
+
                 <Box>🚧 UNDER CONSTRUCTION 🚧</Box>
               </Box>
             </VStack>
@@ -524,19 +618,38 @@ export const Recipe = ({ initialEditable, recipeId }) => {
               RELOAD
             </Button>
             {editable ? (
-              <Button
-                size="md"
-                type="submit"
-                color={mode('white', 'pink.800')}
-                //variant="gradient"
-                //bgGradient="linear(to-r, purple.300, pink.300)"
-                textTransform={'uppercase'}
-                letterSpacing={1.1}
-                fontWeight="semibold"
-                //isLoading={isSubmitting}
-              >
-                Save Recipe
-              </Button>
+              <>
+                <Button
+                  size="md"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    cancelEdit();
+                  }}
+                  color={mode('white', 'pink.800')}
+                  //variant="gradient"
+                  //bgGradient="linear(to-r, purple.300, pink.300)"
+                  textTransform={'uppercase'}
+                  letterSpacing={1.1}
+                  fontWeight="semibold"
+                  //isLoading={isSubmitting}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  size="md"
+                  type="submit"
+                  color={mode('white', 'pink.800')}
+                  //variant="gradient"
+                  //bgGradient="linear(to-r, purple.300, pink.300)"
+                  textTransform={'uppercase'}
+                  letterSpacing={1.1}
+                  fontWeight="semibold"
+                  //isLoading={isSubmitting}
+                >
+                  Save Recipe
+                </Button>
+              </>
             ) : (
               <Button
                 size="md"

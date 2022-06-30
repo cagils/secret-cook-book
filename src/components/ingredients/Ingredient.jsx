@@ -61,6 +61,10 @@ export const Ingredient = ({
                 disabled={loading}
                 readOnly={dragOverlay}
                 //focusBorderColor="pink.400"
+                fontSize="1.4em"
+                fontFamily="ingredients"
+                fontStyle="italic"
+                color={mode('gray.700', 'gray.300')}
               />
             </Box>
           ) : (
