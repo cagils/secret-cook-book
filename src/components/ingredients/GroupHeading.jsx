@@ -3,6 +3,7 @@ import {
   HStack,
   Icon,
   IconButton,
+  Text,
   useColorMode,
 } from '@chakra-ui/react';
 import { FileMinus, PlusSquare } from '@styled-icons/feather';
@@ -33,7 +34,11 @@ export const GroupHeading = ({
         color={mode('pink.500', 'pink.300')}
       >
         {!editable ? (
-          groupName
+          groupName ? (
+            groupName
+          ) : (
+            <Text color="whiteAlpha.400">{`unnamed`}</Text>
+          )
         ) : (
           <FInput
             type="editable" /* NOTE: Refers to Chakra editable component, not related to editable prop! */
@@ -43,7 +48,7 @@ export const GroupHeading = ({
             label={null}
             helper={null}
             defaultValue={groupName}
-            placeholder="Group name"
+            placeholder="group name"
             disabled={loading}
             // rest...
             // bg="purple.300"

@@ -4,6 +4,7 @@ import {
   Badge,
   Box,
   Button,
+  Divider,
   Flex,
   Heading,
   HStack,
@@ -61,10 +62,19 @@ export const Ingredients = ({
       // bg="blackAlpha.300"
     >
       <HStack>
-        <Heading size="md" fontFamily="ingredients">
-          Ingredients{' '}
+        <Heading
+          width="full"
+          textAlign="start"
+          fontSize="3em"
+          as="h3"
+          fontFamily="heading"
+          fontWeight="semibold"
+          color={mode('pink.500', 'pink.300')}
+        >
+          Ingredients
         </Heading>
       </HStack>
+      <Divider />
       <Box>
         {ingredients.map((group, groupIdx) => (
           <IngredientGroup
@@ -74,6 +84,7 @@ export const Ingredients = ({
             data={group}
             groupIdx={groupIdx}
             editable={editable}
+            hasHeading={ingredients.length > 1}
             handleDeleteGroup={handleDeleteGroup}
             handleDeleteIngredient={handleDeleteIngredient}
             handleNewIngredient={handleNewIngredient}
@@ -81,9 +92,9 @@ export const Ingredients = ({
           />
         ))}
       </Box>
-      {editable && (
-        <>
-          <Flex>
+      <>
+        <Flex>
+          {editable && (
             <IconButton
               isRound
               aria-label="Add New Group"
@@ -92,9 +103,9 @@ export const Ingredients = ({
               icon={<Icon as={FilePlus} />}
               onClick={() => handleNewGroup()}
             />
-          </Flex>
-        </>
-      )}
+          )}
+        </Flex>
+      </>
     </VStack>
   );
 };

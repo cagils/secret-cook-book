@@ -294,36 +294,47 @@ export const Recipe = ({ initialEditable, recipeId }) => {
 
   return (
     <FormProvider {...formMethods}>
-      <form
+      <Box
+        as="form"
         // css="width: 100%; padding: 2px"
+        width="full"
         onSubmit={handleSubmit(onFormSubmit, onFormError)}
       >
         <VStack
           //width="full"
           align="center"
           justify="center"
-          px={{ base: '1', sm: '1', md: '2', xl: '3', '2xl': '4' }}
+          px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
           pb={4}
+          spacing={0}
+          gap={4}
         >
           <Box
-            boxShadow="base"
+            boxShadow={mode('base', 'baseWhite')}
             //width="full"
             align="center"
             justify="center"
             bgColor={mode('whiteAlpha.800', 'blackAlpha.500')}
             //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
             borderRadius="lg"
-            p={4}
-            mt={4}
+            px={4}
+            py={8}
+            mt={8}
             width="full"
             //px={16}
             position="relative"
             overflow="hidden"
           >
-            <OverlayFader active={loading} />
             <Heading
               as="h2"
+              fontFamily="heading"
               size="2xl"
+              fontSize={{
+                base: '3em',
+                md: '3em',
+                lg: '3em',
+                xl: '4em',
+              }}
               textAlign="center"
               color={mode('pink.500', 'pink.200')}
               letterSpacing="wide"
@@ -333,80 +344,25 @@ export const Recipe = ({ initialEditable, recipeId }) => {
               textDecorationThickness="2px"
               textDecorationColor={mode('purple.300', 'purple.400')}
               fontStyle="italic"
-              //fontFamily="heading"
-              // textTransform={'uppercase'}
+              //textTransform={'capitalize'}
             >
               {recipe?.title || 'Loading...'}
             </Heading>
+            <OverlayFader active={loading} />
           </Box>
-          <HStack
-            boxShadow="base"
-            //borderWidth="thin"
-            borderColor="pink.200"
-            bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
-            width="full"
-            align="center"
-            justify="center"
-            //bgColor={mode('whiteAlpha.400', 'blackAlpha.400')}
-            borderRadius="lg"
-            p={4}
-            mt={4}
-          >
-            <Box flex="1"></Box>
-            <Button size="xs" variant="outline" onClick={() => handleReset()}>
-              RESET
-            </Button>
-            <Button size="xs" variant="outline" onClick={() => handleReload()}>
-              RELOAD
-            </Button>
-            {editable ? (
-              <Button
-                size="md"
-                type="submit"
-                color={mode('white', 'pink.800')}
-                //variant="gradient"
-                //bgGradient="linear(to-r, purple.300, pink.300)"
-                textTransform={'uppercase'}
-                letterSpacing={1.1}
-                fontWeight="semibold"
-                //isLoading={isSubmitting}
-              >
-                Save Recipe
-              </Button>
-            ) : (
-              <Button
-                size="md"
-                //type="submit"
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  changeEditable(true);
-                }}
-                color={mode('white', 'pink.800')}
-                //variant="gradient"
-                //bgGradient="linear(to-r, purple.300, pink.300)"
-                textTransform={'uppercase'}
-                letterSpacing={1.1}
-                fontWeight="semibold"
-                isLoading={isSubmitting}
-              >
-                Edit Recipe
-              </Button>
-            )}
-          </HStack>
-
           <Flex
-            wrap="wrap-reverse"
             //width="full"
-            //align="stretch"
+            align="stretch"
             justify="center"
-            rowGap={2}
-            columnGap={2}
-            //px={{ sm: 2, md: 4, lg: 6 }}
-            spacing={0}
+            //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
+            width="full"
+            wrap="wrap-reverse"
+            // rowGap={2}
+            // columnGap={4}
+            gap={4}
           >
             <VStack
-              boxShadow="base"
+              boxShadow={mode('base', 'baseWhite')}
               // borderWidth="thin"
               borderColor="pink.200"
               bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
@@ -415,18 +371,21 @@ export const Recipe = ({ initialEditable, recipeId }) => {
               borderRadius="lg"
               //flexGrow="1"
               flex="2"
+              spacing={0}
+              gap={4}
               //width="30%"
               minW="300px"
             >
               <Box
                 p={8}
-                grow="1"
-                alignSelf="stretch"
+                // grow="1"
+                // alignSelf="stretch"
+                width="full"
+                height="full"
                 pos="relative"
                 overflow="hidden"
                 // border="1px solid red"
               >
-                <OverlayFader active={loading} />
                 {ingredients && (
                   <Ingredients
                     loading={loading}
@@ -440,15 +399,18 @@ export const Recipe = ({ initialEditable, recipeId }) => {
                     instanceKey={instanceKey}
                   />
                 )}
+                <OverlayFader active={loading} />
               </Box>
             </VStack>
             <VStack
               align="stretch"
               justify="center"
               // flexGrow={100}
-              rowGap={2}
-              columnGap={2}
+              // rowGap={2}
+              // columnGap={2}
+              // gap={2}
               spacing={0}
+              // gap={4}
               flex="5"
               //minWidth="98%"
               //maxWidth="80vh"
@@ -463,7 +425,6 @@ export const Recipe = ({ initialEditable, recipeId }) => {
               pos="relative"
               overflow="hidden"
             >
-              <OverlayFader active={loading} />
               <Box
                 align="center"
                 justfiy="center"
@@ -471,15 +432,26 @@ export const Recipe = ({ initialEditable, recipeId }) => {
                 // p={8}
                 p={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
                 borderRadius="lg"
-                boxShadow="base"
+                boxShadow={mode('base', 'baseWhite')}
                 bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
               >
-                <Flex borderRadius="lg" align="center" justify="center">
+                <Flex
+                  borderRadius="lg"
+                  align="center"
+                  justify="center"
+                  boxShadow={mode('inner', 'innerWhite')}
+                  bgGradient={mode(
+                    'linear(to-b, pink.200, purple.200)',
+                    'linear(to-b, pink.800, purple.800)'
+                  )}
+                  p={{ base: '2px', sm: '4px', md: '6px', xl: '8px' }}
+                  mb={4}
+                >
                   {recipe?.photo && (
                     <Flex
+                      my={{ base: '2px', sm: '2px', md: '4px', xl: '10px' }}
                       align="center"
                       justify="center"
-                      mb={2}
                       /* w={{
                       xl: '100%',
                       '2xl': '80%',
@@ -487,13 +459,9 @@ export const Recipe = ({ initialEditable, recipeId }) => {
                     }} */
                     >
                       <Box
-                        bgGradient={mode(
-                          'linear(to-l, purple.300, pink.300)',
-                          'linear(to-l, purple.800, pink.600)'
-                        )}
-                        p={{ base: '2px', sm: '4px', md: '6px', xl: '8px' }}
                         //m={{ sm: '2px', md: '4px', xl: '6px' }}
                         borderRadius="lg"
+                        //bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
                       >
                         <Flex
                           align="center"
@@ -530,8 +498,9 @@ export const Recipe = ({ initialEditable, recipeId }) => {
                   )}
                 </Flex>
                 <Box align="center" justify="center" mb={8} maxWidth="60em">
+                  <Divider s />
                   <Text
-                    pb={4}
+                    py={4}
                     sx={{
                       '&::first-letter': {
                         fontSize: '1.3em',
@@ -550,55 +519,76 @@ export const Recipe = ({ initialEditable, recipeId }) => {
                   >
                     {recipe?.shortDesc}
                   </Text>
-                  <Box width="full" align="center" justify="center">
+                  <Box width="full" align="center" justify="center" mt="4">
                     <OrnamentDivider
-                      height="4em"
+                      height="5em"
                       fill={mode(
                         'var(--chakra-colors-pink-400)',
                         'var(--chakra-colors-pink-500)'
                       )}
                     />
                   </Box>
-                  {/* <Divider borderColor="pink.200" /> */}
                 </Box>
                 <Box
                   pos="relative"
                   align="start"
-                  p={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
+                  mx={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
+                  px={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
                 >
-                  {!editable ? (
-                    <>
-                      {/* <Box
+                  <Box my={4}>
+                    <Heading
+                      width="full"
+                      textAlign="start"
+                      fontSize="3em"
+                      as="h3"
+                      fontFamily="heading"
+                      fontWeight="semibold"
+                      color={mode('pink.500', 'pink.300')}
+                    >
+                      Instructions
+                    </Heading>
+                    <Divider />
+                  </Box>
+                  <Box
+                    mt={4}
+                    borderRadius="lg"
+                    //borderWidth="thin"
+                    p={{ base: '0', sm: '0', md: '4', xl: '8' }}
+                    borderColor={mode('blackAlpha.200', 'whiteAlpha.200')}
+                  >
+                    {!editable ? (
+                      <Box>
+                        {/* <Box
                       m={8}
                       dangerouslySetInnerHTML={{
                         __html: recipe?.description?.html,
                       }}
                     /> */}
-                      <Box
-                        fontFamily="body"
-                        fontSize="1.1em"
-                        whiteSpace="pre-line"
-                      >
-                        {description}
+                        <Box
+                          fontFamily="body"
+                          fontSize="1.1em"
+                          whiteSpace="pre-line"
+                        >
+                          {description}
+                        </Box>
                       </Box>
-                    </>
-                  ) : (
-                    <Box m={2}>
-                      <RecipeText
-                        loading={loading}
-                        defaultValue={description}
-                        recipeId={recipeId}
-                      />
-                    </Box>
-                  )}
+                    ) : (
+                      <Box>
+                        <RecipeText
+                          loading={loading}
+                          defaultValue={description}
+                          recipeId={recipeId}
+                        />
+                      </Box>
+                    )}
+                  </Box>
                 </Box>
-
-                <Box>🚧 UNDER CONSTRUCTION 🚧</Box>
               </Box>
+              <OverlayFader active={loading} />
             </VStack>
           </Flex>
           <HStack
-            boxShadow="base"
+            boxShadow={mode('base', 'baseWhite')}
             //borderWidth="thin"
             borderColor="pink.200"
             bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
@@ -673,7 +663,7 @@ export const Recipe = ({ initialEditable, recipeId }) => {
           </HStack>
           <Text size="md">Render Counter: {renderCounter}</Text>
         </VStack>
-      </form>
+      </Box>
       {/* <pre>{JSON.stringify(recipe, undefined, 2)}</pre> */}
     </FormProvider>
   );

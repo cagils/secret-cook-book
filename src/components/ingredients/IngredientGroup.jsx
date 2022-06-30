@@ -22,6 +22,7 @@ import { GroupHeading } from './GroupHeading';
 export const IngredientGroup = ({
   loading,
   data,
+  hasHeading = true,
   groupIdx,
   editable,
   handleDeleteGroup,
@@ -36,17 +37,18 @@ export const IngredientGroup = ({
     colorMode == 'light' ? lightValue : darkValue;
 
   return (
-    <Box align="left" mt="20px">
-      {data.groupName !== 'default' && (
-        <GroupHeading
-          groupName={data.groupName}
-          editable={editable}
-          groupId={groupIdx}
-          loading={loading}
-          handleDeleteGroup={handleDeleteGroup}
-        />
+    <Box align="left">
+      {hasHeading && (
+        <Box my={4}>
+          <GroupHeading
+            groupName={data.groupName.trim()}
+            editable={editable}
+            groupId={groupIdx}
+            loading={loading}
+            handleDeleteGroup={handleDeleteGroup}
+          />
+        </Box>
       )}
-      <Divider mb={4} />
 
       {editable ? (
         <ReorderableList

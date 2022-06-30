@@ -25,33 +25,13 @@ export const Layout = ({ children }) => {
   return (
     <Flex
       bgGradient={mode(
-        'linear(to-t, pink.100, pink.300)',
+        'linear(to-t, pink.100, pink.200)',
         'linear(to-b, gray.600, gray.800)'
       )}
       justify="center"
       mx="auto"
       grow="1"
       minHeight="100vh"
-      /* mx={{
-        sm: '0em',
-        md: '0em',
-        lg: '0em',
-        xl: '10em',
-        '2xl': '12em',
-        '3xl': '16em',
-        '4xl': '30em',
-        '5xl': '30em',
-      }} */
-      /* maxWidth={{
-        sm: '100%',
-        md: '100%',
-        lg: '100%',
-        xl: '100%',
-        '2xl': '90%',
-        '3xl': '80%',
-        '4xl': '70%',
-        '5xl': '60%',
-      }} */
     >
       <Flex maxWidth="2200px" flex="1" mx="auto">
         <VStack
@@ -65,40 +45,52 @@ export const Layout = ({ children }) => {
           <HStack
             align="center"
             justify="center"
-            boxShadow="base"
+            // boxShadow="base"
             bgColor={mode('pink.100', 'blackAlpha.300')}
             bgGradient={mode(
               'linear(to-r, purple.200, pink.200)',
               'linear(to-r, purple.800, pink.600)'
             )}
           >
-            <Box m="2" position="absolute" right={0} top={0}>
-              <IconButton
-                borderColor={mode('blackAlpha.400', 'whiteAlpha.400')}
-                color={mode('blackAlpha.400', 'whiteAlpha.400')}
-                _hover={{
-                  bgColor: mode('blackAlpha.200', 'whiteAlpha.200'),
-                }}
-                isRound
-                variant="outline"
-                onClick={() => toggleColorMode()}
-                aria-label="Toggle color scheme"
-                icon={
-                  <Icon
-                    color={mode('blackAlpha.500', 'whiteAlpha.800')}
-                    as={dark ? Sun : Moon}
-                  />
-                }
-              />
-            </Box>
-            <Box position="relative" px="3em">
+            <Box px="3em">
+              <Box
+                m="2"
+                position="absolute"
+                right={0}
+                top={0}
+                px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
+                bottom="unset"
+                left="unset"
+                zIndex="1000"
+              >
+                <IconButton
+                  colorScheme="pink"
+                  //borderColor={mode('blackAlpha.500', 'whiteAlpha.500')}
+                  //color={mode('blackAlpha.400', 'whiteAlpha.400')}
+                  /* _hover={{
+                    bgColor: mode('pink.600', 'purple.600'),
+                  }} */
+                  bgColor={mode('pink.300', 'pink.500')}
+                  isRound
+                  variant="solid"
+                  onClick={() => toggleColorMode()}
+                  aria-label="Toggle color scheme"
+                  icon={
+                    <Icon
+                      fontSize="28px"
+                      color={mode('whiteAlpha.600', 'whiteAlpha.600')}
+                      as={dark ? Sun : Moon}
+                    />
+                  }
+                />
+              </Box>
               <Heading
                 textShadow="1px 1px 1px white"
                 variant="big"
                 as="h1"
                 textAlign="center"
                 size="2xl"
-                py={2}
+                py={4}
                 color={mode('purple.500', 'purple.300')}
               >
                 <Link href="/">

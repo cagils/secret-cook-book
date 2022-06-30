@@ -61,7 +61,7 @@ export const RecipeCard = ({ recipe }) => {
                   letterSpacing={1.4}
                   textTransform="uppercase"
                 >
-                  <Flex gap="1rem">
+                  <Flex>
                     <Text>Serving: {recipe.serving}</Text>
                     <Text>Time: {recipe.time}</Text>
                   </Flex>
