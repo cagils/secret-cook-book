@@ -24,6 +24,10 @@ export const Layout = ({ children }) => {
 
   return (
     <Flex
+      bgGradient={mode(
+        'linear(to-b, white, pink.100)',
+        'linear(to-t, black, gray.900)'
+      )}
       justify="center"
       mx="auto"
       grow="1"

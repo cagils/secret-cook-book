@@ -1,6 +1,7 @@
 import {
   Box,
   Flex,
+  HStack,
   Icon,
   IconButton,
   Square,
@@ -24,66 +25,71 @@ export const Ingredient = ({
     colorMode == 'light' ? lightValue : darkValue;
 
   return (
-    <Flex
-      grow="1"
+    <HStack
+      // grow="1"
       //color="purple.900"
+      // maxWidth="30em"
+      // border="1px solid purple"
+      width="full"
     >
-      <Flex grow="1">
-        <Flex align="start" grow="1">
-          <Flex
-            align="stretch"
-            jusfity="center"
-            //color="purple.800"
-            grow="1"
-          >
-            {editable ? (
-              <Flex grow="1">
-                <FInput
-                  fieldName={`desc.${fieldId}`}
-                  rules={{ required: 'This is required' }}
-                  label={null}
-                  helper={null}
-                  defaultValue={desc}
-                  placeholder="Item name"
-                  // rest...
-                  bgColor={mode('pink.100', 'blackAlpha.300')}
-                  minWidth={{ base: '40', md: '60' }}
-                  height={10}
-                  disabled={loading}
-                  readOnly={dragOverlay}
-                  //focusBorderColor="pink.400"
-                />
-              </Flex>
-            ) : (
-              <Flex
-                borderRadius={'md'}
-                grow="1"
-                align="center"
-                px={4}
-                //bgColor="purple.400"
+      <Box width="full">
+        <Box
+          // border="1px solid cyan"
+          //grow="1"
+          // align="stretch"
+          justify="center"
+          // width="full"
+          //color="purple.800"
+        >
+          {editable ? (
+            <Box>
+              <FInput
+                fieldName={`desc.${fieldId}`}
+                rules={{ required: 'This is required' }}
+                label={null}
+                helper={null}
+                defaultValue={desc}
+                placeholder="Item name"
+                // rest...
+                bgColor={mode('pink.100', 'blackAlpha.300')}
+                //minWidth={{ base: '10em', md: '20em', lg: '60em' }}
+                //maxWidth={{ base: 'initial', md: 'initial', lg: 'initial' }}
+                //width="full"
                 height={10}
-              >
-                <Text>{desc}</Text>
-              </Flex>
-            )}
-          </Flex>
-        </Flex>
-        {editable && !dragOverlay && (
-          <Flex height={10}>
-            <Square>
-              <IconButton
-                isRound
-                aria-label="Delete Ingredient"
-                fontSize="1.2rem"
-                variant="ghost"
-                //color="purple.200"
-                icon={<Icon as={MinusSquare} />}
-                onClick={handleDeleteIngredient}
+                disabled={loading}
+                readOnly={dragOverlay}
+                //focusBorderColor="pink.400"
               />
-            </Square>
-          </Flex>
-        )}
-      </Flex>
-    </Flex>
+            </Box>
+          ) : (
+            <Box
+              borderRadius={'md'}
+              //grow="1"
+              align="center"
+              px={4}
+              //bgColor="purple.400"
+              height={10}
+            >
+              <Text>{desc}</Text>
+            </Box>
+          )}
+        </Box>
+      </Box>
+      {editable && !dragOverlay && (
+        <Box height={10}>
+          <Square>
+            <IconButton
+              isRound
+              aria-label="Delete Ingredient"
+              fontSize="1.2rem"
+              variant="ghost"
+              //color="purple.200"
+              icon={<Icon as={MinusSquare} />}
+              onClick={handleDeleteIngredient}
+            />
+          </Square>
+        </Box>
+      )}
+    </HStack>
   );
 };

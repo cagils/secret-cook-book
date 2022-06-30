@@ -80,7 +80,7 @@ export const FInput = ({
             defaultValue={defaultValue}
             startWithEditView={startWithEditView}
             placeholder={placeholder}
-            maxWidth="8em"
+            //maxWidth="8em"
           >
             <EditablePreview />
             <EditableInput
@@ -107,7 +107,7 @@ export const FInput = ({
             defaultValue={defaultValue}
             placeholder={placeholder}
             {...rest}
-            maxWidth="8em"
+            //maxWidth="8em"
           />
         )}
       </FormControlWrapper>

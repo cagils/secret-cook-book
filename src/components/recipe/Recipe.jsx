@@ -302,8 +302,8 @@ export const Recipe = ({ editable, recipeId }) => {
 
           <Flex
             wrap="wrap-reverse"
-            width="full"
-            align="stretch"
+            //width="full"
+            //align="stretch"
             justify="center"
             rowGap={2}
             columnGap={2}
@@ -312,15 +312,24 @@ export const Recipe = ({ editable, recipeId }) => {
           >
             <VStack
               boxShadow="base"
-              //borderWidth="thin"
+              // borderWidth="thin"
               borderColor="pink.200"
               bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
-              pos="relative"
-              overflow="hidden"
+              //pos="relative"
+              //overflow="hidden"
               borderRadius="lg"
-              flexGrow="1"
+              //flexGrow="1"
+              flex="2"
+              //width="30%"
             >
-              <Box p={4}>
+              <Box
+                p={8}
+                grow="1"
+                alignSelf="stretch"
+                pos="relative"
+                overflow="hidden"
+                // border="1px solid red"
+              >
                 <OverlayFader active={loading} />
                 {ingredients && (
                   <Ingredients
@@ -342,22 +351,24 @@ export const Recipe = ({ editable, recipeId }) => {
             <VStack
               align="stretch"
               justify="center"
-              flexGrow={100}
+              // flexGrow={100}
               rowGap={2}
               columnGap={2}
               spacing={0}
-              minWidth="60%"
+              flex="5"
+              //minWidth="98%"
               //maxWidth="80vh"
               //height="100%"
+              minW="800px"
             >
               <Flex
+                p={0}
                 borderRadius="lg"
                 boxShadow="base"
                 bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
                 //align="center"
                 //justify="center"
-                p={4}
-                //pos="relative"
+                pos="relative"
                 overflow="hidden"
                 //maxHeight="30vh"
                 //height="full"
@@ -365,6 +376,7 @@ export const Recipe = ({ editable, recipeId }) => {
                 align="center"
                 justify="center"
                 //max="40vh"
+                // minW="90%"
               >
                 <OverlayFader active={loading} />
                 {recipe?.photo && (
@@ -382,7 +394,7 @@ export const Recipe = ({ editable, recipeId }) => {
                         'linear(to-r, purple.200, pink.200)',
                         'linear(to-r, purple.800, pink.600)'
                       )}
-                      p={{ sm: '2px', md: '4px', xl: '6px' }}
+                      p={{ sm: '4px', md: '6px', xl: '8px' }}
                       //m={{ sm: '2px', md: '4px', xl: '6px' }}
                       borderRadius="lg"
                     >
@@ -406,13 +418,14 @@ export const Recipe = ({ editable, recipeId }) => {
                           alt={'Recipe Photo'}
                           layout="fill"
                           fit="cover"
-                          height="40vh"
                           width="100%"
+                          //height="40vh"
+                          minH="20rem"
+                          maxH="60rem"
                           //htmlHeight="100%"
                           //htmlWidth="100%"
                           //objectPosition={'50% 50%'}
                           //sx={{ aspectRatio: '16 / 9' }}
-                          maxH="40rem"
                         />
                       </Flex>
                     </Box>
@@ -423,7 +436,7 @@ export const Recipe = ({ editable, recipeId }) => {
                 align="center"
                 justfiy="center"
                 flex="1"
-                p={4}
+                p={8}
                 //overflow="hidden"
                 borderRadius="lg"
                 boxShadow="base"
