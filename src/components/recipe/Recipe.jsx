@@ -182,6 +182,10 @@ export const Recipe = ({ initialEditable, recipeId }) => {
     setEditable(value);
   }, []);
 
+  const handleEdit = useCallback(() => {
+    setEditable(true);
+  }, []);
+
   const cancelEdit = useCallback(() => {
     setEditable(false);
     handleReload();
@@ -341,6 +345,7 @@ export const Recipe = ({ initialEditable, recipeId }) => {
               recipeTitle={recipe?.title}
               editable={editable}
               loading={loading}
+              handleEdit={handleEdit}
             />
             <OverlayFader active={loading} />
           </Box>
