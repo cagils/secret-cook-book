@@ -46,21 +46,29 @@ _...under construction..._
   <img src="https://badgen.net/badge/Preview/Development/green"/>
 </a>
 <p/>
-<center><div align='center' ><img src="public/SecretCookBook.png"/></div></center>
+<center>
+<div align='center' >
+<img width='400px' style='border: 2px solid gray' src="public/screenshots/ss1.png"/>
+<img width='400px' style='border: 2px solid gray' src="public/screenshots/ss2.png"/>
 </div>
+<div align='center' >
+<img width='300px' style='border: 2px solid gray' src="public/screenshots/ss3.png"/>
+<img width='300px' style='border: 2px solid gray' src="public/screenshots/ss4.png"/></div>
+</div>
+</center>
 <p/>
 <h3>
 <ul>
 <li> Next.js </li>
-<li> Next.js REST API Backend</li>
-<li> Chakra UI</li>
-<li> TailwindCSS</li>
-<li> Storybook</li>
-<li> React Hook Form</li>
-<li> DND-Kit</li>
+<li> Chakra UI with optional integrated TailwindCSS</li>
+<li> Fully Responsive Design</li>
+<li> Jest/Storybook Testing</li>
+<li> React Hook Form uncontrolled forms</li>
+<li> DND-Kit re-orderable inputs</li>
+<li> Next REST API with OpenAPI 3 Schema</li>
+<li> Mongoose/MongoDB database</li>
 <li> React Query</li>
-<li> Husky</li>
-<li> MongoDB + Mongoose + Atlas</li>
+<li> Husky / SVG</li>
 <li> Vercel Deployment</li>
 </ul>
 </h3>

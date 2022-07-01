@@ -39,7 +39,12 @@ const recipeMongooseSchema = {
     html: {
       type: 'String',
     },
-    json: {},
+    json: {
+      type: 'String',
+    },
+    text: {
+      type: 'String',
+    },
   },
 };
 

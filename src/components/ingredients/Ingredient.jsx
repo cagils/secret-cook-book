@@ -1,4 +1,15 @@
-import { Box, Flex, Icon, IconButton, Square, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Divider,
+  Flex,
+  HStack,
+  Icon,
+  IconButton,
+  Square,
+  Text,
+  useColorMode,
+} from '@chakra-ui/react';
+import { Feather } from '@styled-icons/entypo';
 import { MinusSquare } from '@styled-icons/feather';
 
 import { FInput } from '../helpers/form/FInput';
@@ -9,68 +20,102 @@ export const Ingredient = ({
   editable = false,
   fieldId,
   desc,
+  dragOverlay = false,
 }) => {
+  const { colorMode } = useColorMode();
+  const mode = (lightValue, darkValue) =>
+    colorMode == 'light' ? lightValue : darkValue;
+
   return (
-    <Flex
-      mb="4px"
-      grow="1"
+    <HStack
+      // grow="1"
       //color="purple.900"
+      // maxWidth="30em"
+      // border="1px solid purple"
+      width="full"
     >
-      <Flex grow="1">
-        <Flex align="start" grow="1">
-          <Flex
-            align="stretch"
-            jusfity="center"
-            //color="purple.800"
-            grow="1"
-          >
-            {editable ? (
-              <Flex grow="1">
-                <FInput
-                  fieldName={`desc.${fieldId}`}
-                  rules={{ required: 'This is required' }}
-                  label={null}
-                  helper={null}
-                  defaultValue={desc}
-                  placeholder="Item name"
-                  // rest...
-                  //bgColor="purple.300"
-                  minWidth={{ base: '40', md: '60' }}
-                  height={10}
-                  disabled={loading}
-                />
-              </Flex>
-            ) : (
-              <Flex
-                borderRadius={'md'}
-                grow="1"
-                align="center"
-                px={4}
-                //bgColor="purple.400"
+      <Box width="full">
+        <Box
+          // border="1px solid cyan"
+          //grow="1"
+          // align="stretch"
+          justify="center"
+          // width="full"
+          //color="purple.800"
+        >
+          {editable ? (
+            <Box>
+              <FInput
+                fieldName={`desc.${fieldId}`}
+                rules={{ required: 'This is required' }}
+                label={null}
+                helper={null}
+                defaultValue={desc}
+                placeholder="Item name"
+                // rest...
+                bgColor={mode('pink.100', 'blackAlpha.300')}
+                //minWidth={{ base: '10em', md: '20em', lg: '60em' }}
+                //maxWidth={{ base: 'initial', md: 'initial', lg: 'initial' }}
+                //width="full"
                 height={10}
-              >
-                <Text>{desc}</Text>
-              </Flex>
-            )}
-          </Flex>
-        </Flex>
-        {editable && (
-          <Flex height={10}>
-            <Square>
-              <IconButton
-                isRound
-                aria-label="Toggle Dark Mode"
-                fontSize="1.2rem"
-                variant="ghost"
-                colorScheme="pink"
-                //color="purple.200"
-                icon={<Icon as={MinusSquare} />}
-                onClick={handleDeleteIngredient}
+                disabled={loading}
+                readOnly={dragOverlay}
+                //focusBorderColor="pink.400"
+                fontSize="1.4em"
+                fontFamily="ingredients"
+                fontStyle="italic"
+                color={mode('gray.700', 'gray.300')}
               />
-            </Square>
-          </Flex>
-        )}
-      </Flex>
-    </Flex>
+            </Box>
+          ) : (
+            <HStack>
+              <Square>
+                <Icon
+                  fontSize="1.3em"
+                  color={mode('pink.300', 'pink.500')}
+                  as={Feather}
+                />
+              </Square>
+              <Flex
+                minHeight={10}
+                width="full"
+                borderRadius={'md'}
+                my={1}
+                px={4}
+                //grow="1"
+                align="center"
+                justify="start"
+                //px={4}
+                // pos="relative"
+                color={mode('gray.700', 'gray.300')}
+              >
+                <Text
+                  fontFamily="ingredients"
+                  fontStyle="italic"
+                  fontSize="1.2em"
+                >
+                  {desc}
+                </Text>
+              </Flex>
+            </HStack>
+          )}
+        </Box>
+      </Box>
+      {editable && !dragOverlay && (
+        <Box height={10}>
+          <Square>
+            <IconButton
+              isRound
+              aria-label="Delete Ingredient"
+              fontSize="1.2rem"
+              variant="ghost"
+              //color="purple.200"
+              icon={<Icon as={MinusSquare} />}
+              onClick={handleDeleteIngredient}
+            />
+          </Square>
+        </Box>
+      )}
+    </HStack>
   );
 };

@@ -521,7 +521,7 @@ const styles = {
       bg: 'chakra-body-bg',
       transitionProperty: 'background-color',
       transitionDuration: 'normal',
-      lineHeight: 'base',
+      lineHeight: '1.2',
     },
     '*::placeholder': {
       color: 'chakra-placeholder-color',
@@ -555,10 +555,42 @@ const moder = (prop, light, dark) => ({
 });
 
 const customColors = {};
+const customFonts = {
+  /* 
+  "Nunito"
+  "Quicksand"
+  "Big Shoulders Display"
+  "Baloo Thambi 2"
+  "Sansita Swashed"
+  "PT Sans Caption"
+  "Caveat"
+  "Caveat Brush"
+  */
+  fPrimary: ``,
+  fSecondary: ``,
+  fBigHeading: `"Sansita Swashed"`,
+  fHeading: `"Caveat"`,
+  fText: `"Nunito"`,
+  fQuote: `"Nunito"`,
+  fIngredients: `"Nunito"`,
+  fMono: ``,
+};
 const customStyles = {
   global: (props: StyleFunctionProps) => ({
     body: {
       bg: mode('gray.50', 'gray.900')(props),
+    },
+    '*:focus-visible': {
+      //    border: 'none !important',
+      // outline: 'none !important',
+      // boxShadow: 'none !important',
+      // borderBottom: '1px solid red !important',
+
+      boxShadow:
+        '0 0 0 2px var(--chakra-colors-pink-100),    0 0 2px 3px var(--chakra-colors-pink-400) !important',
+      outline: '2px solid transparent !important',
+      outlineOffset: '2px !important',
+      //borderRadius: 'var(--chakra-radii-lg)px !important',
     },
   }),
 };
@@ -569,11 +601,29 @@ const layerStyles = {
   },
 };
 
+const textStyles = {
+  primary: {
+    fontFamily: customFonts.fPrimary,
+  },
+  secondary: {
+    fontFamily: customFonts.fSecondary,
+  },
+};
+
 const themeExtensions = {
   semanticTokens: {},
   direction: {},
   // foundations start
-  breakpoints: {},
+  breakpoints: {
+    sm: '30em',
+    md: '48em',
+    lg: '62em',
+    xl: '80em',
+    '2xl': '96em',
+    '3xl': '120em',
+    '4xl': '150em',
+    '5xl': '180em',
+  },
   zIndices: {},
   radii: {},
   blur: {},
@@ -583,24 +633,49 @@ const themeExtensions = {
   lineHeights: {},
   fontWeights: {},
   fonts: {
-    // "Nunito", "Quicksand", "Big Shoulders Display", "Baloo Thambi 2", "Sansita Swashed"
-    heading: `"Sansita Swashed", ` + typography.fonts.heading,
-    body: `"Nunito", ` + typography.fonts.body,
-    mono: `` + typography.fonts.mono,
+    title: `${customFonts.fBigHeading}, ` + typography.fonts.heading,
+    heading: `${customFonts.fHeading}, ` + typography.fonts.heading,
+    quote: `${customFonts.fQuote}` + typography.fonts.body,
+    body: `${customFonts.fText}, ` + typography.fonts.body,
+    ingredients: `${customFonts.fIngredients}, ` + typography.fonts.heading,
+    mono: `${customFonts.fMono}` + typography.fonts.mono,
   },
   fontSizes: {},
   // typography end
   sizes: {},
-  shadows: {},
+  shadows: {
+    // ...foundations.shadows,
+    baseWhite:
+      '0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06)',
+    innerWhite: 'inset 0 2px 10px 0px rgba(255,255,255,0.06)',
+  },
   space: {},
   borders: {},
   transition: {},
   // foundations end
-  components: {},
+  components: {
+    Heading: {
+      variants: {
+        big: {
+          fontFamily: `${customFonts.fBigHeading}, ` + typography.fonts.heading,
+        },
+      },
+    },
+    Button: {
+      baseStyle: {
+        lineHeight: 'typography.lineHeights.normal',
+      },
+    },
+  },
   styles: customStyles,
   config: {},
-
   layerStyles,
+  textStyles,
 };
 
-export const customTheme = extendTheme(themeExtensions);
+export const customTheme = extendTheme(
+  themeExtensions,
+  withDefaultColorScheme({
+    colorScheme: 'pink',
+  })
+);

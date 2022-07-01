@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders homepage unchanged 1`] = `
+<div>
+  <div
+    class="css-0"
+  >
+    <a
+      href="/my/recipes"
+    >
+      <button
+        class="chakra-button css-4xx2wk"
+        type="button"
+      >
+        Go to My Secret Recipes
+      </button>
+    </a>
+  </div>
+</div>
+`;
