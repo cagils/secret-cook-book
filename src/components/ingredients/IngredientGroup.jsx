@@ -1,23 +1,28 @@
 import {
   Box,
+  Divider,
   Heading,
   HStack,
   Icon,
   IconButton,
   Square,
   Stack,
+  useColorMode,
 } from '@chakra-ui/react';
 import { FileMinus, PlusSquare } from '@styled-icons/feather';
-import { FInput } from '../../helpers/form/FInput';
+import { FInput } from '../helpers/form/FInput';
 
-import { Ingredient } from '../Ingredient';
+import { Ingredient } from './Ingredient';
 
-import { ReorderableItem } from '../../helpers/reorderable/ReorderableItem';
-import { ReorderableList } from '../../helpers/reorderable/ReorderableList';
+import { Grabber } from '@styled-icons/octicons';
+import { ReorderableItem } from '../helpers/reorderable/ReorderableItem';
+import { ReorderableList } from '../helpers/reorderable/ReorderableList';
+import { GroupHeading } from './GroupHeading';
 
 export const IngredientGroup = ({
   loading,
   data,
+  hasHeading = true,
   groupIdx,
   editable,
   handleDeleteGroup,
@@ -26,48 +31,43 @@ export const IngredientGroup = ({
   handleReorder,
   instanceKey,
 }) => {
+  const { colorMode } = useColorMode();
+
+  const mode = (lightValue, darkValue) =>
+    colorMode == 'light' ? lightValue : darkValue;
+
   return (
-    <Box align="left" mt="20px">
-      {data.groupName !== 'default' && (
-        <HStack>
-          <Heading pb="2" size="md">
-            {!editable ? (
-              data.groupName
-            ) : (
-              <FInput
-                type="editable"
-                startWithEditView={data.groupName === ''}
-                fieldName={`group.${groupIdx}`}
-                rules={{ required: 'This is required' }}
-                label={null}
-                helper={null}
-                defaultValue={data.groupName}
-                placeholder="Group name"
-                disabled={loading}
-                // rest...
-                // bg="purple.300"
-                // minWidth={{ base: '100px', md: '300px' }}
-              />
-            )}
-          </Heading>
-          {editable && (
-            <IconButton
-              isRound
-              aria-label="Delete Group"
-              fontSize="1.2rem"
-              variant="ghost"
-              //color="purple.200"
-              icon={<Icon as={FileMinus} />}
-              onClick={() => handleDeleteGroup(groupIdx)}
-            />
-          )}
-        </HStack>
+    <Box align="left">
+      {hasHeading && (
+        <Box my={4}>
+          <GroupHeading
+            groupName={data.groupName.trim()}
+            editable={editable}
+            groupId={groupIdx}
+            loading={loading}
+            handleDeleteGroup={handleDeleteGroup}
+          />
+        </Box>
       )}
 
       {editable ? (
         <ReorderableList
-          items={data.list.map((v, i) => ({ id: i.toString(), value: v }))}
+          items={data.list.map((ing, ingIdx) => ({
+            id: ingIdx.toString(),
+            value: ing,
+          }))}
           reorderHandler={(items) => handleReorder(groupIdx, items)}
+          renderDragOverlay={(id) => (
+            <Box id={id}>
+              <Ingredient
+                dragOverlay={true}
+                loading={loading}
+                editable={editable}
+                desc={data.list[parseInt(id)]}
+                fieldId={`${groupIdx}.${id}`}
+              />
+            </Box>
+          )}
         >
           {data.list.map((ing, ingIdx) => (
             <ReorderableItem
@@ -107,7 +107,6 @@ export const IngredientGroup = ({
             aria-label="Add New Ingredient"
             fontSize="1.2rem"
             variant="ghost"
-            //color="purple.200"
             icon={<Icon as={PlusSquare} />}
             onClick={() => handleNewIngredient(groupIdx)}
           />

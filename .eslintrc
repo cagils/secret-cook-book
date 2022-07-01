@@ -1,7 +1,7 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "chakra-ui"],
   "extends": [
     "eslint:recommended",
     "plugin:@typescript-eslint/eslint-recommended",
@@ -14,7 +14,8 @@
   "env": {
     "node": true,
     "browser": true,
-    "es6": true
+    "es6": true,
+    "jest": true
   },
   "rules": {
     "no-unused-vars": "off",
@@ -28,19 +29,19 @@
     //   2,
     //   { "maximum": { "single": 1, "multi": 1 } }
     // ],
-    "react/jsx-wrap-multilines": [
-      "error",
-      {
-        "declaration": "parens-new-line",
-        "assignment": "parens-new-line",
-        "return": "parens-new-line",
-        "arrow": "parens-new-line",
-        "condition": "parens-new-line",
-        "logical": "parens-new-line",
-        "prop": "parens-new-line"
-      }
-    ],
-    "max-len": ["warn", { "code": 140, "ignoreComments": true }],
+    // "react/jsx-wrap-multilines": [
+    //   "error",
+    //   {
+    //     "declaration": "parens-new-line",
+    //     "assignment": "parens-new-line",
+    //     "return": "parens-new-line",
+    //     "arrow": "parens-new-line",
+    //     "condition": "parens-new-line",
+    //     "logical": "parens-new-line",
+    //     "prop": "parens-new-line"
+    //   }
+    // ],
+    // "max-len": ["warn", { "code": 140, "ignoreComments": true }],
     "import/no-anonymous-default-export": [2, { "allowArrowFunction": true }]
   },
   "overrides": [

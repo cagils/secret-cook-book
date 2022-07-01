@@ -2,29 +2,45 @@ import {
   Box,
   Button,
   Center,
+  Divider,
   Fade,
   Flex,
   Heading,
   HStack,
+  Image,
   Spinner,
   Square,
   Text,
-  useColorModeValue as mode,
+  Textarea,
+  useColorMode,
+  VStack,
 } from '@chakra-ui/react';
 import { produce, setAutoFreeze } from 'immer';
+import ImageNext from 'next/image';
 import { Router, useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
+import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
 import { random } from '../../lib/tools';
+import OrnamentDivider from '../../resources/svgs/ornament-divider.svg';
+import { OverlayFader } from '../helpers/OverlayFader';
 import { Ingredients } from '../ingredients/Ingredients';
+import RecipeText from './RecipeText';
 
 setAutoFreeze(false);
 
-export const Recipe = ({ editable, recipeId }) => {
+export const Recipe = ({ initialEditable, recipeId }) => {
+  const renderCounter = useRenderCounter();
+  const [editable, setEditable] = useState(initialEditable);
+  const { colorMode } = useColorMode();
+  const mode = (lightValue, darkValue) =>
+    colorMode == 'light' ? lightValue : darkValue;
+
   const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(false);
   const [ingredients, setIngredients] = useState([]);
+  const [description, setDescription] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [instanceKey, setInstanceKey] = useState(random());
   const [reload, setReload] = useState(0);
@@ -84,77 +100,88 @@ export const Recipe = ({ editable, recipeId }) => {
   }, [unregister]);
 
   // Since produce locks the object returned, we get a copy
-  const formStateTransform = useCallback(
+  const formStateIngredientsTransform = useCallback(
     () =>
       produce(ingredients, (draft) => {
         const formValues = getValues();
-        formValues.desc.forEach((list, i) => (draft[i].list = list));
-        formValues.group.forEach((name, i) => (draft[i].groupName = name));
+        formValues?.desc?.forEach((list, i) => (draft[i].list = list));
+        formValues?.group?.forEach((name, i) => (draft[i].groupName = name));
       }),
     [getValues, ingredients]
   );
 
   const handleNewIngredient = useCallback(
     (groupIdx) => {
-      const formState = formStateTransform();
-      unregisterAll();
-      formState[groupIdx].list.push('');
-      setIngredients(formState);
+      const formStateIngredients = formStateIngredientsTransform();
+      unregisterAll('ingredients');
+      formStateIngredients[groupIdx].list.push('');
+      setIngredients(formStateIngredients);
     },
-    [formStateTransform, unregisterAll]
+    [formStateIngredientsTransform, unregisterAll]
   );
 
   const handleDeleteIngredient = useCallback(
     (groupIdx, ingIdx) => {
-      const formState = formStateTransform();
-      unregisterAll();
-      formState[groupIdx].list.splice(ingIdx, 1);
-      setIngredients(formState);
+      const formStateIngredients = formStateIngredientsTransform();
+      unregisterAll('ingredients');
+      formStateIngredients[groupIdx].list.splice(ingIdx, 1);
+      setInstanceKey((prev) => random(prev));
+      setIngredients(formStateIngredients);
     },
-    [formStateTransform, unregisterAll]
+    [formStateIngredientsTransform, unregisterAll]
   );
 
   const handleDeleteGroup = useCallback(
     (groupIdx) => {
-      const formState = formStateTransform();
-      unregisterAll();
-      formState.splice(groupIdx, 1);
-      setIngredients(formState);
+      const formStateIngredients = formStateIngredientsTransform();
+      unregisterAll('ingredients');
+      formStateIngredients.splice(groupIdx, 1);
+      setIngredients(formStateIngredients);
     },
-    [formStateTransform, unregisterAll]
+    [formStateIngredientsTransform, unregisterAll]
   );
 
   const handleNewGroup = useCallback(() => {
-    const formState = formStateTransform();
-    unregisterAll();
-    formState.push({ groupName: '', list: [''] });
-    setIngredients(formState);
-  }, [formStateTransform, unregisterAll]);
+    const formStateIngredients = formStateIngredientsTransform();
+    unregisterAll('ingredients');
+    formStateIngredients.push({ groupName: '', list: [''] });
+    setIngredients(formStateIngredients);
+  }, [formStateIngredientsTransform, unregisterAll]);
 
   const handleReorder = useCallback(
     (groupIdx, items) => {
-      const formState = formStateTransform();
-      unregisterAll();
+      const formStateIngredients = formStateIngredientsTransform();
+      unregisterAll('ingredients');
       const newList = [];
-      const oldList = formState[groupIdx].list;
+      const oldList = formStateIngredients[groupIdx].list;
       items.forEach((v) => newList.push(oldList[parseInt(v.id)]));
-      formState[groupIdx].list = newList;
-      setIngredients(formState);
-      setInstanceKey(random());
+      formStateIngredients[groupIdx].list = newList;
+      //setInstanceKey((prev) => random(prev));
+      setIngredients(formStateIngredients);
     },
-    [formStateTransform, unregisterAll]
+    [formStateIngredientsTransform, unregisterAll]
   );
 
   const handleReset = useCallback(() => {
     unregisterAll();
-    setInstanceKey(random());
+    setInstanceKey((prev) => random(prev));
   }, [unregisterAll]);
 
   const handleReload = useCallback(() => {
     setLoading(true);
     setReload((reload) => reload ^ 1);
     // router.replace(router.asPath); // This call refreshes page without reloading and causes Next.js to reapply getServerSideProps() method
-  }, [router]);
+  }, []);
+
+  const changeEditable = useCallback((value) => {
+    console.log('value', value);
+    setEditable(value);
+  }, []);
+
+  const cancelEdit = useCallback(() => {
+    setEditable(false);
+    handleReload();
+  }, [handleReload]);
 
   useEffect(() => {
     let abort = false;
@@ -164,116 +191,201 @@ export const Recipe = ({ editable, recipeId }) => {
       console.log('recipeId is not defined. Aborting fetch.');
       return;
     }
-    try {
-      const loadRecipe = async () => {
-        const fetchUrl = `/api/my/recipes/${recipeId}`;
-        console.log(`fetching ${fetchUrl}`);
-        const response = await fetch(fetchUrl, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        if (!response.ok) {
-          throw new Error(`Error: ${response.status}`);
-        }
-        console.log('fetched.');
 
-        if (abort) return;
-        let res = await response.json();
-        setRecipe(res.data);
-        setIngredients(res.data?.ingredients ?? []);
-      };
+    const loadRecipe = async () => {
+      const fetchUrl = `/api/my/recipes/${recipeId}`;
+      console.log(`fetching ${fetchUrl}`);
+      const response = await fetch(fetchUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+      if (!response.ok) {
+        console.log(
+          'response was not ok:',
+          JSON.stringify(response, undefined, 2)
+        );
+        throw new Error(`Error: ${response.status}`);
+      }
+      console.log('fetched.');
 
-      loadRecipe();
-    } catch (e) {
-      console.log(e);
-    }
+      if (abort) return;
+      let res = await response.json();
+      setRecipe(res.data);
+      setIngredients(res.data?.ingredients ?? []);
+      const desc = res.data?.description?.text.replace(/\\n/g, '\n');
+      setDescription(desc ?? '');
+    };
 
-    setLoading(false);
-    handleReset();
+    loadRecipe()
+      .then(() => {
+        setLoading(false);
+        handleReset();
+      })
+      .catch((e) => {
+        console.log('Error thrown from loadRecipe', e);
+      });
+
     return () => {
+      console.log('returning from useEffect fetch');
       abort = true;
     };
   }, [recipeId, handleReset, reload]);
 
-  const saveRecipe = async (formState) => {
+  const saveRecipe = async () => {
+    changeEditable(false);
+
+    // const formValues = getValues();
+
+    // console.log('SAVE RECIPE: ');
+    // console.log('formValues:');
+    // console.log(JSON.stringify(formValues, undefined, 2));
+
+    const formStateIngredients = formStateIngredientsTransform();
+    console.log('formStateIngredients:');
+    console.log(JSON.stringify(formStateIngredients, undefined, 2));
+
+    const formStateDescription = getValues()?.description?.text || description;
+
     const fetchUrl = `/api/my/recipes/${recipeId}`;
-    console.log(`fetching ${fetchUrl}`);
+    console.log(`patching ${fetchUrl}`);
     const response = await fetch(fetchUrl, {
       method: 'PATCH',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ ingredients: formState }),
+      body: JSON.stringify({
+        ingredients: formStateIngredients,
+        description: { text: formStateDescription },
+      }),
     });
-    console.log('fetched.');
+    console.log('patched.');
 
     if (!response.ok) {
       throw new Error(`Error: ${response.status}`);
     }
     let res = await response.json();
     setRecipe(res.data);
-    setLoading(false);
   };
 
   const onFormSubmit = async (data) => {
     console.log('ON FORM SUBMIT');
     setIsSubmitting(true);
     setLoading(true);
-    const formState = formStateTransform();
-    unregisterAll();
-    setIngredients(formState);
 
     try {
       console.log(data);
-      await saveRecipe(formState);
+      await saveRecipe();
+      console.log('SAVED!');
     } catch (e) {
-      console.log(e);
+      console.log('error', e);
     } finally {
-      setLoading(false);
       setIsSubmitting(false);
+      setLoading(false);
+      setReload((reload) => reload ^ 1);
     }
   };
 
   const onFormError = (errors, event) => {
+    console.log('ON FORM ERROR!');
     console.log(errors, event);
   };
 
   return (
-    <Box borderRadius="lg">
-      <FormProvider {...formMethods}>
-        <Flex p={2}>
-          <form onSubmit={handleSubmit(onFormSubmit, onFormError)}>
-            <HStack mt="8">
-              <Box width="20px"></Box>
-              <Heading color={mode('purple.500', 'purple.300')}>
-                <Text>{recipe?.title || 'Loading...'}</Text>
-              </Heading>
-
-              <Box width="20px" pos="relative">
-                {loading && (
-                  <Box transform="translate(2px, -10px)">
-                    <Spinner color={mode('pink.400', 'purple.200')} />
-                  </Box>
-                )}
-              </Box>
-            </HStack>
-            <Box pos="relative">
-              <Fade in={loading} transition={{ duration: 1 }}>
-                <Box
-                  //hidden={!loading}
-                  pos="absolute"
-                  left="0"
-                  top="0"
-                  bottom="0"
-                  right="0"
-                  bg="rgba(0,0,0,0.2)"
-                  zIndex="1300"
-                  borderRadius="md"
-                />
-              </Fade>
-              <Box>
+    <FormProvider {...formMethods}>
+      <Box
+        as="form"
+        // css="width: 100%; padding: 2px"
+        width="full"
+        onSubmit={handleSubmit(onFormSubmit, onFormError)}
+      >
+        <VStack
+          //width="full"
+          align="center"
+          justify="center"
+          px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
+          pb={4}
+          spacing={0}
+          gap={4}
+        >
+          <Box
+            boxShadow={mode('base', 'baseWhite')}
+            //width="full"
+            align="center"
+            justify="center"
+            bgColor={mode('whiteAlpha.800', 'blackAlpha.500')}
+            //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
+            borderRadius="lg"
+            px={4}
+            py={8}
+            mt={8}
+            width="full"
+            //px={16}
+            position="relative"
+            overflow="hidden"
+          >
+            <Heading
+              as="h2"
+              fontFamily="heading"
+              size="2xl"
+              fontSize={{
+                base: '3em',
+                md: '3em',
+                lg: '3em',
+                xl: '4em',
+              }}
+              textAlign="center"
+              color={mode('pink.500', 'pink.200')}
+              letterSpacing="wide"
+              fontWeight="bold"
+              textDecoration="underline"
+              textUnderlineOffset={'0.05em'}
+              textDecorationThickness="2px"
+              textDecorationColor={mode('purple.300', 'purple.400')}
+              fontStyle="italic"
+              //textTransform={'capitalize'}
+            >
+              {recipe?.title || 'Loading...'}
+            </Heading>
+            <OverlayFader active={loading} />
+          </Box>
+          <Flex
+            //width="full"
+            align="stretch"
+            justify="center"
+            //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
+            width="full"
+            wrap="wrap-reverse"
+            // rowGap={2}
+            // columnGap={4}
+            gap={4}
+          >
+            <VStack
+              boxShadow={mode('base', 'baseWhite')}
+              // borderWidth="thin"
+              borderColor="pink.200"
+              bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+              //pos="relative"
+              //overflow="hidden"
+              borderRadius="lg"
+              //flexGrow="1"
+              flex="2"
+              spacing={0}
+              gap={4}
+              //width="30%"
+              minW="300px"
+            >
+              <Box
+                p={8}
+                // grow="1"
+                // alignSelf="stretch"
+                width="full"
+                height="full"
+                pos="relative"
+                overflow="hidden"
+                // border="1px solid red"
+              >
                 {ingredients && (
                   <Ingredients
                     loading={loading}
@@ -284,19 +396,260 @@ export const Recipe = ({ editable, recipeId }) => {
                     handleNewGroup={handleNewGroup}
                     handleNewIngredient={handleNewIngredient}
                     handleReorder={handleReorder}
-                    handleReset={handleReset}
-                    handleReload={handleReload}
                     instanceKey={instanceKey}
                   />
                 )}
+                <OverlayFader active={loading} />
               </Box>
-            </Box>
-
-            <Box my="8px" align="end">
+            </VStack>
+            <VStack
+              align="stretch"
+              justify="center"
+              // flexGrow={100}
+              // rowGap={2}
+              // columnGap={2}
+              // gap={2}
+              spacing={0}
+              // gap={4}
+              flex="5"
+              //minWidth="98%"
+              //maxWidth="80vh"
+              //height="100%"
+              minW={{
+                base: '300px',
+                sm: '500px',
+                md: '500px',
+                lg: '600px',
+                xl: '800px',
+              }}
+              pos="relative"
+              overflow="hidden"
+            >
+              <Box
+                align="center"
+                justfiy="center"
+                flex="1"
+                // p={8}
+                p={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
+                borderRadius="lg"
+                boxShadow={mode('base', 'baseWhite')}
+                bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+              >
+                <Flex
+                  borderRadius="lg"
+                  align="center"
+                  justify="center"
+                  boxShadow={mode('inner', 'innerWhite')}
+                  bgGradient={mode(
+                    'linear(to-b, pink.200, purple.200)',
+                    'linear(to-b, pink.800, purple.800)'
+                  )}
+                  p={{ base: '2px', sm: '4px', md: '6px', xl: '8px' }}
+                  mb={4}
+                >
+                  {recipe?.photo && (
+                    <Flex
+                      my={{ base: '2px', sm: '2px', md: '4px', xl: '10px' }}
+                      align="center"
+                      justify="center"
+                      /* w={{
+                      xl: '100%',
+                      '2xl': '80%',
+                      '3xl': '75%',
+                    }} */
+                    >
+                      <Box
+                        //m={{ sm: '2px', md: '4px', xl: '6px' }}
+                        borderRadius="lg"
+                        //bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+                      >
+                        <Flex
+                          align="center"
+                          justify="center"
+                          grow="1"
+                          //bgColor="orange"
+                          //display="flex"
+                          //flex="1"
+                          //pos="relative"
+                          //css="aspect-ratio: 1 / 1"
+                          overflow="hidden"
+                          borderRadius="lg"
+                          height="auto"
+                        >
+                          <Image
+                            //loading="lazy"
+                            // sizes="50vw"
+                            src={recipe?.photo}
+                            alt={'Recipe Photo'}
+                            layout="fill"
+                            fit="cover"
+                            width="100%"
+                            //height="40vh"
+                            minH="20rem"
+                            maxH="30rem"
+                            //htmlHeight="100%"
+                            //htmlWidth="100%"
+                            //objectPosition={'50% 50%'}
+                            //sx={{ aspectRatio: '16 / 9' }}
+                          />
+                        </Flex>
+                      </Box>
+                    </Flex>
+                  )}
+                </Flex>
+                <Box align="center" justify="center" mb={8} maxWidth="60em">
+                  <Divider s />
+                  <Text
+                    py={4}
+                    sx={{
+                      '&::first-letter': {
+                        fontSize: '1.3em',
+                        //color: mode('pink.500', 'pink.200'),
+                        fontFamily: 'title',
+                        fontWeight: 'thin',
+                        //textShadow: '0px 0px 2px rgba(120,120,120,0.8)',
+                        letterSpacing: '3px',
+                      },
+                      //textIndent: '1em',
+                    }}
+                    fontStyle="italic"
+                    fontSize="1.5em"
+                    fontFamily="quote"
+                    fontWeight="regular"
+                  >
+                    {recipe?.shortDesc}
+                  </Text>
+                  <Box width="full" align="center" justify="center" mt="4">
+                    <OrnamentDivider
+                      height="5em"
+                      fill={mode(
+                        'var(--chakra-colors-pink-400)',
+                        'var(--chakra-colors-pink-500)'
+                      )}
+                    />
+                  </Box>
+                </Box>
+                <Box
+                  pos="relative"
+                  align="start"
+                  mx={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
+                  px={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
+                >
+                  <Box my={4}>
+                    <Heading
+                      width="full"
+                      textAlign="start"
+                      fontSize="3em"
+                      as="h3"
+                      fontFamily="heading"
+                      fontWeight="semibold"
+                      color={mode('pink.500', 'pink.300')}
+                    >
+                      Instructions
+                    </Heading>
+                    <Divider />
+                  </Box>
+                  <Box
+                    mt={4}
+                    borderRadius="lg"
+                    //borderWidth="thin"
+                    p={{ base: '0', sm: '0', md: '4', xl: '8' }}
+                    borderColor={mode('blackAlpha.200', 'whiteAlpha.200')}
+                  >
+                    {!editable ? (
+                      <Box>
+                        {/* <Box
+                      m={8}
+                      dangerouslySetInnerHTML={{
+                        __html: recipe?.description?.html,
+                      }}
+                    /> */}
+                        <Box
+                          fontFamily="body"
+                          fontSize="1.1em"
+                          whiteSpace="pre-line"
+                        >
+                          {description}
+                        </Box>
+                      </Box>
+                    ) : (
+                      <Box>
+                        <RecipeText
+                          loading={loading}
+                          defaultValue={description}
+                          recipeId={recipeId}
+                        />
+                      </Box>
+                    )}
+                  </Box>
+                </Box>
+              </Box>
+              <OverlayFader active={loading} />
+            </VStack>
+          </Flex>
+          <HStack
+            boxShadow={mode('base', 'baseWhite')}
+            //borderWidth="thin"
+            borderColor="pink.200"
+            bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+            width="full"
+            align="center"
+            justify="center"
+            //bgColor={mode('whiteAlpha.400', 'blackAlpha.400')}
+            borderRadius="lg"
+            p={4}
+            mt={4}
+          >
+            <Box flex="1"></Box>
+            <Button size="xs" variant="outline" onClick={() => handleReset()}>
+              RESET
+            </Button>
+            <Button size="xs" variant="outline" onClick={() => handleReload()}>
+              RELOAD
+            </Button>
+            {editable ? (
+              <>
+                <Button
+                  size="md"
+                  type="button"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    cancelEdit();
+                  }}
+                  color={mode('white', 'pink.800')}
+                  //variant="gradient"
+                  //bgGradient="linear(to-r, purple.300, pink.300)"
+                  textTransform={'uppercase'}
+                  letterSpacing={1.1}
+                  fontWeight="semibold"
+                  //isLoading={isSubmitting}
+                >
+                  Cancel
+                </Button>
+                <Button
+                  size="md"
+                  type="submit"
+                  color={mode('white', 'pink.800')}
+                  //variant="gradient"
+                  //bgGradient="linear(to-r, purple.300, pink.300)"
+                  textTransform={'uppercase'}
+                  letterSpacing={1.1}
+                  fontWeight="semibold"
+                  //isLoading={isSubmitting}
+                >
+                  Save Recipe
+                </Button>
+              </>
+            ) : (
               <Button
-                type="submit"
-                color={mode('pink.50', 'pink.800')}
-                colorScheme="pink"
+                size="md"
+                //type="submit"
+                type="button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  changeEditable(true);
+                }}
+                color={mode('white', 'pink.800')}
                 //variant="gradient"
                 //bgGradient="linear(to-r, purple.300, pink.300)"
                 textTransform={'uppercase'}
@@ -304,16 +657,14 @@ export const Recipe = ({ editable, recipeId }) => {
                 fontWeight="semibold"
                 isLoading={isSubmitting}
               >
-                Save Recipe
+                Edit Recipe
               </Button>
-            </Box>
-            {/*         
-        <Box>
-          <pre>{JSON.stringify(ingredients, undefined, 2)}</pre>
-        </Box> */}
-          </form>
-        </Flex>
-      </FormProvider>
-    </Box>
+            )}
+          </HStack>
+          <Text size="md">Render Counter: {renderCounter}</Text>
+        </VStack>
+      </Box>
+      {/* <pre>{JSON.stringify(recipe, undefined, 2)}</pre> */}
+    </FormProvider>
   );
 };

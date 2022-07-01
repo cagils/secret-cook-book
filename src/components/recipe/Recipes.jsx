@@ -1,3 +1,4 @@
+import { useClickable } from '@chakra-ui/clickable';
 import {
   Box,
   Button,
@@ -8,6 +9,7 @@ import {
   Spinner,
   Square,
   Text,
+  useColorMode,
   VStack,
 } from '@chakra-ui/react';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -16,6 +18,11 @@ import { RecipeCard } from './RecipeCard';
 export const Recipes = ({ editable, recipeId }) => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
+  const clickable = useClickable();
+
+  const { colorMode } = useColorMode();
+  const mode = (lightValue, darkValue) =>
+    colorMode == 'light' ? lightValue : darkValue;
 
   useEffect(() => {
     let abort = false;
@@ -58,7 +65,17 @@ export const Recipes = ({ editable, recipeId }) => {
         <Heading size="md">
           <Flex>
             <Text>My Secret Recipes</Text>
-            <Square>{loading && <Spinner />}</Square>
+            <Square>
+              {loading && (
+                <Spinner
+                  //thickness="4px"
+                  //speed="0.65s"
+                  //emptyColor="gray.200"
+                  color={mode('pink.300', 'pink.600')}
+                  size="xl"
+                />
+              )}
+            </Square>
           </Flex>
         </Heading>
         <Box>

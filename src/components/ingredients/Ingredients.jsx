@@ -4,6 +4,7 @@ import {
   Badge,
   Box,
   Button,
+  Divider,
   Flex,
   Heading,
   HStack,
@@ -15,9 +16,7 @@ import {
 } from '@chakra-ui/react';
 import { FilePlus } from '@styled-icons/feather';
 
-import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
-
-import { IngredientGroup } from './IngredientGroup/IngredientGroup';
+import { IngredientGroup } from './IngredientGroup';
 
 export const Ingredients = ({
   loading,
@@ -28,8 +27,6 @@ export const Ingredients = ({
   handleNewGroup,
   handleNewIngredient,
   handleReorder,
-  handleReset,
-  handleReload,
   instanceKey,
 }) => {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -58,43 +55,26 @@ export const Ingredients = ({
     },
   ];
 
-  const renderCounter = useRenderCounter();
-
   return (
     <VStack
       align="stretch"
       justify="start"
       // bg="blackAlpha.300"
-      borderRadius="lg"
-      my={4}
-      py={8}
-      px={4}
-      borderWidth="thin"
-      borderColor="pink.200"
-      bgColor={mode('whiteAlpha.900', 'gray.700')}
     >
-      <HStack mb="2">
-        <Heading size="md" fontFamily="body">
-          Ingredients{' '}
+      <HStack>
+        <Heading
+          width="full"
+          textAlign="start"
+          fontSize="3em"
+          as="h3"
+          fontFamily="heading"
+          fontWeight="semibold"
+          color={mode('pink.500', 'pink.300')}
+        >
+          Ingredients
         </Heading>
-        <Button
-          size="xs"
-          colorScheme="pink"
-          variant="outline"
-          onClick={() => handleReset()}
-        >
-          RESET
-        </Button>
-        <Button
-          size="xs"
-          colorScheme="cyan"
-          variant="outline"
-          onClick={() => handleReload()}
-        >
-          RELOAD
-        </Button>
       </HStack>
-      <Text size="md">Render Counter: {renderCounter}</Text>
+      <Divider />
       <Box>
         {ingredients.map((group, groupIdx) => (
           <IngredientGroup
@@ -104,6 +84,7 @@ export const Ingredients = ({
             data={group}
             groupIdx={groupIdx}
             editable={editable}
+            hasHeading={ingredients.length > 1}
             handleDeleteGroup={handleDeleteGroup}
             handleDeleteIngredient={handleDeleteIngredient}
             handleNewIngredient={handleNewIngredient}
@@ -111,21 +92,20 @@ export const Ingredients = ({
           />
         ))}
       </Box>
-      {editable && (
-        <>
-          <Flex>
+      <>
+        <Flex>
+          {editable && (
             <IconButton
               isRound
               aria-label="Add New Group"
               fontSize="1.2rem"
               variant="ghost"
-              //color="purple.200"
               icon={<Icon as={FilePlus} />}
               onClick={() => handleNewGroup()}
             />
-          </Flex>
-        </>
-      )}
+          )}
+        </Flex>
+      </>
     </VStack>
   );
 };
