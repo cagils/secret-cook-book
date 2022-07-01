@@ -440,31 +440,32 @@ export const Recipe = ({ initialEditable, recipeId }) => {
               <OverlayFader active={loading} />
             </VStack>
           </Flex>
-          <HStack
+          <Box
             boxShadow={mode('base', 'baseWhite')}
             //borderWidth="thin"
             borderColor="pink.200"
             bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
             width="full"
-            align="center"
+            align="end"
             justify="center"
             //bgColor={mode('whiteAlpha.400', 'blackAlpha.400')}
             borderRadius="lg"
             p={4}
             mt={4}
           >
-            <Box flex="1"></Box>
+            {/* <Box flex="1"></Box>
             <Button size="xs" variant="outline" onClick={() => handleReset()}>
               RESET
             </Button>
             <Button size="xs" variant="outline" onClick={() => handleReload()}>
               RELOAD
-            </Button>
+            </Button> */}
             {editable ? (
               <>
                 <Button
-                  size="md"
+                  size="xs"
                   type="button"
+                  variant="outline"
                   onClick={(e) => {
                     e.preventDefault();
                     cancelEdit();
@@ -490,11 +491,12 @@ export const Recipe = ({ initialEditable, recipeId }) => {
                   fontWeight="semibold"
                   //isLoading={isSubmitting}
                 >
-                  Save Recipe
+                  Save
                 </Button>
               </>
             ) : (
               <Button
+                colorScheme="green"
                 size="md"
                 //type="submit"
                 type="button"
@@ -510,11 +512,11 @@ export const Recipe = ({ initialEditable, recipeId }) => {
                 fontWeight="semibold"
                 isLoading={isSubmitting}
               >
-                Edit Recipe
+                Edit
               </Button>
             )}
-          </HStack>
-          <Text size="md">Render Counter: {renderCounter}</Text>
+          </Box>
+          {/* <Text size="md">Render Counter: {renderCounter}</Text> */}
         </VStack>
       </Box>
       {/* <pre>{JSON.stringify(recipe, undefined, 2)}</pre> */}

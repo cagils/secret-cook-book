@@ -52,7 +52,6 @@ export const Description = ({ editable, description, loading }) => {
               placeholder="Recipe text"
               disabled={loading}
               px={2}
-              m={0}
               rows={20}
               fontFamily="body"
               fontSize="1.1em"
