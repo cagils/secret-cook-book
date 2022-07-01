@@ -39,8 +39,10 @@ const singleRecipe = async (req, res) => {
           { recipeId: query.recipeId },
           {
             $set: {
-              ingredients: recipeBody.ingredients,
+              title: recipeBody.title,
+              shortDesc: recipeBody.shortDesc,
               'description.text': recipeBody.description.text,
+              ingredients: recipeBody.ingredients,
             },
           },
           {

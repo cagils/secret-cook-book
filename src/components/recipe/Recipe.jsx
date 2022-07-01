@@ -23,10 +23,12 @@ import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 
 import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
 import { random } from '../../lib/tools';
-import OrnamentDivider from '../../resources/svgs/ornament-divider.svg';
 import { OverlayFader } from '../helpers/OverlayFader';
 import { Ingredients } from '../ingredients/Ingredients';
-import RecipeText from './RecipeText';
+import { Description } from './Description';
+import { Photo } from './Photo';
+import { RecipeTitle } from './RecipeTitle';
+import { ShortDesc } from './ShortDesc';
 
 setAutoFreeze(false);
 
@@ -41,6 +43,8 @@ export const Recipe = ({ initialEditable, recipeId }) => {
   const [loading, setLoading] = useState(false);
   const [ingredients, setIngredients] = useState([]);
   const [description, setDescription] = useState('');
+  const [shortDesc, setShortDesc] = useState('');
+  const [title, setTitle] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [instanceKey, setInstanceKey] = useState(random());
   const [reload, setReload] = useState(0);
@@ -178,6 +182,10 @@ export const Recipe = ({ initialEditable, recipeId }) => {
     setEditable(value);
   }, []);
 
+  const handleEdit = useCallback(() => {
+    setEditable(true);
+  }, []);
+
   const cancelEdit = useCallback(() => {
     setEditable(false);
     handleReload();
@@ -215,7 +223,11 @@ export const Recipe = ({ initialEditable, recipeId }) => {
       setRecipe(res.data);
       setIngredients(res.data?.ingredients ?? []);
       const desc = res.data?.description?.text.replace(/\\n/g, '\n');
+      const shortDesc = res.data?.shortDesc.replace(/\\n/g, '\n');
+      const title = res.data?.title;
       setDescription(desc ?? '');
+      setShortDesc(shortDesc ?? '');
+      setTitle(title ?? '');
     };
 
     loadRecipe()
@@ -247,6 +259,8 @@ export const Recipe = ({ initialEditable, recipeId }) => {
     console.log(JSON.stringify(formStateIngredients, undefined, 2));
 
     const formStateDescription = getValues()?.description?.text || description;
+    const formStateShortDesc = getValues()?.shortDesc || shortDesc;
+    const formStateTitle = getValues()?.title || title;
 
     const fetchUrl = `/api/my/recipes/${recipeId}`;
     console.log(`patching ${fetchUrl}`);
@@ -256,8 +270,10 @@ export const Recipe = ({ initialEditable, recipeId }) => {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        ingredients: formStateIngredients,
+        title: formStateTitle,
+        shortDesc: formStateShortDesc,
         description: { text: formStateDescription },
+        ingredients: formStateIngredients,
       }),
     });
     console.log('patched.');
@@ -325,29 +341,12 @@ export const Recipe = ({ initialEditable, recipeId }) => {
             position="relative"
             overflow="hidden"
           >
-            <Heading
-              as="h2"
-              fontFamily="heading"
-              size="2xl"
-              fontSize={{
-                base: '3em',
-                md: '3em',
-                lg: '3em',
-                xl: '4em',
-              }}
-              textAlign="center"
-              color={mode('pink.500', 'pink.200')}
-              letterSpacing="wide"
-              fontWeight="bold"
-              textDecoration="underline"
-              textUnderlineOffset={'0.05em'}
-              textDecorationThickness="2px"
-              textDecorationColor={mode('purple.300', 'purple.400')}
-              fontStyle="italic"
-              //textTransform={'capitalize'}
-            >
-              {recipe?.title || 'Loading...'}
-            </Heading>
+            <RecipeTitle
+              recipeTitle={recipe?.title}
+              editable={editable}
+              loading={loading}
+              handleEdit={handleEdit}
+            />
             <OverlayFader active={loading} />
           </Box>
           <Flex
@@ -405,16 +404,8 @@ export const Recipe = ({ initialEditable, recipeId }) => {
             <VStack
               align="stretch"
               justify="center"
-              // flexGrow={100}
-              // rowGap={2}
-              // columnGap={2}
-              // gap={2}
               spacing={0}
-              // gap={4}
               flex="5"
-              //minWidth="98%"
-              //maxWidth="80vh"
-              //height="100%"
               minW={{
                 base: '300px',
                 sm: '500px',
@@ -429,160 +420,22 @@ export const Recipe = ({ initialEditable, recipeId }) => {
                 align="center"
                 justfiy="center"
                 flex="1"
-                // p={8}
                 p={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
                 borderRadius="lg"
                 boxShadow={mode('base', 'baseWhite')}
                 bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
               >
-                <Flex
-                  borderRadius="lg"
-                  align="center"
-                  justify="center"
-                  boxShadow={mode('inner', 'innerWhite')}
-                  bgGradient={mode(
-                    'linear(to-b, pink.200, purple.200)',
-                    'linear(to-b, pink.800, purple.800)'
-                  )}
-                  p={{ base: '2px', sm: '4px', md: '6px', xl: '8px' }}
-                  mb={4}
-                >
-                  {recipe?.photo && (
-                    <Flex
-                      my={{ base: '2px', sm: '2px', md: '4px', xl: '10px' }}
-                      align="center"
-                      justify="center"
-                      /* w={{
-                      xl: '100%',
-                      '2xl': '80%',
-                      '3xl': '75%',
-                    }} */
-                    >
-                      <Box
-                        //m={{ sm: '2px', md: '4px', xl: '6px' }}
-                        borderRadius="lg"
-                        //bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
-                      >
-                        <Flex
-                          align="center"
-                          justify="center"
-                          grow="1"
-                          //bgColor="orange"
-                          //display="flex"
-                          //flex="1"
-                          //pos="relative"
-                          //css="aspect-ratio: 1 / 1"
-                          overflow="hidden"
-                          borderRadius="lg"
-                          height="auto"
-                        >
-                          <Image
-                            //loading="lazy"
-                            // sizes="50vw"
-                            src={recipe?.photo}
-                            alt={'Recipe Photo'}
-                            layout="fill"
-                            fit="cover"
-                            width="100%"
-                            //height="40vh"
-                            minH="20rem"
-                            maxH="30rem"
-                            //htmlHeight="100%"
-                            //htmlWidth="100%"
-                            //objectPosition={'50% 50%'}
-                            //sx={{ aspectRatio: '16 / 9' }}
-                          />
-                        </Flex>
-                      </Box>
-                    </Flex>
-                  )}
-                </Flex>
-                <Box align="center" justify="center" mb={8} maxWidth="60em">
-                  <Divider s />
-                  <Text
-                    py={4}
-                    sx={{
-                      '&::first-letter': {
-                        fontSize: '1.3em',
-                        //color: mode('pink.500', 'pink.200'),
-                        fontFamily: 'title',
-                        fontWeight: 'thin',
-                        //textShadow: '0px 0px 2px rgba(120,120,120,0.8)',
-                        letterSpacing: '3px',
-                      },
-                      //textIndent: '1em',
-                    }}
-                    fontStyle="italic"
-                    fontSize="1.5em"
-                    fontFamily="quote"
-                    fontWeight="regular"
-                  >
-                    {recipe?.shortDesc}
-                  </Text>
-                  <Box width="full" align="center" justify="center" mt="4">
-                    <OrnamentDivider
-                      height="5em"
-                      fill={mode(
-                        'var(--chakra-colors-pink-400)',
-                        'var(--chakra-colors-pink-500)'
-                      )}
-                    />
-                  </Box>
-                </Box>
-                <Box
-                  pos="relative"
-                  align="start"
-                  mx={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
-                  px={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
-                >
-                  <Box my={4}>
-                    <Heading
-                      width="full"
-                      textAlign="start"
-                      fontSize="3em"
-                      as="h3"
-                      fontFamily="heading"
-                      fontWeight="semibold"
-                      color={mode('pink.500', 'pink.300')}
-                    >
-                      Instructions
-                    </Heading>
-                    <Divider />
-                  </Box>
-                  <Box
-                    mt={4}
-                    borderRadius="lg"
-                    //borderWidth="thin"
-                    p={{ base: '0', sm: '0', md: '4', xl: '8' }}
-                    borderColor={mode('blackAlpha.200', 'whiteAlpha.200')}
-                  >
-                    {!editable ? (
-                      <Box>
-                        {/* <Box
-                      m={8}
-                      dangerouslySetInnerHTML={{
-                        __html: recipe?.description?.html,
-                      }}
-                    /> */}
-                        <Box
-                          fontFamily="body"
-                          fontSize="1.1em"
-                          whiteSpace="pre-line"
-                        >
-                          {description}
-                        </Box>
-                      </Box>
-                    ) : (
-                      <Box>
-                        <RecipeText
-                          loading={loading}
-                          defaultValue={description}
-                          recipeId={recipeId}
-                        />
-                      </Box>
-                    )}
-                  </Box>
-                </Box>
+                <Photo photoUrl={recipe?.photo} />
+                <ShortDesc
+                  shortDesc={recipe?.shortDesc}
+                  editable={editable}
+                  loading={loading}
+                />
+                <Description
+                  editable={editable}
+                  description={description}
+                  loading={loading}
+                />
               </Box>
               <OverlayFader active={loading} />
             </VStack>
