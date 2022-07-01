@@ -38,12 +38,12 @@ _...under construction..._
 <div align='center'>
 <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcagils%2Fsecret-cook-book&env=MONGODB_URI&envDescription=You%20can%20use%20free%20Atlas%20account.%20URI%20format%3A%20%60%22ongodb%2Bsrv%3A%2F%2F%24%7BMONGODB_USER%7D%3A%24%7BMONGODB_PASS%7D%40%24%7BMONGODB_CLUSTER%7D.jswdp.mongodb.net%2F%24%7BMONGODB_DBNAME%7D%3FretryWrites%3Dtrue%26w%3Dmajority%22"><img src="https://badgen.net/badge/icon/Deploy?icon=vercel&label" alt="Deploy with Vercel"/></a>
   &nbsp;&nbsp;&nbsp;&nbsp;
-<a href="https://secret-cook-book-git-production-cagils.vercel.app/">
-  <img src="https://badgen.net/badge/Preview/Production/orange"/>
+<a href="https://secret-cook-book.vercel.app/">
+  <img src="https://badgen.net/badge/Preview/main/orange"/>
 </a>
   &nbsp;&nbsp;&nbsp;&nbsp;
 <a href="https://secret-cook-book-git-dev-cagils.vercel.app/">
-  <img src="https://badgen.net/badge/Preview/Development/green"/>
+  <img src="https://badgen.net/badge/Preview/dev/green"/>
 </a>
 <p/>
 <center>
