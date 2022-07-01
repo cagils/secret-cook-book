@@ -20,6 +20,7 @@ import ImageNext from 'next/image';
 import { Router, useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
+import { useEscape } from '../../lib/hooks/useEscape';
 
 import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
 import { random } from '../../lib/tools';
@@ -48,6 +49,9 @@ export const Recipe = ({ initialEditable, recipeId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [instanceKey, setInstanceKey] = useState(random());
   const [reload, setReload] = useState(0);
+
+  const onEscape = useCallback(() => setEditable(false), []);
+  useEscape(onEscape);
 
   const router = useRouter();
 
