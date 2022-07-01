@@ -46,7 +46,6 @@ _...under construction..._
   <img src="https://badgen.net/badge/Preview/dev/green"/>
 </a>
 <p/>
-<<<<<<< HEAD
 <center>
 <div align='center' >
 <img width='400px' style='border: 2px solid gray' src="public/screenshots/ss1.png"/>
@@ -57,15 +56,10 @@ _...under construction..._
 <img width='300px' style='border: 2px solid gray' src="public/screenshots/ss4.png"/></div>
 </div>
 </center>
-=======
-<center><div align='center' ><img src="public/SecretCookBook.png"/></div></center>
-</div>
->>>>>>> d71fb0655596c32b762dc0552505f718ff3981d3
 <p/>
 <h3>
 <ul>
 <li> Next.js </li>
-<<<<<<< HEAD
 <li> Chakra UI with optional integrated TailwindCSS</li>
 <li> Fully Responsive Design</li>
 <li> Jest/Storybook Testing</li>
@@ -75,17 +69,6 @@ _...under construction..._
 <li> Mongoose/MongoDB database</li>
 <li> React Query</li>
 <li> Husky / SVG</li>
-=======
-<li> Next.js REST API Backend</li>
-<li> Chakra UI</li>
-<li> TailwindCSS</li>
-<li> Storybook</li>
-<li> React Hook Form</li>
-<li> DND-Kit</li>
-<li> React Query</li>
-<li> Husky</li>
-<li> MongoDB + Mongoose + Atlas</li>
->>>>>>> d71fb0655596c32b762dc0552505f718ff3981d3
 <li> Vercel Deployment</li>
 </ul>
 </h3>
