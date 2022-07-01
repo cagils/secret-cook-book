@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
 import { enableAllPlugins } from 'immer';
+import { random } from 'lodash';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
@@ -24,14 +25,14 @@ export default function RecipePage() {
 
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
-  return <Recipe editable={true} recipeId={recipeId} />;
+  return <Recipe initialEditable={false} recipeId={recipeId} />;
 }
 
 RecipePage.getLayout = (page) => {
   return <Layout>{page}</Layout>;
 };
 
-/* export async function getServerSideProps(context) {
+/* export async function getServerSideProps(context) {  
   return { props: { data: {} } }; // SSR disabled
 
   const { recipeId } = context.params;

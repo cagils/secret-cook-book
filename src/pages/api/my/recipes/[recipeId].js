@@ -37,7 +37,12 @@ const singleRecipe = async (req, res) => {
       case 'PATCH':
         recipe = await models.recipeModel.findOneAndUpdate(
           { recipeId: query.recipeId },
-          recipeBody,
+          {
+            $set: {
+              ingredients: recipeBody.ingredients,
+              'description.text': recipeBody.description.text,
+            },
+          },
           {
             new: true,
           }

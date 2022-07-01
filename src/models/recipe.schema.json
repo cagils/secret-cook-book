@@ -125,11 +125,15 @@
         },
         "json": {
           "title": "The json Schema",
-          "type": "object",
-          "default": {},
-          "required": [],
-          "properties": {},
-          "examples": []
+          "type": "string",
+          "default": "",
+          "examples": ["STEP 1\n..."]
+        },
+        "text": {
+          "title": "The json Schema",
+          "type": "string",
+          "default": "",
+          "examples": ["STEP 1\n..."]
         }
       },
       "examples": []
