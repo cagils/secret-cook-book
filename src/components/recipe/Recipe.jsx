@@ -16,7 +16,6 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { produce, setAutoFreeze } from 'immer';
-import ImageNext from 'next/image';
 import { Router, useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { FormProvider, useForm, useFormContext } from 'react-hook-form';
@@ -50,7 +49,10 @@ export const Recipe = ({ initialEditable, recipeId }) => {
   const [instanceKey, setInstanceKey] = useState(random());
   const [reload, setReload] = useState(0);
 
-  const onEscape = useCallback(() => setEditable(false), []);
+  const onEscape = useCallback(() => {
+    setEditable(false);
+    handleReload();
+  }, []);
   useEscape(onEscape);
 
   const router = useRouter();

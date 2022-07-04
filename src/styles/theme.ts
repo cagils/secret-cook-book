@@ -580,17 +580,21 @@ const customStyles = {
     body: {
       bg: mode('gray.50', 'gray.900')(props),
     },
-    '*:focus-visible': {
-      //    border: 'none !important',
+    '*:focus, *[data-focus]': {
+      // border: 'none !important',
+      // outline: 'none !important',
+      boxShadow: 'none !important',
+    },
+    '*:focus-visible, *[data-focus-visible]': {
+      // border: 'none !important',
       // outline: 'none !important',
       // boxShadow: 'none !important',
       // borderBottom: '1px solid red !important',
-
+      //
       boxShadow:
         '0 0 0 2px var(--chakra-colors-pink-100),    0 0 2px 3px var(--chakra-colors-pink-400) !important',
       outline: '2px solid transparent !important',
       outlineOffset: '2px !important',
-      //borderRadius: 'var(--chakra-radii-lg)px !important',
     },
   }),
 };

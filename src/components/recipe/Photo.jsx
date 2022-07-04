@@ -1,4 +1,6 @@
 import { Box, Flex, Image, useColorMode } from '@chakra-ui/react';
+import ImageNext from 'next/image';
+import { FFileUpload } from '../helpers/form/FFileUpload';
 
 export const Photo = ({ photoUrl }) => {
   const { colorMode } = useColorMode();
@@ -7,6 +9,7 @@ export const Photo = ({ photoUrl }) => {
 
   return (
     <Flex
+      flexDir="column"
       borderRadius="lg"
       align="center"
       justify="center"
@@ -18,6 +21,25 @@ export const Photo = ({ photoUrl }) => {
       p={{ base: '2px', sm: '4px', md: '6px', xl: '8px' }}
       mb={4}
     >
+      {/* <FFileUpload
+        fieldName={`Photo`}
+        acceptedFileTypes="image/*"
+        placeholder="Your avatar"
+        rules={{ required: 'This is required' }}
+        label={null}
+        helper={null}
+        //defaultValue={shortDesc}
+        //disabled={loading}
+        //px={2}
+        //py={4}
+        //m={0}
+        //rows={3}
+        //fontStyle="italic"
+        //fontSize="1.5em"
+        //fontFamily="quote"
+        //fontWeight="regular"
+        //textAlign="center"
+      /> */}
       {photoUrl && (
         <Flex
           my={{ base: '2px', sm: '2px', md: '4px', xl: '10px' }}
@@ -47,9 +69,23 @@ export const Photo = ({ photoUrl }) => {
               borderRadius="lg"
               height="auto"
             >
-              <Image
+              {/* <ImageNext
+                //size="100vw"
                 //loading="lazy"
-                // sizes="50vw"
+                src={photoUrl}
+                alt={'Recipe Photo'}
+                //layout="fill"
+                width="500"
+                height="500"
+                //fit="cover"
+                //htmlHeight="100%"
+                //htmlWidth="100%"
+                //objectPosition={'50% 50%'}
+                //sx={{ aspectRatio: '16 / 9' }}
+                style={{ objectFit: 'cover', aspectRatio: 0.5 }}
+              /> */}
+
+              <Image
                 src={photoUrl}
                 alt={'Recipe Photo'}
                 layout="fill"
@@ -61,7 +97,9 @@ export const Photo = ({ photoUrl }) => {
                 //htmlHeight="100%"
                 //htmlWidth="100%"
                 //objectPosition={'50% 50%'}
-                //sx={{ aspectRatio: '16 / 9' }}
+                sx={{
+                  aspectRatio: '16 / 9',
+                }}
               />
             </Flex>
           </Box>

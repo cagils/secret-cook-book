@@ -1,3 +1,4 @@
+import { withAuth } from '../../../../lib/withAuth';
 import withDb from '../../../../lib/withDb';
 
 const singleRecipe = async (req, res) => {
@@ -61,4 +62,4 @@ const singleRecipe = async (req, res) => {
   }
 };
 
-export default withDb(singleRecipe);
+export default withAuth(withDb(singleRecipe));

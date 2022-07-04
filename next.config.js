@@ -1,6 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  // runtime: 'experimental-edge',
+  //runtime: 'nodejs',
   images: {
     domains: ['images.unsplash.com'],
   },
@@ -12,6 +14,11 @@ const nextConfig = {
     });
 
     return config;
+  },
+  experimental: {
+    images: {
+      allowFutureImage: true,
+    },
   },
 };
 
