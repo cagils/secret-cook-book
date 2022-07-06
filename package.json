@@ -57,6 +57,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@hookform/error-message": "^2.0.0",
+    "@styled-icons/boxicons-logos": "^10.38.0",
     "@styled-icons/entypo": "^10.34.0",
     "@styled-icons/feather": "^10.34.0",
     "@styled-icons/octicons": "^10.44.0",

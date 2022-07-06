@@ -13,9 +13,14 @@ export default function LoginPage() {
   const handleLogin = async (email) => {
     try {
       setLoading(true);
-      const { user, session, error } = await supabase.auth.signIn({
-        provider: 'google',
-      });
+      const { user, session, error } = await supabase.auth.signIn(
+        {
+          provider: 'google',
+        },
+        {
+          redirectTo: 'https://secret-cook-book.vercel.app',
+        }
+      );
       if (error) throw error;
       //alert('Check your email for the login link!');
     } catch (error) {
@@ -28,7 +33,6 @@ export default function LoginPage() {
   return (
     <Box width="full">
       <LoginForm handleLogin={handleLogin} loading={loading} />
-      <Auth providers={['google', 'github']} supabaseClient={supabase} />
     </Box>
   );
 }

@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  Center,
   Checkbox,
   Container,
   Flex,
@@ -16,6 +17,7 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
+import { Google } from '@styled-icons/boxicons-logos';
 import { Auth } from '@supabase/ui';
 import { useState } from 'react';
 import { supabase } from 'src/lib/supabase';
@@ -37,11 +39,11 @@ export const LoginForm = ({ handleLogin, loading }) => {
         p={6}
         overflow={'hidden'}
       >
-        <Auth
+        {/* <Auth
           onlyThirdPartyProviders={true}
           providers={['google', 'github']}
           supabaseClient={supabase}
-        />
+        /> */}
 
         <form
           onSubmit={(e) => {
@@ -73,9 +75,15 @@ export const LoginForm = ({ handleLogin, loading }) => {
                   onChange={(e) => setEmail(e.target.value)}
                 /> */}
               </Box>
-              <Stack spacing={10}>
-                <Button type="submit" isLoading={loading}>
-                  <span>{loading ? 'Loading' : 'Google Sign In'}</span>
+              <Stack spacing={10} align="center">
+                <Button
+                  // colorScheme="google"
+                  type="submit"
+                  variant="solid"
+                  isLoading={loading}
+                  leftIcon={<Google size="2em" />}
+                >
+                  <Text>Sign in with Google</Text>
                 </Button>
               </Stack>
             </Stack>
