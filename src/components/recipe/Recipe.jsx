@@ -34,7 +34,7 @@ import { ShortDesc } from './ShortDesc';
 
 setAutoFreeze(false);
 
-export const Recipe = ({ initialEditable, recipeId }) => {
+export const Recipe = ({ initialEditable, recipeId, user }) => {
   const renderCounter = useRenderCounter();
   const [editable, setEditable] = useState(initialEditable);
   const { colorMode } = useColorMode();
@@ -209,7 +209,7 @@ export const Recipe = ({ initialEditable, recipeId }) => {
     }
 
     const loadRecipe = async () => {
-      const fetchUrl = `/api/my/recipes/${recipeId}`;
+      const fetchUrl = `/api/recipes/${recipeId}`;
       console.log(`fetching ${fetchUrl}`);
       const response = await fetch(fetchUrl, {
         method: 'GET',
@@ -254,7 +254,7 @@ export const Recipe = ({ initialEditable, recipeId }) => {
       console.log('returning from useEffect fetch');
       abort = true;
     };
-  }, [recipeId, handleReset, reload]);
+  }, [recipeId, handleReset, reload, router]);
 
   const saveRecipe = async () => {
     changeEditable(false);
@@ -273,7 +273,7 @@ export const Recipe = ({ initialEditable, recipeId }) => {
     const formStateShortDesc = getValues()?.shortDesc || shortDesc;
     const formStateTitle = getValues()?.title || title;
 
-    const fetchUrl = `/api/my/recipes/${recipeId}`;
+    const fetchUrl = `/api/recipes/${recipeId}`;
     console.log(`patching ${fetchUrl}`);
     const response = await fetch(fetchUrl, {
       method: 'PATCH',

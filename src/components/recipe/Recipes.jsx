@@ -15,7 +15,7 @@ import {
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { RecipeCard } from './RecipeCard';
 
-export const Recipes = ({ editable, recipeId }) => {
+export const Recipes = ({ user }) => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
   const clickable = useClickable();
@@ -25,12 +25,13 @@ export const Recipes = ({ editable, recipeId }) => {
     colorMode == 'light' ? lightValue : darkValue;
 
   useEffect(() => {
+    console.log('user' + JSON.stringify(user, undefined, 2));
     let abort = false;
     setLoading(true);
 
     try {
       const loadRecipes = async () => {
-        const fetchUrl = `/api/my/recipes/`;
+        const fetchUrl = `/api/recipes/?userId=${user.id}`;
         console.log(`fetching ${fetchUrl}`);
         const response = await fetch(fetchUrl, {
           method: 'GET',
@@ -57,7 +58,7 @@ export const Recipes = ({ editable, recipeId }) => {
     return () => {
       abort = true;
     };
-  }, []);
+  }, [user]);
 
   return (
     <Container p={2}>

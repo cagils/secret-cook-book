@@ -1,8 +1,9 @@
-import withDb from '../../../lib/withDb';
+import withDb from '../../lib/withDb';
 
 const singleRecipe = async (req, res) => {
   const models = req.models;
   const recipeBody = req.body;
+  const userId = req.query.userId;
   let recipe = null;
 
   try {
@@ -11,7 +12,8 @@ const singleRecipe = async (req, res) => {
     }
     switch (req.method) {
       case 'GET':
-        recipe = await models.recipeModel.find({});
+        console.log('userId is ' + userId);
+        recipe = await models.recipeModel.find({ userId: userId });
         res.json({ data: recipe });
         break;
 

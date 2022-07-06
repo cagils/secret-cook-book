@@ -24,7 +24,7 @@ enableAllPlugins();
 
 export default function RecipePage() {
   const router = useRouter();
-  //const { user, signUp, signIn, signOut } = useAuth();
+  const { user, signUp, signIn, signOut } = useAuth();
 
   if (typeof window !== 'undefined') {
     // if (!user) {
@@ -36,7 +36,7 @@ export default function RecipePage() {
 
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
-  return <Recipe initialEditable={false} recipeId={recipeId} />;
+  return <Recipe initialEditable={false} recipeId={recipeId} user={user} />;
 }
 
 RecipePage.getLayout = (page) => {
@@ -51,7 +51,7 @@ RecipePage.getLayout = (page) => {
 
   try {
     // Fetch data from external API
-    const fetchUrl = `${baseHost}/api/my/recipes/${recipeId}`;
+    const fetchUrl = `${baseHost}/api/recipes/${recipeId}`;
     console.log(`SSR fetching ${fetchUrl}`);
     const response = await fetch(fetchUrl, {
       method: 'GET',

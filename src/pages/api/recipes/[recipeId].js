@@ -1,5 +1,6 @@
-import { withAuth } from '../../../../lib/withAuth';
-import withDb from '../../../../lib/withDb';
+import { baseHost } from '../../../lib/siteConfig';
+import { withAuth } from '../../../lib/withAuth';
+import withDb from '../../../lib/withDb';
 
 const singleRecipe = async (req, res) => {
   const models = req.models;
@@ -10,6 +11,20 @@ const singleRecipe = async (req, res) => {
   // await new Promise((r) => setTimeout(r, 5000));
 
   try {
+    /*     const fetchUrl = `${baseHost}/api/auth/user`;
+    console.log(`fetching ${fetchUrl}`);
+    const response = await fetch(fetchUrl, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    let authRes = await response.json();
+    if (!authRes?.user) {
+      res.status(401).json({ error: 'Unauthorized User' });
+    } */
+
     if (!models) {
       throw Error('Could not find db connection');
     }
@@ -19,10 +34,10 @@ const singleRecipe = async (req, res) => {
         res.json({ data: recipe });
         break;
 
-      case 'POST':
+      /* case 'POST':
         recipe = await models.recipeModel.create(recipeBody);
         res.json({ data: recipe });
-        break;
+        break; */
 
       case 'PUT':
         recipe = await models.recipeModel.findOneAndUpdate(
