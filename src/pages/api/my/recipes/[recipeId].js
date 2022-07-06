@@ -62,4 +62,4 @@ const singleRecipe = async (req, res) => {
   }
 };
 
-export default withAuth(withDb(singleRecipe));
+export default withDb(singleRecipe);

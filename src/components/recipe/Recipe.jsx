@@ -15,6 +15,7 @@ import {
   useColorMode,
   VStack,
 } from '@chakra-ui/react';
+
 import { produce, setAutoFreeze } from 'immer';
 import { Router, useRouter } from 'next/router';
 import { useCallback, useEffect, useRef, useState } from 'react';
@@ -22,6 +23,7 @@ import { FormProvider, useForm, useFormContext } from 'react-hook-form';
 import { useEscape } from '../../lib/hooks/useEscape';
 
 import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
+import { supabase } from '../../lib/supabase';
 import { random } from '../../lib/tools';
 import { OverlayFader } from '../helpers/OverlayFader';
 import { Ingredients } from '../ingredients/Ingredients';
@@ -215,17 +217,20 @@ export const Recipe = ({ initialEditable, recipeId }) => {
           'Content-Type': 'application/json',
         },
       });
-      if (!response.ok) {
-        console.log(
-          'response was not ok:',
-          JSON.stringify(response, undefined, 2)
-        );
-        throw new Error(`Error: ${response.status}`);
-      }
-      console.log('fetched.');
 
       if (abort) return;
       let res = await response.json();
+      console.log('res:');
+      console.log(res, undefined, 2);
+      if (!response.ok) {
+        console.log('response was not ok:', response.status);
+
+        // const redirect = decodeURIComponent(res.return);
+        if (response.status == 401) {
+          router.push('/');
+        }
+      }
+      console.log('fetched.');
       setRecipe(res.data);
       setIngredients(res.data?.ingredients ?? []);
       const desc = res.data?.description?.text.replace(/\\n/g, '\n');

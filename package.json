@@ -61,6 +61,7 @@
     "@styled-icons/feather": "^10.34.0",
     "@styled-icons/octicons": "^10.44.0",
     "@supabase/supabase-js": "^1.35.4",
+    "@supabase/ui": "^0.36.5",
     "@svgr/webpack": "^6.2.1",
     "@types/uuid": "^8.3.4",
     "cookies-next": "^2.0.4",

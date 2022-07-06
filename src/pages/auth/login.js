@@ -1,73 +1,34 @@
+import { Box } from '@chakra-ui/react';
 import { User } from '@supabase/gotrue-js';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+import { LoginForm } from '../../components/auth/LoginForm';
+import { Layout } from '../../layouts/Layout';
 import { supabase } from '../../lib/supabase';
 
 export default function LoginPage() {
-  const [user, setUser] = useState(supabase.auth.user() || undefined);
   const [loading, setLoading] = useState(false);
-  useEffect(() => {
-    supabase.auth.onAuthStateChange(async (event, session) => {
-      let newUser = supabase.auth.user();
-      if (newUser) {
-        await fetch('/api/auth/set', {
-          method: 'POST',
-          headers: new Headers({ 'Content-Type': 'application/json' }),
-          credentials: 'same-origin',
-          body: JSON.stringify({ event, session }),
-        });
-      }
-      setUser(supabase.auth.user() || undefined);
-    });
-  });
+
+  const handleLogin = async (email) => {
+    try {
+      setLoading(true);
+      const { error } = await supabase.auth.signIn({ email });
+      if (error) throw error;
+      alert('Check your email for the login link!');
+    } catch (error) {
+      alert(error.error_description || error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <>
-      {loading && <h1>Loading, please wait...</h1>}
-      {user && (
-        <>
-          <h1>Welcome, {user.email}!</h1>
-          <div>
-            Now you can see hidden pages:{' '}
-            <Link href="/app/hidden">/hidden-page</Link>
-          </div>
-          <button
-            onClick={async () => {
-              setLoading(true);
-              try {
-                await supabase.auth.signOut();
-                await fetch('/api/auth/remove', {
-                  method: 'GET',
-                  credentials: 'same-origin',
-                });
-              } finally {
-                setLoading(false);
-              }
-            }}
-          >
-            Logout
-          </button>
-        </>
-      )}
-      {!user && !loading && (
-        <>
-          <h1>Welcome to the app!</h1>
-          <button
-            onClick={async () => {
-              setLoading(true);
-              try {
-                await supabase.auth.signIn({
-                  provider: 'google',
-                });
-              } finally {
-                setLoading(false);
-              }
-            }}
-          >
-            Login with Google
-          </button>
-        </>
-      )}
-    </>
+    <Box width="full">
+      <LoginForm handleLogin={handleLogin} loading={loading} />
+    </Box>
   );
 }
+
+LoginPage.getLayout = (page) => {
+  return <Layout>{page}</Layout>;
+};

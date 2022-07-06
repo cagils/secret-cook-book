@@ -5,8 +5,7 @@ import { supabase } from './supabase';
 export const withAuth = (handler) => {
   return async (req, res) => {
     let authResult = await getUser(req);
-    let fullUrl = ''; //req.protocol + '://' + req.get('host') + req.originalUrl);
-
+    //console.log(req, undefined, 2);
     if (authResult.error) {
       console.log(
         'Authorization error, redirecting to login page',
@@ -14,14 +13,14 @@ export const withAuth = (handler) => {
       );
       return res.status(401).json({
         message: 'Not authenticated.',
-        return: encodeURIComponent(fullUrl),
+        return: encodeURIComponent(req.url),
       });
       //return NextResponse.redirect(`/?ret=${encodeURIComponent(req.nextUrl.pathname)}`);
     } else if (!authResult.user) {
       console.log('No auth user, redirecting');
       return res.status(401).json({
         message: 'Not authenticated.',
-        return: encodeURIComponent(fullUrl),
+        return: encodeURIComponent(req.url),
       });
       //return NextResponse.redirect(`/?ret=${encodeURIComponent(req.nextUrl.pathname)}`);
     } else {
@@ -67,23 +66,4 @@ async function getUser(req) {
       error: null,
     };
   }
-}
-
-export async function getServerSideProps(context) {
-  const res = await fetch(`https://.../data`);
-  const data = await res.json();
-  // or use context.resolvedUrl for conditional redirect
-  // if(context.resolvedUrl == "/")
-  if (!data) {
-    return {
-      redirect: {
-        destination: '/hello-nextjs',
-        permanent: false,
-      },
-    };
-  }
-
-  return {
-    props: {}, // will be passed to the page component as props
-  };
 }
