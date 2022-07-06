@@ -2,8 +2,15 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 import { supabase } from '../supabase';
 
+const defaultValue = {
+  signUp: (data) => supabase.auth.signUp(data),
+  signIn: (data) => supabase.auth.signIn(data),
+  signOut: () => supabase.auth.signOut(),
+  user: null,
+};
+
 // create a context for authentication
-const AuthContext = createContext();
+const AuthContext = createContext(defaultValue);
 
 export const AuthProvider = ({ children }) => {
   // create state values for user data and loading
@@ -14,12 +21,14 @@ export const AuthProvider = ({ children }) => {
     // get session data if there is an active session
     const session = supabase.auth.session();
 
+    // @ts-ignore
     setUser(session?.user ?? null);
     setLoading(false);
 
     // listen for changes to auth
     const { data: listener } = supabase.auth.onAuthStateChange(
       (event, session) => {
+        // @ts-ignore
         setUser(session?.user ?? null);
         setLoading(false);
       }
