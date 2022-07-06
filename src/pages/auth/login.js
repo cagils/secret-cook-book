@@ -1,5 +1,6 @@
 import { Box } from '@chakra-ui/react';
 import { User } from '@supabase/gotrue-js';
+import { Auth } from '@supabase/ui';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { LoginForm } from '../../components/auth/LoginForm';
@@ -12,9 +13,11 @@ export default function LoginPage() {
   const handleLogin = async (email) => {
     try {
       setLoading(true);
-      const { error } = await supabase.auth.signIn({ email });
+      const { user, session, error } = await supabase.auth.signIn({
+        provider: 'google',
+      });
       if (error) throw error;
-      alert('Check your email for the login link!');
+      //alert('Check your email for the login link!');
     } catch (error) {
       alert(error.error_description || error.message);
     } finally {
@@ -25,6 +28,7 @@ export default function LoginPage() {
   return (
     <Box width="full">
       <LoginForm handleLogin={handleLogin} loading={loading} />
+      <Auth providers={['google', 'github']} supabaseClient={supabase} />
     </Box>
   );
 }

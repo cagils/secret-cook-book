@@ -16,7 +16,9 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
+import { Auth } from '@supabase/ui';
 import { useState } from 'react';
+import { supabase } from 'src/lib/supabase';
 import { FInput } from '../helpers/form/FInput';
 import { FInputNoHook } from '../helpers/form/FInputNoHook';
 
@@ -35,6 +37,12 @@ export const LoginForm = ({ handleLogin, loading }) => {
         p={6}
         overflow={'hidden'}
       >
+        <Auth
+          onlyThirdPartyProviders={true}
+          providers={['google', 'github']}
+          supabaseClient={supabase}
+        />
+
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -47,7 +55,7 @@ export const LoginForm = ({ handleLogin, loading }) => {
           <Box rounded={'lg'}>
             <Stack spacing={4}>
               <Box>
-                <FInputNoHook
+                {/* <FInputNoHook
                   autoFocus
                   fieldName={`title`}
                   label={''}
@@ -63,11 +71,11 @@ export const LoginForm = ({ handleLogin, loading }) => {
                   color={mode('pink.500', 'pink.200')}
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
-                />
+                /> */}
               </Box>
               <Stack spacing={10}>
                 <Button type="submit" isLoading={loading}>
-                  <span>{loading ? 'Loading' : 'Send magic link'}</span>
+                  <span>{loading ? 'Loading' : 'Google Sign In'}</span>
                 </Button>
               </Stack>
             </Stack>
