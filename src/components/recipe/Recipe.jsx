@@ -327,164 +327,199 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
         width="full"
         onSubmit={handleSubmit(onFormSubmit, onFormError)}
       >
-        <VStack
-          //width="full"
-          align="center"
-          justify="center"
-          px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
-          pb={4}
-          spacing={0}
-          gap={4}
-        >
-          <Box
-            boxShadow={mode('base', 'baseWhite')}
+        {user && (
+          <VStack
             //width="full"
             align="center"
             justify="center"
-            bgColor={mode('whiteAlpha.800', 'blackAlpha.500')}
-            //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
-            borderRadius="lg"
-            px={4}
-            py={8}
-            mt={8}
-            width="full"
-            //px={16}
-            position="relative"
-            overflow="hidden"
-          >
-            <RecipeTitle
-              recipeTitle={recipe?.title}
-              editable={editable}
-              loading={loading}
-              handleEdit={handleEdit}
-            />
-            <OverlayFader active={loading} />
-          </Box>
-          <Flex
-            //width="full"
-            align="stretch"
-            justify="center"
-            //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
-            width="full"
-            wrap="wrap-reverse"
-            // rowGap={2}
-            // columnGap={4}
+            px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
+            pb={4}
+            spacing={0}
             gap={4}
           >
-            <VStack
+            <Box
               boxShadow={mode('base', 'baseWhite')}
-              // borderWidth="thin"
-              borderColor="pink.200"
-              bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
-              //pos="relative"
-              //overflow="hidden"
-              borderRadius="lg"
-              //flexGrow="1"
-              flex="2"
-              spacing={0}
-              gap={4}
-              //width="30%"
-              minW="300px"
-            >
-              <Box
-                p={8}
-                // grow="1"
-                // alignSelf="stretch"
-                width="full"
-                height="full"
-                pos="relative"
-                overflow="hidden"
-                // border="1px solid red"
-              >
-                {ingredients && (
-                  <Ingredients
-                    loading={loading}
-                    editable={editable}
-                    ingredients={ingredients}
-                    handleDeleteGroup={handleDeleteGroup}
-                    handleDeleteIngredient={handleDeleteIngredient}
-                    handleNewGroup={handleNewGroup}
-                    handleNewIngredient={handleNewIngredient}
-                    handleReorder={handleReorder}
-                    instanceKey={instanceKey}
-                  />
-                )}
-                <OverlayFader active={loading} />
-              </Box>
-            </VStack>
-            <VStack
-              align="stretch"
+              //width="full"
+              align="center"
               justify="center"
-              spacing={0}
-              flex="5"
-              minW={{
-                base: '300px',
-                sm: '500px',
-                md: '500px',
-                lg: '600px',
-                xl: '800px',
-              }}
-              pos="relative"
+              bgColor={mode('whiteAlpha.800', 'blackAlpha.500')}
+              //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
+              borderRadius="lg"
+              px={4}
+              py={8}
+              mt={8}
+              width="full"
+              //px={16}
+              position="relative"
               overflow="hidden"
             >
-              <Box
-                align="center"
-                justfiy="center"
-                flex="1"
-                p={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
-                borderRadius="lg"
-                boxShadow={mode('base', 'baseWhite')}
-                bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
-              >
-                <Photo
-                  editable={editable}
-                  photoUrl={recipe?.photo}
-                  user={user}
-                  recipeId={recipe?.recipeId}
-                />
-                <ShortDesc
-                  shortDesc={recipe?.shortDesc}
-                  editable={editable}
-                  loading={loading}
-                />
-                <Description
-                  editable={editable}
-                  description={description}
-                  loading={loading}
-                />
-              </Box>
+              <RecipeTitle
+                recipeTitle={recipe?.title}
+                editable={editable}
+                loading={loading}
+                handleEdit={handleEdit}
+              />
               <OverlayFader active={loading} />
-            </VStack>
-          </Flex>
-          <Box
-            boxShadow={mode('base', 'baseWhite')}
-            //borderWidth="thin"
-            borderColor="pink.200"
-            bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
-            width="full"
-            align="end"
-            justify="center"
-            //bgColor={mode('whiteAlpha.400', 'blackAlpha.400')}
-            borderRadius="lg"
-            p={4}
-            mt={4}
-          >
-            {/* <Box flex="1"></Box>
+            </Box>
+            <Flex
+              //width="full"
+              align="stretch"
+              justify="center"
+              //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
+              width="full"
+              wrap="wrap-reverse"
+              // rowGap={2}
+              // columnGap={4}
+              gap={4}
+            >
+              <VStack
+                boxShadow={mode('base', 'baseWhite')}
+                // borderWidth="thin"
+                borderColor="pink.200"
+                bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+                //pos="relative"
+                //overflow="hidden"
+                borderRadius="lg"
+                //flexGrow="1"
+                flex="2"
+                spacing={0}
+                gap={4}
+                //width="30%"
+                minW="300px"
+              >
+                <Box
+                  p={8}
+                  // grow="1"
+                  // alignSelf="stretch"
+                  width="full"
+                  height="full"
+                  pos="relative"
+                  overflow="hidden"
+                  // border="1px solid red"
+                >
+                  {ingredients && (
+                    <Ingredients
+                      loading={loading}
+                      editable={editable}
+                      ingredients={ingredients}
+                      handleDeleteGroup={handleDeleteGroup}
+                      handleDeleteIngredient={handleDeleteIngredient}
+                      handleNewGroup={handleNewGroup}
+                      handleNewIngredient={handleNewIngredient}
+                      handleReorder={handleReorder}
+                      instanceKey={instanceKey}
+                    />
+                  )}
+                  <OverlayFader active={loading} />
+                </Box>
+              </VStack>
+              <VStack
+                align="stretch"
+                justify="center"
+                spacing={0}
+                flex="5"
+                minW={{
+                  base: '300px',
+                  sm: '500px',
+                  md: '500px',
+                  lg: '600px',
+                  xl: '800px',
+                }}
+                pos="relative"
+                overflow="hidden"
+              >
+                <Box
+                  align="center"
+                  justfiy="center"
+                  flex="1"
+                  p={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
+                  borderRadius="lg"
+                  boxShadow={mode('base', 'baseWhite')}
+                  bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+                >
+                  <Photo
+                    editable={editable}
+                    photoUrl={recipe?.photo}
+                    user={user}
+                    recipeId={recipe?.recipeId}
+                  />
+                  <ShortDesc
+                    shortDesc={recipe?.shortDesc}
+                    editable={editable}
+                    loading={loading}
+                  />
+                  <Description
+                    editable={editable}
+                    description={description}
+                    loading={loading}
+                  />
+                </Box>
+                <OverlayFader active={loading} />
+              </VStack>
+            </Flex>
+            <Box
+              boxShadow={mode('base', 'baseWhite')}
+              //borderWidth="thin"
+              borderColor="pink.200"
+              bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
+              width="full"
+              align="end"
+              justify="center"
+              //bgColor={mode('whiteAlpha.400', 'blackAlpha.400')}
+              borderRadius="lg"
+              p={4}
+              mt={4}
+            >
+              {/* <Box flex="1"></Box>
             <Button size="xs" variant="outline" onClick={() => handleReset()}>
               RESET
             </Button>
             <Button size="xs" variant="outline" onClick={() => handleReload()}>
               RELOAD
             </Button> */}
-            {editable ? (
-              <>
+              {editable ? (
+                <>
+                  <Button
+                    size="xs"
+                    type="button"
+                    variant="outline"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      cancelEdit();
+                    }}
+                    color={mode('white', 'pink.800')}
+                    //variant="gradient"
+                    //bgGradient="linear(to-r, purple.300, pink.300)"
+                    textTransform={'uppercase'}
+                    letterSpacing={1.1}
+                    fontWeight="semibold"
+                    //isLoading={isSubmitting}
+                  >
+                    Cancel
+                  </Button>
+                  <Button
+                    size="md"
+                    type="submit"
+                    color={mode('white', 'pink.800')}
+                    //variant="gradient"
+                    //bgGradient="linear(to-r, purple.300, pink.300)"
+                    textTransform={'uppercase'}
+                    letterSpacing={1.1}
+                    fontWeight="semibold"
+                    //isLoading={isSubmitting}
+                  >
+                    Save
+                  </Button>
+                </>
+              ) : (
                 <Button
-                  size="xs"
+                  colorScheme="green"
+                  size="md"
+                  //type="submit"
                   type="button"
-                  variant="outline"
                   onClick={(e) => {
                     e.preventDefault();
-                    cancelEdit();
+                    changeEditable(true);
                   }}
                   color={mode('white', 'pink.800')}
                   //variant="gradient"
@@ -492,48 +527,15 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
                   textTransform={'uppercase'}
                   letterSpacing={1.1}
                   fontWeight="semibold"
-                  //isLoading={isSubmitting}
+                  isLoading={isSubmitting}
                 >
-                  Cancel
+                  Edit
                 </Button>
-                <Button
-                  size="md"
-                  type="submit"
-                  color={mode('white', 'pink.800')}
-                  //variant="gradient"
-                  //bgGradient="linear(to-r, purple.300, pink.300)"
-                  textTransform={'uppercase'}
-                  letterSpacing={1.1}
-                  fontWeight="semibold"
-                  //isLoading={isSubmitting}
-                >
-                  Save
-                </Button>
-              </>
-            ) : (
-              <Button
-                colorScheme="green"
-                size="md"
-                //type="submit"
-                type="button"
-                onClick={(e) => {
-                  e.preventDefault();
-                  changeEditable(true);
-                }}
-                color={mode('white', 'pink.800')}
-                //variant="gradient"
-                //bgGradient="linear(to-r, purple.300, pink.300)"
-                textTransform={'uppercase'}
-                letterSpacing={1.1}
-                fontWeight="semibold"
-                isLoading={isSubmitting}
-              >
-                Edit
-              </Button>
-            )}
-          </Box>
-          {/* <Text size="md">Render Counter: {renderCounter}</Text> */}
-        </VStack>
+              )}
+            </Box>
+            {/* <Text size="md">Render Counter: {renderCounter}</Text> */}
+          </VStack>
+        )}
       </Box>
       {/* <pre>{JSON.stringify(recipe, undefined, 2)}</pre> */}
     </FormProvider>

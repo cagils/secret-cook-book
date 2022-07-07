@@ -151,18 +151,23 @@ export const Layout = ({ children }) => {
                     </Heading>
                   </Box>
                 </HStack>
-                <Flex
-                  grow="1"
-                  justify="center"
-                  align="stretch"
-                  bgGradient={mode(
-                    'linear(to-r, purple.100, pink.100)',
-                    'linear(to-r, purple.900, pink.900)'
-                  )}
-                  //p={2}
-                >
-                  {children}
-                </Flex>
+                {/* <OverlayFader active={user} /> */}
+                {(router.pathname === '/auth/login' || user) && (
+                  <>
+                    <Flex
+                      grow="1"
+                      justify="center"
+                      align="stretch"
+                      bgGradient={mode(
+                        'linear(to-r, purple.100, pink.100)',
+                        'linear(to-r, purple.900, pink.900)'
+                      )}
+                      //p={2}
+                    >
+                      {children}
+                    </Flex>
+                  </>
+                )}
               </VStack>
             </Flex>
           </Flex>
