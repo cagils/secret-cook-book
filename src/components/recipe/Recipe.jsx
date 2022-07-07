@@ -436,7 +436,11 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
                 boxShadow={mode('base', 'baseWhite')}
                 bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
               >
-                <Photo photoUrl={recipe?.photo} />
+                <Photo
+                  editable={editable}
+                  photoUrl={recipe?.photo}
+                  user={user}
+                />
                 <ShortDesc
                   shortDesc={recipe?.shortDesc}
                   editable={editable}

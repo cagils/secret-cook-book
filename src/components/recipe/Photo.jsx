@@ -1,11 +1,47 @@
-import { Box, Flex, Image, useColorMode } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Icon,
+  IconButton,
+  Image,
+  Input,
+  useColorMode,
+} from '@chakra-ui/react';
+import { Camera } from '@styled-icons/feather';
 import ImageNext from 'next/image';
+import { useEffect, useRef, useState } from 'react';
+import { supabase } from '../../lib/supabase';
+
 import { FFileUpload } from '../helpers/form/FFileUpload';
 
-export const Photo = ({ photoUrl }) => {
+export const Photo = ({ photoUrl, user, editable }) => {
+  const uploadRef = useRef();
   const { colorMode } = useColorMode();
+  const [imageUrl, setImageUrl] = useState(null);
+
+  useEffect(() => {
+    const { publicURL, error } = supabase.storage
+      .from('recipe-photos')
+      .getPublicUrl(`public/${user.id}.png`);
+    setImageUrl(publicURL);
+  }, [user.id]);
+
   const mode = (lightValue, darkValue) =>
     colorMode == 'light' ? lightValue : darkValue;
+
+  const _uploadPicture = () => {
+    uploadRef.current.click();
+  };
+
+  const _handleUploadPicture = async () => {
+    const file = uploadRef.current.files[0];
+    const { data, error } = await supabase.storage
+      .from('recipe-photos')
+      .upload(`public/${user.id}.png`, file, {
+        cacheControl: '3600',
+        upsert: true,
+      });
+  };
 
   return (
     <Flex
@@ -40,7 +76,7 @@ export const Photo = ({ photoUrl }) => {
         //fontWeight="regular"
         //textAlign="center"
       /> */}
-      {photoUrl && (
+      {imageUrl && (
         <Flex
           my={{ base: '2px', sm: '2px', md: '4px', xl: '10px' }}
           align="center"
@@ -68,7 +104,55 @@ export const Photo = ({ photoUrl }) => {
               overflow="hidden"
               borderRadius="lg"
               height="auto"
+              position="relative"
             >
+              {editable && (
+                <Box
+                  m="2"
+                  position="absolute"
+                  right="0px"
+                  bottom="0px"
+                  top="unset"
+                  left="unset"
+                  zIndex="1000"
+                  p={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
+                >
+                  <IconButton
+                    // width="1.4em"
+                    // height="1.4em"
+                    // colorScheme="pink"
+                    // isRound
+                    aria-label="Edit Recipe"
+                    variant="solid"
+                    icon={<Icon as={Camera} />}
+                    _hover={{
+                      bgColor: mode('pink.500', 'purple.500'),
+                      //color: mode('white', 'white'),
+                    }}
+                    bgColor={mode('whiteAlpha.500', 'whiteAlpha.500')}
+                    //color={mode('pink.900', 'pink.900')}
+                    onClick={(e) => _uploadPicture(e)}
+                    // textAlign="center"
+                    //fontFamily="heading"
+                    fontSize={{
+                      base: '2em',
+                      md: '2em',
+                      lg: '2em',
+                      xl: '3em',
+                    }}
+                  />
+                  <Input
+                    ref={uploadRef}
+                    type="file"
+                    onChange={_handleUploadPicture}
+                    onClick={(e) => {
+                      e.target.value = null;
+                    }}
+                    accept="image/png, image/jpeg"
+                    hidden
+                  />
+                </Box>
+              )}
               {/* <ImageNext
                 //size="100vw"
                 //loading="lazy"
@@ -86,7 +170,7 @@ export const Photo = ({ photoUrl }) => {
               /> */}
 
               <Image
-                src={photoUrl}
+                src={imageUrl}
                 alt={'Recipe Photo'}
                 layout="fill"
                 fit="cover"

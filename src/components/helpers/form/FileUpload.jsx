@@ -17,7 +17,6 @@ export const FileUpload = ({
   defaultValue,
   acceptedFileTypes,
   control,
-  children,
   isRequired = false,
   ...rest
 }) => {
