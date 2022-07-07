@@ -25,7 +25,13 @@ export const ShortDesc = ({ shortDesc, editable, loading }) => {
             //textIndent: '1em',
           }}
           fontStyle="italic"
-          fontSize="1.5em"
+          fontSize={{
+            base: '1.2em',
+            sm: '1.5em',
+            md: '1.5em',
+            lg: '1.5em',
+            xl: '1.5em',
+          }}
           fontFamily="quote"
           fontWeight="regular"
           textAlign="center"
@@ -48,7 +54,13 @@ export const ShortDesc = ({ shortDesc, editable, loading }) => {
             m={0}
             rows={3}
             fontStyle="italic"
-            fontSize="1.5em"
+            fontSize={{
+              base: '1.2em',
+              sm: '1.5em',
+              md: '1.5em',
+              lg: '1.5em',
+              xl: '1.5em',
+            }}
             fontFamily="quote"
             fontWeight="regular"
             textAlign="center"

@@ -65,11 +65,17 @@ export const Ingredients = ({
         <Heading
           width="full"
           textAlign="start"
-          fontSize="3em"
           as="h3"
           fontFamily="heading"
           fontWeight="semibold"
           color={mode('pink.500', 'pink.300')}
+          fontSize={{
+            base: '2em',
+            sm: '2.5em',
+            md: '3em',
+            lg: '3em',
+            xl: '4em',
+          }}
         >
           Ingredients
         </Heading>

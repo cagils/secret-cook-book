@@ -41,7 +41,7 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
   const _handleUploadPicture = async () => {
     setLoading(true);
     const fileName = getFileName();
-    const oldFileName = imageUrl.split('/').pop();
+    const oldFileName = imageUrl?.split('/').pop();
     if (!fileName) return;
     const file = uploadRef.current.files[0];
     const { data1, error1 } = await supabase.storage
@@ -51,15 +51,18 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
         upsert: true,
       });
     console.log('removing old image: ' + oldFileName);
-    const { data2, error2 } = await supabase.storage
-      .from('recipe-photos')
-      .remove([`public/${oldFileName}`]);
+    if (oldFileName) {
+      const { data2, error2 } = await supabase.storage
+        .from('recipe-photos')
+        .remove([`public/${oldFileName}`]);
+    }
     const { publicURL, error3 } = supabase.storage
       .from('recipe-photos')
       .getPublicUrl(`public/${fileName}`);
 
+    setImageUrl(publicURL);
     const saveImageUrl = async () => {
-      if (!recipeId || !imageUrl) return;
+      if (!recipeId || !publicURL) return;
       const fetchUrl = `/api/recipes/${recipeId}`;
       console.log(`patching ${fetchUrl} for photo upload`);
       const response = await fetch(fetchUrl, {
@@ -69,7 +72,7 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
         },
         body: JSON.stringify({
           patchType: 'photo',
-          photo: imageUrl,
+          photo: publicURL,
         }),
       });
       console.log('patched.');
@@ -82,8 +85,6 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
     };
 
     saveImageUrl();
-
-    setImageUrl(publicURL);
   };
 
   return (
@@ -186,6 +187,8 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
                       lg: '2em',
                       xl: '3em',
                     }}
+                    width="1.2em"
+                    height="1.1em"
                   />
                   <Input
                     ref={uploadRef}
@@ -227,9 +230,11 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
                 //htmlHeight="100%"
                 //htmlWidth="100%"
                 //objectPosition={'50% 50%'}
-                sx={{
-                  aspectRatio: '16 / 9',
-                }}
+                sx={
+                  {
+                    // aspectRatio: '16 / 9',
+                  }
+                }
                 onLoad={() => {
                   setLoading(false);
                 }}

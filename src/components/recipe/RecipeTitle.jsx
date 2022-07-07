@@ -26,7 +26,8 @@ export const RecipeTitle = ({ recipeTitle, editable, loading, handleEdit }) => {
             textAlign="center"
             fontFamily="heading"
             fontSize={{
-              base: '3em',
+              base: '2em',
+              sm: '2.5em',
               md: '3em',
               lg: '3em',
               xl: '4em',
@@ -72,6 +73,7 @@ export const RecipeTitle = ({ recipeTitle, editable, loading, handleEdit }) => {
               //fontFamily="heading"
               fontSize={{
                 base: '2em',
+                sm: '2.5em',
                 md: '2em',
                 lg: '2em',
                 xl: '3em',
@@ -92,7 +94,8 @@ export const RecipeTitle = ({ recipeTitle, editable, loading, handleEdit }) => {
             // rest...
             disabled={loading}
             fontSize={{
-              base: '3em',
+              base: '2em',
+              sm: '2.5em',
               md: '3em',
               lg: '3em',
               xl: '4em',
