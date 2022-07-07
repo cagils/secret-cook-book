@@ -4,11 +4,12 @@ import {
   Center,
   Flex,
   Heading,
+  Image,
   Stack,
   Text,
   useColorMode,
 } from '@chakra-ui/react';
-import Image from 'next/image';
+import NextImage from 'next/image';
 import Link from 'next/link';
 
 export const RecipeCard = ({ recipe }) => {
@@ -36,14 +37,15 @@ export const RecipeCard = ({ recipe }) => {
               overflow={'hidden'}
             >
               <Box
-                h={'210px'}
+                // h={'210px'}
                 //bg={'purple.400'}
                 mt={-6}
                 mx={-6}
                 mb={6}
                 pos={'relative'}
+                overflow="hidden"
               >
-                <Image
+                {/* <NextImage
                   src={recipe.photo}
                   alt={'Recipe Photo'}
                   // width={1170}
@@ -51,6 +53,24 @@ export const RecipeCard = ({ recipe }) => {
                   layout={'fill'}
                   objectFit={'cover'}
                   objectPosition={'50% 50%'}
+                /> */}
+                <Image
+                  src={recipe?.photo}
+                  alt={'Recipe Photo'}
+                  layout="fill"
+                  objectFit="cover"
+                  //width="100%"
+                  //height="40vh"
+                  //minH="20rem"
+                  //maxH="30rem"
+                  //htmlHeight="100%"
+                  //htmlWidth="100%"
+                  // objectPosition={'50% 50%'}
+                  sx={
+                    {
+                      // aspectRatio: '16 / 9',
+                    }
+                  }
                 />
               </Box>
               <Stack>
