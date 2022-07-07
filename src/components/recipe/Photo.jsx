@@ -9,22 +9,61 @@ import {
 } from '@chakra-ui/react';
 import { Camera } from '@styled-icons/feather';
 import ImageNext from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 
 import { FFileUpload } from '../helpers/form/FFileUpload';
 
-export const Photo = ({ photoUrl, user, editable }) => {
+export const Photo = ({ photoUrl, user, editable, recipeId }) => {
   const uploadRef = useRef();
   const { colorMode } = useColorMode();
   const [imageUrl, setImageUrl] = useState(null);
 
+  const getFileName = useCallback(() => {
+    if (!user || !recipeId) {
+      return null;
+    }
+    return `${user.id}_${recipeId}.png`;
+  }, [user, recipeId]);
+
   useEffect(() => {
+    const fileName = getFileName();
+    if (!fileName) return;
     const { publicURL, error } = supabase.storage
       .from('recipe-photos')
-      .getPublicUrl(`public/${user.id}.png`);
+      .getPublicUrl(`public/${fileName}`);
     setImageUrl(publicURL);
-  }, [user.id]);
+  }, [user.id, getFileName]);
+
+  useEffect(() => {
+    if (!imageUrl) {
+      return;
+    }
+    const saveImageUrl = async () => {
+      if (!recipeId || !imageUrl) return;
+      const fetchUrl = `/api/recipes/${recipeId}`;
+      console.log(`patching ${fetchUrl} for photo upload`);
+      const response = await fetch(fetchUrl, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          patchType: 'photo',
+          photo: imageUrl,
+        }),
+      });
+      console.log('patched.');
+
+      if (!response.ok) {
+        // throw new Error(`Error: ${response.status}`);
+        console.log('photo useEffect response not ok', response.status);
+      }
+      let res = await response.json();
+    };
+
+    saveImageUrl();
+  }, [imageUrl, recipeId]);
 
   const mode = (lightValue, darkValue) =>
     colorMode == 'light' ? lightValue : darkValue;
@@ -34,13 +73,17 @@ export const Photo = ({ photoUrl, user, editable }) => {
   };
 
   const _handleUploadPicture = async () => {
+    const fileName = getFileName();
     const file = uploadRef.current.files[0];
     const { data, error } = await supabase.storage
       .from('recipe-photos')
-      .upload(`public/${user.id}.png`, file, {
+      .upload(`public/${fileName}`, file, {
         cacheControl: '3600',
         upsert: true,
       });
+    const { publicURL, errorGet } = supabase.storage
+      .from('recipe-photos')
+      .getPublicUrl(`public/${fileName}`);
   };
 
   return (
@@ -170,7 +213,7 @@ export const Photo = ({ photoUrl, user, editable }) => {
               /> */}
 
               <Image
-                src={imageUrl}
+                src={photoUrl}
                 alt={'Recipe Photo'}
                 layout="fill"
                 fit="cover"

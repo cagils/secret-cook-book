@@ -440,6 +440,7 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
                   editable={editable}
                   photoUrl={recipe?.photo}
                   user={user}
+                  recipeId={recipe?.recipeId}
                 />
                 <ShortDesc
                   shortDesc={recipe?.shortDesc}
