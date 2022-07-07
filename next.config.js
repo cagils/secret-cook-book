@@ -1,8 +1,10 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: false,
+  // runtime: 'experimental-edge',
+  //runtime: 'nodejs',
   images: {
-    domains: ['images.unsplash.com'],
+    domains: ['images.unsplash.com', 'ylgcsafpqtxyjlnyjlei.supabase.co', ''],
   },
   webpack(config) {
     config.module.rules.push({
@@ -12,6 +14,11 @@ const nextConfig = {
     });
 
     return config;
+  },
+  experimental: {
+    images: {
+      allowFutureImage: true,
+    },
   },
 };
 

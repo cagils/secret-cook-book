@@ -16,16 +16,27 @@ import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { Recipe } from '../../../components/recipe/Recipe';
 import { Layout } from '../../../layouts/Layout';
+import { useAuth } from '../../../lib/hooks/useAuth';
+import { baseHost } from '../../../lib/siteConfig';
+import { supabase } from '../../../lib/supabase';
 
 enableAllPlugins();
 
 export default function RecipePage() {
   const router = useRouter();
+  const { user, signUp, signIn, signOut } = useAuth();
+
+  if (typeof window !== 'undefined') {
+    // if (!user) {
+    //   router.push('/auth/login');
+    // }
+  }
+
   const { recipeId } = router.query;
 
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
-  return <Recipe initialEditable={false} recipeId={recipeId} />;
+  return <Recipe initialEditable={false} recipeId={recipeId} user={user} />;
 }
 
 RecipePage.getLayout = (page) => {
@@ -37,17 +48,10 @@ RecipePage.getLayout = (page) => {
 
   const { recipeId } = context.params;
   let res = null;
-  let host = null;
-
-  if (process.env.NEXT_PUBLIC_VERCEL_URL) {
-    host = process.env.NEXT_PUBLIC_VERCEL_URL;
-  } else if (process.env.NODE_ENV === 'development') {
-    host = 'http://localhost:3000';
-  }
 
   try {
     // Fetch data from external API
-    const fetchUrl = `${host}/api/my/recipes/${recipeId}`;
+    const fetchUrl = `${baseHost}/api/recipes/${recipeId}`;
     console.log(`SSR fetching ${fetchUrl}`);
     const response = await fetch(fetchUrl, {
       method: 'GET',
@@ -70,4 +74,43 @@ RecipePage.getLayout = (page) => {
   }
 
   return { props: { data: res.data } };
+} */
+
+/* export const getServerSideProps = async ({
+  query,
+  params,
+  req,
+  resolvedUrl,
+}) => {
+  const domain = req.headers.host;
+  const pathName = 'https://' + domain + resolvedUrl;
+  const { user } = await supabase.auth.api.getUserByCookie(req);
+  if (!user) {
+    if (resolvedUrl !== 'auth/login')
+      return { props: {}, redirect: { destination: '/auth/login' } };
+  }
+  return { props: { user } };
+}; */
+
+/* 
+export async function getServerSideProps() {
+  // We need to implement `/api/getUser` by creating
+  // an endpoint in `pages/api` but for now let's just call it
+  const response = await fetch(`${baseHost}/api/auth/user`).then((response) =>
+    response.json()
+  );
+
+  const { user } = response;
+
+  // If the `getUser` endpoint doesn't have a user in its response
+  // then we will redirect to the login page
+  // which means this page will only be viewable when `getUser` returns a user.
+
+  if (!user) {
+    return {
+      redirect: { destination: '/login', permanent: false },
+    };
+  }
+  // We'll pass the returned `user` to the page's React Component as a prop
+  return { props: { user } };
 } */
