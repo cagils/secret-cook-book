@@ -10,35 +10,54 @@ import {
 import { Camera } from '@styled-icons/feather';
 import ImageNext from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 import { supabase } from '../../lib/supabase';
 
 import { FFileUpload } from '../helpers/form/FFileUpload';
+import { OverlayFader } from '../helpers/OverlayFader';
 
 export const Photo = ({ photoUrl, user, editable, recipeId }) => {
   const uploadRef = useRef();
   const { colorMode } = useColorMode();
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState(photoUrl);
+  const [loading, setLoading] = useState(false);
 
   const getFileName = useCallback(() => {
     if (!user || !recipeId) {
       return null;
     }
-    return `${user.id}_${recipeId}.png`;
+    const rand = uuidv4();
+    return `${user.id}_${recipeId}_${rand}.png`;
   }, [user, recipeId]);
 
-  useEffect(() => {
+  const mode = (lightValue, darkValue) =>
+    colorMode == 'light' ? lightValue : darkValue;
+
+  const _uploadPicture = () => {
+    uploadRef.current.click();
+  };
+
+  const _handleUploadPicture = async () => {
+    setLoading(true);
     const fileName = getFileName();
+    const oldFileName = imageUrl.split('/').pop();
     if (!fileName) return;
-    const { publicURL, error } = supabase.storage
+    const file = uploadRef.current.files[0];
+    const { data1, error1 } = await supabase.storage
+      .from('recipe-photos')
+      .upload(`public/${fileName}`, file, {
+        cacheControl: '1',
+        upsert: true,
+      });
+    console.log('removing old image: ' + oldFileName);
+    const { data2, error2 } = await supabase.storage
+      .from('recipe-photos')
+      .remove([`public/${oldFileName}`]);
+    const { publicURL, error3 } = supabase.storage
       .from('recipe-photos')
       .getPublicUrl(`public/${fileName}`);
-    setImageUrl(publicURL);
-  }, [user.id, getFileName]);
 
-  useEffect(() => {
-    if (!imageUrl) {
-      return;
-    }
     const saveImageUrl = async () => {
       if (!recipeId || !imageUrl) return;
       const fetchUrl = `/api/recipes/${recipeId}`;
@@ -63,27 +82,8 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
     };
 
     saveImageUrl();
-  }, [imageUrl, recipeId]);
 
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
-
-  const _uploadPicture = () => {
-    uploadRef.current.click();
-  };
-
-  const _handleUploadPicture = async () => {
-    const fileName = getFileName();
-    const file = uploadRef.current.files[0];
-    const { data, error } = await supabase.storage
-      .from('recipe-photos')
-      .upload(`public/${fileName}`, file, {
-        cacheControl: '3600',
-        upsert: true,
-      });
-    const { publicURL, errorGet } = supabase.storage
-      .from('recipe-photos')
-      .getPublicUrl(`public/${fileName}`);
+    setImageUrl(publicURL);
   };
 
   return (
@@ -99,6 +99,8 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
       )}
       p={{ base: '2px', sm: '4px', md: '6px', xl: '8px' }}
       mb={4}
+      minHeight={'20rem'}
+      position="relative"
     >
       {/* <FFileUpload
         fieldName={`Photo`}
@@ -119,7 +121,8 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
         //fontWeight="regular"
         //textAlign="center"
       /> */}
-      {imageUrl && (
+      <OverlayFader active={loading} />
+      {photoUrl && (
         <Flex
           my={{ base: '2px', sm: '2px', md: '4px', xl: '10px' }}
           align="center"
@@ -213,7 +216,7 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
               /> */}
 
               <Image
-                src={photoUrl}
+                src={imageUrl}
                 alt={'Recipe Photo'}
                 layout="fill"
                 fit="cover"
@@ -226,6 +229,9 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
                 //objectPosition={'50% 50%'}
                 sx={{
                   aspectRatio: '16 / 9',
+                }}
+                onLoad={() => {
+                  setLoading(false);
                 }}
               />
             </Flex>
