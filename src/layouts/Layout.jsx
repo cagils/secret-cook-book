@@ -84,18 +84,20 @@ export const Layout = ({ children }) => {
                     'linear(to-r, purple.800, pink.600)'
                   )}
                 >
-                  <Box px="3em">
-                    <Box
-                      m="2"
-                      position="absolute"
-                      right={0}
-                      top={0}
-                      px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
+                  <Box width="full" m="4">
+                    <HStack
+                      width="full"
+                      position={{ base: 'initial', md: 'absolute' }}
+                      right={4}
+                      top={4}
+                      // px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
                       bottom="unset"
                       left="unset"
                       zIndex="1000"
                     >
+                      <Box flex="1"></Box>
                       <IconButton
+                        // float="right"
                         colorScheme="pink"
                         //borderColor={mode('blackAlpha.500', 'whiteAlpha.500')}
                         //color={mode('blackAlpha.400', 'whiteAlpha.400')}
@@ -116,6 +118,7 @@ export const Layout = ({ children }) => {
                         }
                       />
                       <IconButton
+                        // float="right"
                         colorScheme="pink"
                         //borderColor={mode('blackAlpha.500', 'whiteAlpha.500')}
                         //color={mode('blackAlpha.400', 'whiteAlpha.400')}
@@ -135,20 +138,22 @@ export const Layout = ({ children }) => {
                           />
                         }
                       />
+                    </HStack>
+                    <Box width="full">
+                      <Heading
+                        textShadow="1px 1px 1px white"
+                        variant="big"
+                        as="h1"
+                        textAlign="center"
+                        size="2xl"
+                        py={4}
+                        color={mode('purple.500', 'purple.300')}
+                      >
+                        <Link href="/">
+                          <a>Secret Cook&nbsp;Book</a>
+                        </Link>
+                      </Heading>
                     </Box>
-                    <Heading
-                      textShadow="1px 1px 1px white"
-                      variant="big"
-                      as="h1"
-                      textAlign="center"
-                      size="2xl"
-                      py={4}
-                      color={mode('purple.500', 'purple.300')}
-                    >
-                      <Link href="/">
-                        <a>Secret Cook&nbsp;Book</a>
-                      </Link>
-                    </Heading>
                   </Box>
                 </HStack>
                 {/* <OverlayFader active={user} /> */}
