@@ -23,6 +23,10 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
   const [imageUrl, setImageUrl] = useState(photoUrl);
   const [loading, setLoading] = useState(false);
 
+  useEffect(() => {
+    setImageUrl(photoUrl);
+  }, [photoUrl]);
+
   const getFileName = useCallback(() => {
     if (!user || !recipeId) {
       return null;
