@@ -18,7 +18,19 @@ export const RecipeCard = ({ recipe }) => {
     colorMode == 'light' ? lightValue : darkValue;
 
   return (
-    <Box overflow="hidden" rounded="lg" textAlign="start">
+    <Box
+      overflow="hidden"
+      rounded="lg"
+      textAlign="start"
+      alignSelf="stretch"
+      justifySelf="stretch"
+      height="full"
+      // border="1px solid orange"
+      bg={mode('gray.50', 'gray.900')}
+      boxShadow={mode('base', 'baseWhite')}
+      // rounded={'md'}
+      p={6}
+    >
       <Link
         href={{
           pathname: '/my/recipes/[recipeId]',
@@ -27,12 +39,10 @@ export const RecipeCard = ({ recipe }) => {
       >
         <a>
           <Box
-            bg={mode('gray.50', 'gray.900')}
-            boxShadow={'2xl'}
-            // rounded={'md'}
-            p={6}
+          // height="30em"
           >
             <Box
+              // height="20em"
               // h={'210px'}
               //bg={'purple.400'}
               mt={-6}
@@ -62,11 +72,9 @@ export const RecipeCard = ({ recipe }) => {
                 //htmlHeight="100%"
                 //htmlWidth="100%"
                 // objectPosition={'50% 50%'}
-                sx={
-                  {
-                    // aspectRatio: '16 / 9',
-                  }
-                }
+                sx={{
+                  aspectRatio: '16 / 9',
+                }}
               />
             </Box>
             <Stack>
