@@ -18,10 +18,10 @@ export const Description = ({ editable, description, loading }) => {
           textAlign="start"
           fontSize={{
             base: '2em',
-            sm: '2.5em',
-            md: '3em',
-            lg: '3em',
-            xl: '4em',
+            sm: '2em',
+            md: '2.5em',
+            lg: '2.5em',
+            xl: '3em',
           }}
           as="h3"
           fontFamily="heading"

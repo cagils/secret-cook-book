@@ -71,10 +71,10 @@ export const Ingredients = ({
           color={mode('pink.500', 'pink.300')}
           fontSize={{
             base: '2em',
-            sm: '2.5em',
-            md: '3em',
-            lg: '3em',
-            xl: '4em',
+            sm: '2em',
+            md: '2.5em',
+            lg: '2.5em',
+            xl: '3em',
           }}
         >
           Ingredients

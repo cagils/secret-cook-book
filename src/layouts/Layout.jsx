@@ -8,6 +8,8 @@ import {
   HStack,
   Icon,
   IconButton,
+  Image,
+  Text,
   useColorMode,
   VStack,
 } from '@chakra-ui/react';
@@ -56,7 +58,7 @@ export const Layout = ({ children }) => {
         {!loading && (
           <Flex
             bgGradient={mode(
-              'linear(to-t, pink.100, pink.200)',
+              'linear(to-t, gray.100, gray.300)',
               'linear(to-b, gray.600, gray.800)'
             )}
             justify="center"
@@ -84,63 +86,87 @@ export const Layout = ({ children }) => {
                     'linear(to-r, purple.800, pink.600)'
                   )}
                 >
-                  <Box width="full" m="4">
-                    <HStack
-                      width="full"
+                  <VStack
+                    width="full"
+                    // border="1px solid blue"
+                    display="flex"
+                    pos="relative"
+                    spacing={0}
+                  >
+                    <Flex
+                      // border="1px solid red"
                       position={{ base: 'initial', md: 'absolute' }}
-                      right={4}
-                      top={4}
+                      alignSelf="stretch"
+                      justify="end"
+                      align="start"
+                      right={0}
+                      top={0}
                       // px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
-                      bottom="unset"
-                      left="unset"
+                      // bottom={0}
+                      // left={0}
                       zIndex="1000"
                     >
-                      <Box flex="1"></Box>
-                      <IconButton
-                        // float="right"
-                        colorScheme="pink"
-                        //borderColor={mode('blackAlpha.500', 'whiteAlpha.500')}
-                        //color={mode('blackAlpha.400', 'whiteAlpha.400')}
-                        /* _hover={{
-                      bgColor: mode('pink.600', 'purple.600'),
-                    }} */
-                        bgColor={mode('pink.300', 'pink.500')}
-                        isRound
-                        variant="solid"
-                        onClick={() => signOut()}
-                        aria-label="Sign Out"
-                        icon={
-                          <Icon
-                            fontSize="28px"
-                            color={mode('whiteAlpha.600', 'whiteAlpha.600')}
-                            as={SignOut}
-                          />
-                        }
-                      />
-                      <IconButton
-                        // float="right"
-                        colorScheme="pink"
-                        //borderColor={mode('blackAlpha.500', 'whiteAlpha.500')}
-                        //color={mode('blackAlpha.400', 'whiteAlpha.400')}
-                        /* _hover={{
-                      bgColor: mode('pink.600', 'purple.600'),
-                    }} */
-                        bgColor={mode('pink.300', 'pink.500')}
-                        isRound
-                        variant="solid"
-                        onClick={() => toggleColorMode()}
-                        aria-label="Toggle color scheme"
-                        icon={
-                          <Icon
-                            fontSize="28px"
-                            color={mode('whiteAlpha.600', 'whiteAlpha.600')}
-                            as={dark ? Sun : Moon}
-                          />
-                        }
-                      />
-                    </HStack>
-                    <Box width="full">
+                      <Flex m={2} justify="end">
+                        <Text fontSize="0.8em" textAlign="end" mr={2}>
+                          {user.id}
+                          <br />
+                          {user.email}
+                        </Text>
+
+                        <Image
+                          height="40px"
+                          src={user.user_metadata.avatar_url}
+                          alt="avatar"
+                          mr={2}
+                        />
+                        <IconButton
+                          mr={2}
+                          // float="right"
+                          colorScheme="pink"
+                          //borderColor={mode('blackAlpha.500', 'whiteAlpha.500')}
+                          //color={mode('blackAlpha.400', 'whiteAlpha.400')}
+                          /* _hover={{
+                          bgColor: mode('pink.600', 'purple.600'),
+                        }} */
+                          bgColor={mode('pink.300', 'pink.500')}
+                          isRound
+                          variant="solid"
+                          onClick={() => signOut()}
+                          aria-label="Sign Out"
+                          icon={
+                            <Icon
+                              fontSize="28px"
+                              color={mode('whiteAlpha.600', 'whiteAlpha.600')}
+                              as={SignOut}
+                            />
+                          }
+                        />
+                        <IconButton
+                          // float="right"
+                          colorScheme="pink"
+                          //borderColor={mode('blackAlpha.500', 'whiteAlpha.500')}
+                          //color={mode('blackAlpha.400', 'whiteAlpha.400')}
+                          /* _hover={{
+                          bgColor: mode('pink.600', 'purple.600'),
+                        }} */
+                          bgColor={mode('pink.300', 'pink.500')}
+                          isRound
+                          variant="solid"
+                          onClick={() => toggleColorMode()}
+                          aria-label="Toggle color scheme"
+                          icon={
+                            <Icon
+                              fontSize="28px"
+                              color={mode('whiteAlpha.600', 'whiteAlpha.600')}
+                              as={dark ? Sun : Moon}
+                            />
+                          }
+                        />
+                      </Flex>
+                    </Flex>
+                    <Flex grow="1">
                       <Heading
+                        width="full"
                         textShadow="1px 1px 1px white"
                         variant="big"
                         as="h1"
@@ -153,8 +179,8 @@ export const Layout = ({ children }) => {
                           <a>Secret Cook&nbsp;Book</a>
                         </Link>
                       </Heading>
-                    </Box>
-                  </Box>
+                    </Flex>
+                  </VStack>
                 </HStack>
                 {/* <OverlayFader active={user} /> */}
                 {(router.pathname === '/auth/login' || user) && (

@@ -30,11 +30,11 @@ export const GroupHeading = ({
         size="lg"
         fontWeight="normal"
         fontSize={{
-          base: '1.8em',
-          sm: '2.3em',
-          md: '2.8em',
-          lg: '2.8em',
-          xl: '3em',
+          base: '2em',
+          sm: '2em',
+          md: '2.4em',
+          lg: '2.4em',
+          xl: '2.5em',
         }}
         fontFamily="heading"
         color={mode('pink.500', 'pink.300')}
