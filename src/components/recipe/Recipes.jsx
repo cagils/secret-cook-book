@@ -5,6 +5,8 @@ import {
   Center,
   Container,
   Flex,
+  Grid,
+  GridItem,
   Heading,
   Spinner,
   Square,
@@ -61,11 +63,10 @@ export const Recipes = ({ user }) => {
   }, [user]);
 
   return (
-    <Container p={2}>
-      <VStack>
+    <Flex p={2} width="full">
+      <VStack width="full">
         <Heading size="md">
           <Flex>
-            <Text>My Secret Recipes</Text>
             <Square>
               {loading && (
                 <Spinner
@@ -79,12 +80,33 @@ export const Recipes = ({ user }) => {
             </Square>
           </Flex>
         </Heading>
-        <Box>
-          {recipes.map((recipe) => (
-            <RecipeCard key={recipe.recipeId} recipe={recipe} />
-          ))}
-        </Box>
+        <Flex
+          grow="1"
+          width="full"
+          // border="1px solid red"
+          align="center"
+          justify="center"
+        >
+          <Grid
+            // flex="1"
+            // alignSelf="center"
+            templateColumns="repeat(auto-fit, minmax(20rem, 30rem));"
+            gap={6}
+            // align="center"
+            // justify="center"
+            justifyContent="center"
+            alignContent="center"
+            m="auto"
+            width="full"
+          >
+            {recipes.map((recipe) => (
+              <GridItem key={recipe.recipeId}>
+                <RecipeCard recipe={recipe} />
+              </GridItem>
+            ))}
+          </Grid>
+        </Flex>
       </VStack>
-    </Container>
+    </Flex>
   );
 };

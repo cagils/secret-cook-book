@@ -239,6 +239,7 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
       setDescription(desc ?? '');
       setShortDesc(shortDesc ?? '');
       setTitle(title ?? '');
+      if (!title) setEditable(true);
     };
 
     loadRecipe()
