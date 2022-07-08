@@ -123,7 +123,7 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
         //textAlign="center"
       /> */}
       <OverlayFader active={loading} />
-      {photoUrl && (
+      {true && (
         <Flex
           my={{ base: '2px', sm: '2px', md: '4px', xl: '10px' }}
           align="center"
