@@ -92,6 +92,7 @@ export const Recipes = ({ user }) => {
             // alignSelf="center"
             templateColumns="repeat(auto-fit, minmax(20rem, 30rem));"
             gap={6}
+            // autoRows="1fr"
             // align="center"
             // justify="center"
             justifyContent="center"
@@ -100,7 +101,10 @@ export const Recipes = ({ user }) => {
             width="full"
           >
             {recipes.map((recipe) => (
-              <GridItem key={recipe.recipeId}>
+              <GridItem
+                key={recipe.recipeId}
+                // border="1px solid red"
+              >
                 <RecipeCard recipe={recipe} />
               </GridItem>
             ))}
