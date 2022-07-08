@@ -107,40 +107,45 @@ export const Layout = ({ children }) => {
                       zIndex="1000"
                     >
                       <Flex m={2} justify="end">
-                        <Text fontSize="0.8em" textAlign="end" mr={2}>
-                          {user.id}
-                          <br />
-                          {user.email}
-                        </Text>
-
-                        <Image
-                          height="40px"
-                          src={user.user_metadata.avatar_url}
-                          alt="avatar"
-                          mr={2}
-                        />
-                        <IconButton
-                          mr={2}
-                          // float="right"
-                          colorScheme="pink"
-                          //borderColor={mode('blackAlpha.500', 'whiteAlpha.500')}
-                          //color={mode('blackAlpha.400', 'whiteAlpha.400')}
-                          /* _hover={{
+                        {user && (
+                          <Text fontSize="0.8em" textAlign="end" mr={2}>
+                            {user.id}
+                            <br />
+                            {user.email}
+                          </Text>
+                        )}
+                        {user && (
+                          <Image
+                            height="40px"
+                            src={user.user_metadata.avatar_url}
+                            alt="avatar"
+                            mr={2}
+                          />
+                        )}
+                        {user && (
+                          <IconButton
+                            mr={2}
+                            // float="right"
+                            colorScheme="pink"
+                            //borderColor={mode('blackAlpha.500', 'whiteAlpha.500')}
+                            //color={mode('blackAlpha.400', 'whiteAlpha.400')}
+                            /* _hover={{
                           bgColor: mode('pink.600', 'purple.600'),
                         }} */
-                          bgColor={mode('pink.300', 'pink.500')}
-                          isRound
-                          variant="solid"
-                          onClick={() => signOut()}
-                          aria-label="Sign Out"
-                          icon={
-                            <Icon
-                              fontSize="28px"
-                              color={mode('whiteAlpha.600', 'whiteAlpha.600')}
-                              as={SignOut}
-                            />
-                          }
-                        />
+                            bgColor={mode('pink.300', 'pink.500')}
+                            isRound
+                            variant="solid"
+                            onClick={() => signOut()}
+                            aria-label="Sign Out"
+                            icon={
+                              <Icon
+                                fontSize="28px"
+                                color={mode('whiteAlpha.600', 'whiteAlpha.600')}
+                                as={SignOut}
+                              />
+                            }
+                          />
+                        )}
                         <IconButton
                           // float="right"
                           colorScheme="pink"
