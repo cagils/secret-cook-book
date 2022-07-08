@@ -61,9 +61,9 @@ export const Ingredient = ({
                 disabled={loading}
                 readOnly={dragOverlay}
                 //focusBorderColor="pink.400"
-                fontSize="1.4em"
+                fontSize="1em"
                 fontFamily="ingredients"
-                fontStyle="italic"
+                // fontStyle="italic"
                 color={mode('gray.700', 'gray.300')}
               />
             </Box>
@@ -71,7 +71,7 @@ export const Ingredient = ({
             <HStack>
               <Square>
                 <Icon
-                  fontSize="1.3em"
+                  fontSize="1em"
                   color={mode('pink.300', 'pink.500')}
                   as={Feather}
                 />
@@ -91,8 +91,8 @@ export const Ingredient = ({
               >
                 <Text
                   fontFamily="ingredients"
-                  fontStyle="italic"
-                  fontSize="1.2em"
+                  // fontStyle="italic"
+                  fontSize="1em"
                 >
                   {desc}
                 </Text>
