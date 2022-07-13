@@ -43,10 +43,16 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
   };
 
   const _handleUploadPicture = async () => {
+    console.log('in handleuplaodpicture');
     setLoading(true);
     const fileName = getFileName();
+    console.log('filename', fileName);
     const oldFileName = imageUrl?.split('/').pop();
-    if (!fileName) return;
+    if (!fileName) {
+      setLoading(false);
+      console.log('no filename');
+      return;
+    }
     const file = uploadRef.current.files[0];
     const { data1, error1 } = await supabase.storage
       .from('recipe-photos')
