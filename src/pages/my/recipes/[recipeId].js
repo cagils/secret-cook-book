@@ -6,7 +6,7 @@ import {
   Heading,
   Icon,
   IconButton,
-  useColorMode,
+  useColorMode
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
 import { enableAllPlugins } from 'immer';
@@ -16,7 +16,8 @@ import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { Recipe } from '../../../components/recipe/Recipe';
 import { Layout } from '../../../layouts/Layout';
-import { useAuth } from '../../../lib/hooks/useAuth';
+// import { useAuth } from '../../../lib/hooks/useAuth';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { baseHost } from '../../../lib/siteConfig';
 import { supabase } from '../../../lib/supabase';
 
@@ -24,7 +25,8 @@ enableAllPlugins();
 
 export default function RecipePage() {
   const router = useRouter();
-  const { user, signUp, signIn, signOut } = useAuth();
+  // const { user, signUp, signIn, signOut } = useAuth();
+  const { data: session, status } = useSession();
 
   if (typeof window !== 'undefined') {
     // if (!user) {
@@ -36,7 +38,9 @@ export default function RecipePage() {
 
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
-  return <Recipe initialEditable={false} recipeId={recipeId} user={user} />;
+  return (
+    <Recipe initialEditable={false} recipeId={recipeId} user={session?.user} />
+  );
 }
 
 RecipePage.getLayout = (page) => {

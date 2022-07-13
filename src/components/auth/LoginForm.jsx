@@ -17,10 +17,12 @@ import {
   VStack,
 } from '@chakra-ui/react';
 
-import { Google } from '@styled-icons/boxicons-logos';
+import { SignIn } from '@styled-icons/octicons';
 import { Auth } from '@supabase/ui';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { useState } from 'react';
-import { supabase } from 'src/lib/supabase';
+
+// import { supabase } from 'src/lib/supabase';
 import { FInput } from '../helpers/form/FInput';
 import { FInputNoHook } from '../helpers/form/FInputNoHook';
 
@@ -44,20 +46,21 @@ export const LoginForm = ({ handleLogin, loading }) => {
           providers={['google', 'github']}
           supabaseClient={supabase}
         /> */}
-
-        <form
+        {/*         <form
           onSubmit={(e) => {
             e.preventDefault();
-            handleLogin(email);
+            // handleSupabaseLogin(email);
+            handleLogin();
           }}
         >
-          <Heading color={mode('pink.500', 'pink.400')} size="xl" mb="0.5em">
-            Sign in to your account
-          </Heading>
-          <Box rounded={'lg'}>
-            <Stack spacing={4}>
-              <Box>
-                {/* <FInputNoHook
+ */}{' '}
+        <Heading color={mode('pink.500', 'pink.400')} size="xl" mb="0.5em">
+          Sign in to your account
+        </Heading>
+        <Box rounded={'lg'}>
+          <Stack spacing={4}>
+            <Box>
+              {/* <FInputNoHook
                   autoFocus
                   fieldName={`title`}
                   label={''}
@@ -74,21 +77,23 @@ export const LoginForm = ({ handleLogin, loading }) => {
                   type="email"
                   onChange={(e) => setEmail(e.target.value)}
                 /> */}
-              </Box>
-              <Stack spacing={10} align="center">
-                <Button
-                  // colorScheme="google"
-                  type="submit"
-                  variant="solid"
-                  isLoading={loading}
-                  leftIcon={<Google size="2em" />}
-                >
-                  <Text>Sign in with Google</Text>
-                </Button>
-              </Stack>
+            </Box>
+            <Stack spacing={10} align="center">
+              <Button
+                // colorScheme="google"
+                type="button"
+                variant="solid"
+                isLoading={loading}
+                onClick={handleLogin}
+                // leftIcon={<Google size="2em" />
+                leftIcon={<SignIn size="2em" />}
+              >
+                <Text>Sign In</Text>
+              </Button>
             </Stack>
-          </Box>
-        </form>
+          </Stack>
+        </Box>
+        {/*         </form> */}
       </Box>
     </VStack>
   );

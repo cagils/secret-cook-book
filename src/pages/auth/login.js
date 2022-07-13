@@ -1,16 +1,19 @@
 import { Box } from '@chakra-ui/react';
-import { User } from '@supabase/gotrue-js';
-import { Auth } from '@supabase/ui';
+// import { User } from '@supabase/gotrue-js';
+// import { Auth } from '@supabase/ui';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
+
 import { LoginForm } from '../../components/auth/LoginForm';
 import { Layout } from '../../layouts/Layout';
-import { supabase } from '../../lib/supabase';
+// import { supabase } from '../../lib/supabase';
 
 export default function LoginPage() {
-  const [loading, setLoading] = useState(false);
+  const { data: session, status } = useSession();
+  // const [loading, setLoading] = useState(false);
 
-  const handleLogin = async (email) => {
+  /*   const handleSupabaseLogin = async (email) => {
     try {
       setLoading(true);
       const { user, session, error } = await supabase.auth.signIn(
@@ -28,11 +31,16 @@ export default function LoginPage() {
     } finally {
       setLoading(false);
     }
+  }; */
+
+  const handleLogin = (e) => {
+    e.preventDefault();
+    signIn();
   };
 
   return (
     <Box width="full">
-      <LoginForm handleLogin={handleLogin} loading={loading} />
+      <LoginForm handleLogin={handleLogin} loading={status?.loading} />
     </Box>
   );
 }

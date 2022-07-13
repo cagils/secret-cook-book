@@ -8,21 +8,23 @@ import {
   localStorageManager,
   VStack,
 } from '@chakra-ui/react';
-import { getCookie, setCookies } from 'cookies-next';
+import { ReactNode, useEffect, useState } from 'react';
+// import { getCookie, setCookies } from 'cookies-next';
 import { GetServerSidePropsContext, NextPage } from 'next';
+import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { ReactNode, useEffect, useState } from 'react';
 
-import Link from 'next/link';
-import NextNProgress from 'nextjs-progressbar';
-import { Account } from '../components/auth/Account';
-import { LoginForm } from '../components/auth/LoginForm';
-import { AuthProvider, useAuth } from '../lib/hooks/useAuth';
-import { supabase } from '../lib/supabase';
 import '../styles/globals.css';
 import { customTheme } from '../styles/theme';
+
+// import Link from 'next/link';
+// import NextNProgress from 'nextjs-progressbar';
+// import { Account } from '../components/auth/Account';
+// import { LoginForm } from '../components/auth/LoginForm';
+// import { AuthProvider, useAuth } from '../lib/hooks/useAuth'; // SUPABASE AUTH
+// import { supabase } from '../lib/supabase';
 
 type GetLayout = (page: ReactNode) => ReactNode;
 
@@ -90,9 +92,11 @@ export default function App(props: MyAppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Secret Cook Book</title>
       </Head>
-      <ChakraProvider theme={customTheme}>
-        <AuthProvider>{getLayout(<Component {...pageProps} />)}</AuthProvider>
-      </ChakraProvider>
+      <SessionProvider>
+        <ChakraProvider theme={customTheme}>
+          {getLayout(<Component {...pageProps} />)}
+        </ChakraProvider>
+      </SessionProvider>
     </>
   );
 }

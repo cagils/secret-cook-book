@@ -9,7 +9,7 @@ import {
   Icon,
   IconButton,
   useColorMode,
-  VStack,
+  VStack
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
 import { SignOut } from '@styled-icons/octicons';
@@ -17,13 +17,15 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import NextNProgress from 'nextjs-progressbar';
 import { useEffect, useState } from 'react';
-import { Account } from '../components/auth/Account';
+// import { Account } from '../components/auth/SupabaseAccount';
 import { OverlayFader } from '../components/helpers/OverlayFader';
-import { useAuth } from '../lib/hooks/useAuth';
+// import { useAuth } from '../lib/hooks/useAuth';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import { supabase } from '../lib/supabase';
 
 export const Layout = ({ children }) => {
-  const { user, signUp, signIn, signOut } = useAuth();
+  // const { user, signUp, signIn, signOut } = useAuth();
+  const { data: session, status } = useSession();
   const [loading, setLoading] = useState(true);
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
@@ -34,14 +36,14 @@ export const Layout = ({ children }) => {
 
   useEffect(() => {
     if (router.pathname === '/auth/login') {
-      if (user) {
+      if (session) {
         router.push('/');
       }
-    } else if (!user) {
+    } else if (!session) {
       router.push('/auth/login');
     }
     setLoading(false);
-  }, [router, user]);
+  }, [router, session]);
 
   return (
     <Flex grow="1">
