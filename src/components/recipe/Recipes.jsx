@@ -103,6 +103,7 @@ export const Recipes = ({ user }) => {
             {recipes.map((recipe) => (
               <GridItem
                 key={recipe.recipeId}
+                maxH="40rem"
                 // border="1px solid red"
               >
                 <RecipeCard recipe={recipe} />

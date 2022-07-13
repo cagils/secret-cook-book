@@ -99,9 +99,11 @@ export const RecipeCard = ({ recipe }) => {
                 {recipe.title}
               </Heading>
               <Text
+                overflow="hidden"
                 color={mode('gray.800', 'gray.400')}
-                fontFamily="Quicksand"
+                fontFamily="quote"
                 fontWeight="medium"
+                noOfLines={4}
               >
                 {recipe.shortDesc}
               </Text>
