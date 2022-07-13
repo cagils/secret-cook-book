@@ -7,6 +7,7 @@ const singleRecipe = async (req, res) => {
   const recipeBody = req.body;
   const query = req.query;
   let recipe = null;
+  const patchType = recipeBody?.patchType || '';
 
   // await new Promise((r) => setTimeout(r, 5000));
 
@@ -28,6 +29,8 @@ const singleRecipe = async (req, res) => {
     if (!models) {
       throw Error('Could not find db connection');
     }
+
+    let _set = {};
     switch (req.method) {
       case 'GET':
         recipe = await models.recipeModel.findOne({ recipeId: query.recipeId });
@@ -51,15 +54,21 @@ const singleRecipe = async (req, res) => {
         break;
 
       case 'PATCH':
+        if (patchType == 'photo')
+          _set = {
+            photo: recipeBody.photo,
+          };
+        else
+          _set = {
+            title: recipeBody.title,
+            shortDesc: recipeBody.shortDesc,
+            'description.text': recipeBody.description.text,
+            ingredients: recipeBody.ingredients,
+          };
         recipe = await models.recipeModel.findOneAndUpdate(
           { recipeId: query.recipeId },
           {
-            $set: {
-              title: recipeBody.title,
-              shortDesc: recipeBody.shortDesc,
-              'description.text': recipeBody.description.text,
-              ingredients: recipeBody.ingredients,
-            },
+            $set: _set,
           },
           {
             new: true,

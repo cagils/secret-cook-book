@@ -58,7 +58,7 @@ export const Layout = ({ children }) => {
         {!status?.loading && (
           <Flex
             bgGradient={mode(
-              'linear(to-t, gray.100, pink.200)',
+              'linear(to-t, pink.100, pink.200)',
               'linear(to-b, gray.600, gray.800)'
             )}
             justify="center"
@@ -117,7 +117,7 @@ export const Layout = ({ children }) => {
                         {session && (
                           <Image
                             height="40px"
-                            src={session.user.picture}
+                            src={session.user.image}
                             alt="avatar"
                             mr={2}
                           />

@@ -9,22 +9,31 @@ import {
 } from '@chakra-ui/react';
 import { Camera } from '@styled-icons/feather';
 import ImageNext from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
+
 import { supabase } from '../../lib/supabase';
 
 import { FFileUpload } from '../helpers/form/FFileUpload';
+import { OverlayFader } from '../helpers/OverlayFader';
 
-export const Photo = ({ photoUrl, user, editable }) => {
+export const Photo = ({ photoUrl, user, editable, recipeId }) => {
   const uploadRef = useRef();
   const { colorMode } = useColorMode();
-  const [imageUrl, setImageUrl] = useState(null);
+  const [imageUrl, setImageUrl] = useState(photoUrl);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const { publicURL, error } = supabase.storage
-      .from('recipe-photos')
-      .getPublicUrl(`public/${user.id}.png`);
-    setImageUrl(publicURL);
-  }, [user.id]);
+    setImageUrl(photoUrl);
+  }, [photoUrl]);
+
+  const getFileName = useCallback(() => {
+    if (!user || !recipeId) {
+      return null;
+    }
+    const rand = uuidv4();
+    return `${user.id}_${recipeId}_${rand}.png`;
+  }, [user, recipeId]);
 
   const mode = (lightValue, darkValue) =>
     colorMode == 'light' ? lightValue : darkValue;
@@ -34,13 +43,52 @@ export const Photo = ({ photoUrl, user, editable }) => {
   };
 
   const _handleUploadPicture = async () => {
+    setLoading(true);
+    const fileName = getFileName();
+    const oldFileName = imageUrl?.split('/').pop();
+    if (!fileName) return;
     const file = uploadRef.current.files[0];
-    const { data, error } = await supabase.storage
+    const { data1, error1 } = await supabase.storage
       .from('recipe-photos')
-      .upload(`public/${user.id}.png`, file, {
-        cacheControl: '3600',
+      .upload(`public/${fileName}`, file, {
+        cacheControl: '1',
         upsert: true,
       });
+    console.log('removing old image: ' + oldFileName);
+    if (oldFileName) {
+      const { data2, error2 } = await supabase.storage
+        .from('recipe-photos')
+        .remove([`public/${oldFileName}`]);
+    }
+    const { publicURL, error3 } = supabase.storage
+      .from('recipe-photos')
+      .getPublicUrl(`public/${fileName}`);
+
+    setImageUrl(publicURL);
+    const saveImageUrl = async () => {
+      if (!recipeId || !publicURL) return;
+      const fetchUrl = `/api/recipes/${recipeId}`;
+      console.log(`patching ${fetchUrl} for photo upload`);
+      const response = await fetch(fetchUrl, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          patchType: 'photo',
+          photo: publicURL,
+        }),
+      });
+      console.log('patched.');
+
+      if (!response.ok) {
+        // throw new Error(`Error: ${response.status}`);
+        console.log('photo useEffect response not ok', response.status);
+      }
+      let res = await response.json();
+    };
+
+    saveImageUrl();
   };
 
   return (
@@ -56,6 +104,8 @@ export const Photo = ({ photoUrl, user, editable }) => {
       )}
       p={{ base: '2px', sm: '4px', md: '6px', xl: '8px' }}
       mb={4}
+      minHeight={'20rem'}
+      position="relative"
     >
       {/* <FFileUpload
         fieldName={`Photo`}
@@ -76,7 +126,8 @@ export const Photo = ({ photoUrl, user, editable }) => {
         //fontWeight="regular"
         //textAlign="center"
       /> */}
-      {imageUrl && (
+      <OverlayFader active={loading} />
+      {true && (
         <Flex
           my={{ base: '2px', sm: '2px', md: '4px', xl: '10px' }}
           align="center"
@@ -140,6 +191,8 @@ export const Photo = ({ photoUrl, user, editable }) => {
                       lg: '2em',
                       xl: '3em',
                     }}
+                    width="1.2em"
+                    height="1.1em"
                   />
                   <Input
                     ref={uploadRef}
@@ -181,8 +234,13 @@ export const Photo = ({ photoUrl, user, editable }) => {
                 //htmlHeight="100%"
                 //htmlWidth="100%"
                 //objectPosition={'50% 50%'}
-                sx={{
-                  aspectRatio: '16 / 9',
+                sx={
+                  {
+                    // aspectRatio: '16 / 9',
+                  }
+                }
+                onLoad={() => {
+                  setLoading(false);
                 }}
               />
             </Flex>
