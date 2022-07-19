@@ -116,6 +116,7 @@
     "jest-environment-jsdom": "^28.1.1",
     "postcss": "^8.4.12",
     "prettier": "2.6.2",
+    "prisma": "^4.0.0",
     "sass": "^1.50.1",
     "storybook-css-modules-preset": "^1.1.1",
     "storybook-dark-mode": "^1.1.1-canary.120.3843.0",
