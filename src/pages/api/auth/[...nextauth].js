@@ -1,24 +1,25 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 import NextAuth from 'next-auth';
-import EmailProvider from 'next-auth/providers/email';
+// import EmailProvider from 'next-auth/providers/email';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-import nodemailer from 'nodemailer';
+// import nodemailer from 'nodemailer';
 
-import prisma from '../../../lib/prisma';
+// import prisma from '../../../lib/prisma';
+const prisma = new PrismaClient();
 
 const options = {
-  callbacks: {
+  /* callbacks: {
     session: async ({ session, token }) => {
       if (session?.user) {
         session.user.id = token.sub;
       }
-      return session;
+      return Promise.resolve(session);
     },
-  },
+  }, */
   session: {
-    strategy: 'jwt',
+    strategy: 'database',
   },
   providers: [
     GoogleProvider({
@@ -29,7 +30,7 @@ const options = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
-    EmailProvider({
+    /* EmailProvider({
       server: {
         host: process.env.EMAIL_SERVER_HOST,
         port: process.env.EMAIL_SERVER_PORT,
@@ -40,7 +41,7 @@ const options = {
       },
       from: process.env.EMAIL_FROM,
       maxAge: 10 * 60, // Magic links are valid for 10 min only
-    }),
+    }), */
   ],
   adapter: PrismaAdapter(prisma),
 };
