@@ -9,3 +9,71 @@ datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
 }
+
+model User {
+  id         String   @id @default(uuid())
+  email      String?  @unique
+  authSource String
+  name       String
+  image      String?
+  role       Role     @default(USER)
+  recipes    Recipe[]
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Recipe {
+  id          String            @id @default(uuid())
+  title       String
+  shortDesc   String
+  serving     Int
+  difficulty  Difficulty        @default(MEDIUM)
+  time        Int
+  ingredients IngredientGroup[]
+  description Description?
+  User        User              @relation(fields: [userId], references: [id])
+  userId      String
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
+
+enum Difficulty {
+  EASY
+  MEDIUM
+  HARD
+}
+
+model IngredientGroup {
+  id        String       @id @default(uuid())
+  order     Int
+  name      String
+  list      Ingredient[]
+  Recipe    Recipe       @relation(fields: [recipeId], references: [id])
+  recipeId  String
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+}
+
+model Ingredient {
+  id                String          @id @default(uuid())
+  order             Int
+  desc              String
+  IngredientGroup   IngredientGroup @relation(fields: [ingredientGroupId], references: [id])
+  ingredientGroupId String
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+}
+
+model Description {
+  id        String   @id @default(uuid())
+  text      String
+  Recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId  String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
