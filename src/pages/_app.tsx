@@ -92,7 +92,7 @@ export default function App(props: MyAppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Secret Cook Book</title>
       </Head>
-      <SessionProvider>
+      <SessionProvider session={pageProps.session}>
         <ChakraProvider theme={customTheme}>
           {getLayout(<Component {...pageProps} />)}
         </ChakraProvider>

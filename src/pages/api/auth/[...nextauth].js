@@ -1,6 +1,12 @@
+import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { PrismaClient } from '@prisma/client';
 import NextAuth from 'next-auth';
+import EmailProvider from 'next-auth/providers/email';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
+import nodemailer from 'nodemailer';
+
+import prisma from '../../../lib/prisma';
 
 const options = {
   callbacks: {
@@ -23,7 +29,20 @@ const options = {
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
     }),
+    EmailProvider({
+      server: {
+        host: process.env.EMAIL_SERVER_HOST,
+        port: process.env.EMAIL_SERVER_PORT,
+        auth: {
+          user: process.env.EMAIL_SERVER_USER,
+          pass: process.env.EMAIL_SERVER_PASSWORD,
+        },
+      },
+      from: process.env.EMAIL_FROM,
+      maxAge: 10 * 60, // Magic links are valid for 10 min only
+    }),
   ],
+  adapter: PrismaAdapter(prisma),
 };
 
 export default NextAuth(options);
