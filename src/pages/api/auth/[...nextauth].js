@@ -10,6 +10,12 @@ import prisma from '../../../lib/prisma';
 // const prisma = new PrismaClient();
 
 const options = {
+  pages: {
+    signIn: '/',
+    signOut: '/',
+    error: '/',
+    verifyRequest: '/',
+  },
   callbacks: {
     session: async ({ session, token, user }) => {
       if (session?.user) {

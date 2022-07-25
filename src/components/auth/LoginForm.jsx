@@ -18,7 +18,6 @@ import {
 } from '@chakra-ui/react';
 
 import { SignIn } from '@styled-icons/octicons';
-import { Auth } from '@supabase/ui';
 import { signIn, signOut, useSession } from 'next-auth/react';
 import { useState } from 'react';
 
@@ -26,8 +25,8 @@ import { useState } from 'react';
 import { FInput } from '../helpers/form/FInput';
 import { FInputNoHook } from '../helpers/form/FInputNoHook';
 
-export const LoginForm = ({ handleLogin, loading }) => {
-  const [email, setEmail] = useState('');
+export const LoginForm = ({ providers, handleLogin, loading }) => {
+  // const [email, setEmail] = useState('');
   const { colorMode } = useColorMode();
   const mode = (lightValue, darkValue) =>
     colorMode == 'light' ? lightValue : darkValue;
@@ -41,19 +40,6 @@ export const LoginForm = ({ handleLogin, loading }) => {
         p={6}
         overflow={'hidden'}
       >
-        {/* <Auth
-          onlyThirdPartyProviders={true}
-          providers={['google', 'github']}
-          supabaseClient={supabase}
-        /> */}
-        {/*         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            // handleSupabaseLogin(email);
-            handleLogin();
-          }}
-        >
- */}{' '}
         <Heading color={mode('pink.500', 'pink.400')} size="xl" mb="0.5em">
           Sign in to your account
         </Heading>
@@ -79,21 +65,26 @@ export const LoginForm = ({ handleLogin, loading }) => {
                 /> */}
             </Box>
             <Stack spacing={10} align="center">
-              <Button
-                // colorScheme="google"
-                type="button"
-                variant="solid"
-                isLoading={loading}
-                onClick={handleLogin}
-                // leftIcon={<Google size="2em" />
-                leftIcon={<SignIn size="2em" />}
-              >
-                <Text>Sign In</Text>
-              </Button>
+              {Object.values(providers).map((provider) => (
+                <Button
+                  key={provider.id}
+                  // colorScheme="google"
+                  type="button"
+                  variant="solid"
+                  isLoading={loading}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handleLogin(provider.id);
+                  }}
+                  // leftIcon={<Google size="2em" />
+                  leftIcon={<SignIn size="2em" />}
+                >
+                  <Text>Sign In with {provider.name}</Text>
+                </Button>
+              ))}
             </Stack>
           </Stack>
         </Box>
-        {/*         </form> */}
       </Box>
     </VStack>
   );

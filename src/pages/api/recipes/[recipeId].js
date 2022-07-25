@@ -1,5 +1,5 @@
 import { baseHost } from '../../../lib/siteConfig';
-import withDb from '../../../lib/withDb';
+// import withDb from '../../../lib/withDb_mongoose';
 
 const singleRecipe = async (req, res) => {
   const models = req.models;
@@ -85,4 +85,5 @@ const singleRecipe = async (req, res) => {
   }
 };
 
-export default withDb(singleRecipe);
+// export default withDb(singleRecipe);
+export default singleRecipe;

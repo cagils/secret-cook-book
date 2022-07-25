@@ -1,7 +1,13 @@
 import { Box } from '@chakra-ui/react';
 // import { User } from '@supabase/gotrue-js';
 // import { Auth } from '@supabase/ui';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import {
+  getProviders,
+  getSession,
+  signIn,
+  signOut,
+  useSession,
+} from 'next-auth/react';
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
@@ -9,7 +15,7 @@ import { LoginForm } from '../../components/auth/LoginForm';
 import { Layout } from '../../layouts/Layout';
 // import { supabase } from '../../lib/supabase';
 
-export default function LoginPage() {
+export default function LoginPage({ providers }) {
   const { data: session, status } = useSession();
   // const [loading, setLoading] = useState(false);
 
@@ -33,14 +39,17 @@ export default function LoginPage() {
     }
   }; */
 
-  const handleLogin = (e) => {
-    e.preventDefault();
-    signIn();
+  const handleLogin = (providerId) => {
+    signIn(providerId);
   };
 
   return (
     <Box width="full">
-      <LoginForm handleLogin={handleLogin} loading={status?.loading} />
+      <LoginForm
+        providers={providers}
+        handleLogin={handleLogin}
+        loading={status?.loading}
+      />
     </Box>
   );
 }
@@ -48,3 +57,20 @@ export default function LoginPage() {
 LoginPage.getLayout = (page) => {
   return <Layout>{page}</Layout>;
 };
+
+export async function getServerSideProps(context) {
+  const { req } = context;
+  const session = await getSession({ req });
+
+  if (session) {
+    return {
+      redirect: { destination: '/' },
+    };
+  }
+
+  return {
+    props: {
+      providers: await getProviders(context),
+    },
+  };
+}
