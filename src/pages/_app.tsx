@@ -6,7 +6,7 @@ import {
   Flex,
   Icon,
   localStorageManager,
-  VStack,
+  VStack
 } from '@chakra-ui/react';
 import { ReactNode, useEffect, useState } from 'react';
 // import { getCookie, setCookies } from 'cookies-next';
@@ -18,14 +18,6 @@ import { useRouter } from 'next/router';
 
 import '../styles/globals.css';
 import { customTheme } from '../styles/theme';
-
-// import Link from 'next/link';
-// import NextNProgress from 'nextjs-progressbar';
-// import { Account } from '../components/auth/Account';
-// import { LoginForm } from '../components/auth/LoginForm';
-// import { AuthProvider, useAuth } from '../lib/hooks/useAuth'; // SUPABASE AUTH
-// import { supabase } from '../lib/supabase';
-
 type GetLayout = (page: ReactNode) => ReactNode;
 
 type Page<P = {}, IP = P> = NextPage<P, IP> & {

@@ -6,18 +6,17 @@ import {
   Heading,
   Icon,
   IconButton,
-  useColorMode
+  useColorMode,
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
 import { enableAllPlugins } from 'immer';
 import { random } from 'lodash';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useCallback } from 'react';
 import { Recipe } from '../../../components/recipe/Recipe';
 import { Layout } from '../../../layouts/Layout';
-// import { useAuth } from '../../../lib/hooks/useAuth';
-import { signIn, signOut, useSession } from 'next-auth/react';
 import { baseHost } from '../../../lib/siteConfig';
 import { supabase } from '../../../lib/supabase';
 
@@ -25,7 +24,6 @@ enableAllPlugins();
 
 export default function RecipePage() {
   const router = useRouter();
-  // const { user, signUp, signIn, signOut } = useAuth();
   const { data: session, status } = useSession();
 
   if (typeof window !== 'undefined') {

@@ -15,18 +15,15 @@ import {
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
 import { SignOut } from '@styled-icons/octicons';
+import { signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import NextNProgress from 'nextjs-progressbar';
 import { useEffect, useState } from 'react';
-// import { Account } from '../components/auth/SupabaseAccount';
 import { OverlayFader } from '../components/helpers/OverlayFader';
-// import { useAuth } from '../lib/hooks/useAuth';
-import { signIn, signOut, useSession } from 'next-auth/react';
 import { supabase } from '../lib/supabase';
 
 export const Layout = ({ children }) => {
-  // const { user, signUp, signIn, signOut } = useAuth();
   const { data: session, status } = useSession();
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();

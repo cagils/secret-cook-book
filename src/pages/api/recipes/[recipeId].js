@@ -1,5 +1,4 @@
 import { baseHost } from '../../../lib/siteConfig';
-import { withAuth } from '../../../lib/withAuth';
 import withDb from '../../../lib/withDb';
 
 const singleRecipe = async (req, res) => {

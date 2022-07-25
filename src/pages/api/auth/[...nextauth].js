@@ -6,18 +6,18 @@ import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 // import nodemailer from 'nodemailer';
 
-// import prisma from '../../../lib/prisma';
-const prisma = new PrismaClient();
+import prisma from '../../../lib/prisma';
+// const prisma = new PrismaClient();
 
 const options = {
-  /* callbacks: {
-    session: async ({ session, token }) => {
+  callbacks: {
+    session: async ({ session, token, user }) => {
       if (session?.user) {
-        session.user.id = token.sub;
+        session.user.id = user.id;
       }
       return Promise.resolve(session);
     },
-  }, */
+  },
   session: {
     strategy: 'database',
   },
