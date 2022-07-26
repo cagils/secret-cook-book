@@ -1,7 +1,13 @@
+import { getSession } from 'next-auth/react';
 import withDb from '../../lib/withDb_mongoose';
 // import prisma from '../../lib/prisma';
 
 const singleRecipe = async (req, res) => {
+  const session = await getSession({ req });
+  if (!session) {
+    return res.status(401).json({ message: 'Unauthorized.' });
+  }
+
   const models = req.models;
   const recipeBody = req.body;
   const userId = req.query.userId;

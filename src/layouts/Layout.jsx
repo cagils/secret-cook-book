@@ -32,7 +32,7 @@ export const Layout = ({ children }) => {
 
   const dark = colorMode === 'dark';
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (router.pathname === '/auth/login') {
       if (session) {
         router.push('/');
@@ -40,7 +40,7 @@ export const Layout = ({ children }) => {
     } else if (!session) {
       router.push('/auth/login');
     }
-  }, [router, session]);
+  }, [router, session]); */
 
   return (
     <Flex grow="1">
@@ -185,22 +185,22 @@ export const Layout = ({ children }) => {
                   </VStack>
                 </HStack>
                 {/* <OverlayFader active={user} /> */}
-                {(router.pathname === '/auth/login' || session?.user) && (
-                  <>
-                    <Flex
-                      grow="1"
-                      justify="center"
-                      align="stretch"
-                      bgGradient={mode(
-                        'linear(to-r, purple.100, pink.100)',
-                        'linear(to-r, purple.900, pink.900)'
-                      )}
-                      //p={2}
-                    >
-                      {children}
-                    </Flex>
-                  </>
-                )}
+                {/* {(router.pathname === '/auth/login' || session?.user) && ( */}
+                <>
+                  <Flex
+                    grow="1"
+                    justify="center"
+                    align="stretch"
+                    bgGradient={mode(
+                      'linear(to-r, purple.100, pink.100)',
+                      'linear(to-r, purple.900, pink.900)'
+                    )}
+                    //p={2}
+                  >
+                    {children}
+                  </Flex>
+                </>
+                {/*     )} */}
               </VStack>
             </Flex>
           </Flex>

@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
 import { enableAllPlugins } from 'immer';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { getSession, signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Router, useRouter } from 'next/router';
 import { useCallback } from 'react';
@@ -20,6 +20,25 @@ import { Recipes } from '../../components/recipe/Recipes';
 import { Layout } from '../../layouts/Layout';
 
 enableAllPlugins();
+
+export async function getServerSideProps(context) {
+  // Check if user is authenticated
+  const session = await getSession(context);
+
+  // If not, redirect to the homepage
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 export default function RecipesPage() {
   const { data: session, status } = useSession();

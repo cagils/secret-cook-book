@@ -12,8 +12,28 @@ import {
   VStack,
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
+import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Layout } from '../layouts/Layout';
+
+export async function getServerSideProps(context) {
+  // Check if user is authenticated
+  const session = await getSession(context);
+
+  // If not, redirect to the homepage
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth/login',
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {},
+  };
+}
 
 export default function IndexPage() {
   const { colorMode } = useColorMode();
