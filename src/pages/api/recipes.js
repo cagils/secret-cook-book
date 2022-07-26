@@ -1,4 +1,5 @@
-// import withDb from '../../lib/withDb_mongoose';
+import withDb from '../../lib/withDb_mongoose';
+// import prisma from '../../lib/prisma';
 
 const singleRecipe = async (req, res) => {
   const models = req.models;
@@ -14,6 +15,23 @@ const singleRecipe = async (req, res) => {
       case 'GET':
         console.log('userId is ' + userId);
         recipe = await models.recipeModel.find({ userId: userId });
+        /* recipe = await prisma.recipe.findMany({
+          where: {
+            userId: userId,
+          },
+          include: {
+            ingredients: {
+              orderBy: { order: 'asc' },
+              include: {
+                list: {
+                  orderBy: { order: 'asc' },
+                },
+              },
+            },
+            description: true,
+          },
+        }); */
+
         res.json({ data: recipe });
         break;
 
@@ -31,5 +49,5 @@ const singleRecipe = async (req, res) => {
   }
 };
 
-// export default withDb(singleRecipe);
-export default singleRecipe;
+export default withDb(singleRecipe);
+// export default singleRecipe;

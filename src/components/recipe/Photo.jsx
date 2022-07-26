@@ -43,7 +43,6 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
   };
 
   const _handleUploadPicture = async () => {
-    console.log('in handleuplaodpicture');
     setLoading(true);
     const fileName = getFileName();
     console.log('filename', fileName);

@@ -1,5 +1,6 @@
 import { baseHost } from '../../../lib/siteConfig';
-// import withDb from '../../../lib/withDb_mongoose';
+import withDb from '../../../lib/withDb_mongoose';
+// import prisma from '../../../lib/prisma';
 
 const singleRecipe = async (req, res) => {
   const models = req.models;
@@ -11,35 +12,28 @@ const singleRecipe = async (req, res) => {
   // await new Promise((r) => setTimeout(r, 5000));
 
   try {
-    /*     const fetchUrl = `${baseHost}/api/auth/user`;
-    console.log(`fetching ${fetchUrl}`);
-    const response = await fetch(fetchUrl, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-
-    let authRes = await response.json();
-    if (!authRes?.user) {
-      res.status(401).json({ error: 'Unauthorized User' });
-    } */
-
-    if (!models) {
-      throw Error('Could not find db connection');
-    }
-
     let _set = {};
     switch (req.method) {
       case 'GET':
         recipe = await models.recipeModel.findOne({ recipeId: query.recipeId });
+        /* recipe = await prisma.recipe.findUnique({
+          where: {
+            id: query.recipeId,
+          },
+          include: {
+            ingredients: {
+              orderBy: { order: 'asc' },
+              include: {
+                list: {
+                  orderBy: { order: 'asc' },
+                },
+              },
+            },
+            description: true,
+          },
+        }); */
         res.json({ data: recipe });
         break;
-
-      /* case 'POST':
-        recipe = await models.recipeModel.create(recipeBody);
-        res.json({ data: recipe });
-        break; */
 
       case 'PUT':
         recipe = await models.recipeModel.findOneAndUpdate(
@@ -49,6 +43,15 @@ const singleRecipe = async (req, res) => {
             new: true,
           }
         );
+
+        /* recipe = await prisma.recipe.update({
+          where: {
+            id: query.recipeId,
+          },
+          data: {
+            recipeBody,
+          },
+        }); */
         res.json({ data: recipe });
         break;
 
@@ -73,6 +76,30 @@ const singleRecipe = async (req, res) => {
             new: true,
           }
         );
+        /* 
+        if (patchType == 'photo') {
+
+          recipe = await prisma.recipe.update({
+            where: {
+              id: query.recipeId,
+            },
+            data: {
+              photo: recipeBody.photo,
+            },
+          });
+        } else {
+
+          recipe = await prisma.recipe.update({
+            where: {
+              id: query.recipeId,
+            },
+            data: {
+              
+            },
+          });
+          
+        } */
+
         res.json({ data: recipe });
         break;
 
@@ -85,5 +112,5 @@ const singleRecipe = async (req, res) => {
   }
 };
 
-// export default withDb(singleRecipe);
-export default singleRecipe;
+export default withDb(singleRecipe);
+// export default singleRecipe;

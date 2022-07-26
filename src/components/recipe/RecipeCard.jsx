@@ -36,6 +36,7 @@ export const RecipeCard = ({ recipe }) => {
           pathname: '/my/recipes/[recipeId]',
           query: { recipeId: recipe.recipeId },
         }}
+        as={`/my/recipes/${recipe.recipeId}`}
       >
         <a>
           <Box
