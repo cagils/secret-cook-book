@@ -47,6 +47,7 @@ const singleRecipe = async (req, res) => {
         break;
 
       default:
+        res.setHeader('Allow', ['GET', 'POST']);
         res.status(405).json({ error: 'This method is not accepted' });
         break;
     }

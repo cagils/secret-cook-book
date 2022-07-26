@@ -110,6 +110,7 @@ const singleRecipe = async (req, res) => {
         break;
 
       default:
+        res.setHeader('Allow', ['GET', 'PUT', 'PATCH']);
         console.log('req.method is ' + req.method);
         res.status(405).json({ error: 'This method is not accepted' });
     }
