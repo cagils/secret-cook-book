@@ -6,7 +6,7 @@ import {
   Flex,
   Icon,
   localStorageManager,
-  VStack
+  VStack,
 } from '@chakra-ui/react';
 import { ReactNode, useEffect, useState } from 'react';
 // import { getCookie, setCookies } from 'cookies-next';

@@ -6,7 +6,7 @@ import {
   IconButton,
   Square,
   Text,
-  useColorMode
+  useColorMode,
 } from '@chakra-ui/react';
 import { Edit } from '@styled-icons/feather';
 import { OrnamentDivider } from '../../resources/svgs';

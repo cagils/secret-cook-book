@@ -28,12 +28,12 @@
     />
   </a>
 </p>
-<h3><p align='center'>Sample Next.js MongoDB Full Stack Project</p></h3>
 
 <br/>
-<center><h2>Record, reference and share your personal kitchen secrets.</h2></center>
-
-_...under construction..._
+<center><h2>Save your best-kept recipes!</h2></center>
+<center><h3>Share with very special friends</h3></center>
+<br/>  
+  <br/>
 
 <div align='center'>
 <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fcagils%2Fsecret-cook-book&env=MONGODB_URI&envDescription=You%20can%20use%20free%20Atlas%20account.%20URI%20format%3A%20%60%22ongodb%2Bsrv%3A%2F%2F%24%7BMONGODB_USER%7D%3A%24%7BMONGODB_PASS%7D%40%24%7BMONGODB_CLUSTER%7D.jswdp.mongodb.net%2F%24%7BMONGODB_DBNAME%7D%3FretryWrites%3Dtrue%26w%3Dmajority%22"><img src="https://badgen.net/badge/icon/Deploy?icon=vercel&label" alt="Deploy with Vercel"/></a>
@@ -48,28 +48,31 @@ _...under construction..._
 <p/>
 <center>
 <div align='center' >
-<img width='400px' style='border: 2px solid gray' src="public/screenshots/ss1.png"/>
-<img width='400px' style='border: 2px solid gray' src="public/screenshots/ss2.png"/>
+<img width='300px' style='border: 2px solid gray' src="public/screenshots/ss1.png"/>
+<img width='300px' style='border: 2px solid gray' src="public/screenshots/ss2.png"/>
+<img width='150px' style='border: 2px solid gray' src="public/screenshots/ss3.png"/>
+<img width='150px' style='border: 2px solid gray' src="public/screenshots/ss4.png"/></div>
 </div>
 <div align='center' >
-<img width='300px' style='border: 2px solid gray' src="public/screenshots/ss3.png"/>
-<img width='300px' style='border: 2px solid gray' src="public/screenshots/ss4.png"/></div>
 </div>
 </center>
 <p/>
+<br/>
 <h3>
 <ul>
 <li> Next.js </li>
-<li> Chakra UI with optional integrated TailwindCSS</li>
-<li> Fully Responsive Design</li>
-<li> Jest/Storybook Testing</li>
-<li> React Hook Form uncontrolled forms</li>
+<li> Next-Auth Google/GitHub logins (DB-backed)</li>
+<li> Next REST API backend with OpenAPI 3 Schema</li>
+<li> Supabase Postgresql (for users, Next-Auth and image Storage)</li>
+<li> MongoDB(mongoose) (for recipe data)</li>
+<li> Prisma (with relational schema as an alternative to MongoDB)</li>
+<li> Chakra UI (optional TailwindCSS integrated)</li>
+<li> React Hook Form uncontrolled performant forms</li>
+<li> Responsive Design</li>
 <li> DND-Kit re-orderable inputs</li>
-<li> Next REST API with OpenAPI 3 Schema</li>
-<li> Mongoose/MongoDB database</li>
+<li> Jest/Storybook Testing</li>
 <li> React Query</li>
-<li> Husky / SVG</li>
-<li> Vercel Deployment</li>
+<li> Husky, SVG, Vercel Deployment, ...</li>
 </ul>
 </h3>
 
