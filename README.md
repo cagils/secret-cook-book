@@ -30,8 +30,7 @@
 </p>
 
 <br/>
-<center><h2>Save your best-kept recipes!</h2></center>
-<center><h3>Share with very special friends</h3></center>
+<center><h2>Sample recipe builder full-stack app demo with Next.js and Supabase.</h2></center>
 <br/>  
   <br/>
 
@@ -70,7 +69,7 @@
 <li> React Hook Form uncontrolled performant forms</li>
 <li> Responsive Design</li>
 <li> DND-Kit re-orderable inputs</li>
-<li> Jest/Storybook Testing</li>
+<li> Jest/Cypress/RTL Testing</li>
 <li> React Query</li>
 <li> Husky, SVG, Vercel Deployment, ...</li>
 </ul>

@@ -11,11 +11,12 @@ import {
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
 import { enableAllPlugins } from 'immer';
+import { nanoid } from 'nanoid';
 import { getSession, signIn, signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Router, useRouter } from 'next/router';
 import { useCallback } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+
 import { Recipes } from '../../components/recipe/Recipes';
 import { Layout } from '../../layouts/Layout';
 
@@ -49,7 +50,7 @@ export default function RecipesPage() {
   const router = useRouter();
 
   const handleNewRecipe = async () => {
-    const newRecipeId = uuidv4();
+    const newRecipeId = nanoid();
     //TODO: check for collision
     const fetchUrl = `/api/recipes`;
     console.log(`post new recipe to ${fetchUrl}`);

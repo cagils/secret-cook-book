@@ -8,12 +8,10 @@ import {
   useColorMode,
 } from '@chakra-ui/react';
 import { Camera } from '@styled-icons/feather';
+import { nanoid } from 'nanoid';
 import ImageNext from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
-
 import { supabase } from '../../lib/supabase';
-
 import { FFileUpload } from '../helpers/form/FFileUpload';
 import { OverlayFader } from '../helpers/OverlayFader';
 
@@ -31,7 +29,7 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
     if (!user || !recipeId) {
       return null;
     }
-    const rand = uuidv4();
+    const rand = nanoid();
     return `${user.id}_${recipeId}_${rand}.png`;
   }, [user, recipeId]);
 
