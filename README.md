@@ -65,7 +65,7 @@
 <li> Supabase Postgresql (for users, Next-Auth and image Storage)</li>
 <li> MongoDB(mongoose) (for recipe data)</li>
 <li> Prisma (with relational schema as an alternative to MongoDB)</li>
-<li> Chakra UI (optional TailwindCSS integrated)</li>
+<li> Chakra UI</li>
 <li> React Hook Form uncontrolled performant forms</li>
 <li> Responsive Design</li>
 <li> DND-Kit re-orderable inputs</li>
