@@ -11,8 +11,8 @@ import { Camera } from '@styled-icons/feather';
 import { nanoid } from 'nanoid';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { supabase } from '../../lib/supabase';
-import { OverlayFader } from '../helpers/OverlayFader';
+import { OverlayFader } from '@/components/helpers/OverlayFader';
+import { supabase } from '@/lib/supabase';
 
 export const Photo = ({ photoUrl, user, editable, recipeId }) => {
   const uploadRef = useRef();

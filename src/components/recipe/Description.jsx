@@ -1,6 +1,6 @@
 import { Box, Divider, Heading, useColorMode } from '@chakra-ui/react';
 
-import { FInput } from '../helpers/form/FInput';
+import { FInput } from '@/components/helpers/form/FInput';
 
 export const Description = ({ editable, description, loading }) => {
   const { colorMode } = useColorMode();

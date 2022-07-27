@@ -1,6 +1,6 @@
 import { getSession } from 'next-auth/react';
 
-import withDb from '../../lib/withDb_mongoose';
+import withDb from '@/lib/withDb_mongoose';
 
 const singleRecipe = async (req, res) => {
   const session = await getSession({ req });

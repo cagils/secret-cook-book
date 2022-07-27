@@ -8,7 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { FileMinus } from '@styled-icons/feather';
 
-import { FInput } from '../helpers/form/FInput';
+import { FInput } from '@/components/helpers/form/FInput';
 
 export const GroupHeading = ({
   groupName,

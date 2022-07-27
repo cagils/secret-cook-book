@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/react';
 import { getProviders, getSession, signIn, useSession } from 'next-auth/react';
 
-import { LoginForm } from '../../components/auth/LoginForm';
-import { Layout } from '../../layouts/Layout';
+import { LoginForm } from '@/components/auth/LoginForm';
+import { Layout } from '@/layouts/Layout';
 
 export default function LoginPage({ providers }) {
   const { data: session, status } = useSession();

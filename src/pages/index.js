@@ -1,7 +1,8 @@
 import { Box, Button, Flex, useColorMode } from '@chakra-ui/react';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
-import { Layout } from '../layouts/Layout';
+
+import { Layout } from '@/layouts/Layout';
 
 export async function getServerSideProps(context) {
   // Check if user is authenticated

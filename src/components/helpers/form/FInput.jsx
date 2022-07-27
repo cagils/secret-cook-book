@@ -9,7 +9,7 @@ import {
 } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
-import { FormControlWrapper } from './FormControlWrapper';
+import { FormControlWrapper } from '@/components/helpers/form/FormControlWrapper';
 
 export const FInput = ({
   fieldName,

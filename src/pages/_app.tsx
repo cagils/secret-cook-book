@@ -7,8 +7,9 @@ import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { ReactNode, useState } from 'react';
 
-import '../styles/globals.css';
-import { customTheme } from '../styles/theme';
+import '@/styles/globals.css';
+import { customTheme } from '@/styles/theme';
+
 type GetLayout = (page: ReactNode) => ReactNode;
 
 type Page<P = {}, IP = P> = NextPage<P, IP> & {

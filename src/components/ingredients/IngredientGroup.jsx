@@ -1,10 +1,10 @@
 import { Box, Icon, IconButton, Square, useColorMode } from '@chakra-ui/react';
 import { PlusSquare } from '@styled-icons/feather';
 
-import { ReorderableItem } from '../helpers/reorderable/ReorderableItem';
-import { ReorderableList } from '../helpers/reorderable/ReorderableList';
-import { GroupHeading } from './GroupHeading';
-import { Ingredient } from './Ingredient';
+import { ReorderableItem } from '@/components/helpers/reorderable/ReorderableItem';
+import { ReorderableList } from '@/components/helpers/reorderable/ReorderableList';
+import { GroupHeading } from '@/components/ingredients/GroupHeading';
+import { Ingredient } from '@/components/ingredients/Ingredient';
 
 export const IngredientGroup = ({
   loading,

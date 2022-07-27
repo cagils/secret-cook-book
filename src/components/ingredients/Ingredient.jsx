@@ -11,7 +11,7 @@ import {
 import { Feather } from '@styled-icons/entypo';
 import { MinusSquare } from '@styled-icons/feather';
 
-import { FInput } from '../helpers/form/FInput';
+import { FInput } from '@/components/helpers/form/FInput';
 
 export const Ingredient = ({
   loading,

@@ -1,3 +1,3 @@
-import OrnamentDivider from './ornament-divider.svg';
+import OrnamentDivider from '@/resources/svgs/ornament-divider.svg';
 
 export { OrnamentDivider };

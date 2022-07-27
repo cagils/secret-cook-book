@@ -10,7 +10,7 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 
-import { RecipeCard } from './RecipeCard';
+import { RecipeCard } from '@/components/recipe/RecipeCard';
 
 export const Recipes = ({ user }) => {
   const [recipes, setRecipes] = useState([]);

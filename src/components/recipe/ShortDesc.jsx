@@ -1,7 +1,7 @@
 import { Box, Divider, Text, useColorMode } from '@chakra-ui/react';
 
-import { OrnamentDivider } from '../../resources/svgs';
-import { FInput } from '../helpers/form/FInput';
+import { FInput } from '@/components/helpers/form/FInput';
+import { OrnamentDivider } from '@/resources/svgs';
 
 export const ShortDesc = ({ shortDesc, editable, loading }) => {
   const { colorMode } = useColorMode();

@@ -4,15 +4,15 @@ import {
   Flex,
   Heading,
   useColorMode,
-  VStack,
+  VStack
 } from '@chakra-ui/react';
 import { enableAllPlugins } from 'immer';
 import { nanoid } from 'nanoid';
 import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
-import { Recipes } from '../../components/recipe/Recipes';
-import { Layout } from '../../layouts/Layout';
+import { Recipes } from '@/components/recipe/Recipes';
+import { Layout } from '@/layouts/Layout';
 
 enableAllPlugins();
 

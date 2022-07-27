@@ -5,15 +5,15 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { useEscape } from '../../lib/hooks/useEscape';
-import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
-import { random } from '../../lib/tools';
-import { OverlayFader } from '../helpers/OverlayFader';
-import { Ingredients } from '../ingredients/Ingredients';
-import { Description } from './Description';
-import { Photo } from './Photo';
-import { RecipeTitle } from './RecipeTitle';
-import { ShortDesc } from './ShortDesc';
+import { OverlayFader } from '@/components/helpers/OverlayFader';
+import { Ingredients } from '@/components/ingredients/Ingredients';
+import { Description } from '@/components/recipe/Description';
+import { Photo } from '@/components/recipe/Photo';
+import { RecipeTitle } from '@/components/recipe/RecipeTitle';
+import { ShortDesc } from '@/components/recipe/ShortDesc';
+import { useEscape } from '@/lib/hooks/useEscape';
+import { useRenderCounter } from '@/lib/hooks/useRenderCounter';
+import { random } from '@/lib/tools';
 
 setAutoFreeze(false);
 

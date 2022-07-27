@@ -3,8 +3,8 @@ import { enableAllPlugins } from 'immer';
 import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 
-import { Recipe } from '../../../components/recipe/Recipe';
-import { Layout } from '../../../layouts/Layout';
+import { Recipe } from '@/components/recipe/Recipe';
+import { Layout } from '@/layouts/Layout';
 
 enableAllPlugins();
 
