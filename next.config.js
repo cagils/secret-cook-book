@@ -3,6 +3,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
+      'googleusercontent.com',
       'images.unsplash.com',
       'ylgcsafpqtxyjlnyjlei.supabase.co', // development
       'xrcaspeqxbijfvtywiue.supabase.co', // production

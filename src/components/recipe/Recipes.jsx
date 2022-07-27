@@ -25,13 +25,14 @@ export const Recipes = ({ user }) => {
     colorMode == 'light' ? lightValue : darkValue;
 
   useEffect(() => {
+    if (!user?.id) return;
     console.log('user' + JSON.stringify(user, undefined, 2));
     let abort = false;
     setLoading(true);
 
     try {
       const loadRecipes = async () => {
-        const fetchUrl = `/api/recipes/?userId=${user.id}`;
+        const fetchUrl = `/api/recipes/?userId=${user?.id}`;
         console.log(`fetching ${fetchUrl}`);
         const response = await fetch(fetchUrl, {
           method: 'GET',

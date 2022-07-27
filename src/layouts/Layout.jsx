@@ -113,6 +113,7 @@ export const Layout = ({ children }) => {
                         )}
                         {session && (
                           <Image
+                            referrerPolicy="no-referrer"
                             height="40px"
                             src={session.user.image}
                             alt="avatar"

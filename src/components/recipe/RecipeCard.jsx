@@ -76,10 +76,7 @@ export const RecipeCard = ({ recipe }) => {
                 letterSpacing={1.4}
                 textTransform="uppercase"
               >
-                <Flex>
-                  <Text>Serving: {recipe.serving}</Text>
-                  <Text>Time: {recipe.time}</Text>
-                </Flex>
+                Serving: {recipe.serving} | Time: {recipe.time}
               </Text>
               <Heading
                 color={mode('pink.700', 'pink.200')}
