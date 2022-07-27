@@ -9,7 +9,6 @@ import {
 } from '@chakra-ui/react';
 import { Camera } from '@styled-icons/feather';
 import { nanoid } from 'nanoid';
-import ImageNext from 'next/image';
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { supabase } from '../../lib/supabase';
 import { FFileUpload } from '../helpers/form/FFileUpload';

@@ -9,7 +9,6 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
-import NextImage from 'next/image';
 import Link from 'next/link';
 
 export const RecipeCard = ({ recipe }) => {
@@ -52,15 +51,6 @@ export const RecipeCard = ({ recipe }) => {
               pos={'relative'}
               overflow="hidden"
             >
-              {/* <NextImage
-                  src={recipe.photo}
-                  alt={'Recipe Photo'}
-                  // width={1170}
-                  // height={780}
-                  layout={'fill'}
-                  objectFit={'cover'}
-                  objectPosition={'50% 50%'}
-                /> */}
               <Image
                 src={recipe?.photo}
                 alt={'Recipe Photo'}
