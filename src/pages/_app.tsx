@@ -10,12 +10,17 @@ import {
 } from '@chakra-ui/react';
 import { ReactNode, useEffect, useState } from 'react';
 // import { getCookie, setCookies } from 'cookies-next';
+import {
+  Hydrate,
+  QueryClient,
+  QueryClientProvider,
+} from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { GetServerSidePropsContext, NextPage } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-
 import '../styles/globals.css';
 import { customTheme } from '../styles/theme';
 type GetLayout = (page: ReactNode) => ReactNode;
@@ -30,53 +35,10 @@ type MyAppProps<P = {}> = AppProps<P> & {
 
 export default function App(props: MyAppProps) {
   const { Component, pageProps } = props;
-  // const [session, setSession] = useState(null);
+
+  const [queryClient] = useState(() => new QueryClient());
 
   const getLayout = Component.getLayout ?? ((page: ReactNode) => page);
-
-  /*   const [user, setUser] = useState({});
-
-  useEffect(() => {
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      (event, session) => {
-        handleAuthChange(event, session);
-        if (event === 'SIGNED_IN') {
-          setUser({ loggedIn: true });
-        }
-        if (event === 'SIGNED_OUT') {
-          setUser({});
-        }
-      }
-    );
-    checkUser();
-    return () => {
-      authListener.unsubscribe();
-    };
-  }, []); */
-
-  /*   async function checkUser() {
-    const user = await supabase.auth.user();
-    if (user) {
-      setUser({ loggedIn: true, user: user });
-    }
-  } */
-
-  /*   async function handleAuthChange(event, session) {
-    await fetch('/api/auth', {
-      method: 'POST',
-      headers: new Headers({ 'Content-Type': 'application/json' }),
-      credentials: 'same-origin',
-      body: JSON.stringify({ event, session }),
-    });
-  } */
-
-  /*   useEffect(() => {
-    setSession(supabase.auth.session());
-
-    supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-    });
-  }, []); */
 
   return (
     <>
@@ -84,11 +46,14 @@ export default function App(props: MyAppProps) {
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Secret Cook Book</title>
       </Head>
-      <SessionProvider session={pageProps.session}>
-        <ChakraProvider theme={customTheme}>
-          {getLayout(<Component {...pageProps} />)}
-        </ChakraProvider>
-      </SessionProvider>
+      <QueryClientProvider client={queryClient}>
+        <SessionProvider session={pageProps.session}>
+          <ChakraProvider theme={customTheme}>
+            {getLayout(<Component {...pageProps} />)}
+          </ChakraProvider>
+        </SessionProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </>
   );
 }
