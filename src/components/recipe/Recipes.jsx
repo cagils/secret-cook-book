@@ -1,4 +1,3 @@
-import { useClickable } from '@chakra-ui/clickable';
 import {
   Box,
   Button,
@@ -20,7 +19,6 @@ import { RecipeCard } from './RecipeCard';
 export const Recipes = ({ user }) => {
   const [recipes, setRecipes] = useState([]);
   const [loading, setLoading] = useState(false);
-  const clickable = useClickable();
 
   const { colorMode } = useColorMode();
   const mode = (lightValue, darkValue) =>
