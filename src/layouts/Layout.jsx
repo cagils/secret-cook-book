@@ -7,7 +7,7 @@ import {
   Image,
   Text,
   useColorMode,
-  VStack
+  VStack,
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
 import { SignOut } from '@styled-icons/octicons';
@@ -51,7 +51,7 @@ export const Layout = ({ children }) => {
               'linear(to-t, pink.100, pink.200)',
               'linear(to-b, gray.600, gray.800)'
             )}
-            justify="center"
+            justifyContent="center"
             mx="auto"
             grow="1"
             width="full"
@@ -63,12 +63,12 @@ export const Layout = ({ children }) => {
                 width="full"
                 pos="relative"
                 bgColor={mode('gray.100', 'gray.800')}
-                align="stretch"
-                justify="center"
+                alignItems="stretch"
+                justifyContent="center"
               >
                 <HStack
-                  align="center"
-                  justify="center"
+                  alignItems="center"
+                  justifyContent="center"
                   // boxShadow="base"
                   bgColor={mode('pink.100', 'blackAlpha.300')}
                   bgGradient={mode(
@@ -87,8 +87,8 @@ export const Layout = ({ children }) => {
                       // border="1px solid red"
                       position={{ base: 'initial', md: 'absolute' }}
                       alignSelf="stretch"
-                      justify="end"
-                      align="start"
+                      justifyContent="end"
+                      alignItems="start"
                       right={0}
                       top={0}
                       // px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
@@ -96,7 +96,7 @@ export const Layout = ({ children }) => {
                       // left={0}
                       zIndex="1000"
                     >
-                      <Flex m={2} justify="end">
+                      <Flex m={2} justifyContent="end">
                         {session && (
                           <Text fontSize="0.8em" textAlign="end" mr={2}>
                             {session.user.id}
@@ -183,8 +183,8 @@ export const Layout = ({ children }) => {
                 <>
                   <Flex
                     grow="1"
-                    justify="center"
-                    align="stretch"
+                    justifyContent="center"
+                    alignItems="stretch"
                     bgGradient={mode(
                       'linear(to-r, purple.100, pink.100)',
                       'linear(to-r, purple.900, pink.900)'

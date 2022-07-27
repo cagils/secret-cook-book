@@ -9,7 +9,7 @@ export const ShortDesc = ({ shortDesc, editable, loading }) => {
     colorMode == 'light' ? lightValue : darkValue;
 
   return (
-    <Box align="center" justify="center" mb={8} maxWidth="60em">
+    <Box alignItems="center" justifyContent="center" mb={8} maxWidth="60em">
       <Divider />
       {!editable ? (
         <Text
@@ -69,7 +69,7 @@ export const ShortDesc = ({ shortDesc, editable, loading }) => {
         </Box>
       )}
       <Divider />
-      <Box width="full" align="center" justify="center" mt="8">
+      <Box width="full" alignItems="center" justifyContent="center" mt="8">
         <OrnamentDivider
           height="5em"
           fill={mode(

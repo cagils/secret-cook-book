@@ -97,8 +97,8 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
     <Flex
       flexDir="column"
       borderRadius="lg"
-      align="center"
-      justify="center"
+      alignItems="center"
+      justifyContent="center"
       boxShadow={mode('inner', 'innerWhite')}
       bgGradient={mode(
         'linear(to-b, pink.200, purple.200)',
@@ -132,8 +132,8 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
       {true && (
         <Flex
           my={{ base: '2px', sm: '2px', md: '4px', xl: '10px' }}
-          align="center"
-          justify="center"
+          alignItems="center"
+          justifyContent="center"
           /* w={{
                       xl: '100%',
                       '2xl': '80%',
@@ -146,8 +146,8 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
             //bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
           >
             <Flex
-              align="center"
-              justify="center"
+              alignItems="center"
+              justifyContent="center"
               grow="1"
               //bgColor="orange"
               //display="flex"
@@ -182,7 +182,7 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
                       bgColor: mode('pink.500', 'purple.500'),
                       //color: mode('white', 'white'),
                     }}
-                    bgColor={mode('whiteAlpha.500', 'whiteAlpha.500')}
+                    bgColor={mode('blackAlpha.500', 'whiteAlpha.500')}
                     //color={mode('pink.900', 'pink.900')}
                     onClick={(e) => _uploadPicture(e)}
                     // textAlign="center"
@@ -225,7 +225,12 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
               /> */}
 
               <Image
-                src={imageUrl}
+                src={
+                  imageUrl ||
+                  'https://dummyimage.com/3000x2000/' +
+                    mode('fff', '000') +
+                    '/aaa&text=Photo'
+                }
                 alt={'Recipe Photo'}
                 layout="fill"
                 fit="cover"

@@ -37,8 +37,8 @@ export const Ingredient = ({
         <Box
           // border="1px solid cyan"
           //grow="1"
-          // align="stretch"
-          justify="center"
+          // alignItems="stretch"
+          justifyContent="center"
           // width="full"
           //color="purple.800"
         >
@@ -82,8 +82,8 @@ export const Ingredient = ({
                 my={1}
                 px={4}
                 //grow="1"
-                align="center"
-                justify="start"
+                alignItems="center"
+                justifyContent="start"
                 //px={4}
                 // pos="relative"
                 color={mode('gray.700', 'gray.300')}

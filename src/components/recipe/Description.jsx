@@ -9,7 +9,7 @@ export const Description = ({ editable, description, loading }) => {
 
   return (
     <Box
-      align="start"
+      alignItems="start"
       mx={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
       px={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
     >

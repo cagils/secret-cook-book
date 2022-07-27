@@ -24,7 +24,7 @@ export const IngredientGroup = ({
     colorMode == 'light' ? lightValue : darkValue;
 
   return (
-    <Box align="left">
+    <Box alignItems="left">
       {hasHeading && (
         <Box my={4}>
           <GroupHeading

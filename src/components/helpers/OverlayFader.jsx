@@ -1,7 +1,7 @@
 import { Fade, Flex, Spinner, useColorMode } from '@chakra-ui/react';
 import { useCallback } from 'react';
 
-export const OverlayFader = ({ active, children }) => {
+export const OverlayFader = ({ active }) => {
   const { colorMode } = useColorMode();
   const mode = useCallback(
     (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue),
@@ -19,17 +19,17 @@ export const OverlayFader = ({ active, children }) => {
         right="0"
         m={0}
         p={0}
-        //bg={mode('blackAlpha.700', 'blackAlpha.700')}
-        bgGradient={mode(
-          'linear(to-r, purple.100, pink.100)',
-          'linear(to-r, purple.900, pink.900)'
-        )}
-        opacity={0.5}
+        bg={mode('white', 'black')}
+        // bgGradient={mode(
+        //   'linear(to-r, purple.100, pink.100)',
+        //   'linear(to-r, purple.900, pink.900)'
+        // )}
+        opacity={0.9}
         zIndex="10000"
         overflow="hidden"
         height="full"
-        align="center"
-        justify="center"
+        alignItems="center"
+        justifyContent="center"
       >
         <Spinner color={mode('pink.300', 'pink.600')} size="xl" thickness={3} />
       </Flex>

@@ -33,7 +33,7 @@ export const RecipeTitle = ({ recipeTitle, editable, loading, handleEdit }) => {
             fontStyle="italic"
             //textTransform={'capitalize'}
           >
-            {recipeTitle || 'Loading...'}
+            {recipeTitle || 'Your Recipe Title'}
           </Heading>
           <Box
             m="2"

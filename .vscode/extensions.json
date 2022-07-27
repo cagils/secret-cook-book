@@ -16,7 +16,8 @@
     "naumovs.color-highlight",
     "github.vscode-pull-request-github",
     "mattpocock.ts-error-translator",
-    "prisma.prisma"
+    "prisma.prisma",
+    "Gruntfuggly.todo-tree"
   ],
   // List of extensions recommended by VS Code that should not be recommended for users of this workspace.
   "unwantedRecommendations": []

@@ -52,8 +52,8 @@ export const Ingredients = ({
 
   return (
     <VStack
-      align="stretch"
-      justify="start"
+      alignItems="stretch"
+      justifyContent="start"
       // bg="blackAlpha.300"
     >
       <HStack>

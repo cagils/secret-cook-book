@@ -4,13 +4,15 @@ import {
   Flex,
   Heading,
   useColorMode,
-  VStack
+  VStack,
 } from '@chakra-ui/react';
 import { enableAllPlugins } from 'immer';
 import { nanoid } from 'nanoid';
 import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
+import { OverlayFader } from '@/components/helpers/OverlayFader';
 import { Recipes } from '@/components/recipe/Recipes';
 import { Layout } from '@/layouts/Layout';
 
@@ -43,7 +45,48 @@ export default function RecipesPage() {
     colorMode == 'light' ? lightValue : darkValue;
   const router = useRouter();
 
+  const [recipes, setRecipes] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    if (!session?.user?.id) return;
+    console.log('user' + JSON.stringify(session?.user, undefined, 2));
+    let abort = false;
+    setLoading(true);
+
+    try {
+      const loadRecipes = async () => {
+        const fetchUrl = `/api/recipes/?userId=${session?.user?.id}`;
+        console.log(`fetching ${fetchUrl}`);
+        const response = await fetch(fetchUrl, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+        if (!response.ok) {
+          throw new Error(`Error: ${response.status}`);
+        }
+        console.log('fetched.');
+
+        if (abort) return;
+        let res = await response.json();
+        setRecipes(res.data);
+        setLoading(false);
+      };
+
+      loadRecipes();
+    } catch (e) {
+      console.log(e);
+    }
+
+    return () => {
+      abort = true;
+    };
+  }, [session?.user]);
+
   const handleNewRecipe = async () => {
+    setLoading(true);
     const newRecipeId = nanoid();
     //TODO: check for collision
     const fetchUrl = `/api/recipes`;
@@ -55,7 +98,7 @@ export default function RecipesPage() {
       },
       body: JSON.stringify({
         recipeId: `${newRecipeId}`,
-        userId: `${session?.user.id}`,
+        userId: `${session?.user?.id}`,
         photo: '',
         title: '',
         shortDesc: '',
@@ -78,39 +121,38 @@ export default function RecipesPage() {
     console.log('posted.');
 
     if (!response.ok) {
+      setLoading(false);
       throw new Error(`Error: ${response.status}`);
     }
     let res = await response.json();
-    router.push(`/my/recipes/${newRecipeId}`);
+    setLoading(false);
+    router.push(`/my/recipes/${newRecipeId}?fresh=true`);
   };
 
   return (
     <VStack
       width="full"
-      align="center"
-      justify="start"
+      alignItems="center"
+      justifyContent="start"
       px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
       pb={4}
       spacing={0}
       gap={4}
     >
       <Box
-        boxShadow={mode('base', 'baseWhite')}
-        //width="full"
-        align="center"
-        justify="center"
-        bgColor={mode('whiteAlpha.800', 'blackAlpha.500')}
-        //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
         borderRadius="lg"
+        alignItems="center"
+        bgColor={mode('whiteAlpha.800', 'blackAlpha.500')}
+        justifyContent="center"
+        boxShadow={mode('base', 'baseWhite')}
+        //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
         px={4}
         py={8}
         mt={8}
         width="full"
-        //px={16}
         position="relative"
         overflow="hidden"
       >
-        {' '}
         <Box>
           <Heading
             as="h2"
@@ -131,16 +173,14 @@ export default function RecipesPage() {
             textDecorationThickness="2px"
             textDecorationColor={mode('purple.300', 'purple.400')}
             fontStyle="italic"
-            //textTransform={'capitalize'}
           >
             My Secret Recipes
           </Heading>
         </Box>
       </Box>
       <Box
-        align="center"
-        justfiy="center"
-        // flex="1"
+        alignItems="center"
+        justifyContent="center"
         width="full"
         p={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
         borderRadius="lg"
@@ -150,8 +190,8 @@ export default function RecipesPage() {
         <Flex
           flexDir="column"
           borderRadius="lg"
-          align="center"
-          justify="center"
+          alignItems="center"
+          justifyContent="center"
           boxShadow={mode('inner', 'innerWhite')}
           bgGradient={mode(
             'linear(to-b, pink.200, purple.200)',
@@ -174,16 +214,14 @@ export default function RecipesPage() {
           </Button>
           <Flex
             //width="full"
-            align="stretch"
-            justify="center"
-            //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
+            alignItems="stretch"
+            justifyContent="center"
             width="full"
             wrap="wrap-reverse"
-            // rowGap={2}
-            // columnGap={4}
             gap={4}
           ></Flex>
-          <Recipes user={session?.user} />
+          <OverlayFader active={loading} />
+          <Recipes recipes={recipes} loading={loading} />
         </Flex>
       </Box>
     </VStack>

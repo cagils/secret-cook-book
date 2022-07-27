@@ -1,6 +1,5 @@
-import { Box, Button, Flex, useColorMode } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { getSession } from 'next-auth/react';
-import Link from 'next/link';
 
 import { Layout } from '@/layouts/Layout';
 
@@ -16,28 +15,18 @@ export async function getServerSideProps(context) {
         permanent: false,
       },
     };
+  } else {
+    return {
+      redirect: {
+        destination: '/my/recipes',
+        permanent: false,
+      },
+    };
   }
-
-  return {
-    props: {},
-  };
 }
 
 export default function IndexPage() {
-  const { colorMode } = useColorMode();
-  const dark = colorMode === 'dark';
-
-  return (
-    <Flex align="center" justify="center">
-      <Box>
-        <Link href={`/my/recipes/`}>
-          <a>
-            <Button variant="solid">Go to My Secret Recipes</Button>
-          </a>
-        </Link>
-      </Box>
-    </Flex>
-  );
+  return <Flex alignItems="center" justifyContent="center"></Flex>;
 }
 
 IndexPage.getLayout = (page) => {

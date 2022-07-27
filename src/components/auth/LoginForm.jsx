@@ -16,7 +16,7 @@ export const LoginForm = ({ providers, handleLogin, loading }) => {
     colorMode == 'light' ? lightValue : darkValue;
 
   return (
-    <VStack h="full" justify="center" align="center">
+    <VStack h="full" justifyContent="center" alignItems="center">
       <Box
         bg={mode('gray.50', 'gray.900')}
         boxShadow={'2xl'}
@@ -48,7 +48,7 @@ export const LoginForm = ({ providers, handleLogin, loading }) => {
                   onChange={(e) => setEmail(e.target.value)}
                 /> */}
             </Box>
-            <Stack spacing={10} align="center">
+            <Stack spacing={10} alignItems="center">
               {Object.values(providers).map((provider) => (
                 <Button
                   key={provider.id}

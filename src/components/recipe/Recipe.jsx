@@ -312,8 +312,8 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
       >
         <VStack
           //width="full"
-          align="center"
-          justify="center"
+          alignItems="center"
+          justifyContent="center"
           px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
           pb={4}
           spacing={0}
@@ -322,8 +322,8 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
           <Box
             boxShadow={mode('base', 'baseWhite')}
             //width="full"
-            align="center"
-            justify="center"
+            alignItems="center"
+            justifyContent="center"
             bgColor={mode('whiteAlpha.800', 'blackAlpha.500')}
             //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
             borderRadius="lg"
@@ -345,8 +345,8 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
           </Box>
           <Flex
             //width="full"
-            align="stretch"
-            justify="center"
+            alignItems="stretch"
+            justifyContent="center"
             //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
             width="full"
             wrap="wrap-reverse"
@@ -396,8 +396,8 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
               </Box>
             </VStack>
             <VStack
-              align="stretch"
-              justify="center"
+              alignItems="stretch"
+              justifyContent="center"
               spacing={0}
               flex="5"
               minW={{
@@ -411,7 +411,7 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
               overflow="hidden"
             >
               <Box
-                align="center"
+                alignItems="center"
                 justfiy="center"
                 flex="1"
                 p={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
@@ -445,8 +445,8 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
             borderColor="pink.200"
             bgColor={mode('whiteAlpha.900', 'blackAlpha.500')}
             width="full"
-            align="end"
-            justify="center"
+            alignItems="end"
+            justifyContent="center"
             //bgColor={mode('whiteAlpha.400', 'blackAlpha.400')}
             borderRadius="lg"
             p={4}
