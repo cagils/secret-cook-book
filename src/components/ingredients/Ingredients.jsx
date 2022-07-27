@@ -1,16 +1,11 @@
-import deepEqual from 'deep-equal';
-
 import {
-  Badge,
   Box,
-  Button,
   Divider,
   Flex,
   Heading,
   HStack,
   Icon,
   IconButton,
-  Text,
   useColorModeValue as mode,
   VStack,
 } from '@chakra-ui/react';

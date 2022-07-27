@@ -1,11 +1,4 @@
-import { Box, Flex, Icon, IconButton } from '@chakra-ui/react';
-import {
-  KeyboardSensor,
-  MouseSensor,
-  TouchSensor,
-  useSensor,
-  useSensors,
-} from '@dnd-kit/core';
+import { Flex, Icon, IconButton } from '@chakra-ui/react';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Grabber } from '@styled-icons/octicons';

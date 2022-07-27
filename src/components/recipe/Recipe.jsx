@@ -1,29 +1,12 @@
-import {
-  Box,
-  Button,
-  Center,
-  Divider,
-  Fade,
-  Flex,
-  Heading,
-  HStack,
-  Image,
-  Spinner,
-  Square,
-  Text,
-  Textarea,
-  useColorMode,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, useColorMode, VStack } from '@chakra-ui/react';
 
 import { produce, setAutoFreeze } from 'immer';
-import { Router, useRouter } from 'next/router';
-import { useCallback, useEffect, useRef, useState } from 'react';
-import { FormProvider, useForm, useFormContext } from 'react-hook-form';
-import { useEscape } from '../../lib/hooks/useEscape';
+import { useRouter } from 'next/router';
+import { useCallback, useEffect, useState } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 
+import { useEscape } from '../../lib/hooks/useEscape';
 import { useRenderCounter } from '../../lib/hooks/useRenderCounter';
-import { supabase } from '../../lib/supabase';
 import { random } from '../../lib/tools';
 import { OverlayFader } from '../helpers/OverlayFader';
 import { Ingredients } from '../ingredients/Ingredients';

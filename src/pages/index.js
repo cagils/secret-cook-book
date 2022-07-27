@@ -1,17 +1,4 @@
-import {
-  Box,
-  Button,
-  Center,
-  Container,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  useColorMode,
-  useColorModeValue as mode,
-  VStack,
-} from '@chakra-ui/react';
-import { Moon, Sun } from '@styled-icons/feather';
+import { Box, Button, Flex, useColorMode } from '@chakra-ui/react';
 import { getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { Layout } from '../layouts/Layout';

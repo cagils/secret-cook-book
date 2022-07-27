@@ -1,19 +1,12 @@
 import {
   Box,
-  Editable,
-  EditableInput,
-  EditablePreview,
   FormControl,
   FormErrorMessage,
   FormHelperText,
   FormLabel,
   Input,
-  Textarea,
   useColorMode,
 } from '@chakra-ui/react';
-import { useFormContext } from 'react-hook-form';
-
-import { FormControlWrapper } from './FormControlWrapper';
 
 export const FInputNoHook = ({
   fieldName,

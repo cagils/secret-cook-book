@@ -1,7 +1,5 @@
-import { baseHost } from '../../../lib/siteConfig';
-import withDb from '../../../lib/withDb_mongoose';
-// import prisma from '../../../lib/prisma';
 import { getSession } from 'next-auth/react';
+import withDb from '../../../lib/withDb_mongoose';
 
 const singleRecipe = async (req, res) => {
   const session = await getSession({ req });

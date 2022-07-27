@@ -1,6 +1,6 @@
 import { getSession } from 'next-auth/react';
+
 import withDb from '../../lib/withDb_mongoose';
-// import prisma from '../../lib/prisma';
 
 const singleRecipe = async (req, res) => {
   const session = await getSession({ req });

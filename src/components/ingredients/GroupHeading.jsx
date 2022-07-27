@@ -6,7 +6,8 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
-import { FileMinus, PlusSquare } from '@styled-icons/feather';
+import { FileMinus } from '@styled-icons/feather';
+
 import { FInput } from '../helpers/form/FInput';
 
 export const GroupHeading = ({

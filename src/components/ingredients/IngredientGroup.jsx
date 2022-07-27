@@ -1,23 +1,10 @@
-import {
-  Box,
-  Divider,
-  Heading,
-  HStack,
-  Icon,
-  IconButton,
-  Square,
-  Stack,
-  useColorMode,
-} from '@chakra-ui/react';
-import { FileMinus, PlusSquare } from '@styled-icons/feather';
-import { FInput } from '../helpers/form/FInput';
+import { Box, Icon, IconButton, Square, useColorMode } from '@chakra-ui/react';
+import { PlusSquare } from '@styled-icons/feather';
 
-import { Ingredient } from './Ingredient';
-
-import { Grabber } from '@styled-icons/octicons';
 import { ReorderableItem } from '../helpers/reorderable/ReorderableItem';
 import { ReorderableList } from '../helpers/reorderable/ReorderableList';
 import { GroupHeading } from './GroupHeading';
+import { Ingredient } from './Ingredient';
 
 export const IngredientGroup = ({
   loading,

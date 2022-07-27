@@ -1,29 +1,13 @@
 import {
   Box,
   Button,
-  Center,
-  Checkbox,
-  Container,
-  Flex,
-  FormControl,
-  FormLabel,
   Heading,
-  Input,
-  Link,
   Stack,
   Text,
   useColorMode,
-  useColorModeValue,
   VStack,
 } from '@chakra-ui/react';
-
 import { SignIn } from '@styled-icons/octicons';
-import { signIn, signOut, useSession } from 'next-auth/react';
-import { useState } from 'react';
-
-// import { supabase } from 'src/lib/supabase';
-import { FInput } from '../helpers/form/FInput';
-import { FInputNoHook } from '../helpers/form/FInputNoHook';
 
 export const LoginForm = ({ providers, handleLogin, loading }) => {
   // const [email, setEmail] = useState('');

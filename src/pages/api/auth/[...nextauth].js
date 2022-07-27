@@ -1,13 +1,9 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import { PrismaClient } from '@prisma/client';
 import NextAuth from 'next-auth';
-// import EmailProvider from 'next-auth/providers/email';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
-// import nodemailer from 'nodemailer';
 
 import prisma from '../../../lib/prisma';
-// const prisma = new PrismaClient();
 
 const options = {
   pages: {

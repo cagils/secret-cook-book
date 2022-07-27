@@ -1,26 +1,12 @@
-import {
-  Box,
-  ChakraProvider,
-  cookieStorageManager,
-  extendTheme,
-  Flex,
-  Icon,
-  localStorageManager,
-  VStack,
-} from '@chakra-ui/react';
-import { ReactNode, useEffect, useState } from 'react';
-// import { getCookie, setCookies } from 'cookies-next';
-import {
-  Hydrate,
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query';
+import { ChakraProvider } from '@chakra-ui/react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { GetServerSidePropsContext, NextPage } from 'next';
+import { NextPage } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
+import { ReactNode, useState } from 'react';
+
 import '../styles/globals.css';
 import { customTheme } from '../styles/theme';
 type GetLayout = (page: ReactNode) => ReactNode;

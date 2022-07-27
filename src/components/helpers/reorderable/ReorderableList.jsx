@@ -1,18 +1,14 @@
-import { Box } from '@chakra-ui/react';
 import {
   closestCenter,
   DndContext,
   DragOverlay,
-  DragOVerlay,
   KeyboardSensor,
   MouseSensor,
   PointerSensor,
-  TouchSensor,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
 import {
-  restrictToFirstScrollableAncestor,
   restrictToParentElement,
   restrictToVerticalAxis,
 } from '@dnd-kit/modifiers';

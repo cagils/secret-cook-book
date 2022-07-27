@@ -1,23 +1,10 @@
-import {
-  Box,
-  Center,
-  Container,
-  Flex,
-  Heading,
-  Icon,
-  IconButton,
-  useColorMode,
-} from '@chakra-ui/react';
-import { Moon, Sun } from '@styled-icons/feather';
+import { useColorMode } from '@chakra-ui/react';
 import { enableAllPlugins } from 'immer';
-import { getSession, signIn, signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
+import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
-import { useCallback } from 'react';
+
 import { Recipe } from '../../../components/recipe/Recipe';
 import { Layout } from '../../../layouts/Layout';
-import { baseHost } from '../../../lib/siteConfig';
-import { supabase } from '../../../lib/supabase';
 
 enableAllPlugins();
 

@@ -1,19 +1,8 @@
 import { Box } from '@chakra-ui/react';
-// import { User } from '@supabase/gotrue-js';
-// import { Auth } from '@supabase/ui';
-import {
-  getProviders,
-  getSession,
-  signIn,
-  signOut,
-  useSession,
-} from 'next-auth/react';
-import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { getProviders, getSession, signIn, useSession } from 'next-auth/react';
 
 import { LoginForm } from '../../components/auth/LoginForm';
 import { Layout } from '../../layouts/Layout';
-// import { supabase } from '../../lib/supabase';
 
 export default function LoginPage({ providers }) {
   const { data: session, status } = useSession();

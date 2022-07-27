@@ -1,8 +1,5 @@
 import {
-  Avatar,
   Box,
-  Center,
-  Flex,
   Heading,
   Image,
   Stack,

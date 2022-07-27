@@ -1,15 +1,7 @@
-import {
-  Box,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  Input,
-  Textarea,
-  useColorMode,
-} from '@chakra-ui/react';
+import { Box, useColorMode } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
-import { FileUpload } from './FileUpload';
 
+import { FileUpload } from './FileUpload';
 import { FormControlWrapper } from './FormControlWrapper';
 
 export const FFileUpload = ({

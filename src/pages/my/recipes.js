@@ -1,21 +1,15 @@
 import {
   Box,
   Button,
-  Container,
   Flex,
   Heading,
-  Icon,
-  IconButton,
   useColorMode,
   VStack,
 } from '@chakra-ui/react';
-import { Moon, Sun } from '@styled-icons/feather';
 import { enableAllPlugins } from 'immer';
 import { nanoid } from 'nanoid';
-import { getSession, signIn, signOut, useSession } from 'next-auth/react';
-import Link from 'next/link';
-import { Router, useRouter } from 'next/router';
-import { useCallback } from 'react';
+import { getSession, useSession } from 'next-auth/react';
+import { useRouter } from 'next/router';
 
 import { Recipes } from '../../components/recipe/Recipes';
 import { Layout } from '../../layouts/Layout';

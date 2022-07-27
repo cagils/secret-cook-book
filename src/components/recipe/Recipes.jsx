@@ -1,19 +1,15 @@
 import {
-  Box,
-  Button,
-  Center,
-  Container,
   Flex,
   Grid,
   GridItem,
   Heading,
   Spinner,
   Square,
-  Text,
   useColorMode,
   VStack,
 } from '@chakra-ui/react';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
+
 import { RecipeCard } from './RecipeCard';
 
 export const Recipes = ({ user }) => {

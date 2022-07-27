@@ -1,4 +1,4 @@
-import { Box, Fade, Flex, Spinner, useColorMode } from '@chakra-ui/react';
+import { Fade, Flex, Spinner, useColorMode } from '@chakra-ui/react';
 import { useCallback } from 'react';
 
 export const OverlayFader = ({ active, children }) => {

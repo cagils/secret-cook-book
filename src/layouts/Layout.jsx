@@ -1,8 +1,4 @@
 import {
-  Box,
-  Button,
-  Center,
-  Container,
   Flex,
   Heading,
   HStack,
@@ -11,17 +7,14 @@ import {
   Image,
   Text,
   useColorMode,
-  VStack,
+  VStack
 } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
 import { SignOut } from '@styled-icons/octicons';
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import NextNProgress from 'nextjs-progressbar';
-import { useEffect, useState } from 'react';
-import { OverlayFader } from '../components/helpers/OverlayFader';
-import { supabase } from '../lib/supabase';
 
 export const Layout = ({ children }) => {
   const { data: session, status } = useSession();

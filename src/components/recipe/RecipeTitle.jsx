@@ -1,15 +1,6 @@
-import {
-  Box,
-  Divider,
-  Heading,
-  Icon,
-  IconButton,
-  Square,
-  Text,
-  useColorMode,
-} from '@chakra-ui/react';
+import { Box, Heading, Icon, IconButton, useColorMode } from '@chakra-ui/react';
 import { Edit } from '@styled-icons/feather';
-import { OrnamentDivider } from '../../resources/svgs';
+
 import { FInput } from '../helpers/form/FInput';
 
 export const RecipeTitle = ({ recipeTitle, editable, loading, handleEdit }) => {

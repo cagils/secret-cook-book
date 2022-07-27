@@ -10,8 +10,8 @@ import {
 import { Camera } from '@styled-icons/feather';
 import { nanoid } from 'nanoid';
 import { useCallback, useEffect, useRef, useState } from 'react';
+
 import { supabase } from '../../lib/supabase';
-import { FFileUpload } from '../helpers/form/FFileUpload';
 import { OverlayFader } from '../helpers/OverlayFader';
 
 export const Photo = ({ photoUrl, user, editable, recipeId }) => {
