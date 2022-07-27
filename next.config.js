@@ -1,10 +1,12 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  reactStrictMode: false,
-  // runtime: 'experimental-edge',
-  //runtime: 'nodejs',
+  reactStrictMode: true,
   images: {
-    domains: ['images.unsplash.com', 'ylgcsafpqtxyjlnyjlei.supabase.co', ''],
+    domains: [
+      'images.unsplash.com',
+      'ylgcsafpqtxyjlnyjlei.supabase.co', // development
+      'xrcaspeqxbijfvtywiue.supabase.co', // production
+    ],
   },
   webpack(config) {
     config.module.rules.push({
@@ -14,11 +16,6 @@ const nextConfig = {
     });
 
     return config;
-  },
-  experimental: {
-    images: {
-      // allowFutureImage: true,
-    },
   },
 };
 
