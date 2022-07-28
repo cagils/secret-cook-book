@@ -39,7 +39,8 @@
     "lint": "next lint",
     "prettier": "prettier --check .",
     "format": "prettier --write .",
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.0.2",
