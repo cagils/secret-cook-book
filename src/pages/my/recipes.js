@@ -46,11 +46,20 @@ export default function RecipesPage() {
   const router = useRouter();
 
   const [recipes, setRecipes] = useState([]);
+  const [user, setUser] = useState(session?.user);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (!session?.user?.id) return;
-    console.log('user' + JSON.stringify(session?.user, undefined, 2));
+    if (session?.user.id !== user?.id) {
+      setUser(session?.user);
+    } else {
+      console.log('session updated but same user');
+    }
+  }, [session, user]);
+
+  useEffect(() => {
+    if (!user?.id) return;
+    console.log('user' + JSON.stringify(user, undefined, 2));
     let abort = false;
     setLoading(true);
 
@@ -83,7 +92,7 @@ export default function RecipesPage() {
     return () => {
       abort = true;
     };
-  }, [session?.user]);
+  }, [user]);
 
   const handleNewRecipe = async () => {
     setLoading(true);

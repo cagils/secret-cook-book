@@ -1,12 +1,8 @@
-import { Flex, Grid, GridItem, useColorMode, VStack } from '@chakra-ui/react';
+import { Flex, Grid, GridItem, VStack } from '@chakra-ui/react';
 
 import { RecipeCard } from '@/components/recipe/RecipeCard';
 
 export const Recipes = ({ recipes, loading }) => {
-  const { colorMode } = useColorMode();
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
-
   return (
     <Flex p={2} width="full">
       <VStack width="full">
