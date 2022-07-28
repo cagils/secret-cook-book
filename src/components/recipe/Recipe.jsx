@@ -12,33 +12,28 @@ import { Photo } from '@/components/recipe/Photo';
 import { RecipeTitle } from '@/components/recipe/RecipeTitle';
 import { ShortDesc } from '@/components/recipe/ShortDesc';
 import { useEscape } from '@/lib/hooks/useEscape';
-import { useRenderCounter } from '@/lib/hooks/useRenderCounter';
 import { random } from '@/lib/tools';
+import { OrnamentDivider } from '@/resources/svgs';
 
 setAutoFreeze(false);
 
-export const Recipe = ({ initialEditable, recipeId, user }) => {
-  const renderCounter = useRenderCounter();
+export const Recipe = ({
+  initialEditable,
+  recipeId,
+  initialRecipe,
+  saveRecipe,
+  user,
+}) => {
+  // const renderCounter = useRenderCounter();
   const [editable, setEditable] = useState(initialEditable);
   const { colorMode } = useColorMode();
   const mode = (lightValue, darkValue) =>
     colorMode == 'light' ? lightValue : darkValue;
-
-  const [recipe, setRecipe] = useState({});
   const [loading, setLoading] = useState(false);
-  const [ingredients, setIngredients] = useState([]);
-  const [description, setDescription] = useState('');
-  const [shortDesc, setShortDesc] = useState('');
-  const [title, setTitle] = useState('');
+  const [ingredients, setIngredients] = useState(initialRecipe?.ingredients);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [instanceKey, setInstanceKey] = useState(random());
-  const [reload, setReload] = useState(0);
-
-  const onEscape = useCallback(() => {
-    setEditable(false);
-    handleReload();
-  }, []);
-  useEscape(onEscape);
 
   const router = useRouter();
 
@@ -89,6 +84,10 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
   useEffect(() => {
     formReset();
   }, [formReset, ingredients]);
+
+  useEffect(() => {
+    setIngredients(initialRecipe?.ingredients);
+  }, [initialRecipe]);
 
   const unregisterAll = useCallback(() => {
     unregister(['group', 'desc']);
@@ -162,12 +161,6 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
     setInstanceKey((prev) => random(prev));
   }, [unregisterAll]);
 
-  const handleReload = useCallback(() => {
-    setLoading(true);
-    setReload((reload) => reload ^ 1);
-    // router.replace(router.asPath); // This call refreshes page without reloading and causes Next.js to reapply getServerSideProps() method
-  }, []);
-
   const changeEditable = useCallback((value) => {
     console.log('value', value);
     setEditable(value);
@@ -179,67 +172,14 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
 
   const cancelEdit = useCallback(() => {
     setEditable(false);
-    handleReload();
-  }, [handleReload]);
+  }, []);
 
-  useEffect(() => {
-    let abort = false;
-    setLoading(true);
+  const onEscape = useCallback(() => {
+    setEditable(false);
+  }, []);
+  useEscape(onEscape);
 
-    if (!recipeId) {
-      console.log('recipeId is not defined. Aborting fetch.');
-      return;
-    }
-
-    const loadRecipe = async () => {
-      const fetchUrl = `/api/recipes/${recipeId}`;
-      console.log(`fetching ${fetchUrl}`);
-      const response = await fetch(fetchUrl, {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (abort) return;
-      let res = await response.json();
-      console.log('res:');
-      console.log(res, undefined, 2);
-      if (!response.ok) {
-        console.log('response was not ok:', response.status);
-
-        // const redirect = decodeURIComponent(res.return);
-        if (response.status == 401) {
-          router.push('/');
-        }
-      }
-      console.log('fetched.');
-      setRecipe(res.data);
-      setIngredients(res.data?.ingredients ?? []);
-      const desc = res.data?.description?.text.replace(/\\n/g, '\n');
-      const shortDesc = res.data?.shortDesc.replace(/\\n/g, '\n');
-      const title = res.data?.title;
-      setDescription(desc ?? '');
-      setShortDesc(shortDesc ?? '');
-      setTitle(title ?? '');
-    };
-
-    loadRecipe()
-      .then(() => {
-        setLoading(false);
-        handleReset();
-      })
-      .catch((e) => {
-        console.log('Error thrown from loadRecipe', e);
-      });
-
-    return () => {
-      console.log('returning from useEffect fetch');
-      abort = true;
-    };
-  }, [recipeId, handleReset, reload, router]);
-
-  const saveRecipe = async () => {
+  const _saveRecipe = async () => {
     changeEditable(false);
 
     // const formValues = getValues();
@@ -252,31 +192,19 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
     console.log('formStateIngredients:');
     console.log(JSON.stringify(formStateIngredients, undefined, 2));
 
-    const formStateDescription = getValues()?.description?.text || description;
-    const formStateShortDesc = getValues()?.shortDesc || shortDesc;
-    const formStateTitle = getValues()?.title || title;
+    const formStateDescription =
+      getValues()?.description?.text || initialRecipe?.description?.text;
+    const formStateShortDesc =
+      getValues()?.shortDesc || initialRecipe?.shortDesc;
+    const formStateTitle = getValues()?.title || initialRecipe?.title;
 
-    const fetchUrl = `/api/recipes/${recipeId}`;
-    console.log(`patching ${fetchUrl}`);
-    const response = await fetch(fetchUrl, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        title: formStateTitle,
-        shortDesc: formStateShortDesc,
-        description: { text: formStateDescription },
-        ingredients: formStateIngredients,
-      }),
-    });
-    console.log('patched.');
-
-    if (!response.ok) {
-      throw new Error(`Error: ${response.status}`);
-    }
-    let res = await response.json();
-    setRecipe(res.data);
+    const body = {
+      title: formStateTitle,
+      shortDesc: formStateShortDesc,
+      description: { text: formStateDescription },
+      ingredients: formStateIngredients,
+    };
+    await saveRecipe(body);
   };
 
   const onFormSubmit = async (data) => {
@@ -286,14 +214,13 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
 
     try {
       console.log(data);
-      await saveRecipe();
+      await _saveRecipe();
       console.log('SAVED!');
     } catch (e) {
       console.log('error', e);
     } finally {
       setIsSubmitting(false);
       setLoading(false);
-      setReload((reload) => reload ^ 1);
     }
   };
 
@@ -336,7 +263,7 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
             overflow="hidden"
           >
             <RecipeTitle
-              recipeTitle={recipe?.title}
+              recipeTitle={initialRecipe?.title}
               editable={editable}
               loading={loading}
               handleEdit={handleEdit}
@@ -421,18 +348,31 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
               >
                 <Photo
                   editable={editable}
-                  photoUrl={recipe?.photo}
+                  photoUrl={initialRecipe?.photo}
                   user={user}
-                  recipeId={recipe?.recipeId}
+                  recipeId={initialRecipe?.recipeId}
                 />
                 <ShortDesc
-                  shortDesc={recipe?.shortDesc}
+                  shortDesc={
+                    initialRecipe?.shortDesc?.replace(/\\n/g, '\n') || ''
+                  }
                   editable={editable}
                   loading={loading}
                 />
+                <Flex alignItems="center" justifyContent="center" mt="8">
+                  <OrnamentDivider
+                    height="5em"
+                    fill={mode(
+                      'var(--chakra-colors-pink-400)',
+                      'var(--chakra-colors-pink-500)'
+                    )}
+                  />
+                </Flex>
                 <Description
                   editable={editable}
-                  description={description}
+                  description={
+                    initialRecipe?.description?.text.replace(/\\n/g, '\n') || ''
+                  }
                   loading={loading}
                 />
               </Box>
@@ -452,13 +392,6 @@ export const Recipe = ({ initialEditable, recipeId, user }) => {
             p={4}
             mt={4}
           >
-            {/* <Box flex="1"></Box>
-            <Button size="xs" variant="outline" onClick={() => handleReset()}>
-              RESET
-            </Button>
-            <Button size="xs" variant="outline" onClick={() => handleReload()}>
-              RELOAD
-            </Button> */}
             {editable ? (
               <>
                 <Button

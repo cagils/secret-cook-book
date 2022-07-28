@@ -26,6 +26,7 @@ export const ReorderableItem = ({ children, id }) => {
       id={id}
       my={2}
       p={0}
+      mx={-6}
     >
       <IconButton
         height={10}
@@ -43,6 +44,7 @@ export const ReorderableItem = ({ children, id }) => {
           e.preventDefault;
         }}
         _active={{ background: 'none' }}
+        _hover={{ background: 'none' }}
       />
       {children}
     </Flex>

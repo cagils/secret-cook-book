@@ -6,17 +6,17 @@ import {
   MouseSensor,
   PointerSensor,
   useSensor,
-  useSensors,
+  useSensors
 } from '@dnd-kit/core';
 import {
   restrictToParentElement,
-  restrictToVerticalAxis,
+  restrictToVerticalAxis
 } from '@dnd-kit/modifiers';
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
-  verticalListSortingStrategy,
+  verticalListSortingStrategy
 } from '@dnd-kit/sortable';
 import { useEffect, useState } from 'react';
 

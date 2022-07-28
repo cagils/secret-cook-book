@@ -1,7 +1,6 @@
 import { Box, Divider, Text, useColorMode } from '@chakra-ui/react';
 
 import { FInput } from '@/components/helpers/form/FInput';
-import { OrnamentDivider } from '@/resources/svgs';
 
 export const ShortDesc = ({ shortDesc, editable, loading }) => {
   const { colorMode } = useColorMode();
@@ -69,15 +68,6 @@ export const ShortDesc = ({ shortDesc, editable, loading }) => {
         </Box>
       )}
       <Divider />
-      <Box width="full" alignItems="center" justifyContent="center" mt="8">
-        <OrnamentDivider
-          height="5em"
-          fill={mode(
-            'var(--chakra-colors-pink-400)',
-            'var(--chakra-colors-pink-500)'
-          )}
-        />
-      </Box>
     </Box>
   );
 };

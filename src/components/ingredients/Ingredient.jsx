@@ -53,16 +53,12 @@ export const Ingredient = ({
                 placeholder="Item name"
                 // rest...
                 bgColor={mode('pink.100', 'blackAlpha.300')}
-                //minWidth={{ base: '10em', md: '20em', lg: '60em' }}
-                //maxWidth={{ base: 'initial', md: 'initial', lg: 'initial' }}
-                //width="full"
                 height={10}
                 disabled={loading}
                 readOnly={dragOverlay}
-                //focusBorderColor="pink.400"
-                fontSize="1.4em"
+                fontSize="1.1em"
                 fontFamily="ingredients"
-                fontStyle="italic"
+                // fontStyle="italic"
                 color={mode('gray.700', 'gray.300')}
               />
             </Box>
