@@ -19,7 +19,6 @@ setAutoFreeze(false);
 
 export const Recipe = ({
   initialEditable,
-  recipeId,
   initialRecipe,
   saveRecipe,
   user,
@@ -339,8 +338,6 @@ export const Recipe = ({
               overflow="hidden"
             >
               <Box
-                alignItems="center"
-                justfiy="center"
                 flex="1"
                 p={{ base: '4px', sm: '6px', md: '8px', xl: '10px' }}
                 borderRadius="lg"
@@ -354,21 +351,30 @@ export const Recipe = ({
                   recipeId={initialRecipe?.recipeId}
                   handleUploadPicture={handleUploadPicture}
                 />
-                <ShortDesc
-                  shortDesc={
-                    initialRecipe?.shortDesc?.replace(/\\n/g, '\n') || ''
-                  }
-                  editable={editable}
-                  loading={loading}
-                />
-                <Flex alignItems="center" justifyContent="center" mt="8">
-                  <OrnamentDivider
-                    height="5em"
-                    fill={mode(
-                      'var(--chakra-colors-pink-400)',
-                      'var(--chakra-colors-pink-500)'
-                    )}
-                  />
+                <Flex
+                  direction={'column'}
+                  alignItems="center"
+                  justifyContent="center"
+                  mt="8"
+                >
+                  <Box>
+                    <ShortDesc
+                      shortDesc={
+                        initialRecipe?.shortDesc?.replace(/\\n/g, '\n') || ''
+                      }
+                      editable={editable}
+                      loading={loading}
+                    />
+                  </Box>
+                  <Box>
+                    <OrnamentDivider
+                      height="5em"
+                      fill={mode(
+                        'var(--chakra-colors-pink-400)',
+                        'var(--chakra-colors-pink-500)'
+                      )}
+                    />
+                  </Box>
                 </Flex>
                 <Description
                   editable={editable}

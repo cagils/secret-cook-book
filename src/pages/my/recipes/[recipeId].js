@@ -150,7 +150,6 @@ export default function RecipePage() {
     recipe && (
       <Recipe
         initialEditable={fresh == 'true'}
-        recipeId={recipeId}
         initialRecipe={recipe}
         user={session?.user}
         saveRecipe={saveRecipe}
