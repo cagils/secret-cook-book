@@ -34,7 +34,7 @@ export const Photo = ({
       return null;
     }
     const rand = nanoid();
-    return `${user.id}_${recipeId}_${rand}.png`;
+    return `${user.email}_${recipeId}_${rand}.png`;
   }, [user, recipeId]);
 
   const mode = (lightValue, darkValue) =>

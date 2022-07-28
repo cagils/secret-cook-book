@@ -13,15 +13,25 @@ const options = {
     verifyRequest: '/',
   },
   callbacks: {
-    session: async ({ session, token, user }) => {
-      if (session?.user) {
-        session.user.id = user.id;
+    async session({ session, token, user }) {
+      console.log('in session callback,', session, token, user);
+      if (token) {
+        session.user.id = token.id;
       }
-      return Promise.resolve(session);
+      return session;
+    },
+    async jwt({ token, user, account, profile, isNewUser }) {
+      console.log('in jwt user =', user, account, profile, isNewUser);
+      console.log(user);
+      if (user) {
+        token.id = user.id;
+      }
+
+      return token;
     },
   },
   session: {
-    strategy: 'database',
+    strategy: 'jwt',
   },
   providers: [
     GoogleProvider({

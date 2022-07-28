@@ -50,7 +50,7 @@ export default function RecipesPage() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (session?.user.id !== user?.id) {
+    if (session?.user.email !== user?.email) {
       setUser(session?.user);
     } else {
       console.log('session updated but same user');
@@ -65,7 +65,7 @@ export default function RecipesPage() {
 
     try {
       const loadRecipes = async () => {
-        const fetchUrl = `/api/recipes/?userId=${session?.user?.id}`;
+        const fetchUrl = `/api/recipes/?userId=${session?.user?.email}`;
         console.log(`fetching ${fetchUrl}`);
         const response = await fetch(fetchUrl, {
           method: 'GET',
@@ -107,7 +107,7 @@ export default function RecipesPage() {
       },
       body: JSON.stringify({
         recipeId: `${newRecipeId}`,
-        userId: `${session?.user?.id}`,
+        userId: `${session?.user?.email}`,
         photo: '',
         title: '',
         shortDesc: '',

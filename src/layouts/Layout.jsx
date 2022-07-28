@@ -99,8 +99,6 @@ export const Layout = ({ children }) => {
                       <Flex m={2} justifyContent="end">
                         {session && (
                           <Text fontSize="0.8em" textAlign="end" mr={2}>
-                            {session.user.id}
-                            <br />
                             {session.user.email}
                           </Text>
                         )}
