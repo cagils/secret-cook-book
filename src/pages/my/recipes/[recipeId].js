@@ -1,10 +1,11 @@
 import { enableAllPlugins } from 'immer';
 import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 import { Recipe } from '@/components/recipe/Recipe';
 import { Layout } from '@/layouts/Layout';
-import { useEffect, useState } from 'react';
+import { supabase } from '@/lib/supabase';
 
 enableAllPlugins();
 
@@ -105,6 +106,46 @@ export default function RecipePage() {
     setRecipe(res.data);
   };
 
+  const handleUploadPicture = async (file, oldFileName, fileName) => {
+    const { data1, error1 } = await supabase.storage
+      .from('recipe-photos')
+      .upload(`public/${fileName}`, file, {
+        cacheControl: '1',
+        upsert: true,
+      });
+    if (oldFileName) {
+      const { data2, error2 } = await supabase.storage
+        .from('recipe-photos')
+        .remove([`public/${oldFileName}`]);
+    }
+    const { publicURL, error3 } = supabase.storage
+      .from('recipe-photos')
+      .getPublicUrl(`public/${fileName}`);
+
+    if (!recipeId || !publicURL) return;
+    const fetchUrl = `/api/recipes/${recipeId}`;
+    console.log(`patching ${fetchUrl} for photo upload`);
+    const response = await fetch(fetchUrl, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        patchType: 'photo',
+        photo: publicURL,
+      }),
+    });
+    console.log('patched.');
+
+    if (!response.ok) {
+      // throw new Error(`Error: ${response.status}`);
+      console.log('photo useEffect response not ok', response.status);
+    }
+    let res = await response.json();
+
+    return publicURL;
+  };
+
   return (
     recipe && (
       <Recipe
@@ -113,6 +154,7 @@ export default function RecipePage() {
         initialRecipe={recipe}
         user={session?.user}
         saveRecipe={saveRecipe}
+        handleUploadPicture={handleUploadPicture}
       />
     )
   );

@@ -12,9 +12,14 @@ import { nanoid } from 'nanoid';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { OverlayFader } from '@/components/helpers/OverlayFader';
-import { supabase } from '@/lib/supabase';
 
-export const Photo = ({ photoUrl, user, editable, recipeId }) => {
+export const Photo = ({
+  photoUrl,
+  user,
+  editable,
+  recipeId,
+  handleUploadPicture,
+}) => {
   const uploadRef = useRef();
   const { colorMode } = useColorMode();
   const [imageUrl, setImageUrl] = useState(photoUrl);
@@ -50,47 +55,11 @@ export const Photo = ({ photoUrl, user, editable, recipeId }) => {
       return;
     }
     const file = uploadRef.current.files[0];
-    const { data1, error1 } = await supabase.storage
-      .from('recipe-photos')
-      .upload(`public/${fileName}`, file, {
-        cacheControl: '1',
-        upsert: true,
-      });
-    console.log('removing old image: ' + oldFileName);
-    if (oldFileName) {
-      const { data2, error2 } = await supabase.storage
-        .from('recipe-photos')
-        .remove([`public/${oldFileName}`]);
-    }
-    const { publicURL, error3 } = supabase.storage
-      .from('recipe-photos')
-      .getPublicUrl(`public/${fileName}`);
+
+    // upload picture and update db path
+    const publicURL = await handleUploadPicture(file, oldFileName, fileName);
 
     setImageUrl(publicURL);
-    const saveImageUrl = async () => {
-      if (!recipeId || !publicURL) return;
-      const fetchUrl = `/api/recipes/${recipeId}`;
-      console.log(`patching ${fetchUrl} for photo upload`);
-      const response = await fetch(fetchUrl, {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          patchType: 'photo',
-          photo: publicURL,
-        }),
-      });
-      console.log('patched.');
-
-      if (!response.ok) {
-        // throw new Error(`Error: ${response.status}`);
-        console.log('photo useEffect response not ok', response.status);
-      }
-      let res = await response.json();
-    };
-
-    saveImageUrl();
   };
 
   return (

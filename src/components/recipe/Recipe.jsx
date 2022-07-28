@@ -23,6 +23,7 @@ export const Recipe = ({
   initialRecipe,
   saveRecipe,
   user,
+  handleUploadPicture,
 }) => {
   // const renderCounter = useRenderCounter();
   const [editable, setEditable] = useState(initialEditable);
@@ -351,6 +352,7 @@ export const Recipe = ({
                   photoUrl={initialRecipe?.photo}
                   user={user}
                   recipeId={initialRecipe?.recipeId}
+                  handleUploadPicture={handleUploadPicture}
                 />
                 <ShortDesc
                   shortDesc={
