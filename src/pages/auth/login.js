@@ -7,16 +7,18 @@ import { useRouter } from 'next/router';
 
 export default function LoginPage({ providers }) {
   const { data: session, status } = useSession();
-  const { error } = useRouter().query;
+  const { error, verify } = useRouter().query;
 
-  const handleLogin = (providerId) => {
-    signIn(providerId);
+  const handleLogin = (providerId, email) => {
+    console.log('email=', email);
+    if (email) signIn(providerId, { email });
+    else signIn(providerId);
   };
-
   return (
     <Box width="full">
       <LoginForm
         error={error}
+        verify={verify}
         providers={providers}
         handleLogin={handleLogin}
         loading={status?.loading}

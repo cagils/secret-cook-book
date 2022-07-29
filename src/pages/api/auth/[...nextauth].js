@@ -1,5 +1,6 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
 import NextAuth from 'next-auth';
+import EmailProvider from 'next-auth/providers/email';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
@@ -10,13 +11,14 @@ const options = {
     signIn: '/auth/login',
     signOut: '/auth/login',
     error: '/auth/login',
-    verifyRequest: '/auth/login',
+    verifyRequest: '/auth/login?verify=true',
   },
   callbacks: {
     async session({ session, token, user }) {
       console.log('in session callback,', session, token, user);
       if (token) {
         session.user.id = token.id;
+        session.user.provider = token.provider;
       }
       return session;
     },
@@ -25,6 +27,7 @@ const options = {
       console.log(user);
       if (user) {
         token.id = user.id;
+        token.provider = account.provider;
       }
 
       return token;
@@ -52,7 +55,7 @@ const options = {
       authorizationUrl:
         'https://github.com/login/oauth/authorize?login=true&response_type=code&  prompt=consent',
     }),
-    /* EmailProvider({
+    EmailProvider({
       server: {
         host: process.env.EMAIL_SERVER_HOST,
         port: process.env.EMAIL_SERVER_PORT,
@@ -63,7 +66,7 @@ const options = {
       },
       from: process.env.EMAIL_FROM,
       maxAge: 10 * 60, // Magic links are valid for 10 min only
-    }), */
+    }),
   ],
   adapter: PrismaAdapter(prisma),
 };

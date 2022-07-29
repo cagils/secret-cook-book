@@ -4,12 +4,17 @@ import {
   Box,
   Button,
   Heading,
+  InputGroup,
+  InputRightElement,
   Stack,
   Text,
   useColorMode,
   VStack,
 } from '@chakra-ui/react';
 import { SignIn } from '@styled-icons/octicons';
+
+import { FInputNoHook } from '@/components/helpers/form/FInputNoHook';
+import { useState } from 'react';
 
 const errors = {
   Signin: 'Try signing with a different account.',
@@ -20,24 +25,35 @@ const errors = {
   Callback: 'Try signing with a different account.',
   OAuthAccountNotLinked:
     'To confirm your identity, sign in with the same account you used originally.',
-  EmailSignin: 'Check your email address.',
+  EmailSignin: 'Please provide a valid email address.',
   CredentialsSignin:
     'Sign in failed. Check the details you provided are correct.',
   default: 'Unable to sign in.',
 };
 
-const SignInError = ({ error }) => {
+const SignInMessage = ({ error, message }) => {
   const errorMessage = error && (errors[error] ?? errors.default);
-  return (
+  return error ? (
     <Alert status="error" variant="left-accent">
       <AlertIcon />
       {errorMessage}
     </Alert>
+  ) : (
+    <Alert status="success" variant="left-accent">
+      <AlertIcon />
+      {message}
+    </Alert>
   );
 };
 
-export const LoginForm = ({ providers, handleLogin, loading, error }) => {
-  // const [email, setEmail] = useState('');
+export const LoginForm = ({
+  providers,
+  handleLogin,
+  loading,
+  error,
+  verify,
+}) => {
+  const [email, setEmail] = useState('');
   const { colorMode } = useColorMode();
   const mode = (lightValue, darkValue) =>
     colorMode == 'light' ? lightValue : darkValue;
@@ -56,45 +72,69 @@ export const LoginForm = ({ providers, handleLogin, loading, error }) => {
         </Heading>
         <Box rounded={'lg'}>
           <Stack spacing={4}>
-            <SignInError error={error} />
-            <Box>
-              {/* <FInputNoHook
-                  autoFocus
-                  fieldName={`title`}
-                  label={''}
-                  helper={
-                    'Please enter your email to receive a magic link for login'
-                  }
-                  defaultValue={''}
-                  placeholder="email"
-                  error=""
-                  invalid={false}
-                  //nav
-                  disabled={loading}
-                  color={mode('pink.500', 'pink.200')}
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                /> */}
-            </Box>
-            <Stack spacing={10} alignItems="center">
-              {Object.values(providers).map((provider) => (
-                <Button
-                  key={provider.id}
-                  // colorScheme="google"
-                  type="button"
-                  variant="solid"
-                  isLoading={loading}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleLogin(provider.id);
-                  }}
-                  // leftIcon={<Google size="2em" />
-                  leftIcon={<SignIn size="2em" />}
-                >
-                  <Text>Sign In with {provider.name}</Text>
-                </Button>
-              ))}
-            </Stack>
+            {verify ? (
+              <SignInMessage message="Please check your email to signin..." />
+            ) : (
+              <>
+                {error && <SignInMessage error={error} />}
+                <Stack spacing={10} alignItems="center">
+                  {Object.values(providers).map((provider) => (
+                    <Box key={provider.id}>
+                      {provider.id == 'email' ? (
+                        <InputGroup size="md">
+                          <InputRightElement width="4em" overflow="hidden">
+                            <Button
+                              variant="ghost"
+                              key={provider.id}
+                              type="button"
+                              isLoading={loading}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                handleLogin(provider.id, email);
+                              }}
+                            >
+                              Sign In
+                            </Button>
+                          </InputRightElement>
+                          <FInputNoHook
+                            autoFocus
+                            fieldName={`title`}
+                            label={''}
+                            helper={
+                              'Please enter your email to receive a magic link for login'
+                            }
+                            defaultValue={''}
+                            placeholder="email"
+                            error=""
+                            invalid={false}
+                            //nav
+                            disabled={loading}
+                            color={mode('pink.500', 'pink.200')}
+                            type="email"
+                            onChange={(e) => setEmail(e.target.value)}
+                          />
+                        </InputGroup>
+                      ) : (
+                        <Button
+                          // colorScheme="google"
+                          type="button"
+                          variant="solid"
+                          isLoading={loading}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleLogin(provider.id);
+                          }}
+                          // leftIcon={<Google size="2em" />
+                          leftIcon={<SignIn size="2em" />}
+                        >
+                          <Text>Sign In with {provider.name}</Text>
+                        </Button>
+                      )}
+                    </Box>
+                  ))}
+                </Stack>
+              </>
+            )}
           </Stack>
         </Box>
       </Box>
