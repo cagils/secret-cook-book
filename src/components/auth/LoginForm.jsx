@@ -11,10 +11,14 @@ import {
   useColorMode,
   VStack,
 } from '@chakra-ui/react';
-import { SignIn } from '@styled-icons/octicons';
+
+import { useRef, useState } from 'react';
 
 import { FInputNoHook } from '@/components/helpers/form/FInputNoHook';
-import { useState } from 'react';
+import { GoogleGLogo } from '@/resources/svgs';
+import { Github } from '@styled-icons/boxicons-logos';
+import { Email } from '@styled-icons/entypo';
+import { OverlayFader } from '../helpers/OverlayFader';
 
 const errors = {
   Signin: 'Try signing with a different account.',
@@ -57,75 +61,110 @@ export const LoginForm = ({
   const { colorMode } = useColorMode();
   const mode = (lightValue, darkValue) =>
     colorMode == 'light' ? lightValue : darkValue;
+  const emailButton = useRef();
+
+  const getLogo = (provider) => {
+    const logos = {
+      email: <Email size="2em" />,
+      google: <GoogleGLogo size="2em" />,
+      github: <Github size="2em" />,
+    };
+
+    return logos[provider];
+  };
 
   return (
     <VStack h="full" justifyContent="center" alignItems="center">
       <Box
-        bg={mode('gray.50', 'gray.900')}
-        boxShadow={'2xl'}
+        bg={mode('whiteAlpha.600', 'blackAlpha.700')}
+        boxShadow={'lg'}
         rounded={'md'}
         p={6}
         overflow={'hidden'}
+        pos="relative"
       >
+        <OverlayFader active={loading} />
         <Heading color={mode('pink.500', 'pink.400')} size="xl" mb="0.5em">
-          Sign in to your account
+          Sign in to your account...
         </Heading>
-        <Box rounded={'lg'}>
-          <Stack spacing={4}>
+        <Box rounded={'lg'} width="full">
+          <Stack width="full">
             {verify ? (
               <SignInMessage message="Please check your email to signin..." />
             ) : (
               <>
                 {error && <SignInMessage error={error} />}
-                <Stack spacing={10} alignItems="center">
+                <Stack alignItems="center" width="full">
                   {Object.values(providers).map((provider) => (
-                    <Box key={provider.id}>
+                    <Box key={provider.id} width="full">
                       {provider.id == 'email' ? (
-                        <InputGroup size="md">
-                          <InputRightElement width="4em" overflow="hidden">
-                            <Button
-                              variant="ghost"
-                              key={provider.id}
-                              type="button"
-                              isLoading={loading}
-                              onClick={(e) => {
-                                e.preventDefault();
-                                handleLogin(provider.id, email);
+                        <>
+                          <Heading
+                            color={mode('pink.500', 'pink.400')}
+                            size="lg"
+                            mb="0.3em"
+                            mt="1em"
+                            textAlign="keft"
+                          >
+                            or use a magic link:
+                          </Heading>
+                          <InputGroup size="md">
+                            <InputRightElement width="4em" overflow="hidden">
+                              <Button
+                                ref={emailButton}
+                                variant="ghost"
+                                key={provider.id}
+                                type="button"
+                                isLoading={loading}
+                                _hover={{}}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleLogin(provider.id, email);
+                                }}
+                              >
+                                Sign In
+                              </Button>
+                            </InputRightElement>
+                            <FInputNoHook
+                              autoFocus
+                              fieldName={`title`}
+                              label={''}
+                              helper={
+                                'Please enter your email to receive a magic link for login'
+                              }
+                              defaultValue={''}
+                              placeholder="email"
+                              error=""
+                              invalid={false}
+                              variant="solid"
+                              //nav
+                              disabled={loading}
+                              color={mode('pink.500', 'pink.200')}
+                              type="email"
+                              onChange={(e) => setEmail(e.target.value)}
+                              onKeyPress={(e) => {
+                                if (e.key === 'Enter') {
+                                  emailButton.current.click();
+                                }
                               }}
-                            >
-                              Sign In
-                            </Button>
-                          </InputRightElement>
-                          <FInputNoHook
-                            autoFocus
-                            fieldName={`title`}
-                            label={''}
-                            helper={
-                              'Please enter your email to receive a magic link for login'
-                            }
-                            defaultValue={''}
-                            placeholder="email"
-                            error=""
-                            invalid={false}
-                            //nav
-                            disabled={loading}
-                            color={mode('pink.500', 'pink.200')}
-                            type="email"
-                            onChange={(e) => setEmail(e.target.value)}
-                          />
-                        </InputGroup>
+                            />
+                          </InputGroup>
+                        </>
                       ) : (
                         <Button
-                          // colorScheme="google"
+                          colorScheme="gray"
+                          width="full"
+                          backgroundColor="white"
+                          color="gray.600"
                           type="button"
                           variant="solid"
                           isLoading={loading}
+                          _hover={{ bg: mode('pink.200', 'purple.200') }}
                           onClick={(e) => {
                             e.preventDefault();
                             handleLogin(provider.id);
                           }}
-                          // leftIcon={<Google size="2em" />
-                          leftIcon={<SignIn size="2em" />}
+                          leftIcon={getLogo(provider.id)}
                         >
                           <Text>Sign In with {provider.name}</Text>
                         </Button>

@@ -4,12 +4,15 @@ import { getProviders, getSession, signIn, useSession } from 'next-auth/react';
 import { LoginForm } from '@/components/auth/LoginForm';
 import { Layout } from '@/layouts/Layout';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 
 export default function LoginPage({ providers }) {
   const { data: session, status } = useSession();
+  const [loading, setLoading] = useState(false);
   const { error, verify } = useRouter().query;
 
   const handleLogin = (providerId, email) => {
+    setLoading(true);
     console.log('email=', email);
     if (email) signIn(providerId, { email });
     else signIn(providerId);
@@ -21,7 +24,7 @@ export default function LoginPage({ providers }) {
         verify={verify}
         providers={providers}
         handleLogin={handleLogin}
-        loading={status?.loading}
+        loading={status?.loading || loading}
       />
     </Box>
   );
