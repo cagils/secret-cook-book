@@ -8,7 +8,13 @@ export const ShortDesc = ({ shortDesc, editable, loading }) => {
     colorMode == 'light' ? lightValue : darkValue;
 
   return (
-    <Box alignItems="center" justifyContent="center" mb={8} maxWidth="60em">
+    <Box
+      // alignItems="center"
+      // justifyContent="center"
+      width="full"
+      mb={8}
+      maxWidth="60em"
+    >
       <Divider />
       {!editable ? (
         <Text
@@ -39,33 +45,31 @@ export const ShortDesc = ({ shortDesc, editable, loading }) => {
           {shortDesc}
         </Text>
       ) : (
-        <Box>
-          <FInput
-            type="area"
-            fieldName={`shortDesc`}
-            rules={{ required: 'This is required' }}
-            label={null}
-            helper={null}
-            defaultValue={shortDesc}
-            placeholder="Short description"
-            disabled={loading}
-            px={2}
-            py={4}
-            m={0}
-            rows={3}
-            fontStyle="italic"
-            fontSize={{
-              base: '1.2em',
-              sm: '1.5em',
-              md: '1.5em',
-              lg: '1.5em',
-              xl: '1.5em',
-            }}
-            fontFamily="quote"
-            fontWeight="regular"
-            textAlign="center"
-          />
-        </Box>
+        <FInput
+          type="area"
+          fieldName={`shortDesc`}
+          rules={{ required: 'This is required' }}
+          label={null}
+          helper={null}
+          defaultValue={shortDesc}
+          placeholder="Short description"
+          disabled={loading}
+          px={2}
+          py={4}
+          m={0}
+          rows={3}
+          fontStyle="italic"
+          fontSize={{
+            base: '1.2em',
+            sm: '1.5em',
+            md: '1.5em',
+            lg: '1.5em',
+            xl: '1.5em',
+          }}
+          fontFamily="quote"
+          fontWeight="regular"
+          textAlign="center"
+        />
       )}
       <Divider />
     </Box>

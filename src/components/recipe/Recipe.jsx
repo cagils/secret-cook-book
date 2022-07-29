@@ -357,7 +357,7 @@ export const Recipe = ({
                   justifyContent="center"
                   mt="8"
                 >
-                  <Box>
+                  <Box width="full">
                     <ShortDesc
                       shortDesc={
                         initialRecipe?.shortDesc?.replace(/\\n/g, '\n') || ''
@@ -403,13 +403,8 @@ export const Recipe = ({
             {editable ? (
               <>
                 <Button
-                  size="xs"
-                  type="button"
-                  variant="outline"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    cancelEdit();
-                  }}
+                  size="md"
+                  type="submit"
                   color={mode('white', 'pink.800')}
                   //variant="gradient"
                   //bgGradient="linear(to-r, purple.300, pink.300)"
@@ -417,6 +412,11 @@ export const Recipe = ({
                   letterSpacing={1.1}
                   fontWeight="semibold"
                   //isLoading={isSubmitting}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    cancelEdit();
+                  }}
+                  mx="2"
                 >
                   Cancel
                 </Button>
@@ -430,6 +430,7 @@ export const Recipe = ({
                   letterSpacing={1.1}
                   fontWeight="semibold"
                   //isLoading={isSubmitting}
+                  mx="2"
                 >
                   Save
                 </Button>
