@@ -7,10 +7,10 @@ import prisma from '@/lib/prisma';
 
 const options = {
   pages: {
-    signIn: '/',
-    signOut: '/',
-    error: '/',
-    verifyRequest: '/',
+    signIn: '/auth/login',
+    signOut: '/auth/login',
+    error: '/auth/login',
+    verifyRequest: '/auth/login',
   },
   callbacks: {
     async session({ session, token, user }) {
@@ -37,10 +37,20 @@ const options = {
     GoogleProvider({
       clientId: process.env.GOOGLE_ID,
       clientSecret: process.env.GOOGLE_SECRET,
+      httpOptions: {
+        timeout: 40000,
+      },
+      authorizationUrl:
+        'https://accounts.google.com/o/oauth2/auth?response_type=code&prompt=consent',
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET,
+      httpOptions: {
+        timeout: 40000,
+      },
+      authorizationUrl:
+        'https://github.com/login/oauth/authorize?login=true&response_type=code&  prompt=consent',
     }),
     /* EmailProvider({
       server: {

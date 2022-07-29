@@ -3,30 +3,11 @@ import { getProviders, getSession, signIn, useSession } from 'next-auth/react';
 
 import { LoginForm } from '@/components/auth/LoginForm';
 import { Layout } from '@/layouts/Layout';
+import { useRouter } from 'next/router';
 
 export default function LoginPage({ providers }) {
   const { data: session, status } = useSession();
-  // const [loading, setLoading] = useState(false);
-
-  /*   const handleSupabaseLogin = async (email) => {
-    try {
-      setLoading(true);
-      const { user, session, error } = await supabase.auth.signIn(
-        {
-          provider: 'google',
-        },
-        {
-          redirectTo: 'https://secret-cook-book.vercel.app',
-        }
-      );
-      if (error) throw error;
-      //alert('Check your email for the login link!');
-    } catch (error) {
-      alert(error.error_description || error.message);
-    } finally {
-      setLoading(false);
-    }
-  }; */
+  const { error } = useRouter().query;
 
   const handleLogin = (providerId) => {
     signIn(providerId);
@@ -35,6 +16,7 @@ export default function LoginPage({ providers }) {
   return (
     <Box width="full">
       <LoginForm
+        error={error}
         providers={providers}
         handleLogin={handleLogin}
         loading={status?.loading}

@@ -1,4 +1,6 @@
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   Heading,
@@ -9,7 +11,32 @@ import {
 } from '@chakra-ui/react';
 import { SignIn } from '@styled-icons/octicons';
 
-export const LoginForm = ({ providers, handleLogin, loading }) => {
+const errors = {
+  Signin: 'Try signing with a different account.',
+  OAuthSignin: 'Try signing with a different account.',
+  OAuthCallback: 'Try signing with a different account.',
+  OAuthCreateAccount: 'Try signing with a different account.',
+  EmailCreateAccount: 'Try signing with a different account.',
+  Callback: 'Try signing with a different account.',
+  OAuthAccountNotLinked:
+    'To confirm your identity, sign in with the same account you used originally.',
+  EmailSignin: 'Check your email address.',
+  CredentialsSignin:
+    'Sign in failed. Check the details you provided are correct.',
+  default: 'Unable to sign in.',
+};
+
+const SignInError = ({ error }) => {
+  const errorMessage = error && (errors[error] ?? errors.default);
+  return (
+    <Alert status="error" variant="left-accent">
+      <AlertIcon />
+      {errorMessage}
+    </Alert>
+  );
+};
+
+export const LoginForm = ({ providers, handleLogin, loading, error }) => {
   // const [email, setEmail] = useState('');
   const { colorMode } = useColorMode();
   const mode = (lightValue, darkValue) =>
@@ -29,6 +56,7 @@ export const LoginForm = ({ providers, handleLogin, loading }) => {
         </Heading>
         <Box rounded={'lg'}>
           <Stack spacing={4}>
+            <SignInError error={error} />
             <Box>
               {/* <FInputNoHook
                   autoFocus
