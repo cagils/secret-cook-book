@@ -21,6 +21,7 @@ export const Recipe = ({
   initialEditable,
   initialRecipe,
   saveRecipe,
+  deleteRecipe,
   user,
   handleUploadPicture,
 }) => {
@@ -400,6 +401,24 @@ export const Recipe = ({
             p={4}
             mt={4}
           >
+            <Button
+              size="md"
+              type="submit"
+              color={mode('white', 'pink.800')}
+              //variant="gradient"
+              //bgGradient="linear(to-r, purple.300, pink.300)"
+              textTransform={'uppercase'}
+              letterSpacing={1.1}
+              fontWeight="semibold"
+              //isLoading={isSubmitting}
+              onClick={(e) => {
+                e.preventDefault();
+                deleteRecipe();
+              }}
+              mx="2"
+            >
+              Delete
+            </Button>
             {editable ? (
               <>
                 <Button
@@ -437,7 +456,6 @@ export const Recipe = ({
               </>
             ) : (
               <Button
-                colorScheme="green"
                 size="md"
                 //type="submit"
                 type="button"

@@ -108,8 +108,14 @@ const singleRecipe = async (req, res) => {
         res.json({ data: recipe });
         break;
 
+      case 'DELETE':
+        recipe = await models.recipeModel.findOneAndDelete({
+          recipeId: query.recipeId,
+        });
+        res.json({ data: {} });
+        break;
       default:
-        res.setHeader('Allow', ['GET', 'PUT', 'PATCH']);
+        res.setHeader('Allow', ['GET', 'PUT', 'PATCH', 'DELETE']);
         console.log('req.method is ' + req.method);
         res.status(405).json({ error: 'This method is not accepted' });
     }

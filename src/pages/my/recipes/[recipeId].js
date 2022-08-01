@@ -106,6 +106,25 @@ export default function RecipePage() {
     setRecipe(res.data);
   };
 
+  const deleteRecipe = async (body) => {
+    const fetchUrl = `/api/recipes/${recipeId}`;
+    console.log(`deleting ${fetchUrl}`);
+    const response = await fetch(fetchUrl, {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(body),
+    });
+    console.log('deleted.');
+
+    if (!response.ok) {
+      throw new Error(`Error: ${response.status}`);
+    }
+    let res = await response.json();
+    router.push('/my/recipes');
+  };
+
   const handleUploadPicture = async (file, oldFileName, fileName) => {
     const { data1, error1 } = await supabase.storage
       .from('recipe-photos')
@@ -153,6 +172,7 @@ export default function RecipePage() {
         initialRecipe={recipe}
         user={session?.user}
         saveRecipe={saveRecipe}
+        deleteRecipe={deleteRecipe}
         handleUploadPicture={handleUploadPicture}
       />
     )
