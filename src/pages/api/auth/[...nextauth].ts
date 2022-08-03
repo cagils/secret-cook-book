@@ -1,12 +1,12 @@
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
-import NextAuth from 'next-auth';
+import NextAuth, { NextAuthOptions } from 'next-auth';
 import EmailProvider from 'next-auth/providers/email';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
 import prisma from '@/lib/prisma';
 
-const options = {
+const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/auth/login',
     signOut: '/auth/login',
@@ -14,19 +14,21 @@ const options = {
     verifyRequest: '/auth/login?verify=true',
   },
   callbacks: {
-    async session({ session, token, user }) {
+    session({ session, token, user }) {
       console.log('in session callback,', session, token, user);
-      if (token) {
+      if (session.user) {
         session.user.id = token.id;
+        session.user.role = token.role;
         session.user.provider = token.provider;
       }
       return session;
     },
-    async jwt({ token, user, account, profile, isNewUser }) {
+    jwt({ token, user, account, profile, isNewUser }) {
       console.log('in jwt user =', user, account, profile, isNewUser);
       console.log(user);
       if (user) {
         token.id = user.id;
+        token.role = user.role;
         token.provider = account.provider;
       }
 
@@ -43,8 +45,13 @@ const options = {
       httpOptions: {
         timeout: 40000,
       },
-      authorizationUrl:
-        'https://accounts.google.com/o/oauth2/auth?response_type=code&prompt=consent',
+      authorization: {
+        params: {
+          prompt: 'consent',
+          // access_type: 'offline',
+          response_type: 'code',
+        },
+      },
     }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
@@ -52,8 +59,13 @@ const options = {
       httpOptions: {
         timeout: 40000,
       },
-      authorizationUrl:
-        'https://github.com/login/oauth/authorize?login=true&response_type=code&  prompt=consent',
+      authorization: {
+        params: {
+          url: 'https://github.com/login/oauth/authorize',
+          prompt: 'consent',
+          response_type: 'code',
+        },
+      },
     }),
     EmailProvider({
       server: {
@@ -71,4 +83,4 @@ const options = {
   adapter: PrismaAdapter(prisma),
 };
 
-export default NextAuth(options);
+export default NextAuth(authOptions);
