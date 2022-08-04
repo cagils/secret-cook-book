@@ -1,8 +1,19 @@
-// import { Role } from '@prisma/client';
 import { withAuth } from 'next-auth/middleware';
-// import { default } from 'next-auth/middleware';
+
+export default withAuth({
+  pages: {
+    signIn: '/auth/login',
+    signOut: '/auth/login',
+    error: '/auth/login',
+    verifyRequest: '/auth/login?verify=true',
+  },
+});
+
+// export { default } from 'next-auth/middleware';
+// import { Role } from '@prisma/client';
+// import { withAuth } from 'next-auth/middleware';
 // eslint-disable-next-line @next/next/no-server-import-in-page
-import { NextResponse } from 'next/server';
+// import { NextResponse } from 'next/server';
 
 // const ROLES_ALLOWED_TO_AUTH = new Set<Role>([Role.ADMIN, Role.USER]);
 
@@ -34,8 +45,8 @@ import { NextResponse } from 'next/server';
 // }
 
 // More on how NextAuth.js middleware works: https://next-auth.js.org/configuration/nextjs#middleware
-export default withAuth({
-  /*   callbacks: {
+/* export default withAuth({
+  callbacks: {
     authorized({ req, token }) {
       // `/admin` requires admin role
       if (req.nextUrl.pathname === '/admin') {
@@ -44,7 +55,7 @@ export default withAuth({
       // `/my` only requires the user to be logged in
       return !!token;
     },
-  }, */
+  },
 });
-
+ */
 // export const config = { matcher: ['/admin', '/my'] };

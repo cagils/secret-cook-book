@@ -39,9 +39,7 @@ export const RecipeCard = ({ recipe }) => {
           // height="30em"
           >
             <Box
-              // height="20em"
-              // h={'210px'}
-              //bg={'purple.400'}
+              h="20em"
               mt={-6}
               mx={-6}
               mb={6}
@@ -50,16 +48,14 @@ export const RecipeCard = ({ recipe }) => {
             >
               <Image
                 src={recipe?.photo}
+                fallbackSrc={
+                  'https://dummyimage.com/3000x2000/' +
+                  mode('fff', '000') +
+                  '/aaa&text=Photo'
+                }
                 alt={'Recipe Photo'}
                 layout="fill"
-                objectFit="cover"
-                //width="100%"
-                //height="40vh"
-                //minH="20rem"
-                //maxH="30rem"
-                //htmlHeight="100%"
-                //htmlWidth="100%"
-                // objectPosition={'50% 50%'}
+                fit="cover"
                 sx={{
                   aspectRatio: '16 / 9',
                 }}

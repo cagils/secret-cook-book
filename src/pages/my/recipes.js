@@ -18,7 +18,7 @@ import { Layout } from '@/layouts/Layout';
 
 enableAllPlugins();
 
-export async function getServerSideProps(context) {
+/* export async function getServerSideProps(context) {
   // Check if user is authenticated
   const session = await getSession(context);
 
@@ -35,7 +35,7 @@ export async function getServerSideProps(context) {
   return {
     props: {},
   };
-}
+} */
 
 export default function RecipesPage() {
   const { data: session, status } = useSession();

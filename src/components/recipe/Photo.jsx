@@ -194,27 +194,18 @@ export const Photo = ({
               /> */}
 
               <Image
-                src={
-                  imageUrl ||
+                src={imageUrl}
+                fallbackSrc={
                   'https://dummyimage.com/3000x2000/' +
-                    mode('fff', '000') +
-                    '/aaa&text=Photo'
+                  mode('fff', '000') +
+                  '/aaa&text=Photo'
                 }
                 alt={'Recipe Photo'}
                 layout="fill"
                 fit="cover"
                 width="100%"
-                //height="40vh"
                 minH="20rem"
                 maxH="30rem"
-                //htmlHeight="100%"
-                //htmlWidth="100%"
-                //objectPosition={'50% 50%'}
-                sx={
-                  {
-                    // aspectRatio: '16 / 9',
-                  }
-                }
                 onLoad={() => {
                   setLoading(false);
                 }}
