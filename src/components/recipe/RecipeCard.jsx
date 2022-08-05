@@ -55,6 +55,9 @@ export const RecipeCard = ({ recipe }) => {
                 }
                 alt={'Recipe Photo'}
                 layout="fill"
+                width="100%"
+                minH="20rem"
+                maxH="30rem"
                 fit="cover"
                 sx={{
                   aspectRatio: '16 / 9',

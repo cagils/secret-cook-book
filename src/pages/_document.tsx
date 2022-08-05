@@ -12,42 +12,46 @@ export default function Document() {
 
         {/* // GOOGLE WEB FONTS */}
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link
-          rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=block"
+          rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossOrigin="anonymous"
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400;1,500&display=block"
+          href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=optional"
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=block"
+          href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;1,200;1,300;1,400;1,500&display=optional"
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;200;300;400;500;600;700;800&display=block"
+          href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600&display=optional"
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600&display=block"
+          href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@100;200;300;400;500;600;700;800&display=optional"
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@300;400;500;600;700;800&display=block"
+          href="https://fonts.googleapis.com/css2?family=Baloo+Thambi+2:wght@400;500;600&display=optional"
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=block"
+          href="https://fonts.googleapis.com/css2?family=Sansita+Swashed:wght@300;400;500;600;700;800&display=optional"
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=block"
+          href="https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&display=optional"
         />
         <link
           rel="stylesheet"
-          href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=block"
+          href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;500;600;700&display=optional"
+        />
+        <link
+          rel="stylesheet"
+          href="https://fonts.googleapis.com/css2?family=Caveat+Brush&display=optional"
         />
       </Head>
       <body>

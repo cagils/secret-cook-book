@@ -206,6 +206,11 @@ export const Photo = ({
                 width="100%"
                 minH="20rem"
                 maxH="30rem"
+                sx={
+                  {
+                    // aspectRatio: '16 / 9',
+                  }
+                }
                 onLoad={() => {
                   setLoading(false);
                 }}
