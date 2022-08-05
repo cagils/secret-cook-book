@@ -53,6 +53,7 @@
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.8.1",
     "@hookform/error-message": "^2.0.0",
+    "@netlify/plugin-nextjs": "^4.14.1",
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^4.1.0",
     "@styled-icons/boxicons-logos": "^10.38.0",
