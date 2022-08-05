@@ -79,7 +79,8 @@
     "probe-image-size": "^7.2.3",
     "react": "18.0.0",
     "react-dom": "18.0.0",
-    "react-hook-form": "^7.30.0"
+    "react-hook-form": "^7.30.0",
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^5.16.4",
