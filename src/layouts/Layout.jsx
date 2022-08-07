@@ -60,16 +60,17 @@ export const Layout = ({ children }) => {
             width="full"
             minHeight="100vh"
           >
-            <Flex maxWidth="2200px" flex="1" mx="auto">
+            <Flex maxWidth="2200px" w="full" grow="1" mx="auto">
               <VStack
                 spacing={0}
                 width="full"
-                pos="relative"
+                // pos="relative"
                 bgColor={mode('gray.100', 'gray.800')}
-                alignItems="stretch"
+                // alignItems="stretch"
                 justifyContent="center"
               >
                 <HStack
+                  w="full"
                   alignItems="center"
                   justifyContent="center"
                   // boxShadow="base"
@@ -84,24 +85,25 @@ export const Layout = ({ children }) => {
                     width="full"
                     // borderBottomWidth="thin"
                     // borderBottomColor={mode('pink.400', 'pink.400')}
-                    display="flex"
+                    // display="flex"
                     pos="relative"
                     spacing={0}
                   >
                     <Flex
+                      wrap="wrap"
                       // border="1px solid red"
-                      position={{ base: 'initial', md: 'absolute' }}
+                      // position={{ base: 'initial', md: 'absolute' }}
                       alignSelf="stretch"
                       justifyContent="end"
                       alignItems="start"
-                      right={0}
-                      top={0}
+                      // right={2}
+                      // top={2}
                       // px={{ base: '2', sm: '2', md: '4', xl: '5', '2xl': '5' }}
                       // bottom={0}
                       // left={0}
                       zIndex="1000"
                     >
-                      <Flex m={2} justifyContent="end">
+                      <Flex p={2} m={2}>
                         {session && (
                           <Text
                             color={mode('pink.600', 'pink.200')}
@@ -170,63 +172,74 @@ export const Layout = ({ children }) => {
                         />
                       </Flex>
                     </Flex>
-                    <Box
-                      flexDir="row"
+                    <Flex
+                      // flexDir="row"
                       // flex="1"
+                      grow="1"
                       // pos="relative"
-                      // display="block"
+                      // display="flex"
                       w="full"
                       // border="1px solid red"
-                      // justifyContent="flex-start"
                       zIndex="300"
                     >
                       <Box
-                        minWidth="6rem"
-                        width="8rem"
-                        height="8rem"
-                        pos="relative"
+                        // minWidth="6rem"
+                        justifyContent="center"
+                        alignItems="center"
+                        // width="8rem"
+                        // height="8rem"
+                        // pos="relative"
+                        // w="full"
+                        // flex="1"
                       >
                         <Link passHref href="/">
-                          <ImageNext
-                            // width="100%"
-                            // height="100%"
-                            layout="responsive"
-                            alt="Secret Cook Book Logo"
-                            src={SCBLogo}
-                          />
+                          <Flex
+                            wrap="wrap"
+                            alignItems="center"
+                            justifyContent="center"
+                          >
+                            <Image
+                              width="10rem"
+                              // minWidth="10rem"
+                              height="10rem"
+                              alt="Secret Cook Book Logo"
+                              src={'/images/SecretCookBookLogoT.png'}
+                            />
+                            <Heading
+                              // flex="1"
+                              // minWidth="60rem"
+                              // border="1px solid red"
+                              // alignItems="flex-start"
+                              // textShadow="2px 2px 2px white"
+                              // variant="big"
+                              as="h1"
+                              // textAlign="center"
+                              fontSize={{
+                                base: '1.5em',
+                                sm: '2em',
+                                md: '2.5em',
+                                lg: '2.5em',
+                                xl: '3em',
+                              }}
+                              // py={4}
+                              fontFamily="quote"
+                              color={mode('pink.500', 'pink.400')}
+                              textAlign="center"
+                            >
+                              create | share | enjoy
+                              <Text
+                                fontSize="1rem"
+                                fontWeight="light"
+                                color={mode('gray.600', 'gray.400')}
+                                pb={2}
+                              >
+                                kitchen secrets shared with special ones
+                              </Text>
+                            </Heading>
+                          </Flex>
                         </Link>
                       </Box>
-                      <Box
-                        px="2"
-                        mb="2"
-                        alignSelf="flex-start"
-                        // flex="1"
-                        minWidth="10rem"
-                      >
-                        <Heading
-                          // border="1px solid red"
-                          alignItems="flex-start"
-                          // textShadow="2px 2px 2px white"
-                          // variant="big"
-                          as="h1"
-                          // textAlign="center"
-                          fontSize="2rem"
-                          // py={4}
-                          fontFamily="quote"
-                          color={mode('pink.500', 'pink.400')}
-                          textAlign="start"
-                        >
-                          create | share | enjoy
-                          <Text
-                            fontSize="1rem"
-                            fontWeight="light"
-                            color={mode('gray.600', 'gray.400')}
-                          >
-                            kitchen secrets shared with special ones
-                          </Text>
-                        </Heading>
-                      </Box>
-                    </Box>
+                    </Flex>
                   </VStack>
                 </HStack>
                 {/* <OverlayFader active={user} /> */}
@@ -250,6 +263,8 @@ export const Layout = ({ children }) => {
                       'linear(to-r, purple.900, pink.900)'
                     )}
                     //p={2}
+                    w="full"
+                    // border="1px solid red"
                   >
                     {children}
                   </Flex>

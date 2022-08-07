@@ -1,13 +1,13 @@
 import { withAuth } from 'next-auth/middleware';
 
-export default withAuth({
+/* export default withAuth({
   pages: {
     signIn: '/auth/login',
     signOut: '/auth/login',
     error: '/auth/login',
     verifyRequest: '/auth/login?verify=true',
   },
-});
+}); */
 
 // export { default } from 'next-auth/middleware';
 // import { Role } from '@prisma/client';
@@ -45,17 +45,22 @@ export default withAuth({
 // }
 
 // More on how NextAuth.js middleware works: https://next-auth.js.org/configuration/nextjs#middleware
-/* export default withAuth({
+export default withAuth({
+  pages: {
+    signIn: '/auth/login',
+    signOut: '/auth/login',
+    error: '/auth/login',
+    verifyRequest: '/auth/login?verify=true',
+  },
   callbacks: {
     authorized({ req, token }) {
       // `/admin` requires admin role
-      if (req.nextUrl.pathname === '/admin') {
-        return token?.role === 'ADMIN';
+      if (req.nextUrl.pathname.startsWith('/images')) {
+        return true;
       }
       // `/my` only requires the user to be logged in
       return !!token;
     },
   },
 });
- */
 // export const config = { matcher: ['/admin', '/my'] };
