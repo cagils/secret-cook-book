@@ -13,9 +13,11 @@ import {
 import { Moon, Sun } from '@styled-icons/feather';
 import { SignOut } from '@styled-icons/octicons';
 import { signOut, useSession } from 'next-auth/react';
+import * as ImageNext from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { default as NextNProgress } from 'nextjs-progressbar';
+import SCBLogo from 'public/images/SecretCookBookLogoT.png';
 
 export const Layout = ({ children }) => {
   const { data: session, status } = useSession();
@@ -168,37 +170,63 @@ export const Layout = ({ children }) => {
                         />
                       </Flex>
                     </Flex>
-                    <HStack w="full" justifyContent="flex-start">
-                      <Link passHref href="/">
-                        <Image
-                          height="8rem"
-                          alt="Secret Cook Book Logo"
-                          src="/images/SecretCookBookLogoT.png"
-                        />
-                      </Link>
-                      <Heading
-                        // border="1px solid red"
-                        alignItems="flex-start"
-                        // textShadow="2px 2px 2px white"
-                        // variant="big"
-                        as="h1"
-                        // textAlign="center"
-                        fontSize="2rem"
-                        // py={4}
-                        fontFamily="quote"
-                        color={mode('pink.500', 'pink.400')}
-                        textAlign="start"
+                    <Box
+                      flexDir="row"
+                      // flex="1"
+                      // pos="relative"
+                      // display="block"
+                      w="full"
+                      // border="1px solid red"
+                      // justifyContent="flex-start"
+                      zIndex="300"
+                    >
+                      <Box
+                        minWidth="6rem"
+                        width="8rem"
+                        height="8rem"
+                        pos="relative"
                       >
-                        create | share | enjoy
-                        <Text
-                          fontSize="1rem"
-                          fontWeight="light"
-                          color={mode('gray.600', 'gray.400')}
+                        <Link passHref href="/">
+                          <ImageNext
+                            // width="100%"
+                            // height="100%"
+                            layout="responsive"
+                            alt="Secret Cook Book Logo"
+                            src={SCBLogo}
+                          />
+                        </Link>
+                      </Box>
+                      <Box
+                        px="2"
+                        mb="2"
+                        alignSelf="flex-start"
+                        // flex="1"
+                        minWidth="10rem"
+                      >
+                        <Heading
+                          // border="1px solid red"
+                          alignItems="flex-start"
+                          // textShadow="2px 2px 2px white"
+                          // variant="big"
+                          as="h1"
+                          // textAlign="center"
+                          fontSize="2rem"
+                          // py={4}
+                          fontFamily="quote"
+                          color={mode('pink.500', 'pink.400')}
+                          textAlign="start"
                         >
-                          kitchen secrets shared with special ones
-                        </Text>
-                      </Heading>
-                    </HStack>
+                          create | share | enjoy
+                          <Text
+                            fontSize="1rem"
+                            fontWeight="light"
+                            color={mode('gray.600', 'gray.400')}
+                          >
+                            kitchen secrets shared with special ones
+                          </Text>
+                        </Heading>
+                      </Box>
+                    </Box>
                   </VStack>
                 </HStack>
                 {/* <OverlayFader active={user} /> */}
