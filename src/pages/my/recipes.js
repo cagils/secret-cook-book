@@ -14,6 +14,7 @@ import { useEffect, useState } from 'react';
 
 import { OverlayFader } from '@/components/helpers/OverlayFader';
 import { Recipes } from '@/components/recipe/Recipes';
+import { SCBHeading } from '@/components/shared/SCBHeading';
 import { Layout } from '@/layouts/Layout';
 
 enableAllPlugins();
@@ -156,35 +157,14 @@ export default function RecipesPage() {
         boxShadow={mode('base', 'baseWhite')}
         //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
         px={4}
-        py={8}
+        py={4}
         mt={8}
         width="full"
         position="relative"
         overflow="hidden"
       >
         <Box>
-          <Heading
-            as="h2"
-            textAlign="center"
-            fontFamily="heading"
-            fontSize={{
-              base: '2em',
-              sm: '2.5em',
-              md: '3em',
-              lg: '3em',
-              xl: '4em',
-            }}
-            color={mode('pink.500', 'pink.200')}
-            letterSpacing="wide"
-            fontWeight="bold"
-            textDecoration="underline"
-            textUnderlineOffset={'0.05em'}
-            textDecorationThickness="2px"
-            textDecorationColor={mode('purple.300', 'purple.400')}
-            fontStyle="italic"
-          >
-            My Secret Recipes
-          </Heading>
+          <SCBHeading>My Secret Recipes</SCBHeading>
         </Box>
       </Box>
       <Box

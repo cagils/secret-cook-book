@@ -2,6 +2,7 @@ import { Box, Heading, Icon, IconButton, useColorMode } from '@chakra-ui/react';
 import { Edit } from '@styled-icons/feather';
 
 import { FInput } from '@/components/helpers/form/FInput';
+import { SCBHeading } from '../shared/SCBHeading';
 
 export const RecipeTitle = ({ recipeTitle, editable, loading, handleEdit }) => {
   const { colorMode } = useColorMode();
@@ -12,29 +13,7 @@ export const RecipeTitle = ({ recipeTitle, editable, loading, handleEdit }) => {
     <Box>
       {!editable ? (
         <Box>
-          <Heading
-            as="h2"
-            textAlign="center"
-            fontFamily="heading"
-            fontSize={{
-              base: '2em',
-              sm: '2.5em',
-              md: '3em',
-              lg: '3em',
-              xl: '4em',
-            }}
-            color={mode('pink.500', 'pink.200')}
-            letterSpacing="wide"
-            fontWeight="bold"
-            textDecoration="underline"
-            textUnderlineOffset={'0.05em'}
-            textDecorationThickness="2px"
-            textDecorationColor={mode('purple.300', 'purple.400')}
-            fontStyle="italic"
-            //textTransform={'capitalize'}
-          >
-            {recipeTitle || 'Your Recipe Title'}
-          </Heading>
+          <SCBHeading>{recipeTitle || 'Your Recipe Title'}</SCBHeading>
           <Box
             m="2"
             position="absolute"

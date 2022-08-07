@@ -1,4 +1,5 @@
 import {
+  Box,
   Flex,
   Heading,
   HStack,
@@ -14,7 +15,7 @@ import { SignOut } from '@styled-icons/octicons';
 import { signOut, useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import NextNProgress from 'nextjs-progressbar';
+import { default as NextNProgress } from 'nextjs-progressbar';
 
 export const Layout = ({ children }) => {
   const { data: session, status } = useSession();
@@ -70,15 +71,17 @@ export const Layout = ({ children }) => {
                   alignItems="center"
                   justifyContent="center"
                   // boxShadow="base"
-                  bgColor={mode('pink.100', 'blackAlpha.300')}
-                  bgGradient={mode(
-                    'linear(to-r, purple.200, pink.200)',
-                    'linear(to-r, purple.800, pink.600)'
-                  )}
+                  // bgColor={'white'}
+                  // bgColor={mode('pink.100', 'blackAlpha.300')}
+                  // bgGradient={mode(
+                  //   'linear(to-r, purple.200, pink.200)',
+                  //   'linear(to-r, purple.800, pink.600)'
+                  // )}
                 >
                   <VStack
                     width="full"
-                    // border="1px solid blue"
+                    // borderBottomWidth="thin"
+                    // borderBottomColor={mode('pink.400', 'pink.400')}
                     display="flex"
                     pos="relative"
                     spacing={0}
@@ -165,27 +168,51 @@ export const Layout = ({ children }) => {
                         />
                       </Flex>
                     </Flex>
-                    <Flex grow="1">
+                    <HStack w="full" justifyContent="flex-start">
+                      <Link passHref href="/">
+                        <Image
+                          height="8rem"
+                          alt="Secret Cook Book Logo"
+                          src="/images/SecretCookBookLogoT.png"
+                        />
+                      </Link>
                       <Heading
-                        width="full"
-                        textShadow="1px 1px 1px white"
-                        variant="big"
+                        // border="1px solid red"
+                        alignItems="flex-start"
+                        // textShadow="2px 2px 2px white"
+                        // variant="big"
                         as="h1"
-                        textAlign="center"
-                        size="2xl"
-                        py={4}
-                        color={mode('purple.500', 'purple.300')}
+                        // textAlign="center"
+                        fontSize="2rem"
+                        // py={4}
+                        fontFamily="quote"
+                        color={mode('pink.500', 'pink.400')}
+                        textAlign="start"
                       >
-                        <Link href="/">
-                          <a>Secret Cook&nbsp;Book</a>
-                        </Link>
+                        create | share | enjoy
+                        <Text
+                          fontSize="1rem"
+                          fontWeight="light"
+                          color={mode('gray.600', 'gray.400')}
+                        >
+                          kitchen secrets shared with special ones
+                        </Text>
                       </Heading>
-                    </Flex>
+                    </HStack>
                   </VStack>
                 </HStack>
                 {/* <OverlayFader active={user} /> */}
                 {/* {(router.pathname === '/auth/login' || session?.user) && ( */}
                 <>
+                  <Box
+                    bgGradient={mode(
+                      'linear(to-r, purple.200, pink.200)',
+                      'linear(to-r, purple.800, pink.600)'
+                    )}
+                    width="full"
+                    // border="1px solid red"
+                    h={'1px'}
+                  ></Box>
                   <Flex
                     grow="1"
                     justifyContent="center"
