@@ -6,7 +6,7 @@ import {
   IconButton,
   Square,
   Text,
-  useColorMode,
+  useColorMode
 } from '@chakra-ui/react';
 import { Feather } from '@styled-icons/entypo';
 import { MinusSquare } from '@styled-icons/feather';
@@ -31,6 +31,7 @@ export const Ingredient = ({
       //color="purple.900"
       // maxWidth="30em"
       // border="1px solid purple"
+      // test
       width="full"
     >
       <Box width="full">
