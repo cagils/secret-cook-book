@@ -1,17 +1,4 @@
-<<<<<<< HEAD
 import { Box, Flex, HStack, Icon, IconButton, Square, Text, useColorMode } from '@chakra-ui/react';
-=======
-import {
-  Box,
-  Flex,
-  HStack,
-  Icon,
-  IconButton,
-  Square,
-  Text,
-  useColorMode
-} from '@chakra-ui/react';
->>>>>>> test commit empty
 import { Feather } from '@styled-icons/entypo';
 import { MinusSquare } from '@styled-icons/feather';
 
