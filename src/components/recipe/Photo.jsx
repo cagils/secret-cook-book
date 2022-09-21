@@ -1,25 +1,11 @@
-import {
-  Box,
-  Flex,
-  Icon,
-  IconButton,
-  Image,
-  Input,
-  useColorMode,
-} from '@chakra-ui/react';
+import { Box, Flex, Icon, IconButton, Image, Input, useColorMode } from '@chakra-ui/react';
 import { Camera } from '@styled-icons/feather';
 import { nanoid } from 'nanoid';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { OverlayFader } from '@/components/helpers/OverlayFader';
 
-export const Photo = ({
-  photoUrl,
-  user,
-  editable,
-  recipeId,
-  handleUploadPicture,
-}) => {
+export const Photo = ({ photoUrl, user, editable, recipeId, handleUploadPicture }) => {
   const uploadRef = useRef();
   const { colorMode } = useColorMode();
   const [imageUrl, setImageUrl] = useState(photoUrl);
@@ -37,8 +23,7 @@ export const Photo = ({
     return `${user.email}_${recipeId}_${rand}.png`;
   }, [user, recipeId]);
 
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
 
   const _uploadPicture = () => {
     uploadRef.current.click();
@@ -69,10 +54,7 @@ export const Photo = ({
       alignItems="center"
       justifyContent="center"
       boxShadow={mode('inner', 'innerWhite')}
-      bgGradient={mode(
-        'linear(to-b, pink.200, purple.200)',
-        'linear(to-b, pink.800, purple.800)'
-      )}
+      bgGradient={mode('linear(to-b, pink.200, purple.200)', 'linear(to-b, pink.800, purple.800)')}
       p={{ base: '2px', sm: '4px', md: '6px', xl: '8px' }}
       mb={4}
       minHeight={'20rem'}
@@ -195,11 +177,7 @@ export const Photo = ({
 
               <Image
                 src={imageUrl}
-                fallbackSrc={
-                  'https://dummyimage.com/3000x2000/' +
-                  mode('fff', '000') +
-                  '/aaa&text=Photo'
-                }
+                fallbackSrc={'https://dummyimage.com/3000x2000/' + mode('fff', '000') + '/aaa&text=Photo'}
                 alt={'Recipe Photo'}
                 layout="fill"
                 fit="cover"

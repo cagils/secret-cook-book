@@ -41,13 +41,9 @@ const singleRecipe = async (req, res) => {
         break;
 
       case 'PUT':
-        recipe = await models.recipeModel.findOneAndUpdate(
-          { recipeId: query.recipeId },
-          recipeBody,
-          {
-            new: true,
-          }
-        );
+        recipe = await models.recipeModel.findOneAndUpdate({ recipeId: query.recipeId }, recipeBody, {
+          new: true,
+        });
 
         /* recipe = await prisma.recipe.update({
           where: {
@@ -71,6 +67,9 @@ const singleRecipe = async (req, res) => {
             shortDesc: recipeBody.shortDesc,
             'description.text': recipeBody.description.text,
             ingredients: recipeBody.ingredients,
+            serving: recipeBody.serving,
+            time: recipeBody.time,
+            difficulty: recipeBody.difficulty,
           };
         recipe = await models.recipeModel.findOneAndUpdate(
           { recipeId: query.recipeId },

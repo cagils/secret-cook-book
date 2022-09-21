@@ -20,8 +20,7 @@ export const IngredientGroup = ({
 }) => {
   const { colorMode } = useColorMode();
 
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
 
   return (
     <Box alignItems="left">
@@ -57,18 +56,13 @@ export const IngredientGroup = ({
           )}
         >
           {data.list.map((ing, ingIdx) => (
-            <ReorderableItem
-              id={ingIdx.toString()}
-              key={`key_${instanceKey}_${groupIdx}_${ingIdx}`}
-            >
+            <ReorderableItem id={ingIdx.toString()} key={`key_${instanceKey}_${groupIdx}_${ingIdx}`}>
               <Ingredient
                 loading={loading}
                 editable={editable}
                 fieldId={`${groupIdx}.${ingIdx}`}
                 desc={ing}
-                handleDeleteIngredient={() =>
-                  handleDeleteIngredient(groupIdx, ingIdx)
-                }
+                handleDeleteIngredient={() => handleDeleteIngredient(groupIdx, ingIdx)}
               />
             </ReorderableItem>
           ))}
@@ -81,9 +75,7 @@ export const IngredientGroup = ({
             editable={editable}
             fieldId={`${groupIdx}.${ingIdx}`}
             desc={ing}
-            handleDeleteIngredient={() =>
-              handleDeleteIngredient(groupIdx, ingIdx)
-            }
+            handleDeleteIngredient={() => handleDeleteIngredient(groupIdx, ingIdx)}
           />
         ))
       )}

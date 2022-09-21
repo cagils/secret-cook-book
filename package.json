@@ -57,6 +57,7 @@
     "@next-auth/prisma-adapter": "^1.0.4",
     "@prisma/client": "^4.1.0",
     "@styled-icons/boxicons-logos": "^10.38.0",
+    "@styled-icons/boxicons-solid": "^10.46.0",
     "@styled-icons/entypo": "^10.34.0",
     "@styled-icons/feather": "^10.34.0",
     "@styled-icons/octicons": "^10.44.0",

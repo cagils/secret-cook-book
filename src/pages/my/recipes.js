@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  useColorMode,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, useColorMode, VStack } from '@chakra-ui/react';
 import { enableAllPlugins } from 'immer';
 import { nanoid } from 'nanoid';
 import { getSession, useSession } from 'next-auth/react';
@@ -42,8 +35,7 @@ export default function RecipesPage() {
   const { data: session, status } = useSession();
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
   const router = useRouter();
 
   const [recipes, setRecipes] = useState([]);
@@ -182,10 +174,7 @@ export default function RecipesPage() {
           alignItems="center"
           justifyContent="center"
           boxShadow={mode('inner', 'innerWhite')}
-          bgGradient={mode(
-            'linear(to-b, pink.200, purple.200)',
-            'linear(to-b, pink.800, purple.800)'
-          )}
+          bgGradient={mode('linear(to-b, pink.200, purple.200)', 'linear(to-b, pink.800, purple.800)')}
           p={{ base: '2px', sm: '4px', md: '6px', xl: '8px' }}
           mb={4}
           minHeight={'20rem'}

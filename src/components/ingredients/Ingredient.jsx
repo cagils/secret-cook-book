@@ -1,13 +1,4 @@
-import {
-  Box,
-  Flex,
-  HStack,
-  Icon,
-  IconButton,
-  Square,
-  Text,
-  useColorMode,
-} from '@chakra-ui/react';
+import { Box, Flex, HStack, Icon, IconButton, Square, Text, useColorMode } from '@chakra-ui/react';
 import { Feather } from '@styled-icons/entypo';
 import { MinusSquare } from '@styled-icons/feather';
 
@@ -22,8 +13,7 @@ export const Ingredient = ({
   dragOverlay = false,
 }) => {
   const { colorMode } = useColorMode();
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
 
   return (
     <HStack
@@ -65,11 +55,7 @@ export const Ingredient = ({
           ) : (
             <HStack>
               <Square>
-                <Icon
-                  fontSize="1.3em"
-                  color={mode('pink.300', 'pink.500')}
-                  as={Feather}
-                />
+                <Icon fontSize="1.3em" color={mode('pink.300', 'pink.500')} as={Feather} />
               </Square>
               <Flex
                 minHeight={10}
@@ -84,11 +70,7 @@ export const Ingredient = ({
                 // pos="relative"
                 color={mode('gray.700', 'gray.300')}
               >
-                <Text
-                  fontFamily="ingredients"
-                  fontStyle="italic"
-                  fontSize="1.2em"
-                >
+                <Text fontFamily="ingredients" fontStyle="italic" fontSize="1.2em">
                   {desc}
                 </Text>
               </Flex>

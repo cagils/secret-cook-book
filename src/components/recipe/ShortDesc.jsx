@@ -4,8 +4,7 @@ import { FInput } from '@/components/helpers/form/FInput';
 
 export const ShortDesc = ({ shortDesc, editable, loading }) => {
   const { colorMode } = useColorMode();
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
 
   return (
     <Box

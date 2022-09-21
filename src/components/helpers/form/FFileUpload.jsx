@@ -15,8 +15,7 @@ export const FFileUpload = ({
   ...rest
 }) => {
   const { colorMode } = useColorMode();
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
 
   const formMethods = useFormContext();
 

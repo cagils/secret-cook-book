@@ -3,10 +3,7 @@ import { useCallback } from 'react';
 
 export const OverlayFader = ({ active }) => {
   const { colorMode } = useColorMode();
-  const mode = useCallback(
-    (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue),
-    [colorMode]
-  );
+  const mode = useCallback((lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue), [colorMode]);
 
   return (
     <Fade in={active} unmountOnExit transition={{ duration: 2 }}>

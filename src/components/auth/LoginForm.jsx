@@ -27,11 +27,9 @@ const errors = {
   OAuthCreateAccount: 'Try signing with a different account.',
   EmailCreateAccount: 'Try signing with a different account.',
   Callback: 'Try signing with a different account.',
-  OAuthAccountNotLinked:
-    'To confirm your identity, sign in with the same account you used originally.',
+  OAuthAccountNotLinked: 'To confirm your identity, sign in with the same account you used originally.',
   EmailSignin: 'Please provide a valid email address.',
-  CredentialsSignin:
-    'Sign in failed. Check the details you provided are correct.',
+  CredentialsSignin: 'Sign in failed. Check the details you provided are correct.',
   default: 'Unable to sign in.',
 };
 
@@ -50,17 +48,10 @@ const SignInMessage = ({ error, message }) => {
   );
 };
 
-export const LoginForm = ({
-  providers,
-  handleLogin,
-  loading,
-  error,
-  verify,
-}) => {
+export const LoginForm = ({ providers, handleLogin, loading, error, verify }) => {
   const [email, setEmail] = useState('');
   const { colorMode } = useColorMode();
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
   const emailButton = useRef();
 
   const getLogo = (provider) => {
@@ -99,13 +90,7 @@ export const LoginForm = ({
                     <Box key={provider.id} width="full">
                       {provider.id == 'email' ? (
                         <>
-                          <Heading
-                            color={mode('pink.500', 'pink.400')}
-                            size="lg"
-                            mb="0.3em"
-                            mt="1em"
-                            textAlign="keft"
-                          >
+                          <Heading color={mode('pink.500', 'pink.400')} size="lg" mb="0.3em" mt="1em" textAlign="keft">
                             or use a magic link:
                           </Heading>
                           <InputGroup size="md">
@@ -129,9 +114,7 @@ export const LoginForm = ({
                               autoFocus
                               fieldName={`title`}
                               label={''}
-                              helper={
-                                'Please enter your email to receive a magic link for login'
-                              }
+                              helper={'Please enter your email to receive a magic link for login'}
                               defaultValue={''}
                               placeholder="email"
                               error=""

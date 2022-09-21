@@ -41,12 +41,7 @@ export const Ingredients = ({
     },
     {
       groupName: 'icing',
-      list: [
-        '100g unsalted butter',
-        '225g icing sugar',
-        '40g cocoa powder',
-        '2½ tbsp milk (a little more if needed)',
-      ],
+      list: ['100g unsalted butter', '225g icing sugar', '40g cocoa powder', '2½ tbsp milk (a little more if needed)'],
     },
   ];
 

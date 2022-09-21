@@ -1,15 +1,4 @@
-import {
-  Box,
-  Flex,
-  Heading,
-  HStack,
-  Icon,
-  IconButton,
-  Image,
-  Text,
-  useColorMode,
-  VStack,
-} from '@chakra-ui/react';
+import { Box, Flex, Heading, HStack, Icon, IconButton, Image, Text, useColorMode, VStack } from '@chakra-ui/react';
 import { Moon, Sun } from '@styled-icons/feather';
 import { SignOut } from '@styled-icons/octicons';
 import { signOut, useSession } from 'next-auth/react';
@@ -23,8 +12,7 @@ export const Layout = ({ children }) => {
   const { data: session, status } = useSession();
   const router = useRouter();
   const { colorMode, toggleColorMode } = useColorMode();
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
 
   const dark = colorMode === 'dark';
 
@@ -50,10 +38,7 @@ export const Layout = ({ children }) => {
         />
         {!status?.loading && (
           <Flex
-            bgGradient={mode(
-              'linear(to-t, pink.100, pink.200)',
-              'linear(to-b, gray.600, gray.800)'
-            )}
+            bgGradient={mode('linear(to-t, pink.100, pink.200)', 'linear(to-b, gray.600, gray.800)')}
             justifyContent="center"
             mx="auto"
             grow="1"
@@ -105,12 +90,7 @@ export const Layout = ({ children }) => {
                     >
                       <Flex p={2} m={2}>
                         {session && (
-                          <Text
-                            color={mode('pink.600', 'pink.200')}
-                            fontSize="0.8em"
-                            textAlign="end"
-                            mr={2}
-                          >
+                          <Text color={mode('pink.600', 'pink.200')} fontSize="0.8em" textAlign="end" mr={2}>
                             {session.user.email}
                             <br />
                             via {session.user.provider}
@@ -141,11 +121,7 @@ export const Layout = ({ children }) => {
                             onClick={() => signOut()}
                             aria-label="Sign Out"
                             icon={
-                              <Icon
-                                fontSize="28px"
-                                color={mode('whiteAlpha.600', 'whiteAlpha.600')}
-                                as={SignOut}
-                              />
+                              <Icon fontSize="28px" color={mode('whiteAlpha.600', 'whiteAlpha.600')} as={SignOut} />
                             }
                           />
                         )}
@@ -193,11 +169,7 @@ export const Layout = ({ children }) => {
                         // flex="1"
                       >
                         <Link passHref href="/">
-                          <Flex
-                            wrap="wrap"
-                            alignItems="center"
-                            justifyContent="center"
-                          >
+                          <Flex wrap="wrap" alignItems="center" justifyContent="center">
                             <Image
                               width="10rem"
                               // minWidth="10rem"
@@ -227,12 +199,7 @@ export const Layout = ({ children }) => {
                               textAlign="center"
                             >
                               create | share | enjoy
-                              <Text
-                                fontSize="1rem"
-                                fontWeight="light"
-                                color={mode('gray.600', 'gray.400')}
-                                pb={2}
-                              >
+                              <Text fontSize="1rem" fontWeight="light" color={mode('gray.600', 'gray.400')} pb={2}>
                                 kitchen secrets shared with special ones
                               </Text>
                             </Heading>
@@ -246,10 +213,7 @@ export const Layout = ({ children }) => {
                 {/* {(router.pathname === '/auth/login' || session?.user) && ( */}
                 <>
                   <Box
-                    bgGradient={mode(
-                      'linear(to-r, purple.200, pink.200)',
-                      'linear(to-r, purple.800, pink.600)'
-                    )}
+                    bgGradient={mode('linear(to-r, purple.200, pink.200)', 'linear(to-r, purple.800, pink.600)')}
                     width="full"
                     // border="1px solid red"
                     h={'1px'}
@@ -258,10 +222,7 @@ export const Layout = ({ children }) => {
                     grow="1"
                     justifyContent="center"
                     alignItems="stretch"
-                    bgGradient={mode(
-                      'linear(to-r, purple.100, pink.100)',
-                      'linear(to-r, purple.900, pink.900)'
-                    )}
+                    bgGradient={mode('linear(to-r, purple.100, pink.100)', 'linear(to-r, purple.900, pink.900)')}
                     //p={2}
                     w="full"
                     // border="1px solid red"

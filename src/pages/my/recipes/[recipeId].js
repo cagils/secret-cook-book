@@ -126,20 +126,14 @@ export default function RecipePage() {
   };
 
   const handleUploadPicture = async (file, oldFileName, fileName) => {
-    const { data1, error1 } = await supabase.storage
-      .from('recipe-photos')
-      .upload(`public/${fileName}`, file, {
-        cacheControl: '1',
-        upsert: true,
-      });
+    const { data1, error1 } = await supabase.storage.from('recipe-photos').upload(`public/${fileName}`, file, {
+      cacheControl: '1',
+      upsert: true,
+    });
     if (oldFileName) {
-      const { data2, error2 } = await supabase.storage
-        .from('recipe-photos')
-        .remove([`public/${oldFileName}`]);
+      const { data2, error2 } = await supabase.storage.from('recipe-photos').remove([`public/${oldFileName}`]);
     }
-    const { publicURL, error3 } = supabase.storage
-      .from('recipe-photos')
-      .getPublicUrl(`public/${fileName}`);
+    const { publicURL, error3 } = supabase.storage.from('recipe-photos').getPublicUrl(`public/${fileName}`);
 
     if (!recipeId || !publicURL) return;
     const fetchUrl = `/api/recipes/${recipeId}`;

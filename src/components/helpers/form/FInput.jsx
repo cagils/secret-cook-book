@@ -1,12 +1,4 @@
-import {
-  Box,
-  Editable,
-  EditableInput,
-  EditablePreview,
-  Input,
-  Textarea,
-  useColorMode,
-} from '@chakra-ui/react';
+import { Box, Editable, EditableInput, EditablePreview, Input, Textarea, useColorMode } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
 import { FormControlWrapper } from '@/components/helpers/form/FormControlWrapper';
@@ -23,8 +15,7 @@ export const FInput = ({
   ...rest
 }) => {
   const { colorMode } = useColorMode();
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
 
   const formMethods = useFormContext();
 

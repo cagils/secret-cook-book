@@ -9,6 +9,7 @@ import { OverlayFader } from '@/components/helpers/OverlayFader';
 import { Ingredients } from '@/components/ingredients/Ingredients';
 import { Description } from '@/components/recipe/Description';
 import { Photo } from '@/components/recipe/Photo';
+import { RecipeServingTimeDifficulty } from '@/components/recipe/RecipeServingTimeDifficulty';
 import { RecipeTitle } from '@/components/recipe/RecipeTitle';
 import { ShortDesc } from '@/components/recipe/ShortDesc';
 import { useEscape } from '@/lib/hooks/useEscape';
@@ -17,19 +18,11 @@ import { OrnamentDivider } from '@/resources/svgs';
 
 setAutoFreeze(false);
 
-export const Recipe = ({
-  initialEditable,
-  initialRecipe,
-  saveRecipe,
-  deleteRecipe,
-  user,
-  handleUploadPicture,
-}) => {
+export const Recipe = ({ initialEditable, initialRecipe, saveRecipe, deleteRecipe, user, handleUploadPicture }) => {
   // const renderCounter = useRenderCounter();
   const [editable, setEditable] = useState(initialEditable);
   const { colorMode } = useColorMode();
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
   const [loading, setLoading] = useState(false);
   const [ingredients, setIngredients] = useState(initialRecipe?.ingredients);
 
@@ -193,17 +186,21 @@ export const Recipe = ({
     console.log('formStateIngredients:');
     console.log(JSON.stringify(formStateIngredients, undefined, 2));
 
-    const formStateDescription =
-      getValues()?.description?.text || initialRecipe?.description?.text;
-    const formStateShortDesc =
-      getValues()?.shortDesc || initialRecipe?.shortDesc;
+    const formStateDescription = getValues()?.description?.text || initialRecipe?.description?.text;
+    const formStateShortDesc = getValues()?.shortDesc || initialRecipe?.shortDesc;
     const formStateTitle = getValues()?.title || initialRecipe?.title;
+    const formStateServing = getValues()?.serving || initialRecipe?.serving;
+    const formStateTime = getValues()?.time || initialRecipe?.time;
+    const formStateDifficulty = getValues()?.difficulty || initialRecipe?.difficulty;
 
     const body = {
       title: formStateTitle,
       shortDesc: formStateShortDesc,
       description: { text: formStateDescription },
       ingredients: formStateIngredients,
+      serving: formStateServing,
+      time: formStateTime,
+      difficulty: formStateDifficulty,
     };
     await saveRecipe(body);
   };
@@ -268,6 +265,31 @@ export const Recipe = ({
               editable={editable}
               loading={loading}
               handleEdit={handleEdit}
+            />
+            <OverlayFader active={loading} />
+          </Box>
+          <Box
+            boxShadow={mode('base', 'baseWhite')}
+            //width="full"
+            alignItems="center"
+            justifyContent="center"
+            bgColor={mode('whiteAlpha.800', 'blackAlpha.500')}
+            //bgGradient={mode('linear(to-r, purple.50, pink.200)')}
+            borderRadius="lg"
+            px={4}
+            py={4}
+            mt={8}
+            width="full"
+            //px={16}
+            position="relative"
+            overflow="hidden"
+          >
+            <RecipeServingTimeDifficulty
+              recipeServing={initialRecipe?.serving}
+              recipeTime={initialRecipe?.time}
+              recipeDifficulty={initialRecipe?.difficulty}
+              editable={editable}
+              loading={loading}
             />
             <OverlayFader active={loading} />
           </Box>
@@ -352,17 +374,10 @@ export const Recipe = ({
                   recipeId={initialRecipe?.recipeId}
                   handleUploadPicture={handleUploadPicture}
                 />
-                <Flex
-                  direction={'column'}
-                  alignItems="center"
-                  justifyContent="center"
-                  mt="8"
-                >
+                <Flex direction={'column'} alignItems="center" justifyContent="center" mt="8">
                   <Box width="full">
                     <ShortDesc
-                      shortDesc={
-                        initialRecipe?.shortDesc?.replace(/\\n/g, '\n') || ''
-                      }
+                      shortDesc={initialRecipe?.shortDesc?.replace(/\\n/g, '\n') || ''}
                       editable={editable}
                       loading={loading}
                     />
@@ -370,18 +385,13 @@ export const Recipe = ({
                   <Box>
                     <OrnamentDivider
                       height="5em"
-                      fill={mode(
-                        'var(--chakra-colors-pink-400)',
-                        'var(--chakra-colors-pink-500)'
-                      )}
+                      fill={mode('var(--chakra-colors-pink-400)', 'var(--chakra-colors-pink-500)')}
                     />
                   </Box>
                 </Flex>
                 <Description
                   editable={editable}
-                  description={
-                    initialRecipe?.description?.text.replace(/\\n/g, '\n') || ''
-                  }
+                  description={initialRecipe?.description?.text.replace(/\\n/g, '\n') || ''}
                   loading={loading}
                 />
               </Box>

@@ -3,8 +3,7 @@ import { Heading, useColorMode } from '@chakra-ui/react';
 export const SCBHeading = ({ children }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const dark = colorMode === 'dark';
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
 
   return (
     <Heading

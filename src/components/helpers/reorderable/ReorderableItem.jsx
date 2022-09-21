@@ -4,16 +4,9 @@ import { CSS } from '@dnd-kit/utilities';
 import { Grabber } from '@styled-icons/octicons';
 
 export const ReorderableItem = ({ children, id }) => {
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-    isDragging,
-    isSorting,
-    isOver,
-  } = useSortable({ id });
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging, isSorting, isOver } = useSortable({
+    id,
+  });
 
   return (
     <Flex

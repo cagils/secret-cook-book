@@ -2,12 +2,11 @@ import { Box, Heading, Icon, IconButton, useColorMode } from '@chakra-ui/react';
 import { Edit } from '@styled-icons/feather';
 
 import { FInput } from '@/components/helpers/form/FInput';
-import { SCBHeading } from '../shared/SCBHeading';
+import { SCBHeading } from '@/components/shared/SCBHeading';
 
 export const RecipeTitle = ({ recipeTitle, editable, loading, handleEdit }) => {
   const { colorMode } = useColorMode();
-  const mode = (lightValue, darkValue) =>
-    colorMode == 'light' ? lightValue : darkValue;
+  const mode = (lightValue, darkValue) => (colorMode == 'light' ? lightValue : darkValue);
 
   return (
     <Box>

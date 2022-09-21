@@ -6,17 +6,14 @@ import {
   MouseSensor,
   PointerSensor,
   useSensor,
-  useSensors
+  useSensors,
 } from '@dnd-kit/core';
-import {
-  restrictToParentElement,
-  restrictToVerticalAxis
-} from '@dnd-kit/modifiers';
+import { restrictToParentElement, restrictToVerticalAxis } from '@dnd-kit/modifiers';
 import {
   arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
-  verticalListSortingStrategy
+  verticalListSortingStrategy,
 } from '@dnd-kit/sortable';
 import { useEffect, useState } from 'react';
 
@@ -89,11 +86,7 @@ export const ReorderableList = ({
         },
       }}
     >
-      <SortableContext
-        id={id}
-        items={items}
-        strategy={verticalListSortingStrategy}
-      >
+      <SortableContext id={id} items={items} strategy={verticalListSortingStrategy}>
         {children}
       </SortableContext>
       {overlay && (

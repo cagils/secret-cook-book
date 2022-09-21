@@ -1,9 +1,4 @@
-import {
-  FormControl,
-  FormErrorMessage,
-  FormHelperText,
-  FormLabel,
-} from '@chakra-ui/react';
+import { FormControl, FormErrorMessage, FormHelperText, FormLabel } from '@chakra-ui/react';
 
 export const FormControlWrapper = ({
   children,
@@ -20,9 +15,7 @@ export const FormControlWrapper = ({
       {!!label && <FormLabel htmlFor={fieldName}>{label}</FormLabel>}
       {children}
       {!!helper && <FormHelperText>{helper}</FormHelperText>}
-      {!!fieldState.error && (
-        <FormErrorMessage mb={2}>{fieldState.error.message}</FormErrorMessage>
-      )}
+      {!!fieldState.error && <FormErrorMessage mb={2}>{fieldState.error.message}</FormErrorMessage>}
     </FormControl>
   );
 };

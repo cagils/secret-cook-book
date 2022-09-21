@@ -452,8 +452,7 @@ const shadows = {
   outline: '0 0 0 3px rgba(66, 153, 225, 0.6)',
   inner: 'inset 0 2px 4px 0 rgba(0,0,0,0.06)',
   none: 'none',
-  'dark-lg':
-    'rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.4) 0px 15px 40px',
+  'dark-lg': 'rgba(0, 0, 0, 0.1) 0px 0px 0px 1px, rgba(0, 0, 0, 0.2) 0px 5px 10px, rgba(0, 0, 0, 0.4) 0px 15px 40px',
 };
 
 const borders = {
@@ -465,8 +464,7 @@ const borders = {
 };
 
 const transitionProperty = {
-  common:
-    'background-color, border-color, color, fill, stroke, opacity, box-shadow, transform',
+  common: 'background-color, border-color, color, fill, stroke, opacity, box-shadow, transform',
   colors: 'background-color, border-color, color, fill, stroke',
   dimensions: 'width, height',
   position: 'left, right, top, bottom',
@@ -591,8 +589,7 @@ const customStyles = {
       // boxShadow: 'none !important',
       // borderBottom: '1px solid red !important',
       //
-      boxShadow:
-        '0 0 0 2px var(--chakra-colors-pink-100),    0 0 2px 3px var(--chakra-colors-pink-400) !important',
+      boxShadow: '0 0 0 2px var(--chakra-colors-pink-100),    0 0 2px 3px var(--chakra-colors-pink-400) !important',
       outline: '2px solid transparent !important',
       outlineOffset: '2px !important',
     },
@@ -649,8 +646,7 @@ const themeExtensions = {
   sizes: {},
   shadows: {
     // ...foundations.shadows,
-    baseWhite:
-      '0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06)',
+    baseWhite: '0 1px 3px 0 rgba(255, 255, 255, 0.1), 0 1px 2px 0 rgba(255, 255, 255, 0.06)',
     innerWhite: 'inset 0 2px 10px 0px rgba(255,255,255,0.06)',
   },
   space: {},
