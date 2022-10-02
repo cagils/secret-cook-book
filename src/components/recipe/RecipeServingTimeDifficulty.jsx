@@ -21,7 +21,9 @@ export const RecipeServingTimeDifficulty = ({ recipeServing, recipeTime, recipeD
       placeItems="center"
       color={mode('pink.500', 'pink.200')}
     >
-      <Icon as={Dish} mt="2" />
+      <Box h="2em">
+        <Icon as={Dish} mt="2" />
+      </Box>
       {!editable ? (
         <Box>
           <SCBText>{recipeServing || '-'}</SCBText>
@@ -54,7 +56,9 @@ export const RecipeServingTimeDifficulty = ({ recipeServing, recipeTime, recipeD
           />
         </Box>
       )}
-      <Icon as={TimeFive} mt="2" />
+      <Box h="2em">
+        <Icon as={TimeFive} mt="2" />
+      </Box>
       {!editable ? (
         <Box>
           <SCBText>{recipeTime || '-'}</SCBText>
@@ -87,7 +91,9 @@ export const RecipeServingTimeDifficulty = ({ recipeServing, recipeTime, recipeD
           />
         </Box>
       )}
-      <Icon as={BarChartAlt2} mt="2" />
+      <Box h="2em">
+        <Icon as={BarChartAlt2} mt="2" />
+      </Box>
       {!editable ? (
         <Box>
           <SCBText>{recipeDifficulty || '-'}</SCBText>
