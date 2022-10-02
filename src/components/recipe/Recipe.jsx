@@ -412,8 +412,9 @@ export const Recipe = ({ initialEditable, initialRecipe, saveRecipe, deleteRecip
             mt={4}
           >
             <Button
+              id="deleteButton"
               size="md"
-              type="submit"
+              type="button"
               color={mode('white', 'pink.800')}
               //variant="gradient"
               //bgGradient="linear(to-r, purple.300, pink.300)"
@@ -432,8 +433,9 @@ export const Recipe = ({ initialEditable, initialRecipe, saveRecipe, deleteRecip
             {editable ? (
               <>
                 <Button
+                  id="cancelButton"
                   size="md"
-                  type="submit"
+                  type="button"
                   color={mode('white', 'pink.800')}
                   //variant="gradient"
                   //bgGradient="linear(to-r, purple.300, pink.300)"
@@ -450,6 +452,7 @@ export const Recipe = ({ initialEditable, initialRecipe, saveRecipe, deleteRecip
                   Cancel
                 </Button>
                 <Button
+                  id="saveButton"
                   size="md"
                   type="submit"
                   color={mode('white', 'pink.800')}
