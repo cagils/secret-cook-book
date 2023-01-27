@@ -1,11 +1,5 @@
 /* eslint-disable max-len */
-import {
-  extendTheme,
-  theme as baseTheme,
-  ThemeDirection,
-  withDefaultColorScheme,
-  type ThemeConfig,
-} from '@chakra-ui/react';
+import { extendTheme, ThemeDirection, withDefaultColorScheme, type ThemeConfig } from '@chakra-ui/react';
 import { mode, StyleFunctionProps } from '@chakra-ui/theme-tools';
 
 // ORIGINAL THEME STYLES FOR REFERENCE STARTS HERE
@@ -547,7 +541,7 @@ const originalTheme = {
 };
 
 // CUSTOM STYLES START HERE
-const moder = (prop, light, dark) => ({
+const moder = (prop: string, light: string, dark: string) => ({
   [prop]: light,
   '.chakra-ui-dark &': { [prop]: dark },
 });
@@ -673,9 +667,11 @@ const themeExtensions = {
   textStyles,
 };
 
-export const customTheme = extendTheme(
+const customTheme = extendTheme(
   themeExtensions,
   withDefaultColorScheme({
     colorScheme: 'pink',
   })
 );
+
+export { customTheme, originalTheme };

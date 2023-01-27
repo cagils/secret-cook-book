@@ -5,22 +5,23 @@ import { NextPage } from 'next';
 import { SessionProvider } from 'next-auth/react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
-import { ReactNode, useState } from 'react';
+import { Session } from 'next-auth';
+import { ReactNode, useState, ReactElement } from 'react';
 
 import '@/styles/globals.css';
 import { customTheme } from '@/styles/theme';
 
-type GetLayout = (page: ReactNode) => ReactNode;
-
-type Page<P = {}, IP = P> = NextPage<P, IP> & {
-  getLayout?: GetLayout;
+// No changes to this type
+type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode;
 };
 
-type MyAppProps<P = {}> = AppProps<P> & {
-  Component: Page<P>;
+// Add generic type
+type AppPropsWithLayout<P> = AppProps<P> & {
+  Component: NextPageWithLayout<P>;
 };
 
-export default function App(props: MyAppProps) {
+export default function App(props: AppPropsWithLayout<{ session: Session }>) {
   const { Component, pageProps } = props;
 
   const [queryClient] = useState(() => new QueryClient());

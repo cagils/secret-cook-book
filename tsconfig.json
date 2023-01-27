@@ -3,11 +3,15 @@
     "noUnusedLocals": false,
     "noUnusedParameters": false,
     "target": "es2020",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
-    "checkJs": false,
-    "skipLibCheck": true,
-    "strict": false,
+    // "checkJs": false,
+    // "skipLibCheck": true,
+    "strict": true,
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "incremental": true,
@@ -19,9 +23,28 @@
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
-    }
+      "@/*": [
+        "src/*"
+      ]
+    },
+    "skipLibCheck": true
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
-  "exclude": ["node_modules", "**/node_modules/*", "build", "dist", ".vscode", ".next", "coverage", ".npm", ".yarn"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "**/*.js",
+    "**/*.jsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/node_modules/*",
+    "build",
+    "dist",
+    ".vscode",
+    ".next",
+    "coverage",
+    ".npm",
+    ".yarn"
+  ]
 }

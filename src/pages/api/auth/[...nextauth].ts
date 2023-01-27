@@ -4,7 +4,7 @@ import EmailProvider from 'next-auth/providers/email';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
-import prisma from '@/lib/prisma';
+import { prisma } from '@/lib/prisma';
 
 const authOptions: NextAuthOptions = {
   pages: {
@@ -26,7 +26,7 @@ const authOptions: NextAuthOptions = {
     jwt({ token, user, account, profile, isNewUser }) {
       console.log('in jwt user =', user, account, profile, isNewUser);
       console.log(user);
-      if (user) {
+      if (user && account) {
         token.id = user.id;
         token.role = user.role;
         token.provider = account.provider;
@@ -40,8 +40,8 @@ const authOptions: NextAuthOptions = {
   },
   providers: [
     GoogleProvider({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: process.env.GOOGLE_ID ?? '',
+      clientSecret: process.env.GOOGLE_SECRET ?? '',
       httpOptions: {
         timeout: 40000,
       },
@@ -54,8 +54,8 @@ const authOptions: NextAuthOptions = {
       },
     }),
     GitHubProvider({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: process.env.GITHUB_ID ?? '',
+      clientSecret: process.env.GITHUB_SECRET ?? '',
       httpOptions: {
         timeout: 40000,
       },

@@ -12,7 +12,6 @@ import { withAuth } from 'next-auth/middleware';
 // export { default } from 'next-auth/middleware';
 // import { Role } from '@prisma/client';
 // import { withAuth } from 'next-auth/middleware';
-// eslint-disable-next-line @next/next/no-server-import-in-page
 // import { NextResponse } from 'next/server';
 
 // const ROLES_ALLOWED_TO_AUTH = new Set<Role>([Role.ADMIN, Role.USER]);
