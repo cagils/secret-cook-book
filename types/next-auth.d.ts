@@ -1,6 +1,5 @@
 import { Role } from '@prisma/client';
-import NextAuth, { DefaultSession } from 'next-auth';
-import { JWT } from 'next-auth/jwt';
+import { DefaultSession } from 'next-auth';
 
 declare module 'next-auth/jwt' {
   /** Returned by the `jwt` callback and `getToken`, when using JWT sessions */
