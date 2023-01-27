@@ -29,17 +29,17 @@ export const ReorderableList = ({
   const [items, setItems] = useState(defaultItems);
   const [activeId, setActiveId] = useState(null);
 
-  useEffect(() => setItems(defaultItems), [defaultItems]);
-
-  const mouseSensor = useSensor(MouseSensor, {
+  /*   const mouseSensor = useSensor(MouseSensor, {
     // Require the mouse to move by 10 pixels before activating
     activationConstraint: {
       distance: 10,
     },
-  });
+  }); */
+
   const keyboardSensor = useSensor(KeyboardSensor, {
     coordinateGetter: sortableKeyboardCoordinates,
   });
+
   const pointerSensor = useSensor(PointerSensor);
 
   /* const touchSensor = useSensor(TouchSensor, {
@@ -52,15 +52,12 @@ export const ReorderableList = ({
 
   const sensors = useSensors(pointerSensor, keyboardSensor);
 
-  function handleDragStart(event) {
-    setActiveId(event.active.id);
-  }
+  const handleDragStart = (event) => setActiveId(event.active.id);
 
   const handleDragEnd = ({ active, over }) => {
     if (!over) {
       return;
     }
-
     setActiveId(null);
     if (active.id !== over.id) {
       const activeIndex = active.data.current.sortable.index;

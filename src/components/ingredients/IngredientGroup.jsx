@@ -38,6 +38,7 @@ export const IngredientGroup = ({
 
       {editable ? (
         <ReorderableList
+          key={instanceKey}
           items={data.list.map((ing, ingIdx) => ({
             id: ingIdx.toString(),
             value: ing,
