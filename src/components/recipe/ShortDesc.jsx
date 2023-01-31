@@ -1,6 +1,6 @@
 import { Box, Divider, Text, useColorMode } from '@chakra-ui/react';
 
-import { FInput } from '@/components/helpers/form/FInput';
+import { FInput } from '@src/components/helpers/form/FInput';
 
 export const ShortDesc = ({ shortDesc, editable, loading }) => {
   const { colorMode } = useColorMode();

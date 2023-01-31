@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import { getSession } from 'next-auth/react';
 
-import { Layout } from '@/layouts/Layout';
+import { Layout } from '@src/layouts/Layout';
 
 export async function getServerSideProps(context) {
   // Check if user is authenticated

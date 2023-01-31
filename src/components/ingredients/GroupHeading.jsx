@@ -1,7 +1,7 @@
 import { Heading, HStack, Icon, IconButton, Text, useColorMode } from '@chakra-ui/react';
 import { FileMinus } from '@styled-icons/feather';
 
-import { FInput } from '@/components/helpers/form/FInput';
+import { FInput } from '@src/components/helpers/form/FInput';
 
 export const GroupHeading = ({ groupName, editable, groupId, loading, handleDeleteGroup }) => {
   const { colorMode } = useColorMode();

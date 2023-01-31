@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-import models from '@/models/models';
+import models from '@src/models/models';
 
 const readyStates = {
   disconnected: 0,

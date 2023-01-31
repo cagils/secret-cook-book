@@ -4,7 +4,7 @@ import EmailProvider from 'next-auth/providers/email';
 import GitHubProvider from 'next-auth/providers/github';
 import GoogleProvider from 'next-auth/providers/google';
 
-import { prisma } from '@/lib/prisma';
+import { prisma } from '@src/lib/prisma';
 
 const authOptions: NextAuthOptions = {
   pages: {

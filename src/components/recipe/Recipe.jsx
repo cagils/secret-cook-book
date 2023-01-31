@@ -5,16 +5,16 @@ import { useRouter } from 'next/router';
 import { useCallback, useEffect, useState } from 'react';
 import { FormProvider, useForm } from 'react-hook-form';
 
-import { OverlayFader } from '@/components/helpers/OverlayFader';
-import { Ingredients } from '@/components/ingredients/Ingredients';
-import { Description } from '@/components/recipe/Description';
-import { Photo } from '@/components/recipe/Photo';
-import { RecipeServingTimeDifficulty } from '@/components/recipe/RecipeServingTimeDifficulty';
-import { RecipeTitle } from '@/components/recipe/RecipeTitle';
-import { ShortDesc } from '@/components/recipe/ShortDesc';
-import { useEscape } from '@/lib/hooks/useEscape';
-import { random } from '@/lib/tools';
-import { OrnamentDivider } from '@/resources/svgs';
+import { OverlayFader } from '@src/components/helpers/OverlayFader';
+import { Ingredients } from '@src/components/ingredients/Ingredients';
+import { Description } from '@src/components/recipe/Description';
+import { Photo } from '@src/components/recipe/Photo';
+import { RecipeServingTimeDifficulty } from '@src/components/recipe/RecipeServingTimeDifficulty';
+import { RecipeTitle } from '@src/components/recipe/RecipeTitle';
+import { ShortDesc } from '@src/components/recipe/ShortDesc';
+import { useEscape } from '@src/lib/hooks/useEscape';
+import { random } from '@src/lib/tools';
+import { OrnamentDivider } from '@src/resources/svgs';
 
 setAutoFreeze(false);
 

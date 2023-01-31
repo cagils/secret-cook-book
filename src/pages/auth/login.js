@@ -1,8 +1,8 @@
 import { Box } from '@chakra-ui/react';
 import { getProviders, getSession, signIn, useSession } from 'next-auth/react';
 
-import { LoginForm } from '@/components/auth/LoginForm';
-import { Layout } from '@/layouts/Layout';
+import { LoginForm } from '@src/components/auth/LoginForm';
+import { Layout } from '@src/layouts/Layout';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
 

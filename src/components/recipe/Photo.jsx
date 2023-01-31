@@ -3,7 +3,7 @@ import { Camera } from '@styled-icons/feather';
 import { nanoid } from 'nanoid';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { OverlayFader } from '@/components/helpers/OverlayFader';
+import { OverlayFader } from '@src/components/helpers/OverlayFader';
 
 export const Photo = ({ photoUrl, user, editable, recipeId, handleUploadPicture }) => {
   const uploadRef = useRef();

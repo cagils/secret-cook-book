@@ -3,9 +3,9 @@ import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import { Recipe } from '@/components/recipe/Recipe';
-import { Layout } from '@/layouts/Layout';
-import { supabase } from '@/lib/supabase';
+import { Recipe } from '@src/components/recipe/Recipe';
+import { Layout } from '@src/layouts/Layout';
+import { supabase } from '@src/lib/supabase';
 
 enableAllPlugins();
 

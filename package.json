@@ -17,6 +17,10 @@
   "bugs": {
     "url": "https://github.com/cagils/secret-cook-book/issues"
   },
+  "engines": {
+    "node": ">=16.8.0",
+    "npm": ">=7.21.0"
+  },
   "keywords": [
     "Example",
     "Full-stack",

@@ -8,8 +8,8 @@ import Head from 'next/head';
 import { Session } from 'next-auth';
 import { ReactNode, useState, ReactElement } from 'react';
 
-import '@/styles/globals.css';
-import { customTheme } from '@/styles/theme';
+import '@src/styles/globals.css';
+import { customTheme } from '@src/styles/theme';
 
 // No changes to this type
 type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {

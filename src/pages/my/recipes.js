@@ -5,10 +5,10 @@ import { getSession, useSession } from 'next-auth/react';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
-import { OverlayFader } from '@/components/helpers/OverlayFader';
-import { Recipes } from '@/components/recipe/Recipes';
-import { SCBHeading } from '@/components/shared/SCBHeading';
-import { Layout } from '@/layouts/Layout';
+import { OverlayFader } from '@src/components/helpers/OverlayFader';
+import { Recipes } from '@src/components/recipe/Recipes';
+import { SCBHeading } from '@src/components/shared/SCBHeading';
+import { Layout } from '@src/layouts/Layout';
 
 enableAllPlugins();
 

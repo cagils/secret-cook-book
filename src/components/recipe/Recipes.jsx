@@ -1,6 +1,6 @@
 import { Flex, Grid, GridItem, VStack } from '@chakra-ui/react';
 
-import { RecipeCard } from '@/components/recipe/RecipeCard';
+import { RecipeCard } from '@src/components/recipe/RecipeCard';
 
 export const Recipes = ({ recipes, loading }) => {
   return (

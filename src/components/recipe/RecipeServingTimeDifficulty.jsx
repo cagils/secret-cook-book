@@ -1,8 +1,8 @@
 import { Box, Flex, Heading, Icon, IconButton, Stack, Text, useColorMode } from '@chakra-ui/react';
 import { BarChartAlt2, Dish, TimeFive } from '@styled-icons/boxicons-solid';
 
-import { FInput } from '@/components/helpers/form/FInput';
-import { SCBText } from '@/components/shared/SCBText';
+import { FInput } from '@src/components/helpers/form/FInput';
+import { SCBText } from '@src/components/shared/SCBText';
 
 export const RecipeServingTimeDifficulty = ({ recipeServing, recipeTime, recipeDifficulty, editable, loading }) => {
   const { colorMode } = useColorMode();

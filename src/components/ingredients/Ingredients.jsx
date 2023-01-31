@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 import { FilePlus } from '@styled-icons/feather';
 
-import { IngredientGroup } from '@/components/ingredients/IngredientGroup';
+import { IngredientGroup } from '@src/components/ingredients/IngredientGroup';
 
 export const Ingredients = ({
   loading,

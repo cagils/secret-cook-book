@@ -1,8 +1,8 @@
 import { Box, useColorMode } from '@chakra-ui/react';
 import { useFormContext } from 'react-hook-form';
 
-import { FileUpload } from '@/components/helpers/form/FileUpload';
-import { FormControlWrapper } from '@/components/helpers/form/FormControlWrapper';
+import { FileUpload } from '@src/components/helpers/form/FileUpload';
+import { FormControlWrapper } from '@src/components/helpers/form/FormControlWrapper';
 
 export const FFileUpload = ({
   fieldName,

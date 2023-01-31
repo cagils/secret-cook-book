@@ -14,8 +14,8 @@ import {
 
 import { useRef, useState } from 'react';
 
-import { FInputNoHook } from '@/components/helpers/form/FInputNoHook';
-import { GoogleGLogo } from '@/resources/svgs';
+import { FInputNoHook } from '@src/components/helpers/form/FInputNoHook';
+import { GoogleGLogo } from '@src/resources/svgs';
 import { Github } from '@styled-icons/boxicons-logos';
 import { Email } from '@styled-icons/entypo';
 import { OverlayFader } from '../helpers/OverlayFader';
